@@ -1,0 +1,6 @@
+{
+  "name": "BioThanaweya",
+  "description": "Elite Egyptian Thanaweya Amma Biology multi-agent AI learning system featuring ELI5, deep technical breakdowns, visual schematics, exam traps, and official Ministry examiner grading.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
