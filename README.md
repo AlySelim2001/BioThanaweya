@@ -2,6 +2,9 @@
 > منصة تعليمية ذكية متقدمة لطلاب الثانوية العامة في جمهورية مصر العربية، تعتمد على معمارية Clean Architecture ونظام التكرار المتباعد الفائق (FSRS) ومحاكاة لجان الامتحانات الرسمية.
 
 ---
+### 📲 تحميل تطبيق الأحياء (Scholar Sidekick)
+[![Build & Release APK](https://github.com/AlySelim2001/BioThanaweya/actions/workflows/build.yaml/badge.svg)](https://github.com/AlySelim2001/BioThanaweya/actions)
+> يمكنك التحميل المباشر لأحدث نسخة APK موقعة من قسم الـ Actions بالمستودع.
 
 ## 📑 جدول المحتويات (Table of Contents)
 1. [نظرة عامة على المشروع (Overview)](#-نظرة-عامة-على-المشروع)
@@ -185,3 +188,4 @@ com.example/
 * **`KEY_PASSWORD`**: كلمة مرور المفتاح الخاص (Key Alias Password).
 * **`FIREBASE_CONFIG_BASE64`**: ملف `google-services.json` مشفر بـ Base64 (`base64 -w 0 app/google-services.json`).
 
+للتواصل مع صانع التطبيق Whatsapp 01119886662
