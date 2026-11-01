@@ -31,18 +31,25 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Locate Flutter Project Root and Move
-        id: find-flutter
+      - name: Direct Root Location & Diagnostics
+        id: locate-root
         run: |
-          echo "=== Searching for pubspec.yaml ==="
-          PUBSPEC_PATH=$(find . -maxdepth 3 -name "pubspec.yaml" -not -path "*/.*" | head -n 1)
-          if [ -z "$PUBSPEC_PATH" ]; then
-            echo "Error: pubspec.yaml not found anywhere in the repository!"
-            exit 1
+          echo "=== Listing Repository Contents ==="
+          ls -R
+          
+          # البحث المباشر عن pubspec.yaml وتحديد مساره بدقة
+          if [ -f "pubspec.yaml" ]; then
+            echo "project_dir=." >> $GITHUB_ENV
+            echo "Found pubspec.yaml in root."
+          elif [ -f "BioThanaweya/pubspec.yaml" ]; then
+            echo "project_dir=BioThanaweya" >> $GITHUB_ENV
+            echo "Found pubspec.yaml in BioThanaweya subfolder."
+          else
+            # محاولة إيجاد أي مجلد يحتوي على pubspec.yaml
+            DIR=$(dirname $(find . -name "pubspec.yaml" | head -n 1))
+            echo "project_dir=$DIR" >> $GITHUB_ENV
+            echo "Found pubspec.yaml in dynamic dir: $DIR"
           fi
-          PROJECT_DIR=$(dirname "$PUBSPEC_PATH")
-          echo "Found pubspec.yaml at: $PUBSPEC_PATH"
-          echo "project_dir=$PROJECT_DIR" >> $GITHUB_ENV
 
       - name: Install Flutter Dependencies
         working-directory: ${{ env.project_dir }}
