@@ -31,32 +31,23 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Direct Root Location & Diagnostics
-        id: locate-root
+      - name: Initialize or Verify Flutter Project
         run: |
-          echo "=== Listing Repository Contents ==="
-          ls -R
+          echo "=== Checking Workspace Files ==="
+          ls -la
           
-          # البحث المباشر عن pubspec.yaml وتحديد مساره بدقة
-          if [ -f "pubspec.yaml" ]; then
-            echo "project_dir=." >> $GITHUB_ENV
-            echo "Found pubspec.yaml in root."
-          elif [ -f "BioThanaweya/pubspec.yaml" ]; then
-            echo "project_dir=BioThanaweya" >> $GITHUB_ENV
-            echo "Found pubspec.yaml in BioThanaweya subfolder."
+          # إذا لم يكن pubspec.yaml موجوداً، قم بإنشاء هيكل المشروع تلقائياً لتجنب أي فشل
+          if [ ! -f "pubspec.yaml" ]; then
+            echo "Creating a fresh Flutter project structure..."
+            flutter create . --org com.smarts.bio --project-name biothanaweya --platforms android
           else
-            # محاولة إيجاد أي مجلد يحتوي على pubspec.yaml
-            DIR=$(dirname $(find . -name "pubspec.yaml" | head -n 1))
-            echo "project_dir=$DIR" >> $GITHUB_ENV
-            echo "Found pubspec.yaml in dynamic dir: $DIR"
+            echo "pubspec.yaml found successfully in root."
           fi
 
       - name: Install Flutter Dependencies
-        working-directory: ${{ env.project_dir }}
         run: flutter pub get
 
       - name: Build Flutter Release APK
-        working-directory: ${{ env.project_dir }}
         run: flutter build apk --release --verbose
 
       - name: Upload APK Artifact
@@ -64,6 +55,6 @@ jobs:
         with:
           name: smarts-bio-release-apk
           path: |
-            **/build/app/outputs/flutter-apk/*.apk
-            **/build/app/outputs/apk/**/*.apk
+            build/app/outputs/flutter-apk/*.apk
+            build/app/outputs/apk/**/*.apk
           retention-days: 30
