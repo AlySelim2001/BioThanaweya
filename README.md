@@ -188,4 +188,4 @@ com.example/
 * **`KEY_PASSWORD`**: كلمة مرور المفتاح الخاص (Key Alias Password).
 * **`FIREBASE_CONFIG_BASE64`**: ملف `google-services.json` مشفر بـ Base64 (`base64 -w 0 app/google-services.json`).
 
-للتواصل مع صانع التطبيق Whatsapp 01119886662
+للتواصل مع صانع التطبيق Whatsapp +201119886662
