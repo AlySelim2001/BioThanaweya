@@ -3,6 +3,8 @@ name: BioThanaweya CI/CD - Build & Release
 on:
   push:
     branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
   workflow_dispatch:
 
 permissions:
@@ -23,15 +25,16 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: 'gradle'
 
       - name: Set up Flutter SDK
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.x'
           channel: 'stable'
           cache: true
 
       - name: Ultimate Dynamic Project Root Discovery
+        id: locate-root
         run: |
           echo "=== Scanning Workspace Directory Structure ==="
           find . -maxdepth 3 -not -path '*/.*'
@@ -49,7 +52,11 @@ jobs:
             echo "Project root directory resolved to: $PROJECT_DIR"
           fi
           
-          echo "PROJECT_DIR=$PROJECT_DIR" >> $GITHUB_ENV
+          echo "PROJECT_DIR=$PROJECT_DIR" >> "$GITHUB_ENV"
+          echo "project_dir=$PROJECT_DIR" >> "$GITHUB_OUTPUT"
+
+      - name: Verify Environment & Flutter Doctor
+        run: flutter doctor -v
 
       - name: Install Flutter Dependencies
         working-directory: ${{ env.PROJECT_DIR }}
@@ -58,6 +65,13 @@ jobs:
       - name: Build Flutter Release APK
         working-directory: ${{ env.PROJECT_DIR }}
         run: flutter build apk --release --verbose
+
+      - name: Inspect Build Artifacts & Checksums
+        run: |
+          echo "=== Discovered APK Artifacts ==="
+          find . -name "*.apk" -ls
+          echo "=== SHA-256 Checksums ==="
+          find . -name "*.apk" -exec sha256sum {} +
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
