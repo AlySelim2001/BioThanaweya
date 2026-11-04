@@ -1,4 +1,4 @@
-name: BioThanaweya Release CI/CD Pipeline
+name: BioThanaweya Android Release CI/CD Pipeline
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - 'v*'
 
 jobs:
-  build_and_release:
+  build_android_release:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,49 +15,39 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # 2. إعداد بيئة عمل Flutter (تتضمن Dart SDK تلقائياً، فلا داعي لفصل setup-dart)
-      - name: Setup Flutter Engine
-        uses: subosito/flutter-action@v2
+      # 2. إعداد بيئة Java (JDK 17) اللازمة لتنسيق وبناء مشاريع أندرويد الحديثة
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
         with:
-          flutter-version: '3.19.6' # تثبيت إصدار مستقر ومحدد بدقة لتجنب أخطاء الـ API الديناميكي
-          cache: true
-          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
+          distribution: 'temurin'
+          java-version: '17'
 
-      # 3. جلب كافة الاعتماديات والمكتبات من pubspec.yaml
-      - name: Install Dependencies
-        run: flutter pub get
+      # 3. منح صلاحيات التنفيد لملف gradlew لكي يعمل بسلاسة على سحابة أوبونتو
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
-      # 4. إجراء الفحص الثابت للكود والتأكد من توافق الأنواع (Static Analysis)
-      - name: Run Flutter Analyze
-        run: flutter analyze
+      # 4. بناء ملف الـ APK لنسخة الإنتاج (Release APK) باستخدام Gradle مباشرة
+      - name: Build Android Release APK
+        run: ./gradlew assembleRelease
 
-      # 5. تشغيل اختبارات الوحدة للتأكد من سلامة خوارزميات FSRS وبنك الأسئلة
-      - name: Run Unit Tests
-        run: flutter test
-
-      # 6. بناء وتجميع ملف الـ APK بنسخة الإنتاج الحقيقية (Release APK - Split per ABI)
-      - name: Build Release APK
-        run: flutter build apk --release --split-per-abi
-
-      # 7. رفع ملف الـ APK الناتج كـ Artifact دائم داخل صفحة الـ Action
+      # 5. رفع ملف الـ APK الناتج كـ Artifact دائم داخل صفحة الـ Action
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: biothanaweya-release-apks
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: biothanaweya-android-release-apk
+          path: app/build/outputs/apk/release/app-release.apk
 
-      # 8. النشر التلقائي لملف الـ APK في قسم الـ Releases عند إنشاء Tag جديد
+      # 6. النشر التلقائي لملف الـ APK في قسم الـ Releases عند إنشاء Tag جديد
       - name: Create GitHub Release and Upload APK
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/v')
         with:
           files: |
-            build/app/outputs/flutter-apk/app-release.apk
+            app/build/outputs/apk/release/app-release.apk
           body: |
-            ## 🧬 BioThanaweya Production Release
-            - ✅ تم بناء التطبيق تلقائياً عبر سحابة GitHub Actions.
+            ## 🧬 BioThanaweya Production Release (Android Native)
+            - ✅ تم بناء وتجميع التطبيق أوتوماتيكياً عبر Gradle وسحابة GitHub Actions.
             - 🛡️ معتمد بنسبة 100% Offline-First وخالٍ من أي تبعات سحابية.
-            - 🌟 يشمل محرك الاختبارات FSRS ومختبر الرسومات الحيوية والمساعد الذكي.
           draft: false
           prerelease: false
         env:
