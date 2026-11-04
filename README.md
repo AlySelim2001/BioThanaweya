@@ -1,10 +1,9 @@
-# 🧬 BioThanaweya (أحياء الثانوية العامة)
-> منصة تعليمية ذكية متقدمة لطلاب الثانوية العامة في جمهورية مصر العربية، تعتمد على معمارية Clean Architecture ونظام التكرار المتباعد الفائق (FSRS) ومحاكاة لجان الامتحانات الرسمية.
- # 🧬 Scholar Sidekick (BioThanaweya / smarts.bio)
+
+# 🧬 Scholar Sidekick (BioThanaweya / smarts.bio)
 
 > **The Next-Generation Offline-First Learning Ecosystem for Egyptian Thanawya Amma Biology**
 
-[![GitHub Actions Build Status](https://github.com/AlySelim2001/BioThanaweya/actions/workflows/build.yaml/badge.svg)](https://github.com/AlySelim2001/BioThanaweya/actions)
+[![Build Status](https://github.com/AlySelim2001/BioThanaweya/actions/workflows/build.yaml/badge.svg)](https://github.com/AlySelim2001/BioThanaweya/actions)
 [![Platform Support](https://img.shields.io/badge/Platform-Android%20%7C%20Cross-Platform-blue)]()
 [![Architecture](https://img.shields.io/badge/Architecture-Offline--First%20Bento-success)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -54,5 +53,19 @@
    ```bash
    git clone [https://github.com/AlySelim2001/BioThanaweya.git](https://github.com/AlySelim2001/BioThanaweya.git)
 
+ * Navigate to the project directory:
+   cd BioThanaweya
 
-للتواصل مع صانع التطبيق Whatsapp +201119886662
+ * Install dependencies:
+   flutter pub get
+
+ * Run the application:
+   flutter run
+
+⚙️ Automated CI/CD & Releases
+The project utilizes GitHub Actions to automate release builds. Every verified push triggers a clean build sequence that compiles the release APK and attaches it directly as a downloadable Artifact in the Actions tab.
+📞 Contact & Support
+ * Developer / Creator: علي سليم (Aly Selim)
+ * WhatsApp: +201119886662
+📄 License
+Distributed under the MIT License. See LICENSE for more information.
