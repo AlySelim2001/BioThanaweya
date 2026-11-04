@@ -31,30 +31,42 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Verify pubspec.yaml Location
+      - name: Locate Project Root & Configure
+        id: locate-project
         run: |
-          if [ -f "pubspec.yaml" ]; then
-            echo "Found pubspec.yaml in repository root."
-          elif [ -f "smarts.bio/pubspec.yaml" ]; then
-            echo "Found in smarts.bio directory."
+          # البحث عن pubspec.yaml في المجلدات الفرعية
+          PUB_PATH=$(find . -name "pubspec.yaml" -maxdepth 2 | head -n 1)
+          if [ -n "$PUB_PATH" ]; then
+            DIR=$(dirname "$PUB_PATH")
+            # إزالة بادئة ./ إن وجدت
+            DIR_CLEAN=${DIR#./}
+            echo "PROJECT_DIR=$DIR_CLEAN" >> $GITHUB_ENV
+            echo "Found project directory at: $DIR_CLEAN"
           else
-            echo "Searching for pubspec.yaml..."
-            find . -name "pubspec.yaml"
+            echo "Error: pubspec.yaml not found anywhere."
+            exit 1
           fi
 
       - name: Install Flutter Dependencies
         run: flutter pub get
-        working-directory: . # قم بتعديل النقطة إلى مسار المجلد الفرعي إذا كان ملف pubspec.yaml ليس في الجذر (مثال: smarts.bio)
+        working-directory: ${{ env.PROJECT_DIR }}
+
+      - name: Analyze Flutter Code
+        run: flutter analyze
+        working-directory: ${{ env.PROJECT_DIR }}
+
+      - name: Run Flutter Tests
+        run: flutter test
+        working-directory: ${{ env.PROJECT_DIR }}
 
       - name: Build Flutter Release APK
         run: flutter build apk --release --verbose
-        working-directory: . # نفس المسار هنا أيضاً
+        working-directory: ${{ env.PROJECT_DIR }}
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: smarts-bio-release-apk
           path: |
-            build/app/outputs/flutter-apk/*.apk
             **/build/app/outputs/flutter-apk/*.apk
           retention-days: 30
