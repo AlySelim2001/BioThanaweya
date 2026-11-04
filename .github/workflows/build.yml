@@ -1,72 +1,21 @@
-name: BioThanaweya CI/CD - Build & Release
-
-on:
-  push:
-    branches: [ main, master ]
-  workflow_dispatch:
-
-permissions:
-  contents: write
-  actions: read
-
-jobs:
-  build:
-    name: Build Production Flutter APK
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Set up Java JDK 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Set up Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.19.x'
-          channel: 'stable'
-          cache: true
-
       - name: Locate Project Root & Configure
         id: locate-project
         run: |
-          # البحث عن pubspec.yaml في المجلدات الفرعية
-          PUB_PATH=$(find . -name "pubspec.yaml" -maxdepth 2 | head -n 1)
-          if [ -n "$PUB_PATH" ]; then
-            DIR=$(dirname "$PUB_PATH")
-            # إزالة بادئة ./ إن وجدت
-            DIR_CLEAN=${DIR#./}
-            echo "PROJECT_DIR=$DIR_CLEAN" >> $GITHUB_ENV
-            echo "Found project directory at: $DIR_CLEAN"
+          # البحث عن pubspec.yaml في الجذر مباشرة
+          if [ -f "pubspec.yaml" ]; then
+            echo "PROJECT_DIR=." >> $GITHUB_ENV
+            echo "Found pubspec.yaml in root directly."
           else
-            echo "Error: pubspec.yaml not found anywhere."
-            exit 1
+            echo "Searching repository for pubspec.yaml..."
+            # البحث الشامل عن pubspec.yaml في كافة مجلدات المستودع بدون قيود للعمق
+            PUB_PATH=$(find . -name "pubspec.yaml" | head -n 1)
+            if [ -n "$PUB_PATH" ]; then
+              DIR=$(dirname "$PUB_PATH")
+              DIR_CLEAN=${DIR#./}
+              echo "PROJECT_DIR=$DIR_CLEAN" >> $GITHUB_ENV
+              echo "Found project directory at: $DIR_CLEAN"
+            else
+              echo "CRITICAL Error: pubspec.yaml does not exist anywhere in this repository checkout."
+              exit 1
+            fi
           fi
-
-      - name: Install Flutter Dependencies
-        run: flutter pub get
-        working-directory: ${{ env.PROJECT_DIR }}
-
-      - name: Analyze Flutter Code
-        run: flutter analyze
-        working-directory: ${{ env.PROJECT_DIR }}
-
-      - name: Run Flutter Tests
-        run: flutter test
-        working-directory: ${{ env.PROJECT_DIR }}
-
-      - name: Build Flutter Release APK
-        run: flutter build apk --release --verbose
-        working-directory: ${{ env.PROJECT_DIR }}
-
-      - name: Upload APK Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: smarts-bio-release-apk
-          path: |
-            **/build/app/outputs/flutter-apk/*.apk
-          retention-days: 30
