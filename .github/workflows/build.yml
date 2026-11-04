@@ -31,28 +31,24 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Dynamic Workspace Setup & Verification
+      - name: Verify pubspec.yaml Location
         run: |
-          if [ ! -f "pubspec.yaml" ]; then
-            echo "pubspec.yaml not found in root, searching workspace..."
-            FOUND_PATH=$(find . -name "pubspec.yaml" -maxdepth 3 | head -n 1)
-            if [ -n "$FOUND_PATH" ]; then
-              DIR=$(dirname "$FOUND_PATH")
-              echo "Found pubspec.yaml in $DIR. Moving to project root..."
-              cd "$DIR"
-            else
-              echo "Error: pubspec.yaml not found anywhere in the repository."
-              exit 1
-            fi
+          if [ -f "pubspec.yaml" ]; then
+            echo "Found pubspec.yaml in repository root."
+          elif [ -f "smarts.bio/pubspec.yaml" ]; then
+            echo "Found in smarts.bio directory."
           else
-            echo "pubspec.yaml found successfully in root."
+            echo "Searching for pubspec.yaml..."
+            find . -name "pubspec.yaml"
           fi
 
       - name: Install Flutter Dependencies
         run: flutter pub get
+        working-directory: . # قم بتعديل النقطة إلى مسار المجلد الفرعي إذا كان ملف pubspec.yaml ليس في الجذر (مثال: smarts.bio)
 
       - name: Build Flutter Release APK
         run: flutter build apk --release --verbose
+        working-directory: . # نفس المسار هنا أيضاً
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
@@ -60,6 +56,5 @@ jobs:
           name: smarts-bio-release-apk
           path: |
             build/app/outputs/flutter-apk/*.apk
-            build/app/outputs/apk/**/*.apk
             **/build/app/outputs/flutter-apk/*.apk
           retention-days: 30
