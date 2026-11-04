@@ -3,8 +3,6 @@ name: BioThanaweya CI/CD - Build & Release
 on:
   push:
     branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
   workflow_dispatch:
 
 permissions:
@@ -25,59 +23,43 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'gradle'
 
       - name: Set up Flutter SDK
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.19.x'
           channel: 'stable'
           cache: true
 
-      - name: Ultimate Dynamic Project Root Discovery
-        id: locate-root
+      - name: Dynamic Workspace Setup & Verification
         run: |
-          echo "=== Scanning Workspace Directory Structure ==="
-          find . -maxdepth 3 -not -path '*/.*'
-          
-          echo "=== Locating pubspec.yaml ==="
-          PUBSPEC_FILE=$(find . -name "pubspec.yaml" -not -path "*/.*" | head -n 1)
-          
-          if [ -z "$PUBSPEC_FILE" ]; then
-            echo "Warning: pubspec.yaml not found! Initializing default flutter structure in root."
-            flutter create . --org com.smarts.bio --project-name biothanaweya --platforms android
-            PROJECT_DIR="."
+          if [ ! -f "pubspec.yaml" ]; then
+            echo "pubspec.yaml not found in root, searching workspace..."
+            FOUND_PATH=$(find . -name "pubspec.yaml" -maxdepth 3 | head -n 1)
+            if [ -n "$FOUND_PATH" ]; then
+              DIR=$(dirname "$FOUND_PATH")
+              echo "Found pubspec.yaml in $DIR. Moving to project root..."
+              cd "$DIR"
+            else
+              echo "Error: pubspec.yaml not found anywhere in the repository."
+              exit 1
+            fi
           else
-            PROJECT_DIR=$(dirname "$PUBSPEC_FILE")
-            echo "SUCCESS: Found pubspec.yaml at: $PUBSPEC_FILE"
-            echo "Project root directory resolved to: $PROJECT_DIR"
+            echo "pubspec.yaml found successfully in root."
           fi
-          
-          echo "PROJECT_DIR=$PROJECT_DIR" >> "$GITHUB_ENV"
-          echo "project_dir=$PROJECT_DIR" >> "$GITHUB_OUTPUT"
-
-      - name: Verify Environment & Flutter Doctor
-        run: flutter doctor -v
 
       - name: Install Flutter Dependencies
-        working-directory: ${{ env.PROJECT_DIR }}
         run: flutter pub get
 
       - name: Build Flutter Release APK
-        working-directory: ${{ env.PROJECT_DIR }}
         run: flutter build apk --release --verbose
-
-      - name: Inspect Build Artifacts & Checksums
-        run: |
-          echo "=== Discovered APK Artifacts ==="
-          find . -name "*.apk" -ls
-          echo "=== SHA-256 Checksums ==="
-          find . -name "*.apk" -exec sha256sum {} +
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: smarts-bio-release-apk
           path: |
+            build/app/outputs/flutter-apk/*.apk
+            build/app/outputs/apk/**/*.apk
             **/build/app/outputs/flutter-apk/*.apk
-            **/build/app/outputs/apk/**/*.apk
           retention-days: 30
