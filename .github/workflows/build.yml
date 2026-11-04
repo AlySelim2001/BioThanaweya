@@ -1,21 +1,69 @@
-      - name: Locate Project Root & Configure
-        id: locate-project
-        run: |
-          # البحث عن pubspec.yaml في الجذر مباشرة
-          if [ -f "pubspec.yaml" ]; then
-            echo "PROJECT_DIR=." >> $GITHUB_ENV
-            echo "Found pubspec.yaml in root directly."
-          else
-            echo "Searching repository for pubspec.yaml..."
-            # البحث الشامل عن pubspec.yaml في كافة مجلدات المستودع بدون قيود للعمق
-            PUB_PATH=$(find . -name "pubspec.yaml" | head -n 1)
-            if [ -n "$PUB_PATH" ]; then
-              DIR=$(dirname "$PUB_PATH")
-              DIR_CLEAN=${DIR#./}
-              echo "PROJECT_DIR=$DIR_CLEAN" >> $GITHUB_ENV
-              echo "Found project directory at: $DIR_CLEAN"
-            else
-              echo "CRITICAL Error: pubspec.yaml does not exist anywhere in this repository checkout."
-              exit 1
-            fi
-          fi
+name: BioThanaweya Release CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main", "master" ]
+    tags:
+      - 'v*' # يتم تفعيل النشر التلقائي للريليس عند عمل Tag يبدأ بحرف v (مثال: v1.0.0)
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. سحب كود المستودع بأحدث إصدار من checkout
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. إعداد بيئة عمل لغة دارت (Dart SDK)
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '3.x'
+
+      # 3. إعداد بيئة عمل إطار التطوير Flutter
+      - name: Setup Flutter Engine
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.x'
+          cache: true
+
+      # 4. جلب كافة الاعتماديات والمكتبات من pubspec.yaml
+      - name: Install Dependencies
+        run: flutter pub get
+
+      # 5. إجراء الفحص الثابت للكود والتأكد من توافق الأنواع (Static Analysis)
+      - name: Run Flutter Analyze
+        run: flutter analyze
+
+      # 6. تشغيل اختبارات الوحدة للتأكد من سلامة خوارزميات FSRS وبنك الأسئلة
+      - name: Run Unit Tests
+        run: flutter test
+
+      # 7. بناء وتجميع ملف الـ APK بنسخة الإنتاج الحقيقية (Release APK - Split per ABI لتحسين الحجم)
+      - name: Build Release APK
+        run: flutter build apk --release --split-per-abi
+
+      # 8. رفع ملف الـ APK الناتج كـ Artifact دائم داخل صفحة الـ Action
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: biothanaweya-release-apks
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+      # 9. النشر التلقائي لملف الـ APK في قسم الـ Releases عند إنشاء Tag جديد
+      - name: Create GitHub Release and Upload APK
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          files: |
+            build/app/outputs/flutter-apk/app-release.apk
+          body: |
+            ## 🧬 BioThanaweya Production Release
+            - ✅ تم بناء التطبيق تلقائياً عبر سحابة GitHub Actions.
+            - 🛡️ معتمد بنسبة 100% Offline-First وخالٍ من أي تبعات سحابية.
+            - 🌟 يشمل محرك الاختبارات FSRS ومختبر الرسومات الحيوية والمساعد الذكي.
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
