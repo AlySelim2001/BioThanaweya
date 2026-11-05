@@ -13,7 +13,6 @@ jobs:
     name: Build & Sign Production APK
     runs-on: ubuntu-latest
 
-    # تخصيص إعدادات الأمان للمهام
     permissions:
       contents: write
 
@@ -36,11 +35,9 @@ jobs:
           SIGNING_KEY_STORE_BASE64: ${{ secrets.SIGNING_KEY_STORE_BASE64 }}
         run: |
           if [ -n "$SIGNING_KEY_STORE_BASE64" ]; then
-            # التأكد من وجود مجلد التخزين المستهدف تفادياً لأي خطأ في المسارات
-            mkdir -p app
-            # فحص وتنظيف النص تماماً من أي زوائد ونوافذ أسطر وفك التشفير بأمان مطلق
-            echo "$SIGNING_KEY_STORE_BASE64" | tr -d '\n' | tr -d ' ' | base64 -d > app/my-upload-key.jks
-            echo "Keystore successfully decoded and placed at app/my-upload-key.jks"
+            # فك التشفير والتنظيف النقي وحفظ الملف في جذر المشروع مباشرة
+            echo "$SIGNING_KEY_STORE_BASE64" | tr -d '\n' | tr -d ' ' | base64 -d > my-upload-key.jks
+            echo "Keystore successfully decoded at root my-upload-key.jks"
           else
             echo "::error::SIGNING_KEY_STORE_BASE64 secret is missing or empty!"
             exit 1
@@ -52,10 +49,9 @@ jobs:
           KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
         run: |
-          # تشغيل البناء مع تخصيص الذاكرة المؤقتة لـ JVM لمنع أخطاء OutOfMemory
           export OrgGradleJvmargs="-Xmx4g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
           ./gradlew assembleRelease \
-            -Pandroid.injected.signing.store.file=app/my-upload-key.jks \
+            -Pandroid.injected.signing.store.file=my-upload-key.jks \
             -Pandroid.injected.signing.store.password="$STORE_PASSWORD" \
             -Pandroid.injected.signing.key.alias="$KEY_ALIAS" \
             -Pandroid.injected.signing.key.password="$KEY_PASSWORD" \
@@ -64,7 +60,7 @@ jobs:
       - name: Secure Clean up Keystore
         if: always()
         run: |
-          rm -f app/my-upload-key.jks
+          rm -f my-upload-key.jks
           echo "Sensitive keystore securely wiped from runner environment."
 
       - name: Upload Signed APK Artifact
