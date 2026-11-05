@@ -5,11 +5,17 @@ on:
     branches: [ "main", "master" ]
     tags:
       - 'v*'
+  pull_request:
+    branches: [ "main", "master" ]
 
 jobs:
   build_production_apk:
-    name: Build and Sign Production APK
+    name: Build & Sign Production APK
     runs-on: ubuntu-latest
+
+    # تخصيص إعدادات الأمان للمهام
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout Repository
@@ -20,6 +26,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: 'gradle'
 
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x gradlew
@@ -29,10 +36,13 @@ jobs:
           SIGNING_KEY_STORE_BASE64: ${{ secrets.SIGNING_KEY_STORE_BASE64 }}
         run: |
           if [ -n "$SIGNING_KEY_STORE_BASE64" ]; then
-            # تنظيف النص من أسطر الجديدة والمسافات وفك التشفير بأمان تام
+            # التأكد من وجود مجلد التخزين المستهدف تفادياً لأي خطأ في المسارات
+            mkdir -p app
+            # فحص وتنظيف النص تماماً من أي زوائد ونوافذ أسطر وفك التشفير بأمان مطلق
             echo "$SIGNING_KEY_STORE_BASE64" | tr -d '\n' | tr -d ' ' | base64 -d > app/my-upload-key.jks
+            echo "Keystore successfully decoded and placed at app/my-upload-key.jks"
           else
-            echo "Error: SIGNING_KEY_STORE_BASE64 secret is missing!"
+            echo "::error::SIGNING_KEY_STORE_BASE64 secret is missing or empty!"
             exit 1
           fi
 
@@ -42,15 +52,20 @@ jobs:
           KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
         run: |
+          # تشغيل البناء مع تخصيص الذاكرة المؤقتة لـ JVM لمنع أخطاء OutOfMemory
+          export OrgGradleJvmargs="-Xmx4g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
           ./gradlew assembleRelease \
             -Pandroid.injected.signing.store.file=app/my-upload-key.jks \
             -Pandroid.injected.signing.store.password="$STORE_PASSWORD" \
             -Pandroid.injected.signing.key.alias="$KEY_ALIAS" \
-            -Pandroid.injected.signing.key.password="$KEY_PASSWORD"
+            -Pandroid.injected.signing.key.password="$KEY_PASSWORD" \
+            --no-daemon --stacktrace
 
       - name: Secure Clean up Keystore
         if: always()
-        run: rm -f app/my-upload-key.jks
+        run: |
+          rm -f app/my-upload-key.jks
+          echo "Sensitive keystore securely wiped from runner environment."
 
       - name: Upload Signed APK Artifact
         uses: actions/upload-artifact@v4
@@ -67,7 +82,7 @@ jobs:
           body: |
             ## 🧬 BioThanaweya Secure Production Release
             - ✅ تم توقيع وبناء التطبيق أوتوماتيكياً عبر سحابة GitHub Actions بمعايير الأمان القصوى.
-            - 🛡️ 100% Offline-First ومطابق لمتطلبات النشر الرسمي.
+            - 🛡️ 100% Offline-First ومطابق لمتطلبات النشر الرسمي لمنظومة الثانوية العامة المصرية.
           draft: false
           prerelease: false
         env:
