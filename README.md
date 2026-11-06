@@ -1,71 +1,34 @@
+# BioThanaweya (البيولوجيا للثانوية العامة - لغات)
 
-# 🧬 Scholar Sidekick (BioThanaweya / smarts.bio)
+Elite Egyptian Thanaweya Amma Biology multi-agent AI learning system rewritten as a modern React application. Grounded in the official Ministry of Education textbook syllabus (Units 1 & 2 for Languages Schools).
 
-> **The Next-Generation Offline-First Learning Ecosystem for Egyptian Thanawya Amma Biology**
+## 🌟 7-Agent AI Learning Ecosystem Architecture
 
-[![Build Status](https://github.com/AlySelim2001/BioThanaweya/actions/workflows/build.yaml/badge.svg)](https://github.com/AlySelim2001/BioThanaweya/actions)
-[![Platform Support](https://img.shields.io/badge/Platform-Android%20%7C%20Cross-Platform-blue)]()
-[![Architecture](https://img.shields.io/badge/Architecture-Offline--First%20Bento-success)]()
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+1. **Master Biology Educator**: Dual-layer cognitive scaffolding with deep English technical mechanics and relatable Egyptian Arabic ELI5 analogies, with Bloom's taxonomy progression.
+2. **Visual Learning Architect**: Monospace LTR structural ASCII schematics, visual inspection markers for diagram identification in exams, and curated 3D animation queries.
+3. **Assessment Specialist**: Authentic Thanaweya questions (Scientific Term, Give Reason, What Happens If, MCQ), unmasking Ministry Exam Traps and golden rules.
+4. **Ministry Examiner & FSRS Engine**: Keyword mark scheme evaluation, deduction penalties for omitted terms, and spaced repetition scheduling via the FSRS v4.5/v5 algorithm.
+5. **Metacognitive Evaluator**: Confidence-accuracy calibration widget detecting overconfidence bias (Dunning-Kruger) and imposter syndrome doubt.
+6. **Problem-Based Learning Agent**: Real-world clinical toxicology and biotechnology missions with evaluation rubrics and scientific investigations.
+7. **Student Wellbeing & Gamification**: Study streak tracking, XP awards, mastery badges, exam anxiety scoring, and Pomodoro study chunk intervals.
 
----
+## 🔬 Core Features & Bio-Law Lab
 
-## 🌟 Overview & Vision
-**Scholar Sidekick (BioThanaweya)** is a state-of-the-art mobile educational ecosystem engineered specifically for Egyptian high school science students. Built with an uncompromising commitment to performance, privacy, and zero-latency learning, the application operates **100% offline**, ensuring uninterrupted access to the complete biology curriculum anywhere, anytime.
+- **Sarcomere Landmark Solver**: Validates positive integer inputs while enforcing constant A-band length and maximal contraction H-zone collapse ($Z = n + 1$, $A = n$, $I_{complete} = n - 1$, $H_{contracted} = 0$).
+- **Chargaff & DNA Helix Calculator**: Enforces $A = T$ and $G = C$, 50% purines/pyrimidines, 10 base pairs per helical turn, and hydrogen bond counting ($2A + 3G$).
+- **Codon & Protein Translation Calculator**: Verifies triplet codons, excludes stop codons from amino acids, and calculates peptide bonds, water elimination, and tRNA counts.
+- **Simulated Ministry Exam Mode**: 45-minute timed countdown clock, 15 authentic items, voice answering via Web Speech API, and comprehensive mark scheme reporting.
+- **Text-to-Speech (TTS) Narration**: In-browser audio narration for English and Arabic explanations.
 
----
+## 🚀 Getting Started
 
-## 🏛️ Core Architectural Pillars
+```bash
+# Install dependencies
+npm install
 
-1. **100% Offline-First Engine:** 
-   * Zero network dependency for core learning modules.
-   * Instant local caching and reactive state management powered by `SharedPreferences` and local JSON asset bundling.
-   * Real-time local auto-save for exam simulations, guaranteeing zero data loss.
+# Start development server on port 3000
+npm run dev
 
-2. **Comprehensive Curriculum Scope (11 Chapters):**
-   * Covers all Egyptian Thanawya Amma biology modules—from *Structural Support & Movement in Living Organisms* and *Hormonal Coordination* to *Reproduction, Immunity, Molecular Genetics (DNA & RNA), and Advanced Biotechnology*.
-
-3. **Cyber-Biology Bento Grid & Glassmorphism UI:**
-   * Ultra-modern OLED dark theme palette (`#0A192F` Obsidian background, `#112240` glass cards, `#64FFDA` Neon Teal accents, and `#2E7D32` Emerald indicators).
-   * Native Arabic RTL layout (`TextDirection.rtl`, `ar_EG` locale) with precise Cairo typography hierarchy.
-
-4. **Automated DevOps & CI/CD Pipeline:**
-   * Fully automated GitHub Actions workflow (`.github/workflows/build.yaml`) that verifies dependencies, compiles Flutter artifacts, and builds production-ready release APKs.
-
----
-
-## 📱 Core Interface Suite
-* **The Mastery Dashboard (`BoundDashboardScreen`):** Real-time progress tracking across all 11 chapters with circular completion rings and quick-launch navigation.
-* **The Immersive Exam Simulator (`BoundExamScreen`):** Timed ministerial-style mock exams with instant local state persistence and option feedback.
-* **The Offline Full-Text Search Engine (`BoundSearchScreen`):** Sub-millisecond local keyword indexing across questions, explanations, and terms.
-
----
-
-## 🚀 Getting Started & Local Development
-
-### Prerequisites
-* Flutter SDK (v3.19.x or higher)
-* Dart SDK
-* Android SDK / Command Line Tools
-
-### Installation Steps
-1. Clone the repository:
-   ```bash
-   git clone [https://github.com/AlySelim2001/BioThanaweya.git](https://github.com/AlySelim2001/BioThanaweya.git)
-
- * Navigate to the project directory:
-   cd BioThanaweya
-
- * Install dependencies:
-   flutter pub get
-
- * Run the application:
-   flutter run
-
-⚙️ Automated CI/CD & Releases
-The project utilizes GitHub Actions to automate release builds. Every verified push triggers a clean build sequence that compiles the release APK and attaches it directly as a downloadable Artifact in the Actions tab.
-📞 Contact & Support
- * Developer / Creator: علي سليم (Aly Selim)
- * WhatsApp: +201119886662
-📄 License
-Distributed under the MIT License. See LICENSE for more information.
+# Production build
+npm run build
+```
