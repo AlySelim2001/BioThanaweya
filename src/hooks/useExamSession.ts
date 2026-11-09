@@ -85,7 +85,7 @@ export function useExamSession(paperId: string) {
 
         // Initialize empty answer records
         const initialAnswers: Record<string, ExamAnswerRecord> = {};
-        loadedQuestions.forEach((q) => {
+        loadedQuestions.forEach((q: ExamQuestion) => {
           initialAnswers[q.id] = {
             questionId: q.id,
             questionNumber: q.questionNumber,
