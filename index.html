@@ -1,18 +1,89 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      // Environment Constraint: HMR is disabled in cloud proxy & iframe.
+      // Intercept Vite HMR WebSocket connection attempts cleanly without throwing "WebSocket closed without opened".
+      (function() {
+        if (typeof window !== 'undefined' && window.WebSocket) {
+          var RealWebSocket = window.WebSocket;
+          window.WebSocket = function(url, protocols) {
+            // Check if this is a Vite HMR WebSocket connection attempt
+            if (typeof url === 'string' && (url.includes('token=') || protocols === 'vite-hmr' || (Array.isArray(protocols) && protocols.includes('vite-hmr')))) {
+              var dummy = {
+                readyState: 3, // CLOSED
+                addEventListener: function(type, listener) {
+                  // If listening for close, defer call
+                  if (type === 'close') {
+                    // Do not trigger premature reject
+                  }
+                },
+                removeEventListener: function() {},
+                send: function() {},
+                close: function() {}
+              };
+              return dummy;
+            }
+            return new RealWebSocket(url, protocols);
+          };
+          window.WebSocket.prototype = RealWebSocket.prototype;
+          window.WebSocket.CONNECTING = 0;
+          window.WebSocket.OPEN = 1;
+          window.WebSocket.CLOSING = 2;
+          window.WebSocket.CLOSED = 3;
+        }
+
+        window.addEventListener('error', function (event) {
+          if (
+            event.message &&
+            (event.message.includes('WebSocket closed without opened') ||
+             event.message.includes('failed to connect to websocket'))
+          ) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            return true;
+          }
+        }, true);
+        window.addEventListener('unhandledrejection', function (event) {
+          if (
+            event.reason &&
+            ((event.reason.message && event.reason.message.includes('WebSocket closed without opened')) ||
+             String(event.reason).includes('WebSocket closed without opened'))
+          ) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+          }
+        }, true);
+
+        // Also intercept console.error for WebSocket connection logs from @vite/client
+        var originalConsoleError = console.error;
+        console.error = function() {
+          var args = Array.prototype.slice.call(arguments);
+          if (args.length > 0 && typeof args[0] === 'string' && (args[0].includes('[vite] failed to connect to websocket') || args[0].includes('WebSocket closed without opened'))) {
+            return;
+          }
+          return originalConsoleError.apply(console, arguments);
+        };
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <meta name="theme-color" content="#0A192F" />
-    <meta name="description" content="منصة محاكي الامتحانات الوزارية لطلاب الثانوية العامة في مادة الأحياء - نظام بدون إنترنت 100%" />
-    <title>BioThanaweya | محاكي امتحانات الأحياء للثانوية العامة</title>
-    <!-- Google Fonts: Cairo -->
+    <title>BioThanaweya • Egyptian Biology Ecosystem</title>
+    <meta name="description" content="Elite Egyptian Thanaweya Amma Biology multi-agent AI learning system featuring ELI5, deep technical breakdowns, visual schematics, exam traps, and official Ministry examiner grading." />
+    <meta property="og:title" content="BioThanaweya • Egyptian Biology Ecosystem" />
+    <meta property="og:description" content="Elite Egyptian Thanaweya Amma Biology multi-agent AI learning system featuring ELI5, deep technical breakdowns, visual schematics, exam traps, and official Ministry examiner grading." />
+    <meta name="theme-color" content="#0B132B" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="BioThanaweya" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-obsidian-900 text-slate-100 font-cairo antialiased selection:bg-bioteal/20 selection:text-bioteal overflow-x-hidden min-h-screen">
+  <body class="bg-[#0B132B] text-slate-100 min-h-screen selection:bg-teal-500 selection:text-white font-sans antialiased overflow-x-hidden">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

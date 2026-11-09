@@ -1,18 +1,46 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node dependencies
+node_modules
+dist
+dist-ssr
+*.local
+
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+*.keystore
+*.keystore.*
+*.jks
+local.properties
+android/local.properties
+android/.gradle
+android/*/build
+android/build
+
+
+# Build outputs & caches
+.vite
+tsconfig.tsbuildinfo
+.aistudio/artifacts/brain/a6a447ab-a135-450e-b7c5-d42bd46285da/scratch
+coverage
+
+# IDE & OS files
+.DS_Store
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 *.iml
 .gradle
 .kotlin
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
-local.properties
-.env
-debug.keystore

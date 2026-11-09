@@ -162,10 +162,10 @@ app.post(
 // ----------------------------------------------------------------------------
 async function bootstrapServer(): Promise<void> {
   if (config.nodeEnv !== 'production') {
-    // Mount Vite middleware in development mode
+    // Mount Vite middleware in development mode with HMR disabled (environment constraint)
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
-      server: { middlewareMode: true },
+      server: { middlewareMode: true, hmr: false },
       appType: 'spa',
     });
     app.use(vite.middlewares);
@@ -193,10 +193,30 @@ async function bootstrapServer(): Promise<void> {
   server.headersTimeout = 6000;   // Prevent slowloris attacks on mobile radios
   server.maxHeadersCount = 50;
 
+  server.on('error', (err: NodeJS.ErrnoException) => {
+    logger.error('server_bind_error', err, `Failed to bind HTTP server to 0.0.0.0:${config.port}`, {
+      metadata: {
+        code: err.code,
+        errno: err.errno,
+        syscall: err.syscall,
+        port: config.port,
+      },
+    });
+
+    if (err.code === 'EADDRINUSE') {
+      logger.error('port_conflict_detected', err, `Port ${config.port} is already in use by an existing process. Run "npm run clean" or execute "fuser -k ${config.port}/tcp" to free the port.`);
+    } else if (err.code === 'EACCES') {
+      logger.error('port_permission_denied', err, `Insufficient permissions to bind to port ${config.port}. Ensure user has socket bind authorization.`);
+    }
+
+    process.exit(1);
+  });
+
   server.listen(config.port, '0.0.0.0', () => {
     logger.info('server_started', `BioThanaweya Server running on http://0.0.0.0:${config.port}`, {
       metadata: {
         port: config.port,
+        host: '0.0.0.0',
         env: config.nodeEnv,
         arch: process.arch,
         pid: process.pid,

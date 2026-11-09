@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Activity,
   Award,
   Calculator,
+  Database,
   Flame,
   Layers,
   Settings,
@@ -10,12 +11,15 @@ import {
   Timer,
 } from 'lucide-react';
 import { WellbeingProfile } from '../types';
+import { StorageService, SyncState } from '../services/storage';
+import { PWAInstallButton } from './PWAInstallButton';
 
 interface NavbarProps {
   currentScreen: string;
   onNavigate: (screen: string, topicId?: string) => void;
   profile: WellbeingProfile;
   onOpenAgentsModal: () => void;
+  onOpenStorageModal: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -23,7 +27,16 @@ export const Navbar: React.FC<NavbarProps> = ({
   onNavigate,
   profile,
   onOpenAgentsModal,
+  onOpenStorageModal,
 }) => {
+  const [syncState, setSyncState] = useState<SyncState>('synced');
+
+  useEffect(() => {
+    const unsubscribe = StorageService.onSyncStatusChange((state) => {
+      setSyncState(state);
+    });
+    return () => unsubscribe();
+  }, []);
   return (
     <header className="sticky top-0 z-40 bg-[#0B132B]/90 backdrop-blur-md border-b border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -63,6 +76,17 @@ export const Navbar: React.FC<NavbarProps> = ({
             }`}
           >
             Dashboard
+          </button>
+          <button
+            onClick={() => onNavigate('simulations')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition ${
+              currentScreen === 'simulations'
+                ? 'bg-slate-800 text-teal-400 font-semibold'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
+            }`}
+          >
+            <Activity className="w-4 h-4 text-teal-400" />
+            Sim Lab
           </button>
           <button
             onClick={() => onNavigate('formula_lab')}
@@ -122,6 +146,30 @@ export const Navbar: React.FC<NavbarProps> = ({
             <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
             <span className="hidden sm:inline">7 Agents</span>
           </button>
+
+          {/* IndexedDB Live Sync Indicator & Vault Launcher */}
+          <button
+            onClick={onOpenStorageModal}
+            title="Open Storage Vault & Database Engine (IndexedDB)"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-teal-500/50 text-slate-300 hover:text-white transition text-xs font-medium group"
+          >
+            <Database className="w-3.5 h-3.5 text-teal-400 group-hover:scale-110 transition" />
+            <span className="hidden md:inline text-[11px] font-mono">
+              {syncState === 'synced' ? 'Local DB' : syncState === 'saving' ? 'Saving...' : 'DB Error'}
+            </span>
+            <span
+              className={`w-1.5 h-1.5 rounded-full ${
+                syncState === 'synced'
+                  ? 'bg-emerald-400'
+                  : syncState === 'saving'
+                  ? 'bg-amber-400 animate-ping'
+                  : 'bg-rose-400'
+              }`}
+            />
+          </button>
+
+          {/* PWA Mobile Installation Trigger */}
+          <PWAInstallButton variant="nav" />
 
           {/* Settings */}
           <button

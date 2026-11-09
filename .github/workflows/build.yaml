@@ -75,10 +75,6 @@ jobs:
 
       - name: 🤖 Setup Android SDK
         uses: android-actions/setup-android@v3
-        with:
-          cmdline-tools-version: 12266719
-          accept-android-sdk-licenses: true
-          packages: platform-tools platforms;android-34 build-tools;34.0.0
 
       - name: 📥 Download Web Dist Artifacts
         uses: actions/download-artifact@v4
@@ -125,16 +121,15 @@ jobs:
 
       - name: ⚙️ Grant Execution Rights to Gradle Wrapper
         run: |
-          if [ -f "android/gradlew" ]; then
-            chmod +x android/gradlew
+          cd android
+          if [ -f gradlew ]; then
+            chmod +x gradlew
           else
-            cd android
             gradle wrapper --gradle-version 8.7
             chmod +x gradlew
-            cd ..
           fi
 
-      - name: 🚀 Compile Universal Release APK & AAB
+      - name: 🚀 Compile Universal Release APK
         env:
           KEYSTORE_PATH: ${{ env.KEYSTORE_PATH }}
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD || secrets.STORE_PASSWORD || 'bio_secure_2026_pass' }}
@@ -142,17 +137,29 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD || 'bio_secure_2026_pass' }}
         run: |
           cd android
-          ./gradlew :app:assembleRelease :app:bundleRelease --no-daemon --stacktrace
+          ./gradlew assembleRelease --no-daemon --stacktrace
+
+      - name: 📦 Compile Google Play App Bundle (AAB)
+        env:
+          KEYSTORE_PATH: ${{ env.KEYSTORE_PATH }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD || secrets.STORE_PASSWORD || 'bio_secure_2026_pass' }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS || 'biothanaweya-alias' }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD || 'bio_secure_2026_pass' }}
+        run: |
+          cd android
+          ./gradlew bundleRelease --no-daemon --stacktrace
 
       - name: 🛡️ Compute SHA-256 Cryptographic Integrity Checksums
         run: |
           mkdir -p release-binaries
           
+          # Find and stage APK
           APK_FILE=$(find android/app/build/outputs/apk/release -name "*.apk" | head -n 1)
           if [ -n "$APK_FILE" ]; then
             cp "$APK_FILE" release-binaries/BioThanaweya-release.apk
           fi
           
+          # Find and stage AAB
           AAB_FILE=$(find android/app/build/outputs/bundle/release -name "*.aab" | head -n 1)
           if [ -n "$AAB_FILE" ]; then
             cp "$AAB_FILE" release-binaries/BioThanaweya-release.aab
