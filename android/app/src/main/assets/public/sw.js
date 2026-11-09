@@ -90,13 +90,16 @@ define(['./workbox-7e5eb42b'], (function (workbox) { 'use strict';
     "revision": "5b23ad0e293f990158500db970074338"
   }, {
     "url": "index.html",
-    "revision": "4aa81b9119a41404b3d896a979259982"
+    "revision": "343aaddfa8b01a15d5c6d9f904948fd4"
   }, {
     "url": "icon.svg",
     "revision": "53e4a7a405f431434012faeaefbf69c2"
   }, {
     "url": "ic_biothanaweya_art.jpg",
     "revision": "e80953a3369412cae749dc8a3417e052"
+  }, {
+    "url": "favicon.svg",
+    "revision": "b34e31e1cdfc049b18d210ea31878d5f"
   }, {
     "url": "apple-touch-icon.png",
     "revision": "c5e5f72c5c836f5c4fce1ac7bebb5435"
@@ -113,10 +116,10 @@ define(['./workbox-7e5eb42b'], (function (workbox) { 'use strict';
     "url": "assets/vendor-core-1ssyoFBN.js",
     "revision": null
   }, {
-    "url": "assets/index-DpXPxYMD.css",
+    "url": "assets/index-VykS9ojR.css",
     "revision": null
   }, {
-    "url": "assets/index-C-j_2Rxh.js",
+    "url": "assets/index---k4M5E6.js",
     "revision": null
   }, {
     "url": "apple-touch-icon.png",

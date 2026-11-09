@@ -1,42 +1,56 @@
-# Canonical Hormonal Coordination MasterStudyPack Verbatim Insertion
+# خطة التنفيذ والتحسين الشامل: تطبيق BioThanaweya للثانوية العامة (Android & Offline PWA)
 
-Integrate the user's exact, canonical `hormonal_coordination_endocrine` MasterStudyPack entry verbatim into `STUDY_PACKS` inside `src/services/curriculumRepository.ts`, preserving all counts, questions (`hce_q1` to `hce_q8`), and flashcards (`hce_fc1` to `hce_fc6`) without modification, followed by automated verification.
-
-## User Review & Critical Decisions
-
-> [!IMPORTANT]
-> The following decisions were clarified and confirmed in Phase 1:
-> - **Verbatim Insertion**: Replace the existing `hormonal_coordination_endocrine` pack in `src/services/curriculumRepository.ts:647-917` verbatim with the user's exact provided text without paraphrasing or changing any counts.
-> - **Automated Validation**: Run `npm test` and platform compilation checks (`compile_applet`, `lint_applet`) following the replacement to ensure 100% integrity across all 5 test suites.
+بناءً على نتائج التدقيق الميداني وإجاباتك المعمارية المحددة، سنقوم بتنفيذ خطة هندسية دقيقة لتحويل المشروع إلى تطبيق أندرويد إنتاجي فائق الموثوقية دون أي تخمين ودون كسر أي وظائف قائمة.
 
 ---
 
-## 1. Overview & Content Structure
-
-The provided pack conforms strictly to `MasterStudyPack` (`src/types/index.ts:166-194`) and official Egyptian Ministry curriculum standards:
-- **Topic Identifiers**: `topicId: 'hormonal_coordination_endocrine'`, `topicTitle: 'Plant Auxins & the Human Endocrine System'`, `unit: 'UNIT_1'`, `chapterTitle: 'Chapter 2: Hormonal Coordination'`.
-- **Textbook Page Reference**: `'Ministry Textbook Unit 1, Chapter 2 (page numbers to be filled from the printed book)'`.
-- **Technical Breakdown**:
-  1. *Auxins (Plant Hormones)*: IAA, apical meristems, phototropism, apical dominance, parthenocarpy.
-  2. *Endocrine System*: Ductless glands, steroids vs amino-acid based hormones, negative feedback.
-  3. *Pituitary Gland*: Anterior lobe (GH, TSH, ACTH, FSH, LH, prolactin) and disorders (dwarfism, gigantism, acromegaly); Posterior lobe (hypothalamic ADH and oxytocin storage/release).
-  4. *Thyroid & Parathyroids*: Thyroxine, simple/exophthalmic goiter, cretinism, myxedema; Calcitonin vs Parathormone (PTH) calcium regulation and tetany.
-  5. *Adrenal Glands*: Cortex (cortisol, aldosterone, sex hormones) vs Medulla (adrenaline, noradrenaline).
-  6. *Pancreas*: Beta cells (insulin), alpha cells (glucagon), diabetes mellitus vs diabetes insipidus.
-- **Formulas**: Blood glucose homeostasis & blood calcium homeostasis loops.
-- **Comparison Tables**: Anterior vs Posterior Pituitary, Calcitonin vs Parathormone, Insulin vs Glucagon.
-- **Bloom Taxonomy**: All 6 levels (Remembering through Creating).
-- **Questions**: 8 questions (`hce_q1` to `hce_q8`) covering scientific term, give reason, what happens if, diagram analysis, and MCQ.
-- **Flashcards**: 6 flashcards (`hce_fc1` to `hce_fc6`).
-- **Exam Simulation**: Official 2-mark item on exophthalmic goiter.
+### 1. الأهداف المعمارية والقرارات المعتمدة
+1. **معمارية الحاوية الأصلية**: الإبقاء على معمارية **`WebViewAssetLoader`** عالية الأداء والأمان لخدمة أصول الويب محلياً عبر نطاق آمن افتراضي (`https://appassets.androidplatform.net/assets/public/index.html`) مع تسريع العتاد وجسر `WebAppInterface` للاهتزازات اللمسية وإشعارات النظام.
+2. **استراتيجية التخزين دون اتصال (Local-First)**: الاعتماد التام على **IndexedDB (Dexie 4.4)** بدون أي متطلبات سحابية إلزامية أو تسريب بيانات، مع ملء تلقائي محلي للأسئلة والامتحانات الوزارية السابقة، وتأمين حفظ الملاحظات ومحاولات الامتحانات.
+3. **أمان الاعتماديات والشيفرة**: منع أي ثغرات أو كود مكسور، مع عزل أي خدمات خلفية أو وسائط خارجية، والالتزام الصارم بعدم تضمين أي مفاتيح أو أسرار في الحزم.
+4. **مسار البناء وتوليد الـ APK (CI/CD Pipeline)**: تحصين سير عمل **GitHub Actions** (`.github/workflows/build.yaml`) لتوليد كل من:
+   - حزمة APK شاملة لجميع الأجهزة (Universal Release APK).
+   - حزمة AAB لمتجر Google Play (App Bundle).
+   - جدول بصمات التشفير التكاملي `SHA256SUMS.txt`.
+   - أرشفتها كـ Actions Artifacts لمدة 30 يوماً وتجهيز خطوة النشر الآمن للـ Releases عند وجود وسم إصدار `v*`.
 
 ---
 
-## 2. Implementation Steps
+### 2. مراحل العمل التفصيلية (Proposed Changes)
 
-1. **Replace `src/services/curriculumRepository.ts:647-917`**:
-   - Use `replace_file_content` to insert the provided `hormonal_coordination_endocrine` block verbatim.
-2. **Execute Full Test & Compile Verification**:
-   - Run `npm test` (all 36 unit tests).
-   - Co-execute `compile_applet` and `lint_applet`.
-   - Confirm dev server health on port 3000.
+#### المرحلة الأولى: تنظيف وتوحيد إعدادات الحاوية والمشروع
+- **تنظيف إعدادات التكوين**:
+  - التأكد من تطابق `package.json` وسكربتات البناء (`android:sync`, `build:android`, `audit`).
+  - مراجعة إعدادات `android/app/build.gradle` لضبط توافق Java 17 وتعيين `targetSdk 34` و `minSdk 24`.
+  - مراجعة إعدادات `AndroidManifest.xml` لتقييد الصلاحيات لأدنى حد لازم (`INTERNET`, `ACCESS_NETWORK_STATE`, `VIBRATE`) والتأكد من دعم الشاشات المختلفة وأمان `allowBackup`.
+
+#### المرحلة الثانية: تحصين أمان التخزين المحلي ومعالجة الأخطاء
+- **فحص IndexedDB وتجربة المستخدم**:
+  - التأكد من آلية `ensurePrePopulated` في `src/db/bioDatabase.ts` ومعالجة أي استثناءات أثناء التهيئة في الخلفية.
+  - تعزيز معالجة حالات الخطأ في خطافات الجلسات (`useExamSession.ts` و `useLiveExamHistory.ts`).
+
+#### المرحلة الثالثة: تحسين وتدقيق مسار GitHub Actions
+- **تحديث وتأكيد `.github/workflows/build.yaml`**:
+  - إضافة خطوة توليد Gradle Wrapper تلقائياً في سير العمل في حال عدم وجود ثنائيات `gradlew` في المستودع.
+  - إعداد آلية التوقيع الآمن بحيث تدعم:
+    - مفتاح توقيع مخصص من `secrets.KEYSTORE_BASE64` للمستخدم.
+    - أو مفتاح توقيع تجريبي/تطويري تلقائي (Fallback CI Key) في حال عدم توفر الأسرار لضمان أن البناء يكتمل دائماً بنجاح ويخرج ملف APK قابل للتثبيت والتجربة فوراً.
+  - حفظ ملفات APK و AAB في مسار `release-binaries/` ورفعها كـ Artifact.
+
+#### المرحلة الرابعة: التحقق النهائي
+- تشغيل اختبارات الأنواع `tsc --noEmit`.
+- تشغيل كافة اختبارات `vitest run` والتأكد من نجاح الـ 45 فحصاً كاملاً.
+- تنفيذ مزامنة الأصول `npm run android:sync`.
+- توفير دليل أوامر كامل وجاهز للتنفيذ عبر Termux لتسجيل التغييرات في فرع جديد ورفعها إلى GitHub لتوليد الـ APK فوراً.
+
+---
+
+### 3. خطة التحقق والجاهزية (Verification Plan)
+- **فحص محلي آلي**:
+  - `npm run lint` -> نجاح (0 errors).
+  - `npm test` -> نجاح (45 tests passed).
+  - `npm run android:sync` -> تحديث وتأكيد 18 أصل برمجياً داخل `android/app/src/main/assets/public/`.
+- **فحص الأمان**:
+  - التأكد من خلو المشروع تماماً من أي مفاتيح خاصة أو أسرار.
+- **إخراج الـ APK**:
+  - إطلاق البناء عبر GitHub Actions بمجرد دفع التغييرات إلى المستودع ليظهر الـ APK مباشرة في تبويب **Actions** للتحميل.
