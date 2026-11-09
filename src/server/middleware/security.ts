@@ -69,7 +69,7 @@ export function globalErrorHandler(
       title: 'Bad Request - Validation Error',
       status: 400,
       detail: 'The submitted request payload failed strict schema validation.',
-      errors: err.errors.map((e: any) => ({
+      errors: err.issues.map((e: any) => ({
         path: Array.isArray(e.path) ? e.path.join('.') : String(e.path),
         message: e.message,
       })),
