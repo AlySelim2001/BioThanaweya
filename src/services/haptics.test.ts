@@ -6,12 +6,25 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { haptics } from './haptics';
 
+// Defensive polyfill for headless Node test environment
+if (typeof globalThis.navigator === 'undefined') {
+  (globalThis as unknown as { navigator: { vibrate: (p: unknown) => boolean } }).navigator = {
+    vibrate: () => true,
+  };
+} else if (typeof globalThis.navigator.vibrate !== 'function') {
+  (globalThis.navigator as unknown as { vibrate: (p: unknown) => boolean }).vibrate = () => true;
+}
+
 describe('HapticFeedbackService', () => {
   let vibrateMock: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
+    // Ensure clean window environment without residual native bridge
+    if (typeof window !== 'undefined') {
+      delete (window as unknown as { BioThanaweyaNative?: unknown }).BioThanaweyaNative;
+    }
     vibrateMock = vi.fn().mockReturnValue(true);
-    Object.defineProperty(navigator, 'vibrate', {
+    Object.defineProperty(globalThis.navigator, 'vibrate', {
       value: vibrateMock,
       writable: true,
       configurable: true,
@@ -21,6 +34,9 @@ describe('HapticFeedbackService', () => {
   });
 
   afterEach(() => {
+    if (typeof window !== 'undefined') {
+      delete (window as unknown as { BioThanaweyaNative?: unknown }).BioThanaweyaNative;
+    }
     vi.restoreAllMocks();
   });
 
