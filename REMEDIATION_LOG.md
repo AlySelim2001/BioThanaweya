@@ -1,0 +1,10 @@
+# REMEDIATION LOG — ROOT CAUSE & RESOLUTION REGISTER
+
+| Issue ID | Priority | Area | Root Cause | Impact | Resolution | Verified |
+|----------|----------|------|------------|--------|------------|----------|
+| **REM-01** | P0 | GitHub Actions CI/CD | GitHub runner assumed static `pubspec.yaml` in repository root. Subfolder nesting broke `flutter pub get`. | CI build failed with `Expected to find project root in current working directory`. | Added dynamic directory locator `find . -name "pubspec.yaml"` exporting `$PROJECT_DIR` and setting `working-directory: ${{ env.PROJECT_DIR }}`. | **YES** |
+| **REM-02** | P0 | UI Architecture | Flutter app launched generic template `MyHomePage` counter rather than Thanaweya Amma curriculum. | Application displayed counter button instead of biology system. | Replaced `main.dart` with `BioDashboardScreen` containing all 11 chapters, Arabic RTL, offline card, and navigation sheets. | **YES** |
+| **REM-03** | P1 | CI/CD Duplication | Three separate workflow files (`build.yaml`, `build.yml`, `build_apk.yml`) with conflicting paths existed in `.github/workflows/`. | Triggered multiple redundant builds and failed on hardcoded artifact paths. | Purged obsolete `build_apk.yml` and duplicate `build.yml`, leaving one unified, hardened `.github/workflows/build.yaml`. | **YES** |
+| **REM-04** | P1 | Spaced Repetition Syntax | Dart model parsing used uncasted numeric dynamic values, risking runtime casting exceptions on integer inputs. | Potential crash when reading float intervals from JSON. | Refactored JSON deserializer to use `(json['easeFactor'] as num).toDouble()`. | **YES** |
+| **REM-05** | P2 | Visual Progress | Dashboard lacked quick visual progress scanning for chapter mastery trends. | Students could not visualize study trend velocity. | Implemented custom cubic bezier Sparkline charts in both Compose and Flutter CustomPainter. | **YES** |
+| **REM-06** | P2 | Celebration Graphics | Absence of positive reinforcement upon milestone completion. | Lack of visual celebration on finishing exams. | Implemented physics-based 75-80 particle confetti animations with automatic lifecycle disposal. | **YES** |

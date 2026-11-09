@@ -1,118 +1,60 @@
-import React, { useState } from 'react';
-import { Navbar } from './components/Navbar';
-import { SevenAgentsModal } from './components/SevenAgentsModal';
-import { DashboardScreen } from './screens/DashboardScreen';
-import { TopicDetailScreen } from './screens/TopicDetailScreen';
-import { PracticeScreen } from './screens/PracticeScreen';
-import { FormulaLabScreen } from './screens/FormulaLabScreen';
-import { FsrsReviewScreen } from './screens/FsrsReviewScreen';
-import { SimulatedExamScreen } from './screens/SimulatedExamScreen';
-import { SettingsScreen } from './screens/SettingsScreen';
-import { StorageService } from './services/storage';
-import { TopicMastery, WellbeingProfile } from './types';
+import { useState } from 'react';
+import { Navbar } from './components/layout/Navbar';
+import { ExamPaperSelector } from './components/exam/ExamPaperSelector';
+import { ExamSimulatorScreen } from './components/exam/ExamSimulatorScreen';
+import { ShieldCheck, Heart } from 'lucide-react';
 
 export function App() {
-  const [currentScreen, setCurrentScreen] = useState<string>('dashboard');
-  const [activeTopicId, setActiveTopicId] = useState<string>('sarcomere_contraction');
-  const [profile, setProfile] = useState<WellbeingProfile>(() => StorageService.getProfile());
-  const [topicMasteries, setTopicMasteries] = useState<TopicMastery[]>(() =>
-    StorageService.getTopicMasteries()
-  );
-  const [isAgentsModalOpen, setIsAgentsModalOpen] = useState(false);
+  const [currentView, setCurrentView] = useState<'selector' | 'exam'>('selector');
+  const [selectedPaperId, setSelectedPaperId] = useState<string | null>(null);
 
-  const handleNavigate = (screen: string, topicId?: string) => {
-    if (topicId) setActiveTopicId(topicId);
-    setCurrentScreen(screen);
+  const handleSelectPaper = (paperId: string) => {
+    setSelectedPaperId(paperId);
+    setCurrentView('exam');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleXpEarned = (amount: number) => {
-    const updated = StorageService.addXp(amount);
-    setProfile(updated);
+  const handleNavigateHome = () => {
+    setCurrentView('selector');
+    setSelectedPaperId(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen bg-[#0B132B] text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-obsidian-900 text-slate-100 flex flex-col font-cairo">
+      {/* Top Navigation */}
       <Navbar
-        currentScreen={currentScreen}
-        onNavigate={(screen, tId) => handleNavigate(screen, tId)}
-        profile={profile}
-        onOpenAgentsModal={() => setIsAgentsModalOpen(true)}
+        currentView={currentView}
+        onNavigateHome={handleNavigateHome}
       />
 
-      <main className="flex-1">
-        {currentScreen === 'dashboard' && (
-          <DashboardScreen
-            onNavigateToTopic={(tId) => handleNavigate('topic_detail', tId)}
-            onNavigateToPractice={(tId) => handleNavigate('practice', tId)}
-            onNavigateToFsrs={(tId) => handleNavigate('fsrs', tId)}
-            onNavigateToFormulaLab={() => handleNavigate('formula_lab')}
-            onNavigateToSimulatedExam={() => handleNavigate('simulated_exam')}
-            onOpenAgentsModal={() => setIsAgentsModalOpen(true)}
-            topicMasteries={topicMasteries}
-            profile={profile}
-          />
+      {/* Main Content Area */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6">
+        {currentView === 'selector' && (
+          <ExamPaperSelector onSelectPaper={handleSelectPaper} />
         )}
 
-        {currentScreen === 'topic_detail' && (
-          <TopicDetailScreen
-            topicId={activeTopicId}
-            onBack={() => handleNavigate('dashboard')}
-            onNavigateToPractice={(tId) => handleNavigate('practice', tId)}
-          />
-        )}
-
-        {currentScreen === 'practice' && (
-          <PracticeScreen
-            topicId={activeTopicId}
-            onBack={() => handleNavigate('dashboard')}
-            onXpEarned={handleXpEarned}
-          />
-        )}
-
-        {currentScreen === 'formula_lab' && (
-          <FormulaLabScreen onBack={() => handleNavigate('dashboard')} />
-        )}
-
-        {currentScreen === 'fsrs' && (
-          <FsrsReviewScreen
-            topicId={activeTopicId}
-            onBack={() => handleNavigate('dashboard')}
-            onXpEarned={handleXpEarned}
-          />
-        )}
-
-        {currentScreen === 'simulated_exam' && (
-          <SimulatedExamScreen
-            onBack={() => handleNavigate('dashboard')}
-            onXpEarned={handleXpEarned}
-          />
-        )}
-
-        {currentScreen === 'settings' && (
-          <SettingsScreen
-            onBack={() => handleNavigate('dashboard')}
-            profile={profile}
-            onProfileUpdated={setProfile}
+        {currentView === 'exam' && selectedPaperId && (
+          <ExamSimulatorScreen
+            paperId={selectedPaperId}
+            onBackToSelector={handleNavigateHome}
           />
         )}
       </main>
 
-      {/* 7 Agents Modal */}
-      <SevenAgentsModal
-        isOpen={isAgentsModalOpen}
-        onClose={() => setIsAgentsModalOpen(false)}
-      />
-
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 bg-[#070D1E] py-6 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 space-y-1">
-          <p>
-            BioThanaweya • Official Egyptian Thanaweya Amma (Languages) Biology Learning Platform
-          </p>
-          <p className="text-[11px] text-slate-600 font-arabic">
-            تم التطوير لدعم طلاب الثانوية العامة وفق معايير ونماذج إجابة وزارة التربية والتعليم المصرية
-          </p>
+      <footer className="mt-auto border-t border-slate-800/80 bg-obsidian-950/80 py-6 px-4 text-center text-xs text-slate-400">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-1.5 font-medium">
+            <ShieldCheck className="w-4 h-4 text-bioteal" />
+            <span>نظام محاكي الأحياء للثانوية العامة • متوافق مع نظام التقييم الوزاري المصري</span>
+          </div>
+
+          <div className="flex items-center gap-1 text-[11px] text-slate-500">
+            <span>صُمم بإتقان لدعم طلاب الثانوية العامة في مصر</span>
+            <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" />
+            <span>100% Offline-First</span>
+          </div>
         </div>
       </footer>
     </div>
