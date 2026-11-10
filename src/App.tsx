@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useReducedMotion, type Variants } from 'framer
 import { Navbar } from './components/Navbar';
 import { SevenAgentsModal } from './components/SevenAgentsModal';
 import { StorageVaultModal } from './components/StorageVaultModal';
+import { MinistryTextbookModal } from './components/MinistryTextbookModal';
 import { DashboardScreen } from './screens/DashboardScreen';
 import { TopicDetailScreen } from './screens/TopicDetailScreen';
 import { PracticeScreen } from './screens/PracticeScreen';
@@ -14,6 +15,7 @@ import { SettingsScreen } from './screens/SettingsScreen';
 import { StorageService } from './services/storage';
 import { haptics } from './services/haptics';
 import { TopicMastery, WellbeingProfile } from './types';
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
 
 // Hierarchical depth map for direction-aware sliding
 const SCREEN_DEPTH: Record<string, number> = {
@@ -27,7 +29,7 @@ const SCREEN_DEPTH: Record<string, number> = {
   practice: 2,
 };
 
-export function App() {
+function MainApp() {
   const [currentScreen, setCurrentScreen] = useState<string>('dashboard');
   const [activeTopicId, setActiveTopicId] = useState<string>('sarcomere_contraction');
   const [navDirection, setNavDirection] = useState<number>(1);
@@ -37,8 +39,10 @@ export function App() {
   );
   const [isAgentsModalOpen, setIsAgentsModalOpen] = useState(false);
   const [isStorageModalOpen, setIsStorageModalOpen] = useState(false);
+  const [isTextbookModalOpen, setIsTextbookModalOpen] = useState(false);
 
   const shouldReduceMotion = useReducedMotion();
+  const { isRtl } = useLanguage();
 
   useEffect(() => {
     StorageService.init().then(() => {
@@ -84,6 +88,16 @@ export function App() {
     setIsStorageModalOpen(false);
   };
 
+  const handleOpenTextbookModal = () => {
+    haptics.pop();
+    setIsTextbookModalOpen(true);
+  };
+
+  const handleCloseTextbookModal = () => {
+    haptics.pop();
+    setIsTextbookModalOpen(false);
+  };
+
   const handleDataRestored = () => {
     haptics.pop();
     setProfile(StorageService.getProfile());
@@ -94,7 +108,7 @@ export function App() {
   const screenVariants: Variants = {
     initial: (direction: number) => ({
       opacity: 0,
-      x: shouldReduceMotion ? 0 : direction > 0 ? 32 : -32,
+      x: shouldReduceMotion ? 0 : direction > 0 ? (isRtl ? -32 : 32) : (isRtl ? 32 : -32),
     }),
     animate: {
       opacity: 1,
@@ -106,7 +120,7 @@ export function App() {
     },
     exit: (direction: number) => ({
       opacity: 0,
-      x: shouldReduceMotion ? 0 : direction > 0 ? -24 : 24,
+      x: shouldReduceMotion ? 0 : direction > 0 ? (isRtl ? 24 : -24) : (isRtl ? -24 : 24),
       transition: {
         x: { type: 'spring' as const, stiffness: 280, damping: 28 },
         opacity: { duration: 0.16, ease: 'easeIn' as const },
@@ -115,13 +129,14 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B132B] text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#0B132B] text-slate-100 flex flex-col font-sans transition-all duration-200">
       <Navbar
         currentScreen={currentScreen}
         onNavigate={(screen, tId) => handleNavigate(screen, tId)}
         profile={profile}
         onOpenAgentsModal={handleOpenAgentsModal}
         onOpenStorageModal={handleOpenStorageModal}
+        onOpenTextbookModal={handleOpenTextbookModal}
       />
 
       <main className="flex-1 relative overflow-x-hidden min-h-[calc(100vh-8rem)]">
@@ -143,33 +158,20 @@ export function App() {
                 onNavigateToFormulaLab={() => handleNavigate('formula_lab')}
                 onNavigateToSimulatedExam={() => handleNavigate('simulated_exam')}
                 onOpenAgentsModal={handleOpenAgentsModal}
+                onOpenTextbookModal={handleOpenTextbookModal}
                 topicMasteries={topicMasteries}
                 profile={profile}
               />
             )}
 
-            {currentScreen === 'topic_detail' && (
-              <TopicDetailScreen
-                topicId={activeTopicId}
-                onBack={() => handleNavigate('dashboard')}
-                onNavigateToPractice={(tId) => handleNavigate('practice', tId)}
-              />
-            )}
-
-            {currentScreen === 'practice' && (
-              <PracticeScreen
-                topicId={activeTopicId}
-                onBack={() => handleNavigate('dashboard')}
-                onXpEarned={handleXpEarned}
-              />
+            {currentScreen === 'simulations' && (
+              <SimulationLabScreen />
             )}
 
             {currentScreen === 'formula_lab' && (
-              <FormulaLabScreen onBack={() => handleNavigate('dashboard')} />
-            )}
-
-            {currentScreen === 'simulations' && (
-              <SimulationLabScreen />
+              <FormulaLabScreen
+                onBack={() => handleNavigate('dashboard')}
+              />
             )}
 
             {currentScreen === 'fsrs' && (
@@ -187,11 +189,27 @@ export function App() {
               />
             )}
 
+            {currentScreen === 'topic_detail' && (
+              <TopicDetailScreen
+                topicId={activeTopicId}
+                onBack={() => handleNavigate('dashboard')}
+                onNavigateToPractice={(tId: string) => handleNavigate('practice', tId)}
+              />
+            )}
+
+            {currentScreen === 'practice' && (
+              <PracticeScreen
+                topicId={activeTopicId}
+                onBack={() => handleNavigate('dashboard')}
+                onXpEarned={handleXpEarned}
+              />
+            )}
+
             {currentScreen === 'settings' && (
               <SettingsScreen
-                onBack={() => handleNavigate('dashboard')}
                 profile={profile}
-                onProfileUpdated={setProfile}
+                onBack={() => handleNavigate('dashboard')}
+                onProfileUpdated={(updatedProfile: WellbeingProfile) => setProfile(updatedProfile)}
                 onOpenStorageModal={handleOpenStorageModal}
               />
             )}
@@ -199,31 +217,33 @@ export function App() {
         </AnimatePresence>
       </main>
 
-      {/* 7 Agents Modal */}
+      {/* 7 AI Agents Dialog */}
       <SevenAgentsModal
         isOpen={isAgentsModalOpen}
         onClose={handleCloseAgentsModal}
       />
 
-      {/* Storage Vault & Database Modal */}
+      {/* Persistent Storage Vault Dialog */}
       <StorageVaultModal
         isOpen={isStorageModalOpen}
         onClose={handleCloseStorageModal}
         onDataRestored={handleDataRestored}
       />
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800/80 bg-[#070D1E] py-6 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 space-y-1">
-          <p>
-            BioThanaweya • Official Egyptian Thanaweya Amma (Languages) Biology Learning Platform
-          </p>
-          <p className="text-[11px] text-slate-600 font-arabic">
-            تم التطوير لدعم طلاب الثانوية العامة وفق معايير ونماذج إجابة وزارة التربية والتعليم المصرية
-          </p>
-        </div>
-      </footer>
+      {/* Official Ministry Textbook Download Dialog */}
+      <MinistryTextbookModal
+        isOpen={isTextbookModalOpen}
+        onClose={handleCloseTextbookModal}
+      />
     </div>
+  );
+}
+
+export function App() {
+  return (
+    <LanguageProvider>
+      <MainApp />
+    </LanguageProvider>
   );
 }
 
