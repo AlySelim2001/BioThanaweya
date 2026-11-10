@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../features/architecture_hub/presentation/bloc/architecture_hub_notifier.dart';
-import '../../../features/architecture_hub/presentation/bloc/architecture_hub_providers.dart';
+import 'package:smarts_bio/features/architecture_hub/presentation/bloc/architecture_hub_notifier.dart';
+import 'package:smarts_bio/features/architecture_hub/presentation/bloc/architecture_hub_providers.dart';
 
 class AppArchitectureHub extends ConsumerStatefulWidget {
   const AppArchitectureHub({super.key});
@@ -158,7 +157,7 @@ class _AppArchitectureHubState extends ConsumerState<AppArchitectureHub> {
 
   Widget _pipeline(ArchitectureHubState state, ArchitectureHubNotifier controller, Color surface, Color foreground, Color muted) {
     const labels = ['Lint', 'Test', 'Build', 'Release'];
-    final done = state.ciStage == CiPipelineStage.completed ? 4 : state.ciStage.index.clamp(0, 4);
+    final int done = state.ciStage == CiPipelineStage.completed ? 4 : state.ciStage.index.clamp(0, 4);
     return _card(surface, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Row(children: [const Icon(Icons.rocket_launch_rounded, color: Color(0xFFFBBF24)), const SizedBox(width: 8), Expanded(child: Text('GitHub Actions CI/CD', style: TextStyle(color: foreground, fontWeight: FontWeight.bold))), FilledButton(onPressed: state.isCiRunning ? null : controller.triggerCiPipelineSimulation, child: Text(state.isCiRunning ? 'Running' : 'Simulate'))]),
       const SizedBox(height: 12),
