@@ -1,79 +1,69 @@
 plugins {
-    id "com.android.application"
-    id "kotlin-android"
-    id "dev.flutter.flutter-gradle-plugin"
+    id 'com.android.application'
 }
 
-def localProperties = new Properties()
-def localPropertiesFile = rootProject.file('local.properties')
-if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader ->
-        localProperties.load(reader)
-    }
-}
-
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
-}
-
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
+def keystorePropertiesFile = rootProject.file("local.properties")
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
 android {
-    namespace "bio.smarts.scholar_sidekick"
+    namespace "com.biothanaweya.app"
     compileSdk 34
-    ndkVersion flutter.ndkVersion
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = '17'
-    }
-
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
 
     defaultConfig {
-        applicationId "bio.smarts.scholar_sidekick"
-        minSdk 21
+        applicationId "com.biothanaweya.app"
+        minSdk 24
         targetSdk 34
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode 1
+        versionName "1.0.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
         release {
-            def resolvedKeystore = System.getenv("KEYSTORE_PATH") ?: (file("${rootDir}/../my-upload-key.jks").exists() ? "${rootDir}/../my-upload-key.jks" : null)
-            if (resolvedKeystore != null && file(resolvedKeystore).exists()) {
-                storeFile file(resolvedKeystore)
-                storePassword (System.getenv("STORE_PASSWORD") ?: System.getenv("KEYSTORE_PASSWORD") ?: "android")
-                keyAlias (System.getenv("KEY_ALIAS") ?: "upload")
-                keyPassword (System.getenv("KEY_PASSWORD") ?: "android")
-            } else if (file("${rootDir}/../debug.keystore").exists()) {
-                storeFile file("${rootDir}/../debug.keystore")
-                storePassword "android"
-                keyAlias "androiddebugkey"
-                keyPassword "android"
-            }
+            storeFile file(
+                System.getenv("KEYSTORE_PATH") ?: 
+                keystoreProperties['KEYSTORE_PATH'] ?: 
+                'keystores/biothanaweya-release-key.jks'
+            )
+            storePassword(
+                System.getenv("KEYSTORE_PASSWORD") ?: 
+                System.getenv("STORE_PASSWORD") ?: 
+                keystoreProperties['KEYSTORE_PASSWORD'] ?: 
+                keystoreProperties['STORE_PASSWORD'] ?: 
+                "bio_secure_2026_pass"
+            )
+            keyAlias(
+                System.getenv("KEY_ALIAS") ?: 
+                keystoreProperties['KEY_ALIAS'] ?: 
+                "biothanaweya-alias"
+            )
+            keyPassword(
+                System.getenv("KEY_PASSWORD") ?: 
+                keystoreProperties['KEY_PASSWORD'] ?: 
+                "bio_secure_2026_pass"
+            )
         }
     }
 
     buildTypes {
         release {
             signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 }
 
-flutter {
-    source '../..'
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.webkit:webkit:1.9.0'
 }
-
-dependencies {}

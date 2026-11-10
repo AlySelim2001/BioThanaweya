@@ -6,8 +6,6 @@ import {
   MicOff,
   CheckCircle2,
   AlertTriangle,
-  Zap,
-  HelpCircle,
   Lightbulb,
   Award,
 } from 'lucide-react';

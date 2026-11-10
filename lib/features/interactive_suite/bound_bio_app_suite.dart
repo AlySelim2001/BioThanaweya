@@ -6,6 +6,7 @@ import '../smart_quiz_engine/presentation/controllers/quiz_providers.dart';
 import '../smart_quiz_engine/presentation/screens/smart_quiz_screen.dart';
 import '../biology_lab/presentation/screens/biology_lab_screen.dart';
 import '../study_planner/presentation/screens/smart_planner_screen.dart';
+import '../architecture_hub/presentation/screens/app_architecture_hub.dart';
 
 // ==============================================================================
 // 🧬 BOUND BIO APP ROOT (Controller-Driven UI Suite)
@@ -292,6 +293,15 @@ class _BoundDashboardScreenState extends ConsumerState<BoundDashboardScreen> {
                 MaterialPageRoute(builder: (_) => BoundSearchScreen(controller: _controller)),
               ),
             ),
+            // زر مركز المعمارية والأنظمة (Architecture Hub)
+            IconButton(
+              tooltip: isArabic ? 'مركز المعمارية والأنظمة' : 'Architecture Hub',
+              icon: const Icon(Icons.account_tree_rounded, color: BioTheme.bioGreen),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const AppArchitectureHub()),
+              ),
+            ),
             // زر تبديل اللغة الثنائي (AR / EN)
             TextButton.icon(
               onPressed: () => setState(() => isArabic = !isArabic),
@@ -419,6 +429,21 @@ class _BoundDashboardScreenState extends ConsumerState<BoundDashboardScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (_) => const SmartPlannerScreen()),
+                  );
+                },
+              ),
+              const SizedBox(height: 14),
+
+              // د. مركز المعمارية والأنظمة والمحاكي الهندسي
+              _buildEngineCard(
+                title: isArabic ? 'مركز المعمارية والأنظمة (Clean Architecture)' : 'Architecture Hub & Systems Telemetry',
+                subtitle: isArabic ? 'استكشاف SQLite، فحص الأداء الحي، وأتمتة GitHub CI/CD.' : 'SQLite DDL explorer, live latency benchmarks, & CI/CD pipeline.',
+                icon: Icons.account_tree_rounded,
+                accentColor: const Color(0xFF64FFDA),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const AppArchitectureHub()),
                   );
                 },
               ),

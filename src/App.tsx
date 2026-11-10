@@ -1,63 +1,249 @@
-import { useState } from 'react';
-import { Navbar } from './components/layout/Navbar';
-import { ExamPaperSelector } from './components/exam/ExamPaperSelector';
-import { ExamSimulatorScreen } from './components/exam/ExamSimulatorScreen';
-import { ShieldCheck, Heart } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence, useReducedMotion, type Variants } from 'framer-motion';
+import { Navbar } from './components/Navbar';
+import { SevenAgentsModal } from './components/SevenAgentsModal';
+import { StorageVaultModal } from './components/StorageVaultModal';
+import { MinistryTextbookModal } from './components/MinistryTextbookModal';
+import { DashboardScreen } from './screens/DashboardScreen';
+import { TopicDetailScreen } from './screens/TopicDetailScreen';
+import { PracticeScreen } from './screens/PracticeScreen';
+import { FormulaLabScreen } from './screens/FormulaLabScreen';
+import { SimulationLabScreen } from './screens/SimulationLabScreen';
+import { FsrsReviewScreen } from './screens/FsrsReviewScreen';
+import { SimulatedExamScreen } from './screens/SimulatedExamScreen';
+import { SettingsScreen } from './screens/SettingsScreen';
+import { StorageService } from './services/storage';
+import { haptics } from './services/haptics';
+import { TopicMastery, WellbeingProfile } from './types';
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
 
-export function App() {
-  const [currentView, setCurrentView] = useState<'selector' | 'exam'>('selector');
-  const [selectedPaperId, setSelectedPaperId] = useState<string | null>(null);
+// Hierarchical depth map for direction-aware sliding
+const SCREEN_DEPTH: Record<string, number> = {
+  dashboard: 0,
+  simulations: 1,
+  formula_lab: 1,
+  fsrs: 1,
+  simulated_exam: 1,
+  settings: 1,
+  topic_detail: 1,
+  practice: 2,
+};
 
-  const handleSelectPaper = (paperId: string) => {
-    setSelectedPaperId(paperId);
-    setCurrentView('exam');
+function MainApp() {
+  const [currentScreen, setCurrentScreen] = useState<string>('dashboard');
+  const [activeTopicId, setActiveTopicId] = useState<string>('sarcomere_contraction');
+  const [navDirection, setNavDirection] = useState<number>(1);
+  const [profile, setProfile] = useState<WellbeingProfile>(() => StorageService.getProfile());
+  const [topicMasteries, setTopicMasteries] = useState<TopicMastery[]>(() =>
+    StorageService.getTopicMasteries()
+  );
+  const [isAgentsModalOpen, setIsAgentsModalOpen] = useState(false);
+  const [isStorageModalOpen, setIsStorageModalOpen] = useState(false);
+  const [isTextbookModalOpen, setIsTextbookModalOpen] = useState(false);
+
+  const shouldReduceMotion = useReducedMotion();
+  const { isRtl } = useLanguage();
+
+  useEffect(() => {
+    StorageService.init().then(() => {
+      setProfile(StorageService.getProfile());
+      setTopicMasteries(StorageService.getTopicMasteries());
+    });
+  }, []);
+
+  const handleNavigate = (screen: string, topicId?: string) => {
+    haptics.tick();
+    const prevDepth = SCREEN_DEPTH[currentScreen] ?? 0;
+    const nextDepth = SCREEN_DEPTH[screen] ?? 0;
+    setNavDirection(nextDepth >= prevDepth ? 1 : -1);
+
+    if (topicId) setActiveTopicId(topicId);
+    setCurrentScreen(screen);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleNavigateHome = () => {
-    setCurrentView('selector');
-    setSelectedPaperId(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const handleXpEarned = (amount: number) => {
+    haptics.celebrate();
+    const updated = StorageService.addXp(amount);
+    setProfile(updated);
+  };
+
+  const handleOpenAgentsModal = () => {
+    haptics.pop();
+    setIsAgentsModalOpen(true);
+  };
+
+  const handleCloseAgentsModal = () => {
+    haptics.pop();
+    setIsAgentsModalOpen(false);
+  };
+
+  const handleOpenStorageModal = () => {
+    haptics.pop();
+    setIsStorageModalOpen(true);
+  };
+
+  const handleCloseStorageModal = () => {
+    haptics.pop();
+    setIsStorageModalOpen(false);
+  };
+
+  const handleOpenTextbookModal = () => {
+    haptics.pop();
+    setIsTextbookModalOpen(true);
+  };
+
+  const handleCloseTextbookModal = () => {
+    haptics.pop();
+    setIsTextbookModalOpen(false);
+  };
+
+  const handleDataRestored = () => {
+    haptics.pop();
+    setProfile(StorageService.getProfile());
+    setTopicMasteries(StorageService.getTopicMasteries());
+  };
+
+  // Subtle horizontal slide with spring damping & accessibility fallback
+  const screenVariants: Variants = {
+    initial: (direction: number) => ({
+      opacity: 0,
+      x: shouldReduceMotion ? 0 : direction > 0 ? (isRtl ? -32 : 32) : (isRtl ? 32 : -32),
+    }),
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        x: { type: 'spring' as const, stiffness: 280, damping: 28 },
+        opacity: { duration: 0.22, ease: 'easeOut' as const },
+      },
+    },
+    exit: (direction: number) => ({
+      opacity: 0,
+      x: shouldReduceMotion ? 0 : direction > 0 ? (isRtl ? 24 : -24) : (isRtl ? -24 : 24),
+      transition: {
+        x: { type: 'spring' as const, stiffness: 280, damping: 28 },
+        opacity: { duration: 0.16, ease: 'easeIn' as const },
+      },
+    }),
   };
 
   return (
-    <div className="min-h-screen bg-obsidian-900 text-slate-100 flex flex-col font-cairo">
-      {/* Top Navigation */}
+    <div className="min-h-screen bg-[#0B132B] text-slate-100 flex flex-col font-sans transition-all duration-200">
       <Navbar
-        currentView={currentView}
-        onNavigateHome={handleNavigateHome}
+        currentScreen={currentScreen}
+        onNavigate={(screen, tId) => handleNavigate(screen, tId)}
+        profile={profile}
+        onOpenAgentsModal={handleOpenAgentsModal}
+        onOpenStorageModal={handleOpenStorageModal}
+        onOpenTextbookModal={handleOpenTextbookModal}
       />
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6">
-        {currentView === 'selector' && (
-          <ExamPaperSelector onSelectPaper={handleSelectPaper} />
-        )}
+      <main className="flex-1 relative overflow-x-hidden min-h-[calc(100vh-8rem)]">
+        <AnimatePresence mode="wait" custom={navDirection}>
+          <motion.div
+            key={currentScreen}
+            custom={navDirection}
+            variants={screenVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="w-full"
+          >
+            {currentScreen === 'dashboard' && (
+              <DashboardScreen
+                onNavigateToTopic={(tId) => handleNavigate('topic_detail', tId)}
+                onNavigateToPractice={(tId) => handleNavigate('practice', tId)}
+                onNavigateToFsrs={(tId) => handleNavigate('fsrs', tId)}
+                onNavigateToFormulaLab={() => handleNavigate('formula_lab')}
+                onNavigateToSimulatedExam={() => handleNavigate('simulated_exam')}
+                onOpenAgentsModal={handleOpenAgentsModal}
+                onOpenTextbookModal={handleOpenTextbookModal}
+                topicMasteries={topicMasteries}
+                profile={profile}
+              />
+            )}
 
-        {currentView === 'exam' && selectedPaperId && (
-          <ExamSimulatorScreen
-            paperId={selectedPaperId}
-            onBackToSelector={handleNavigateHome}
-          />
-        )}
+            {currentScreen === 'simulations' && (
+              <SimulationLabScreen />
+            )}
+
+            {currentScreen === 'formula_lab' && (
+              <FormulaLabScreen
+                onBack={() => handleNavigate('dashboard')}
+              />
+            )}
+
+            {currentScreen === 'fsrs' && (
+              <FsrsReviewScreen
+                topicId={activeTopicId}
+                onBack={() => handleNavigate('dashboard')}
+                onXpEarned={handleXpEarned}
+              />
+            )}
+
+            {currentScreen === 'simulated_exam' && (
+              <SimulatedExamScreen
+                onBack={() => handleNavigate('dashboard')}
+                onXpEarned={handleXpEarned}
+              />
+            )}
+
+            {currentScreen === 'topic_detail' && (
+              <TopicDetailScreen
+                topicId={activeTopicId}
+                onBack={() => handleNavigate('dashboard')}
+                onNavigateToPractice={(tId: string) => handleNavigate('practice', tId)}
+              />
+            )}
+
+            {currentScreen === 'practice' && (
+              <PracticeScreen
+                topicId={activeTopicId}
+                onBack={() => handleNavigate('dashboard')}
+                onXpEarned={handleXpEarned}
+              />
+            )}
+
+            {currentScreen === 'settings' && (
+              <SettingsScreen
+                profile={profile}
+                onBack={() => handleNavigate('dashboard')}
+                onProfileUpdated={(updatedProfile: WellbeingProfile) => setProfile(updatedProfile)}
+                onOpenStorageModal={handleOpenStorageModal}
+              />
+            )}
+          </motion.div>
+        </AnimatePresence>
       </main>
 
-      {/* Footer */}
-      <footer className="mt-auto border-t border-slate-800/80 bg-obsidian-950/80 py-6 px-4 text-center text-xs text-slate-400">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-1.5 font-medium">
-            <ShieldCheck className="w-4 h-4 text-bioteal" />
-            <span>نظام محاكي الأحياء للثانوية العامة • متوافق مع نظام التقييم الوزاري المصري</span>
-          </div>
+      {/* 7 AI Agents Dialog */}
+      <SevenAgentsModal
+        isOpen={isAgentsModalOpen}
+        onClose={handleCloseAgentsModal}
+      />
 
-          <div className="flex items-center gap-1 text-[11px] text-slate-500">
-            <span>صُمم بإتقان لدعم طلاب الثانوية العامة في مصر</span>
-            <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" />
-            <span>100% Offline-First</span>
-          </div>
-        </div>
-      </footer>
+      {/* Persistent Storage Vault Dialog */}
+      <StorageVaultModal
+        isOpen={isStorageModalOpen}
+        onClose={handleCloseStorageModal}
+        onDataRestored={handleDataRestored}
+      />
+
+      {/* Official Ministry Textbook Download Dialog */}
+      <MinistryTextbookModal
+        isOpen={isTextbookModalOpen}
+        onClose={handleCloseTextbookModal}
+      />
     </div>
+  );
+}
+
+export function App() {
+  return (
+    <LanguageProvider>
+      <MainApp />
+    </LanguageProvider>
   );
 }
 

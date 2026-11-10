@@ -1,118 +1,205 @@
-# 🧬 Scholar Sidekick (BioThanaweya / smarts.bio)
+# 🧬 BioThanaweya (البيولوجيا للثانوية العامة - لغات)
 
-> **The Next-Generation Offline-First Learning Ecosystem for Egyptian Thanawya Amma Biology**
+<p align="center">
+  <img src="public/icon.svg" width="128" height="128" alt="BioThanaweya Logo" />
+</p>
 
-[![Build Status](https://github.com/AlySelim2001/BioThanaweya/actions/workflows/build.yaml/badge.svg)](https://github.com/AlySelim2001/BioThanaweya/actions)
-[![Platform Support](https://img.shields.io/badge/Platform-Android%20%7C%20Cross--Platform-blue.svg)](https://www.android.com)
-[![Architecture](https://img.shields.io/badge/Architecture-Offline--First%20Bento-success.svg)](#-core-architectural-pillars)
-[![Flutter Version](https://img.shields.io/badge/Flutter-3.19.x%20%7C%20Stable-02569B?logo=flutter)](https://flutter.dev)
-[![JDK](https://img.shields.io/badge/JDK-17%20Temurin-ED8B00?logo=openjdk)](https://adoptium.net)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<p align="center">
+  <strong>Elite Egyptian Thanaweya Amma Biology Learning Platform & Ministry Exam Simulator</strong><br>
+  <em>منظومة متقدمة لمراجعة واختبار مادة الأحياء لطلاب مدارس اللغات وفق أحدث معايير ونماذج إجابة وزارة التربية والتعليم المصرية</em>
+</p>
 
----
-
-## 🌟 Overview & Vision
-**Scholar Sidekick (BioThanaweya)** is a state-of-the-art mobile educational ecosystem engineered specifically for Egyptian high school science students. Built with an uncompromising commitment to performance, privacy, and zero-latency learning, the application operates **100% offline**, ensuring uninterrupted access to the complete biology curriculum anywhere, anytime.
-
----
-
-## 🏛️ Core Architectural Pillars
-
-1. **100% Offline-First Engine:** 
-   * Zero network dependency for core learning modules.
-   * Instant local caching and reactive state management powered by `SharedPreferences` and local JSON asset bundling.
-   * Real-time local auto-save for exam simulations, guaranteeing zero data loss.
-
-2. **Comprehensive Curriculum Scope (11 Chapters):**
-   * Covers all Egyptian Thanawya Amma biology modules—from *Structural Support & Movement in Living Organisms* and *Hormonal Coordination* to *Reproduction, Immunity, Molecular Genetics (DNA & RNA), and Advanced Biotechnology*.
-
-3. **Cyber-Biology Bento Grid & Glassmorphism UI:**
-   * Ultra-modern OLED dark theme palette (`#0A192F` Obsidian background, `#112240` glass cards, `#64FFDA` Neon Teal accents, and `#2E7D32` Emerald indicators).
-   * Native Arabic RTL layout (`TextDirection.rtl`, `ar_EG` locale) with precise Cairo typography hierarchy.
-
-4. **Automated DevOps & CI/CD Pipeline:**
-   * Fully automated GitHub Actions workflow (`.github/workflows/build.yaml`) that verifies dependencies, compiles Flutter artifacts, and builds production-ready release APKs.
+<p align="center">
+  <a href="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/ci.yml"><img src="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/ci.yml/badge.svg" alt="CI Pipeline" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-teal.svg" alt="License: MIT" /></a>
+  <a href="https://nodejs.org"><img src="https://img.shields.io/badge/Node.js-22%20LTS-green.svg" alt="Node.js 22 LTS" /></a>
+  <a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-5.7%20Strict-blue.svg" alt="TypeScript Strict" /></a>
+  <a href="https://web.dev/progressive-web-apps/"><img src="https://img.shields.io/badge/PWA-100%25%20Offline-orange.svg" alt="PWA 100% Offline" /></a>
+  <a href="https://termux.dev"><img src="https://img.shields.io/badge/Platform-Termux%20%7C%20Android%20%7C%20Linux-purple.svg" alt="Platform: Termux / Android" /></a>
+</p>
 
 ---
 
-## 📱 Core Interface Suite
-* **The Mastery Dashboard (`BoundDashboardScreen`):** Real-time progress tracking across all 11 chapters with circular completion rings and quick-launch navigation.
-* **The Immersive Exam Simulator (`BoundExamScreen`):** Timed ministerial-style mock exams with instant local state persistence and option feedback.
-* **The Offline Full-Text Search Engine (`BoundSearchScreen`):** Sub-millisecond local keyword indexing across questions, explanations, and terms.
-* **The 3D-Like Cellular Organelle Viewport (`ModernCellSimulationScreen`):** Interactive visual simulation of mitochondria, nucleus, chloroplasts, and ribosomes with official ministerial exam takeaways.
+## 📖 Table of Contents / فهرس المحتويات
+- [🇪🇬 نبذة عامة ومعايير الوزارة (Arabic Overview)](#-نبذة-عامة-ومعايير-الوزارة)
+- [🌟 7-Agent AI Learning Framework](#-7-agent-ai-learning-framework)
+- [🏛️ Repository Architecture & Directory Structure](#️-repository-architecture--directory-structure)
+- [📱 Termux & Mobile Android Setup (دليل تشغيل تيرمكس)](#-termux--mobile-android-setup)
+- [📲 PWA Offline Installation (التثبيت على الهاتف)](#-pwa-offline-installation)
+- [💾 Local Storage & JSON Vault (قاعدة البيانات وإدارة البيانات)](#-local-storage--json-vault)
+- [🔬 Interactive Formula Lab (معمل حل مسائل الأحياء)](#-interactive-formula-lab)
+- [🛠️ Developer Field Guide (دليل المطور الميداني)](DEVELOPER_GUIDE.md)
+- [🤝 Contributing & Community (المساهمة والتطوير)](#-contributing--community)
+- [📄 License & Attribution](#-license--attribution)
 
 ---
 
-## 📚 Curriculum Mapping (11 Thanawya Amma Chapters)
+## 🇪🇬 نبذة عامة ومعايير الوزارة (Arabic Overview)
 
-| # | Chapter Title (بالعربية) | English Topic | Focus Areas |
-|---|---|---|---|
-| **01** | الدعامة والحركة في الكائنات الحية | Support & Movement | Physiological/structural support, sliding filament theory |
-| **02** | التنسيق الهرموني في الكائنات الحية | Hormonal Coordination | Endocrine glands, feedback loops, thyroxine, ADH |
-| **03** | التكاثر في الكائنات الحية | Reproduction | Parthenogenesis, alternation of generations, gametogenesis |
-| **04** | المناعة في الكائنات الحية | Immunity | Innate vs. adaptive immunity, perforin, humoral & cell-mediated |
-| **05** | DNA والمحمل الوراثي وتضاعفه | DNA & Replication | Double helix, helicase, DNA polymerase, ligase, Okazaki |
-| **06** | الأحماض النووية RNA وبناء البروتين | RNA & Protein Synthesis | Transcription, AUG translation, ribosomes, genetic code |
-| **07** | التقنية الحيوية وهندسة الوراثة | Biotechnology | Bacterial restriction enzymes, PCR, recombinant DNA |
-| **08** | التغذية والهضم والتمثيل الغذائي | Nutrition & Digestion | Photosynthesis, Calvin cycle, PGAL, digestive enzymes |
-| **09** | النقل والتنفس الخلوي وإنتاج الطاقة | Transport & Respiration | Cohesion-tension, transpiration, glycolysis, Krebs, 38 ATP |
-| **10** | الإخراج والتنظيم الأسموزي والحراري | Excretion | Nephron ultrafiltration, selective reabsorption, skin |
-| **11** | المراجعات الشاملة والمحاكي الوزاري الفائق | Comprehensive Exam Simulator | Timed full-length ministerial mock exams and trap analysis |
+صُمم تطبيق **BioThanaweya** ليكون الأداة التفاعلية الأولى المجانية بالكامل (100% FOSS) والمفتوحة المصدر الموجهة لطلاب الثانوية العامة (مدارس اللغات والرسمية المتميزة والتجريبية لغات والخاصة لغات)، لتغطية منهج علم الأحياء (Biology Syllabus) للوحدتين:
+1. **Unit 1: Structure and Function in Living Organisms**  
+   - Support and Movement in Living Organisms (الدعامة والحركة).
+   - Hormonal Coordination (التنسيق الهرموني).
+   - Reproduction in Living Organisms (التكاثر).
+   - Immunity in Living Organisms (المناعة).
+2. **Unit 2: Molecular Biology**  
+   - DNA and Genetic Information (الحمض النووي والمعلومات الوراثية).
+   - RNA, Genetic Code and Protein Synthesis (الأحماض النووية وتخليق البروتين والتكنولوجيا الجزيئية).
 
----
-
-## 🚀 Getting Started & Local Development
-
-### Prerequisites
-* Flutter SDK (v3.19.x or higher)
-* Dart SDK
-* Java JDK 17 (Eclipse Temurin)
-* Android SDK / Command Line Tools (minSdk 24, compileSdk 36)
-
-### Installation Steps
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/AlySelim2001/BioThanaweya.git
-   ```
-
-2. Navigate to the project directory:
-   ```bash
-   cd BioThanaweya
-   ```
-
-3. Install dependencies:
-   ```bash
-   flutter pub get
-   ```
-
-4. Run the application:
-   ```bash
-   flutter run
-   ```
-
-5. Run local tests:
-   ```bash
-   flutter test
-   ```
+### ⚖️ صرامة نماذج الإجابة (Ministry Mark Schemes)
+يحتوي النظام على محرك تدقيق يماثل نماذج تصحيح مستشاري المادة بالوزارة، ويقوم باحتساب الخصومات الإلزامية في حال إغفال:
+- الأيونات المحورية مثل الكالسيوم ($Ca^{2+}$) في تحفيز انطلاق الأسيتيل كولين وتكوين الروابط المستعرضة.
+- الإنزيمات الحيوية مثل الكولين إستريز ($Cholinesterase$) لعودة الغشاء لحالة الاستقطاب، وإنزيمات الربط واللملمة في تضاعف الـ DNA.
+- المناطق الهيكلية للقطعة العضلية ($A-band, I-band, H-zone, Z-lines$).
 
 ---
 
-## ⚙️ Automated CI/CD & Releases
-The project utilizes GitHub Actions to automate release builds defined in [`.github/workflows/build.yaml`](.github/workflows/build.yaml). Every verified push to `main` triggers a clean build sequence that:
-1. Dynamically detects the project workspace root.
-2. Provisions Java 17 and Flutter stable SDK.
-3. Resolves dependencies and compiles release APK binaries via `flutter build apk --release`.
-4. Calculates SHA-256 integrity checksums.
-5. Publishes `smarts-bio-release-apk` as a downloadable artifact retained for 30 days.
+## 🌟 7-Agent AI Learning Framework
+
+BioThanaweya integrates a 7-agent pedagogical scaffolding system:
+
+| Agent | Role | Educational Scaffolding |
+| :--- | :--- | :--- |
+| **Agent 1** | **Master Biology Educator** | Dual-layer explanations: deep technical molecular mechanics paired with Egyptian Arabic ELI5 analogies, with Bloom's Taxonomy progression. |
+| **Agent 2** | **Visual Learning Architect** | Monospace LTR ASCII schematics, visual inspection cues, and diagram recognition markers. |
+| **Agent 3** | **Assessment Specialist** | Authentic Ministry question types (*Scientific Term*, *Give Reason*, *What Happens If*, *MCQ*), unmasking Exam Traps and golden rules. |
+| **Agent 4** | **Ministry Examiner & FSRS Engine** | Keyword deduction grading and modern spaced repetition scheduling based on FSRS v4.5/v5 parameters. |
+| **Agent 5** | **Metacognitive Evaluator** | Confidence-accuracy calibration widget detecting overconfidence bias (Dunning-Kruger) and underconfidence imposter doubt. |
+| **Agent 6** | **Problem-Based Learning (PBL)** | Real-world toxicology cases, autoimmune disorders, and genetic engineering missions with rubric grading. |
+| **Agent 7** | **Student Wellbeing & Gamification** | Active study streaks, XP progression, achievement badges, anxiety scoring, and Pomodoro study intervals. |
 
 ---
 
-## 📞 Contact & Support
-* **Developer / Creator:** علي سليم (Aly Selim)
-* **WhatsApp:** [+201119886662](https://wa.me/201119886662)
-* **GitHub Repository:** [https://github.com/AlySelim2001/BioThanaweya](https://github.com/AlySelim2001/BioThanaweya)
+## 🏛️ Repository Architecture & Directory Structure
+
+```text
+AlySelim2001/BioThanaweya
+├── .github/
+│   └── workflows/
+│       └── ci.yml               # Automated GitHub Actions CI (Node 22, Lint & Build)
+├── .env.example                 # Zero-trust environment configuration template
+├── .gitignore                   # Production ignore file for Node.js, Vite & secrets
+├── LICENSE                      # Official MIT License (100% FOSS)
+├── CONTRIBUTING.md              # Community guidelines & PR conventions
+├── README.md                    # Comprehensive bilingual documentation
+├── index.html                   # HTML5 mobile viewport & PWA meta tags
+├── package.json                 # FOSS dependencies & dual runtime commands
+├── package-lock.json            # Deterministic dependency lock
+├── tsconfig.json                # Strict TypeScript configuration with PWA types
+├── vite.config.ts               # Vite 6 bundler with Tailwind CSS v4 & VitePWA
+├── server.ts                    # Low-resource Express server with 128MB memory guard
+├── public/                      # Static assets & Web App Manifest icons
+│   ├── icon.svg                 # High-contrast vector brand icon
+│   ├── pwa-192x192.png          # Android home-screen icon (192px)
+│   ├── pwa-512x512.png          # High-resolution splash icon (512px)
+│   ├── pwa-maskable-512x512.png # Adaptive maskable Android icon
+│   └── apple-touch-icon.png     # iOS Safari touch icon (180x180)
+└── src/                         # Application source code (Clean Architecture)
+    ├── main.tsx                 # React 19 client bootstrap
+    ├── App.tsx                  # Main router, state coordinator & modal mounts
+    ├── types/                   # Relational domain schemas & TypeScript types
+    ├── services/                # Business logic, FSRS algorithm & database
+    │   ├── db/
+    │   │   ├── indexedDbEngine.ts # 100% FOSS client-side IndexedDB engine
+    │   │   └── backupService.ts   # JSON export/import & rolling auto-snapshots
+    │   ├── storage.ts           # Ultra-fast memory cache + async persistence bridge
+    │   ├── curriculumRepository.ts # Official Ministry syllabus content
+    │   ├── examinerEngine.ts    # Model answer evaluation & deduction grading
+    │   ├── fsrs.ts              # Spaced repetition scheduling calculation
+    │   └── calculators.ts       # Sarcomere, Chargaff, and Codon mathematical solvers
+    ├── components/              # Modular UI components
+    │   ├── Navbar.tsx           # Brand header, sync indicator & PWA install trigger
+    │   ├── StorageVaultModal.tsx# Visual database manager, quota meter & backup controls
+    │   ├── PWAInstallButton.tsx # Standalone home-screen install trigger (Android/iOS)
+    │   └── SevenAgentsModal.tsx # Educational scaffolding breakdown modal
+    └── screens/                 # Full application views
+        ├── DashboardScreen.tsx  # Curriculum hub & chapters view
+        ├── TopicDetailScreen.tsx# Educator explanations & ASCII schematics
+        ├── PracticeScreen.tsx   # Ministry exam practice & trap solver
+        ├── FormulaLabScreen.tsx # Interactive biological formula calculators
+        ├── FsrsReviewScreen.tsx # Spaced repetition flashcard review
+        ├── SimulatedExamScreen.tsx # Timed 45-minute Ministry simulated examination
+        └── SettingsScreen.tsx   # Pomodoro timing & database storage vault
+```
 
 ---
 
-## 📄 License
-Distributed under the **MIT License**. See [LICENSE](LICENSE) for more information.
+## 📱 Termux & Mobile Android Setup
+
+تطبيق BioThanaweya مُحسّن تماماً للعمل داخل بيئة **Termux** على هواتف أندرويد ذات الإمكانيات المحدودة مع حماية الذاكرة العشوائية تحت سقف 128MB RAM:
+
+```bash
+# 1. تحديث حزم تيرمكس وتثبيت Node.js و Git
+pkg update -y && pkg install nodejs-lts git -y
+
+# 2. استنساخ المستودع والدخول للمجلد
+git clone https://github.com/AlySelim2001/BioThanaweya.git
+cd BioThanaweya
+
+# 3. تثبيت التبعيات المجانية
+npm install
+
+# 4. تشغيل خادم التطبيق المتكامل (Full-Stack Mode مع قاطع دائرة الذاكرة)
+npm run dev
+
+# 5. أو تشغيل واجهة الويب الخفيفة للعميل فقط (Client-Only Mode)
+npm run dev:client
+```
+*افتح المتصفح على الهاتف وانتقل إلى:* `http://localhost:3000`
+
+---
+
+## 📲 PWA Offline Installation (التثبيت على الهاتف)
+
+BioThanaweya operates as a true Progressive Web App with 100% offline capability:
+
+- **Android (Chrome / Brave / Edge)**:
+  - اضغط على زر **Install App** الموجود في شريط التنقل العلوي أو قائمة المتصفح (`⋮`) ثم اختر **Install App** / **Add to Home Screen**.
+  - سيظهر التطبيق على الشاشة الرئيسية للهاتف ويعمل بشاشة كاملة وبدون شريط عنوان المتصفح.
+- **iOS (Safari)**:
+  - اضغط على زر **المشاركة** (Share icon) في شريط سفاري السفلي.
+  - اختر **Add to Home Screen** (إضافة إلى الصفحة الرئيسية).
+- **Offline Reliability**:
+  - يقوم الـ Service Worker بتخزين جميع ملفات الـ JavaScript والـ CSS والخطوط والبيانات محلياً للعمل بدون إنترنت نهائياً.
+
+---
+
+## 💾 Local Storage & JSON Vault (قاعدة البيانات وإدارة البيانات)
+
+- **IndexedDB Relational Engine (`BioThanaweyaDB_v1`)**:
+  - يتجاوز حد الـ 5MB المحدود لـ `localStorage` لتخزين آلاف الكروت والامتحانات وسجلات المراجعة.
+- **Auto-Snapshots (لقطات الحفظ التلقائية)**:
+  - يتم أخذ نسخة احتياطية ذاتية بعد كل امتحان أو جلسة مراجعة مع الاحتفاظ بآخر 5 لقطات متداولة.
+- **1-Click JSON Backup & Restore (تصدير واستيراد البيانات)**:
+  - اضغط على أيقونة **Local DB** في شريط التنقل لفتح **Storage Vault**.
+  - حمّل نسخة احتياطية من كل تقدمك التعليمي بنقرة واحدة بصيغة JSON لنقلها لأي جهاز آخر واستعادتها بسلاسة.
+
+---
+
+## 🔬 Interactive Formula Lab (معمل حل مسائل الأحياء)
+
+يتضمن التطبيق حواسب فورية للمسائل الرياضية وفق القوانين الإلزامية للثانوية العامة:
+1. **Sarcomere Landmark Solver**:
+   - حساب $Z-lines = n + 1$، $A-bands = n$، $I_{complete} = n - 1$.
+   - التحقق من ثبات طول المنطقة الداكنة وانعدام المنطقة شبه المضيئة ($H = 0$) أثناء الانقباض التام.
+2. **Chargaff DNA Helix Calculator**:
+   - التحقق من تكافؤ البيورينات والبيريميدينات ($A = T$, $G = C$, $Purines = 50\%$).
+   - حساب عدد اللفات (10 أزواج قواعد لكل لفة)، وعدد الروابط الهيدروجينية ($2A + 3G$).
+3. **Translation & Codon Calculator**:
+   - حساب عدد الأحماض الأمينية المستخلصة، استثناء كودون الوقف، حساب جزيئات الماء المفقودة، وعدد روابط الببتيد.
+
+---
+
+## 🤝 Contributing & Community (المساهمة والتطوير)
+
+المشروع مفتوح للمساهمات من المطورين والمعلمين والطلاب. نرجو مراجعة دليل المساهمة [CONTRIBUTING.md](CONTRIBUTING.md) للتعرف على:
+- معايير كتابة الكود النظيف (Clean Code Standards).
+- قواعد التسمية في Git والرسائل الموحدة (Conventional Commits).
+- خطوات إجراء التحقق القبلي (`npm run lint` و `npm run build`).
+
+---
+
+## 📄 License & Attribution
+
+Distributed under the **MIT License**. See [LICENSE](LICENSE) for details.  
+100% Free and Open Source Software (FOSS). Developed with pride for Egyptian Thanaweya Amma students. 🇪🇬🧬

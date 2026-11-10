@@ -119,30 +119,31 @@ export const MinistryExaminerEngine = {
 
   isKeywordPresent(studentText: string, keyword: string): boolean {
     const kw = keyword.toLowerCase().trim();
-    if (studentText.includes(kw)) return true;
+    const text = studentText.toLowerCase().trim();
+    if (text.includes(kw)) return true;
 
     // Normalizing spaces, hyphens
     const cleanKw = kw.replace(/-/g, ' ').replace(/\s+/g, ' ');
-    const cleanText = studentText.replace(/-/g, ' ').replace(/\s+/g, ' ');
+    const cleanText = text.replace(/-/g, ' ').replace(/\s+/g, ' ');
     if (cleanText.includes(cleanKw)) return true;
 
     // Biological synonym checks
-    if (kw.includes('calcium') && (studentText.includes('ca2+') || studentText.includes('ca++') || studentText.includes('ca2') || studentText.includes('ca ions'))) return true;
-    if (kw.includes('acetylcholine') && (studentText.includes('ach') || studentText.includes('acetyl-choline'))) return true;
-    if (kw.includes('cholinesterase') && (studentText.includes('acetylcholinesterase') || studentText.includes('ache'))) return true;
-    if (kw.includes('atp') && studentText.includes('adenosine triphosphate')) return true;
-    if (kw.includes('cross bridge') && (studentText.includes('cross-bridge') || studentText.includes('transverse hook') || studentText.includes('transverse hooks'))) return true;
-    if (kw.includes('sarcoplasmic reticulum') && studentText.includes('sr')) return true;
-    if (kw.includes('t helper') && (studentText.includes('th') || studentText.includes('cd4') || studentText.includes('cd4+'))) return true;
-    if (kw.includes('cytotoxic') && (studentText.includes('tc') || studentText.includes('cd8') || studentText.includes('cd8+'))) return true;
-    if (kw.includes('perforin') && studentText.includes('perforating')) return true;
-    if (kw.includes('repolarization') && (studentText.includes('resting potential') || studentText.includes('polarization'))) return true;
-    if (kw.includes('helicase') && (studentText.includes('unwind') || studentText.includes('unzip'))) return true;
-    if (kw.includes('okazaki') && (studentText.includes('lagging') || studentText.includes('fragments'))) return true;
+    if (kw.includes('calcium') && (text.includes('ca2+') || text.includes('ca++') || text.includes('ca2') || text.includes('ca ions'))) return true;
+    if (kw.includes('acetylcholine') && (text.includes('ach') || text.includes('acetyl-choline'))) return true;
+    if (kw.includes('cholinesterase') && (text.includes('acetylcholinesterase') || text.includes('ache'))) return true;
+    if (kw.includes('atp') && text.includes('adenosine triphosphate')) return true;
+    if (kw.includes('cross bridge') && (text.includes('cross-bridge') || text.includes('transverse hook') || text.includes('transverse hooks'))) return true;
+    if (kw.includes('sarcoplasmic reticulum') && text.includes('sr')) return true;
+    if (kw.includes('t helper') && (text.includes('th') || text.includes('cd4') || text.includes('cd4+'))) return true;
+    if (kw.includes('cytotoxic') && (text.includes('tc') || text.includes('cd8') || text.includes('cd8+'))) return true;
+    if (kw.includes('perforin') && text.includes('perforating')) return true;
+    if (kw.includes('repolarization') && (text.includes('resting potential') || text.includes('polarization'))) return true;
+    if (kw.includes('helicase') && (text.includes('unwind') || text.includes('unzip'))) return true;
+    if (kw.includes('okazaki') && (text.includes('lagging') || text.includes('fragments'))) return true;
 
     const words = kw.split(' ').filter((w) => w.length > 3);
     if (words.length >= 2) {
-      if (words.every((w) => studentText.includes(w))) return true;
+      if (words.every((w) => text.includes(w))) return true;
     }
 
     return false;

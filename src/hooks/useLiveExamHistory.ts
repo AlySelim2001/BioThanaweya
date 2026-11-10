@@ -47,7 +47,7 @@ export function useLiveExamHistory(paperIdFilter?: string): ExamHistorySummary {
   let highestScore = 0;
   let totalTime = 0;
 
-  attempts.forEach((att) => {
+  attempts.forEach((att: ExamAttempt) => {
     totalPctSum += att.percentage;
     if (att.scoreObtained > highestScore) {
       highestScore = att.scoreObtained;

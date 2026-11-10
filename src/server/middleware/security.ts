@@ -68,8 +68,7 @@ export function globalErrorHandler(
       type: 'https://tools.ietf.org/html/rfc7231#section-6.5.1',
       title: 'Bad Request - Validation Error',
       status: 400,
-      detail: 'The submitted request payload failed strict schema validation.',
-      errors: err.issues.map((e: any) => ({
+      errors: (err.issues || (err as any).errors || []).map((e: any) => ({
         path: Array.isArray(e.path) ? e.path.join('.') : String(e.path),
         message: e.message,
       })),

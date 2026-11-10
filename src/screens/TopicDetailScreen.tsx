@@ -10,7 +10,6 @@ import {
   Zap,
   Bookmark,
   CheckCircle,
-  HelpCircle,
 } from 'lucide-react';
 import { getMasterStudyPack } from '../services/curriculumRepository';
 import { AsciiSchematicBox } from '../components/AsciiSchematicBox';
