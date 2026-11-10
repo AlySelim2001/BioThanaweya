@@ -1,188 +1,130 @@
-# BioThanaweya: Offline-First PWA & Capacitor Exam Simulator
+# BioThanaweya (تعلم مع علي) - Mobile Architecture Blueprint & Hub
 
-A production-grade, local-first educational web and mobile application for Egyptian Thanaweya Amma Biology students, engineered with React, TypeScript, Tailwind CSS, Vite, Dexie.js (IndexedDB), and Capacitor for seamless Android bundling and zero-latency offline performance.
-
----
+Production-ready Clean Architecture blueprint, offline-first SQLite database service (`local_database_service.dart`), and interactive architectural telemetry hub (`app_architecture_hub.dart`) for the Egyptian Thanaweya Amma Biology educational ecosystem.
 
 ## User Review & Critical Decisions
 
 > [!IMPORTANT]
-> The architectural directions below were confirmed in Phase 1 clarification:
-> - **Target Stack**: Production React + TypeScript + Vite + Tailwind CSS PWA, architected cleanly to package into Android via Capacitor and Gradle.
-> - **Priority Module**: Comprehensive Ministry Exam Simulator (محاكي الامتحانات الوزارية للثانوية العامة) with 60-mark timing, offline instant scoring, bubble sheet view, exam trap analysis, and detailed rubrics.
-> - **Local-First Storage Engine**: IndexedDB powered by **Dexie.js** with schema versioning, reactive live queries (`useLiveQuery`), real-time auto-save, and offline resilience.
+> The architectural direction has been aligned with the requirements confirmed in Phase 1:
+> - **State Management**: Standardized on **Flutter Riverpod** utilizing `StateNotifier` and `AsyncValue` across presentation and domain layers.
+> - **Offline Persistence**: Implemented using **sqflite** with versioned migrations, relational tables (Chapters, Topics, Questions, Exam Sessions, FSRS Mistakes, Study Notes), indexing, and DAO design patterns.
+> - **Interactive Hub**: Designed as a **Bento Grid Architecture & Telemetry Hub** with live simulated latency/cache benchmarks, CI/CD pipeline triggers, and offline readiness health checks.
 
-- **Confirmed Decision 1**: Establish a modular **Clean Architecture** structure (`types/`, `db/`, `services/`, `hooks/`, `components/`) ensuring strict separation of concerns, complete type safety, zero `any`, and zero `// TODO` stubs.
-- **Confirmed Decision 2**: Implement an offline-first **Dexie.js** database pre-populated with official Egyptian Ministry Biology exam papers (الدور الأول، الدور الثاني، والنماذج الاسترشادية)، question banks, trap explanations, and student attempt histories.
-- **Confirmed Decision 3**: Deliver an immersive **OLED Dark / Glassmorphism** interface adhering to Egyptian Ministry standards with full RTL Arabic typography (Cairo), interactive bubble sheet, countdown pacing timer, and instant diagnostic report cards.
-- **Confirmed Decision 4**: Maintain 100% build integrity across both the web toolchain (`npm run build`) and the Android Gradle pipeline (`gradle :app:assembleDebug`).
+- **Confirmed Decision 1**: State Management pattern set to Riverpod (`StateNotifierProvider` + `AsyncValue` reactive streams).
+- **Confirmed Decision 2**: Local database engine set to `sqflite` with SQLite transactional safety, full offline seed hydration, and zero network dependency.
+- **Confirmed Decision 3**: Architecture Hub widget configured with full interactive Bento Grid UI, live database benchmarks, and GitHub Actions telemetry toggles.
 
 ---
 
 ## 1. Overview & Core Concept
 
-- **What It Does**: Provides Egyptian 3rd Secondary (Thanaweya Amma) biology students with an authentic, offline-first exam simulation environment. Students can take timed 60-mark official ministerial exams, fill in digital bubble sheets, review trap questions (فخاخ الامتحانات), and receive instant rubric-aligned grading and performance analytics—even in airplane mode.
-- **Target Audience / Persona**: High school biology students across Egypt, science teachers, and tutors who need reliable, zero-latency exam practice without relying on unstable internet connections.
-- **Key Value**: 100% offline autonomy, sub-millisecond answer recording, authentic ministerial exam formats, and zero risk of exam progress loss during sudden disconnects or power cuts.
+- **What It Does**: Establishes a production-grade Clean Architecture specification for the BioThanaweya ("تعلم مع علي") mobile application, coupled with two high-fidelity deliverables:
+  1. `lib/core/database/local_database_service.dart`: A rock-solid, 100% offline-first SQLite repository service managing schema setup, migrations, transactions, indexing, and high-performance querying for all 11 Egyptian curriculum chapters.
+  2. `lib/features/architecture_hub/presentation/screens/app_architecture_hub.dart`: A modern, interactive Bento Grid architectural dashboard displaying live offline telemetry, database benchmarks, cross-platform layer breakdown, and GitHub Actions CI/CD status.
+- **Target Audience / Persona**: Egyptian Thanaweya Amma (3rd Secondary - Scientific Branch / علمي علوم) students preparing for high-stakes Ministry of Education Biology exams under poor or zero internet connectivity conditions, as well as lead software engineers maintaining the codebase.
+- **Key Value**: Guarantees sub-15ms local query latency, zero external API costs, deterministic offline data integrity, and complete pedagogical coverage across Units 1 & 2.
 
 ---
 
 ## 2. User Experience & Visual Design
 
 ### Key User Flows
-1. **Exam Selection & Setup**: Student selects an official exam paper (e.g., *ثانوية عامة 2024 - الدور الأول* or *النموذج الاسترشادي الوزاري*), configures the countdown timer (standard 180 min or custom quick drill), and toggles pacing alerts.
-2. **Active Simulation & Bubble Sheet**: 
-   - Split view or toggleable layout displaying the active biology question with high-contrast diagrams, bilingual scientific terms, and 4 radio choices.
-   - Interactive 50-item **Bubble Sheet** allowing rapid jumping, flagging doubtful questions (تعليم للمراجعة), and immediate visual feedback on answered vs. unattempted items.
-3. **Real-time Local Auto-Save**: Every selection is instantly committed to Dexie.js in the background without UI stutter. If the browser or app closes, the session is resumed seamlessly.
-4. **Submission & Instant Scoring**:
-   - Immediate calculation of the official score out of 60 marks (weighted 1-mark and 2-mark questions per Ministry specifications).
-   - Chapter-by-chapter mastery breakdown (الدعامة والحركة، التنسيق الهرموني، التكاثر، المناعة، البيولوجيا الجزيئية DNA & RNA).
-5. **Trap Analysis & Remediation**: Detailed post-exam review highlighting *Why this trap was set* (فخ السؤال), the official ministry reasoning, and bookmarking mistakes for spaced repetition review.
+1. **Architectural Inspection**: The developer or student opens the Architecture Hub and is greeted by a Bento Grid featuring key architectural pillars: Cross-Platform Engine (Flutter/Dart AOT), Offline SQLite Store, Riverpod Reactive Core, and CI/CD Status.
+2. **Interactive Telemetry & Benchmark Execution**: Tapping "Run Offline Benchmark" fires a multi-step query/insert simulation across 500+ biology curriculum records, rendering live read/write latency metrics (ms) and memory footprint.
+3. **Pillar Deep-Dive**: Users expand individual Bento cards (UI/UX Design System, Local Database, CI/CD Pipeline) to view schema definitions, code snippets, and active pipeline stages (Lint, Test, Build, Release).
+4. **Offline Mode Verification**: Users toggle between simulated offline and sync states to verify instantaneous failover and zero-network operational readiness.
 
 ### Visual Identity & Theme
-- **Color Palette & Atmosphere**:
-  - Background: Obsidian Navy (`#0A192F` / `#070F1E`)
-  - Surface & Glass Cards: Deep Slate (`#112240` with `backdrop-blur-md` and `rgba(100, 255, 218, 0.08)` borders)
-  - Primary Accent: Neon Cyan / Bio-Teal (`#64FFDA` / `#00F5D4`)
-  - Secondary Accent: Electric Emerald (`#10B981`)
-  - Warning / Trap Accent: Amber Coral (`#F59E0B` / `#EF4444`)
-  - Text Primary: Pure White / Frost (`#F8FAFC`), Text Muted: Slate (`#94A3B8`)
-- **Typography & Hierarchy**:
-  - Font Family: Arabic Cairo (`font-cairo`), crisp geometric sans-serif for numbers and Latin terminology (`font-mono` for DNA/RNA codons).
-  - High accessibility contrast ratio (WCAG AAA compliant on OLED dark surfaces).
-  - Clear, large touch targets (minimum 48px touch bounding box on mobile).
-- **Interactive Feedback & Motion**:
-  - Smooth bubble sheet selection ripples.
-  - Urgency pulsing timer when less than 15 minutes remain.
-  - Animated progress bars and SVG circular mastery gauges on the final result sheet.
+- **Aesthetic Direction**: *Bioluminescent Cyber-Academic* — sleek, modern dark mode with vivid biological accents that inspire focus and technical trust.
+- **Color Palette & Tokens**:
+  - Background: Deep Navy Void (`#0A192F` / `#0F172A`)
+  - Surface Glass: Translucent Indigo Slate (`#112240` / `#1E293B`) with 1px border (`#233554`)
+  - Primary Biological Accent: Cyan Teal (`#64FFDA` / `#0D9488`)
+  - Warning / Trap Accent: Amber Fire (`#F59E0B` / `#FFAA00`)
+  - Molecular Accent: Electric Violet (`#7C3AED` / `#A78BFA`)
+  - Success Indicator: Emerald Mint (`#10B981`)
+- **Typography & RTL Hierarchy**:
+  - Full Arabic RTL directionality with Cairo / Amiri font styling.
+  - Clear tabular numerical figures for latencies, question counts, and percentages.
+- **Layout & Density**:
+  - Asymmetric Bento Grid adapting fluidly to mobile viewports (`SingleChildScrollView` + Staggered Rows/Columns).
+  - Minimum touch targets of 48dp on all interactive toggles and benchmark triggers.
 
 ---
 
 ## 3. Key Product Decisions & Trade-Offs
 
-- **Decision 1: Architecture Pattern (Clean Layering)**
-  - *Chosen Approach*: Strict 5-tier architecture:
-    1. `src/types/`: Pure TypeScript interfaces and domain models (no dependencies).
-    2. `src/db/`: Dexie database class, schema migrations, and seed loaders.
-    3. `src/services/`: Pure business logic and scoring algorithms (`MinistryExamScoringEngine`, `PacingEngine`).
-    4. `src/hooks/`: Reactive React hooks (`useExamSession`, `useExamHistory`, `useOfflineSync`).
-    5. `src/components/`: Modular presentation components with Tailwind CSS.
-  - *Why*: Ensures maximum maintainability, zero circular dependencies, easy unit testing, and instant code portability.
+- **Decision 1: Native vs. Cross-Platform (Flutter Choice)**
+  - *Chosen Approach*: Single Flutter/Dart codebase compiling natively to ARM64 for Android and iOS.
+  - *Why*: Eliminates dual-team maintenance overhead while delivering 60/120 FPS performance, hot reload velocity, and pixel-perfect Arabic RTL layouts.
+  - *Alternatives Considered*: Native Kotlin/Jetpack Compose only (limits future iOS/Web deployment) or React Native (slower JSI bridge for complex canvas diagrams).
 
-- **Decision 2: Persistence (Dexie.js IndexedDB vs. LocalStorage)**
-  - *Chosen Approach*: Dexie.js IndexedDB with reactive live queries.
-  - *Why*: `localStorage` is synchronous, limited to 5MB, and easily exhausted by exam diagrams, attempt history, and question banks. Dexie provides asynchronous non-blocking storage, multi-gigabyte capacity, compound indexing, and reactive React state synchronization.
+- **Decision 2: Local Persistence Strategy (SQLite via `sqflite`)**
+  - *Chosen Approach*: Relational SQLite database with explicit SQL schema tables, foreign key constraints, composite indexes, and versioned migrations.
+  - *Why*: Provides relational integrity for complex educational relationships (Chapters -> Topics -> Questions -> Mistakes -> Spaced Repetition Intervals), full-text search capability, and rock-solid ACID transactions without cloud dependencies.
+  - *Alternatives Considered*: SharedPreferences alone (insufficient for relational joins and queries), Isar (heavier binary overhead and compatibility nuances), Firebase (requires internet connection and recurring costs).
 
-- **Decision 3: Android & Gradle Integration via Capacitor**
-  - *Chosen Approach*: Structure the web application output directory (`dist`) to link cleanly into Capacitor Android configuration (`capacitor.config.ts`), ensuring standard Gradle builds (`gradle :app:assembleDebug`) succeed alongside web bundling.
-  - *Why*: Allows single-codebase development for both offline PWA in browser and standalone Android APK.
+- **Decision 3: State Management (Riverpod with `StateNotifier` & `AsyncValue`)**
+  - *Chosen Approach*: Compile-safe, testable Riverpod providers with `AsyncValue` for loading/error/data states.
+  - *Why*: No `BuildContext` dependency for domain logic, easy mocking in unit tests, and seamless UI binding.
 
 ---
 
 ## 4. Technical Architecture & Data Strategy
 
-### System Architecture Diagram
+### Clean Architecture & System Flow Diagram
 
 ```
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                              BioThanaweya Presentation Layer                           │
-│  ┌───────────────────────┐  ┌───────────────────────┐  ┌────────────────────────────┐  │
-│  │ ExamSimulatorScreen   │  │ DigitalBubbleSheet    │  │ ExamResultAnalyticsScreen  │  │
-│  │ (Question View & Nav) │  │ (50-Item Quick Matrix)│  │ (Score /60 & Trap Review)  │  │
-│  └───────────┬───────────┘  └───────────┬───────────┘  └─────────────┬──────────────┘  │
-└──────────────┼──────────────────────────┼────────────────────────────┼─────────────────┘
-               │                          │                            │
-               ▼                          ▼                            ▼
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                               Custom React Hooks Layer                                 │
-│     useExamSession(paperId)   │   useExamScoring()   │   useLiveExamHistory()          │
-└──────────────────────────────┬─────────────────────────────────────────────────────────┘
-                               │
-                               ▼
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                               Services & Domain Logic                                  │
-│  ┌───────────────────────────────────┐       ┌──────────────────────────────────────┐  │
-│  │ MinistryExamScoringEngine         │       │ PacingEfficiencyEngine               │  │
-│  │ - 46 MCQs (32x1 pt + 14x2 pt)     │       │ - Time per question tracking         │  │
-│  │ - 4 Essay Questions (4x2 pt)      │       │ - Target velocity calculation        │  │
-│  │ - Official Trap & Distractor Map  │       │ - Pacing color indicators            │  │
-│  └─────────────────┬─────────────────┘       └──────────────────┬───────────────────┘  │
-└────────────────────┼────────────────────────────────────────────┼──────────────────────┘
-                     │                                            │
-                     ▼                                            ▼
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                          Data Access & Persistence Layer (Dexie.js)                    │
-│   BioDexieDatabase (IndexedDB v1)                                                      │
-│   ├── examPapers: id, title, year, durationMinutes, totalMarks                         │
-│   ├── questions: id, paperId, chapterId, questionNumber, marks, trapExplanation        │
-│   ├── examAttempts: id, paperId, startTime, submitTime, score, isCompleted             │
-│   └── userAnswers: id, attemptId, questionId, selectedOption, isFlagged                │
-└────────────────────────────────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────┐
+│                        PRESENTATION LAYER                              │
+│  ┌────────────────────────┐  ┌──────────────────────────────────────┐  │
+│  │   AppArchitectureHub   │  │        BoundBioAppSuite / UI         │  │
+│  │   (Bento Grid Screen)  │  │   (Dashboard, Quiz, Lab, Planner)    │  │
+│  └───────────┬────────────┘  └──────────────────┬───────────────────┘  │
+│              │                                  │                      │
+│              ▼                                  ▼                      │
+│  ┌──────────────────────────────────────────────────────────────────┐  │
+│  │            StateNotifier / Riverpod State Controllers            │  │
+│  │       (ArchitectureTelemetryNotifier, QuizSessionController)     │  │
+│  └──────────────────────────────────┬───────────────────────────────┘  │
+└─────────────────────────────────────┼──────────────────────────────────┘
+                                      │
+┌─────────────────────────────────────▼──────────────────────────────────┐
+│                           DOMAIN LAYER                                 │
+│  ┌───────────────────────┐  ┌─────────────────┐  ┌──────────────────┐  │
+│  │ Entities & Models     │  │ Repository      │  │ Use Cases        │  │
+│  │ - Chapter, Topic      │  │ Interfaces      │  │ - QueryCurriculum│  │
+│  │ - Question, Mistake   │  │ - ICurriculumRepo│ │ - RecordAttempt   │  │
+│  │ - TelemetryBenchmark  │  │ - IExamRepo     │  │ - RunBenchmark   │  │
+│  └───────────────────────┘  └────────┬────────┘  └──────────────────┘  │
+└──────────────────────────────────────┼─────────────────────────────────┘
+                                       │
+┌──────────────────────────────────────▼─────────────────────────────────┐
+│                            DATA LAYER                                  │
+│  ┌──────────────────────────────────────────────────────────────────┐  │
+│  │                 LocalDatabaseService (SQLite)                    │  │
+│  │  - OpenDatabase & Versioned Migrations (v1 -> v2)                │  │
+│  │  - Tables: chapters, topics, questions, exam_sessions, mistakes  │  │
+│  │  - Indexes on chapter_id, difficulty, is_resolved                │  │
+│  │  - Transactional Batch Inserts & Seed Hydration                  │  │
+│  └──────────────────────────────────┬───────────────────────────────┘  │
+│                                     │                                  │
+│  ┌──────────────────────────────────▼───────────────────────────────┐  │
+│  │          Local Hardware Storage (SQLite File on Device)          │  │
+│  │               100% OFFLINE • ZERO NETWORK CALLS                  │  │
+│  └──────────────────────────────────────────────────────────────────┘  │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Data Models & State Schema
+### Relational Schema Blueprint (SQLite)
+1. **`chapters`**: `(id INTEGER PRIMARY KEY, unit_number INTEGER, title_ar TEXT, title_en TEXT, key_concepts_json TEXT, mastery REAL, cards_due INTEGER)`
+2. **`topics`**: `(id TEXT PRIMARY KEY, chapter_id INTEGER, title_ar TEXT, title_en TEXT, summary_markdown TEXT)`
+3. **`questions`**: `(id TEXT PRIMARY KEY, chapter_id INTEGER, question_text TEXT, options_json TEXT, correct_index INTEGER, explanation TEXT, is_ministry_trap INTEGER)`
+4. **`exam_sessions`**: `(id TEXT PRIMARY KEY, title TEXT, mode TEXT, score_percentage REAL, started_at TEXT, completed_at TEXT, duration_seconds INTEGER)`
+5. **`fsrs_mistakes`**: `(question_id TEXT PRIMARY KEY, chapter_id INTEGER, fail_count INTEGER, stability_days REAL, last_failed_at TEXT, next_review_at TEXT, is_resolved INTEGER)`
+6. **`study_notes`**: `(id TEXT PRIMARY KEY, chapter_id INTEGER, title TEXT, content TEXT, updated_at TEXT)`
 
-```typescript
-// Core Data Contract Summary
-interface Question {
-  id: string;
-  paperId: string;
-  chapterId: string; // e.g., "movement_support", "hormones", "dna_rna"
-  questionNumber: number;
-  marks: 1 | 2;
-  textArabic: string;
-  textEnglish?: string;
-  options: {
-    id: 'A' | 'B' | 'C' | 'D';
-    textArabic: string;
-    textEnglish?: string;
-  }[];
-  correctOptionId: 'A' | 'B' | 'C' | 'D';
-  trapExplanationArabic: string;
-  scientificReference: string;
-  diagramSvgKey?: string;
-}
-
-interface ExamAttempt {
-  id: string;
-  paperId: string;
-  startedAt: number;
-  completedAt?: number;
-  elapsedSeconds: number;
-  scoreObtained: number;
-  maxScore: number; // 60 for official Thanawya Amma
-  isSubmitted: boolean;
-  answers: Record<string, 'A' | 'B' | 'C' | 'D'>;
-  flaggedQuestionIds: string[];
-}
-```
-
----
-
-## 5. Phased Implementation Roadmap
-
-1. **Step 1: Frontend Workspace & Build Configuration**
-   - Configure `package.json` with React 18/19, TypeScript, Vite, Tailwind CSS, Lucide icons, and Dexie.js.
-   - Configure `vite.config.ts`, `tailwind.config.js`, `postcss.config.js`, and `tsconfig.json`.
-   - Setup Capacitor configuration (`capacitor.config.ts`) targeting Android assets.
-
-2. **Step 2: Clean Architecture Domain & Database Layer**
-   - Create `src/types/exam.ts` with strict domain interfaces.
-   - Create `src/db/bioDatabase.ts` with Dexie.js schema and reactive live queries.
-   - Create `src/db/seeds/officialExamsSeed.ts` containing authentic ministerial biology exams (2023, 2024, experimental models) with full questions, options, traps, and diagrams.
-
-3. **Step 3: Scoring & Pacing Domain Services**
-   - Build `src/services/MinistryExamScoringEngine.ts` strictly calculating marks, percentages, trap hit rates, and chapter-by-chapter breakdowns.
-   - Build `src/services/PacingEfficiencyEngine.ts` to guide students on time management.
-
-4. **Step 4: Interactive UI Components & Exam Simulator**
-   - Build `src/components/exam/DigitalBubbleSheet.tsx` for quick 50-item navigation.
-   - Build `src/components/exam/QuestionCard.tsx` with high-contrast typography, options, and diagram rendering.
-   - Build `src/components/exam/ExamHeader.tsx` with timer, pacing gauge, and progress bar.
-   - Build `src/components/exam/ExamResultAnalytics.tsx` with chapter mastery rings, score card, and trap reviews.
-   - Build `src/components/exam/ExamPaperSelector.tsx` for browsing and launching available exam papers.
-
-5. **Step 5: Full Application Integration & Verification**
-   - Connect main app shell in `src/App.tsx` with state routing (Home/Selector -> Active Exam -> Result Analytics).
-   - Verify build pipeline (`npm run build`) and ensure no regressions on the existing Android Gradle configuration.
+### Deliverable File Mapping
+1. **Clean Architecture Directory Guide**: Full textual repository breakdown included in project documentation.
+2. **`lib/core/database/local_database_service.dart`**: Complete SQLite engine handling initialization, schemas, indexing, seeds, and CRUD queries.
+3. **`lib/features/architecture_hub/presentation/screens/app_architecture_hub.dart`**: Interactive Bento Grid UI with real-time benchmark runner, CI/CD telemetry toggles, and expandable architectural cards.

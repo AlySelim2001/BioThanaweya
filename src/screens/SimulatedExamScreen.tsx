@@ -3,13 +3,9 @@ import {
   ArrowLeft,
   Clock,
   Flag,
-  CheckCircle2,
-  AlertCircle,
   Award,
   ChevronRight,
   ChevronLeft,
-  RotateCcw,
-  Sparkles,
   Mic,
   MicOff,
 } from 'lucide-react';

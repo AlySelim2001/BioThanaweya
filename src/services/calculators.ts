@@ -147,7 +147,7 @@ export interface CodonCalculationResult {
 }
 
 export const CodonCalculator = {
-  calculateFromNucleotides(mrnaNucleotides: number, includeStartMethionine = true): CodonCalculationResult {
+  calculateFromNucleotides(mrnaNucleotides: number, _includeStartMethionine = true): CodonCalculationResult {
     if (mrnaNucleotides <= 0) {
       throw new Error('mRNA nucleotides count must be positive.');
     }

@@ -5,8 +5,6 @@ import {
   Activity,
   Dna,
   FlaskConical,
-  Info,
-  CheckCircle,
   AlertCircle,
 } from 'lucide-react';
 import {

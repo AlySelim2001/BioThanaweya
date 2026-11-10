@@ -4,7 +4,6 @@ import {
   CheckCircle2,
   Layers,
   RotateCw,
-  Sparkles,
   TrendingUp,
 } from 'lucide-react';
 import { defaultFsrs } from '../services/fsrs';
