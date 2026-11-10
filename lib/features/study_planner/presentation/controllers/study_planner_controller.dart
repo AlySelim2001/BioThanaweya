@@ -9,9 +9,19 @@ import 'planner_session_state.dart';
 class StudyPlannerController extends StateNotifier<PlannerSessionState> {
   final StudyPlannerRepository _repository;
 
-  StudyPlannerController({StudyPlannerRepository? repository})
-      : _repository = repository ?? StudyPlannerRepositoryImpl(),
-        super(const PlannerSessionState(tasks: [], coachTips: [], completionPercentage: 0.0)) {
+  StudyPlannerController({
+    StudyPlannerRepository? repository,
+    PlannerSessionState? initialState,
+  })  : _repository = repository ?? StudyPlannerRepositoryImpl(),
+        super(
+          initialState ??
+              PlannerSessionState(
+                tasks: AdaptivePlanGenerator.generateAdaptiveTasks(['الفصل الثاني: التنسيق الهرموني']),
+                coachTips: AdaptivePlanGenerator.generateLocalCoachInsights(['الفصل الثاني: التنسيق الهرموني']),
+                completionPercentage: 0.0,
+                isLoading: false,
+              ),
+        ) {
     loadInitialPlan();
   }
 

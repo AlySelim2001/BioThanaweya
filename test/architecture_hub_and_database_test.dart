@@ -1,17 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-
 import 'package:smarts_bio/core/database/local_database_service.dart';
-import 'package:smarts_bio/features/architecture_hub/data/datasources/architecture_local_data_source.dart';
-import 'package:smarts_bio/features/architecture_hub/data/repositories/architecture_hub_repository_impl.dart';
-import 'package:smarts_bio/features/architecture_hub/presentation/screens/app_architecture_hub.dart';
+import 'package:smarts_bio/core/architecture/app_architecture_hub.dart';
+import 'mocks/database_mock.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  sqfliteFfiInit();
-  databaseFactory = databaseFactoryFfi;
+  DatabaseMock.initializeEnvironment();
 
   group('Offline SQLite database service', () {
     late LocalDatabaseService dbService;
@@ -91,13 +87,10 @@ void main() {
       temporaryDirectory = await Directory.systemTemp.createTemp('biothanaweya_hub_test_');
       database = LocalDatabaseService(databasePath: '${temporaryDirectory.path}/hub.db');
       await database.initialize();
-      notifier = ArchitectureHubNotifier.fromRepository(
-        ArchitectureHubRepositoryImpl(SqliteArchitectureDataSource(database)),
-      );
+      notifier = ArchitectureHubNotifier(db: database);
     });
 
     tearDown(() async {
-      notifier.dispose();
       await database.close();
       await temporaryDirectory.delete(recursive: true);
     });

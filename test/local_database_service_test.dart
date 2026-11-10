@@ -1,13 +1,25 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:smarts_bio/core/database/local_database_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'mocks/database_mock.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('Pure Dart SQL-Compatible Local Database Engine Tests', () {
-    setUp(() {
+    setUpAll(() async {
+      DatabaseMock.initializeEnvironment();
+      // Ensure the 11-chapter seed data is injected before any setUp block runs
+      await DatabaseMock.createInitializedAndSetGlobal();
+    });
+
+    setUp(() async {
       SharedPreferences.setMockInitialValues({});
+      await DatabaseMock.ensureGlobalSeeded();
+    });
+
+    tearDownAll(() async {
+      await DatabaseMock.disposeGlobal();
     });
 
     test('LocalDatabaseService initializes schemas and seeds default chapters', () async {

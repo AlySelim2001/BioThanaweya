@@ -1,12 +1,23 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smarts_bio/core/database/local_database_service.dart';
 import 'package:smarts_bio/features/study_planner/domain/entities/study_task.dart';
 import 'package:smarts_bio/features/study_planner/domain/entities/study_schedule.dart';
 import 'package:smarts_bio/features/study_planner/data/datasources/adaptive_plan_generator.dart';
 import 'package:smarts_bio/features/study_planner/data/repositories/study_planner_repository_impl.dart';
 import 'package:smarts_bio/features/study_planner/presentation/controllers/study_planner_controller.dart';
+import 'package:smarts_bio/features/study_planner/presentation/controllers/planner_providers.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   group('Smart Study Planner & AI Coach Tests', () {
+    setUp(() {
+      SharedPreferences.setMockInitialValues({});
+    });
+
     test('StudySchedule calculates completion percentage accurately', () {
       const task1 = StudyTask(
         id: 't1',
@@ -65,12 +76,61 @@ void main() {
       expect(updatedTask.isCompleted, equals(!initialStatus));
     });
 
-    test('StudyPlannerController manages reactive state and completion', () {
+    testWidgets('StudyPlannerController manages reactive state and completion', (WidgetTester tester) async {
+      final container = ProviderContainer(
+        overrides: [
+          localDatabaseServiceProvider.overrideWithValue(LocalDatabaseService.instance),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      await tester.pumpWidget(
+        UncontrolledProviderScope(
+          container: container,
+          child: MaterialApp(
+            home: Scaffold(
+              body: Consumer(
+                builder: (context, ref, _) {
+                  final state = ref.watch(studyPlannerControllerProvider);
+                  return Column(
+                    children: [
+                      Text('Completion: ${state.completionPercentage}'),
+                      for (final task in state.tasks)
+                        Text('Task: ${task.id} ${task.isCompleted}'),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+      );
+
+      // Allow asynchronous state transitions to settle
+      await tester.pumpAndSettle();
+
+      final controller = container.read(studyPlannerControllerProvider.notifier);
+      final initialTasks = container.read(studyPlannerControllerProvider).tasks;
+      expect(initialTasks.isNotEmpty, isTrue);
+
+      final firstId = initialTasks.first.id;
+      await controller.toggleTaskCompletion(firstId);
+
+      // Allow reactive state notification and re-render cycles to settle
+      await tester.pumpAndSettle();
+
+      final updatedState = container.read(studyPlannerControllerProvider);
+      final updatedTask = updatedState.tasks.firstWhere((t) => t.id == firstId);
+      expect(updatedTask.isCompleted, isTrue);
+      expect(updatedState.completionPercentage, greaterThan(0.0));
+    });
+
+    test('StudyPlannerController manages reactive state and completion synchronously', () async {
       final controller = StudyPlannerController();
       expect(controller.state.tasks.isNotEmpty, isTrue);
 
       final firstId = controller.state.tasks.first.id;
-      controller.toggleTaskCompletion(firstId);
+      await controller.toggleTaskCompletion(firstId);
 
       final updatedTask = controller.state.tasks.firstWhere((t) => t.id == firstId);
       expect(updatedTask.isCompleted, isTrue);

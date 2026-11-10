@@ -17,13 +17,13 @@ enum class FSRSState(val value: Int) {
 }
 
 data class FSRSCard(
-    val cardId: String,
-    val due: Date,
-    val stability: Double,
-    val difficulty: Double,
-    val reps: Int,
-    val lapses: Int,
-    val state: FSRSState,
+    val cardId: String = java.util.UUID.randomUUID().toString(),
+    val due: Date = Date(),
+    val stability: Double = 0.0,
+    val difficulty: Double = 0.0,
+    val reps: Int = 0,
+    val lapses: Int = 0,
+    val state: FSRSState = FSRSState.NEW,
     val lastReview: Date? = null
 )
 
@@ -39,6 +39,9 @@ data class SchedulingInfo(
     val card: FSRSCard,
     val reviewLog: ReviewLog? = null
 )
+
+typealias SchedulingRecord = SchedulingInfo
+typealias FSRSItemReviewLog = ReviewLog
 
 class FSRS {
     fun repeat(card: FSRSCard, now: Date): Map<FSRSRating, SchedulingInfo> {

@@ -1,130 +1,116 @@
-# BioThanaweya (تعلم مع علي) - Mobile Architecture Blueprint & Hub
+# BioThanaweya Test Suite & Offline Database Mock Remediation
 
-Production-ready Clean Architecture blueprint, offline-first SQLite database service (`local_database_service.dart`), and interactive architectural telemetry hub (`app_architecture_hub.dart`) for the Egyptian Thanaweya Amma Biology educational ecosystem.
+Comprehensive stabilization and clean architecture refactoring for the BioThanaweya Flutter test suite, addressing state propagation in BiologyLabController, reactive async settlement in StudyPlannerController, and thread-safe SQLite mock isolation in LocalDatabaseService.
 
 ## User Review & Critical Decisions
 
 > [!IMPORTANT]
-> The architectural direction has been aligned with the requirements confirmed in Phase 1:
-> - **State Management**: Standardized on **Flutter Riverpod** utilizing `StateNotifier` and `AsyncValue` across presentation and domain layers.
-> - **Offline Persistence**: Implemented using **sqflite** with versioned migrations, relational tables (Chapters, Topics, Questions, Exam Sessions, FSRS Mistakes, Study Notes), indexing, and DAO design patterns.
-> - **Interactive Hub**: Designed as a **Bento Grid Architecture & Telemetry Hub** with live simulated latency/cache benchmarks, CI/CD pipeline triggers, and offline readiness health checks.
+> All requested changes adhere strictly to Clean Architecture and offline-first test isolation:
+> - **Thread-Safe SQLite Mock (`test/mocks/database_mock.dart`)**: Uses `sqflite_common_ffi` with in-memory or isolated file SQLite instances pre-seeded with all 11 curriculum chapters and 3 official textbooks before any `setUp` lifecycle.
+> - **Biology Lab State Initialization (`test/biology_lab_test.dart`)**: Instantiates `BiologyLabController` with guaranteed non-null state defaults (`zoom=1.0`, `activeHotspot='none'`) and adds a widget test helper verifying synchronous/asynchronous state transitions.
+> - **Study Planner ProviderContainer Refactoring (`test/study_planner_test.dart`)**: Wraps tests with Riverpod `ProviderContainer` and `ProviderScope` overrides for `LocalDatabaseService`, using pump cycles (`tester.pump()` / `tester.pumpAndSettle()`) to ensure reactive state notifiers settle deterministically.
 
-- **Confirmed Decision 1**: State Management pattern set to Riverpod (`StateNotifierProvider` + `AsyncValue` reactive streams).
-- **Confirmed Decision 2**: Local database engine set to `sqflite` with SQLite transactional safety, full offline seed hydration, and zero network dependency.
-- **Confirmed Decision 3**: Architecture Hub widget configured with full interactive Bento Grid UI, live database benchmarks, and GitHub Actions telemetry toggles.
+- **Confirmed Decision 1**: Implement pure, thread-safe SQLite mock environment via `sqflite_common_ffi` in `test/mocks/database_mock.dart` with 11-chapter curriculum pre-seeding.
+- **Confirmed Decision 2**: Refactor `BiologyLabController` and its tests to guarantee non-null defaults (`zoom: 1.0`, `activeHotspotId: 'none'`) and verify state mutation propagation via test helpers.
+- **Confirmed Decision 3**: Upgrade `StudyPlannerController` tests to use Riverpod `ProviderContainer` overrides with asynchronous pump cycles for full reactive state settlement.
 
 ---
 
 ## 1. Overview & Core Concept
 
-- **What It Does**: Establishes a production-grade Clean Architecture specification for the BioThanaweya ("تعلم مع علي") mobile application, coupled with two high-fidelity deliverables:
-  1. `lib/core/database/local_database_service.dart`: A rock-solid, 100% offline-first SQLite repository service managing schema setup, migrations, transactions, indexing, and high-performance querying for all 11 Egyptian curriculum chapters.
-  2. `lib/features/architecture_hub/presentation/screens/app_architecture_hub.dart`: A modern, interactive Bento Grid architectural dashboard displaying live offline telemetry, database benchmarks, cross-platform layer breakdown, and GitHub Actions CI/CD status.
-- **Target Audience / Persona**: Egyptian Thanaweya Amma (3rd Secondary - Scientific Branch / علمي علوم) students preparing for high-stakes Ministry of Education Biology exams under poor or zero internet connectivity conditions, as well as lead software engineers maintaining the codebase.
-- **Key Value**: Guarantees sub-15ms local query latency, zero external API costs, deterministic offline data integrity, and complete pedagogical coverage across Units 1 & 2.
+- **What It Does**: Resolves all test failures across `test/biology_lab_test.dart`, `test/study_planner_test.dart`, and `test/local_database_service_test.dart` by establishing proper database mocks, dependency injection overrides, and event-loop pump settlement.
+- **Target Audience / Persona**: Mobile engineers and CI/CD pipelines running `flutter test --coverage` for the BioThanaweya application, ensuring 100% test pass rate with zero flaky tests.
+- **Key Value**: Delivers zero-uninitialized-database errors, reliable reactive state assertions, and robust test harness infrastructure across all domain modules.
 
 ---
 
 ## 2. User Experience & Visual Design
 
-### Key User Flows
-1. **Architectural Inspection**: The developer or student opens the Architecture Hub and is greeted by a Bento Grid featuring key architectural pillars: Cross-Platform Engine (Flutter/Dart AOT), Offline SQLite Store, Riverpod Reactive Core, and CI/CD Status.
-2. **Interactive Telemetry & Benchmark Execution**: Tapping "Run Offline Benchmark" fires a multi-step query/insert simulation across 500+ biology curriculum records, rendering live read/write latency metrics (ms) and memory footprint.
-3. **Pillar Deep-Dive**: Users expand individual Bento cards (UI/UX Design System, Local Database, CI/CD Pipeline) to view schema definitions, code snippets, and active pipeline stages (Lint, Test, Build, Release).
-4. **Offline Mode Verification**: Users toggle between simulated offline and sync states to verify instantaneous failover and zero-network operational readiness.
+### Test Execution & Developer Experience Flows
+1. **SQLite Mock Initialization**: Tests invoke `DatabaseMock.createInitialized()` to obtain an in-memory SQLite database populated with all 11 chapters, textbooks, and seed questions prior to test suite execution.
+2. **Biology Lab State Verification**: The lab controller tests verify diagram loading, zoom clamping (1.0x to 3.0x), and hotspot activation with explicit widget harness assertions.
+3. **Study Planner Reactive Settlement**: Async task generation and toggles settle cleanly via `tester.pumpAndSettle()`, verifying that state percentage calculations match completed task counts.
 
-### Visual Identity & Theme
-- **Aesthetic Direction**: *Bioluminescent Cyber-Academic* — sleek, modern dark mode with vivid biological accents that inspire focus and technical trust.
-- **Color Palette & Tokens**:
-  - Background: Deep Navy Void (`#0A192F` / `#0F172A`)
-  - Surface Glass: Translucent Indigo Slate (`#112240` / `#1E293B`) with 1px border (`#233554`)
-  - Primary Biological Accent: Cyan Teal (`#64FFDA` / `#0D9488`)
-  - Warning / Trap Accent: Amber Fire (`#F59E0B` / `#FFAA00`)
-  - Molecular Accent: Electric Violet (`#7C3AED` / `#A78BFA`)
-  - Success Indicator: Emerald Mint (`#10B981`)
-- **Typography & RTL Hierarchy**:
-  - Full Arabic RTL directionality with Cairo / Amiri font styling.
-  - Clear tabular numerical figures for latencies, question counts, and percentages.
-- **Layout & Density**:
-  - Asymmetric Bento Grid adapting fluidly to mobile viewports (`SingleChildScrollView` + Staggered Rows/Columns).
-  - Minimum touch targets of 48dp on all interactive toggles and benchmark triggers.
+### Architecture Tokens & Standards
+- Clean separation between Mock Database infrastructure, Domain Repositories, and Presentation Controllers.
+- Zero placeholder comments (`// TODO`) across all test and source files.
+- Thread-safe, cross-platform SQLite test execution (compatible with local JVM/CLI runner and CI/CD Ubuntu runners).
 
 ---
 
 ## 3. Key Product Decisions & Trade-Offs
 
-- **Decision 1: Native vs. Cross-Platform (Flutter Choice)**
-  - *Chosen Approach*: Single Flutter/Dart codebase compiling natively to ARM64 for Android and iOS.
-  - *Why*: Eliminates dual-team maintenance overhead while delivering 60/120 FPS performance, hot reload velocity, and pixel-perfect Arabic RTL layouts.
-  - *Alternatives Considered*: Native Kotlin/Jetpack Compose only (limits future iOS/Web deployment) or React Native (slower JSI bridge for complex canvas diagrams).
+- **Decision 1: SQLite Mocking Strategy (`sqflite_common_ffi` In-Memory vs. SharedPreferences Mock)**
+  - *Chosen Approach*: Implement a thread-safe `MockDatabaseFactory` in `test/mocks/database_mock.dart` that configures `sqflite_common_ffi` with `inMemoryDatabasePath` and runs table creation and 11-chapter seed insertion.
+  - *Why*: Directly tests genuine SQL queries (`SELECT`, `INSERT`, `UPDATE`, `LIKE`, transactions) with exact schema alignment, preventing false positives from naive in-memory hash maps.
+  - *Alternatives Considered*: Pure mockito/mocktail mocking (brittle, misses SQL syntax errors and constraints).
 
-- **Decision 2: Local Persistence Strategy (SQLite via `sqflite`)**
-  - *Chosen Approach*: Relational SQLite database with explicit SQL schema tables, foreign key constraints, composite indexes, and versioned migrations.
-  - *Why*: Provides relational integrity for complex educational relationships (Chapters -> Topics -> Questions -> Mistakes -> Spaced Repetition Intervals), full-text search capability, and rock-solid ACID transactions without cloud dependencies.
-  - *Alternatives Considered*: SharedPreferences alone (insufficient for relational joins and queries), Isar (heavier binary overhead and compatibility nuances), Firebase (requires internet connection and recurring costs).
+- **Decision 2: Riverpod Test Harness for Study Planner**
+  - *Chosen Approach*: Use `ProviderContainer(overrides: [...])` with `ProviderScope` inside `testWidgets` or pure unit test scopes, awaiting asynchronous state changes with proper microtask draining.
+  - *Why*: Riverpod `StateNotifier` requires microtask ticks or pump cycles to notify listeners; this guarantees assertions evaluate only after async loading completes.
 
-- **Decision 3: State Management (Riverpod with `StateNotifier` & `AsyncValue`)**
-  - *Chosen Approach*: Compile-safe, testable Riverpod providers with `AsyncValue` for loading/error/data states.
-  - *Why*: No `BuildContext` dependency for domain logic, easy mocking in unit tests, and seamless UI binding.
+- **Decision 3: Non-Null Initial Defaults for Biology Lab**
+  - *Chosen Approach*: Default `activeHotspotId` to `'none'` (or valid non-null identifier) and `currentZoomScale` to `1.0` in the initial test state.
+  - *Why*: Eliminates null pointer exceptions during early widget rendering and state propagation.
 
 ---
 
 ## 4. Technical Architecture & Data Strategy
 
-### Clean Architecture & System Flow Diagram
+### Test Architecture Diagram
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│                        PRESENTATION LAYER                              │
-│  ┌────────────────────────┐  ┌──────────────────────────────────────┐  │
-│  │   AppArchitectureHub   │  │        BoundBioAppSuite / UI         │  │
-│  │   (Bento Grid Screen)  │  │   (Dashboard, Quiz, Lab, Planner)    │  │
-│  └───────────┬────────────┘  └──────────────────┬───────────────────┘  │
-│              │                                  │                      │
-│              ▼                                  ▼                      │
+│                          TEST HARNESS LAYER                            │
+│  ┌───────────────────────────┐      ┌───────────────────────────────┐  │
+│  │   test/biology_lab_test   │      │   test/study_planner_test     │  │
+│  │ - Non-null defaults       │      │ - ProviderContainer override  │  │
+│  │ - State propagation helper│      │ - tester.pump() settlement    │  │
+│  └─────────────┬─────────────┘      └───────────────┬───────────────┘  │
+│                │                                    │                  │
+│                ▼                                    ▼                  │
 │  ┌──────────────────────────────────────────────────────────────────┐  │
-│  │            StateNotifier / Riverpod State Controllers            │  │
-│  │       (ArchitectureTelemetryNotifier, QuizSessionController)     │  │
+│  │         test/local_database_service_test.dart                    │  │
+│  │         - Clean Architecture Dependency Isolation                │  │
 │  └──────────────────────────────────┬───────────────────────────────┘  │
 └─────────────────────────────────────┼──────────────────────────────────┘
                                       │
 ┌─────────────────────────────────────▼──────────────────────────────────┐
-│                           DOMAIN LAYER                                 │
-│  ┌───────────────────────┐  ┌─────────────────┐  ┌──────────────────┐  │
-│  │ Entities & Models     │  │ Repository      │  │ Use Cases        │  │
-│  │ - Chapter, Topic      │  │ Interfaces      │  │ - QueryCurriculum│  │
-│  │ - Question, Mistake   │  │ - ICurriculumRepo│ │ - RecordAttempt   │  │
-│  │ - TelemetryBenchmark  │  │ - IExamRepo     │  │ - RunBenchmark   │  │
-│  └───────────────────────┘  └────────┬────────┘  └──────────────────┘  │
-└──────────────────────────────────────┼─────────────────────────────────┘
-                                       │
-┌──────────────────────────────────────▼─────────────────────────────────┐
-│                            DATA LAYER                                  │
+│                          MOCK DATABASE LAYER                           │
 │  ┌──────────────────────────────────────────────────────────────────┐  │
-│  │                 LocalDatabaseService (SQLite)                    │  │
-│  │  - OpenDatabase & Versioned Migrations (v1 -> v2)                │  │
-│  │  - Tables: chapters, topics, questions, exam_sessions, mistakes  │  │
-│  │  - Indexes on chapter_id, difficulty, is_resolved                │  │
-│  │  - Transactional Batch Inserts & Seed Hydration                  │  │
+│  │                  test/mocks/database_mock.dart                   │  │
+│  │  - Thread-Safe sqflite_common_ffi In-Memory Database             │  │
+│  │  - Schema Definition: chapters, textbooks, questions, mistakes   │  │
+│  │  - Pre-Seed: 11 Curriculum Chapters + 3 Textbooks + Traps        │  │
+│  │  - Transactional Isolation & TearDown Cleanup                    │  │
 │  └──────────────────────────────────┬───────────────────────────────┘  │
-│                                     │                                  │
-│  ┌──────────────────────────────────▼───────────────────────────────┐  │
-│  │          Local Hardware Storage (SQLite File on Device)          │  │
-│  │               100% OFFLINE • ZERO NETWORK CALLS                  │  │
+└─────────────────────────────────────┼──────────────────────────────────┘
+                                      │
+┌─────────────────────────────────────▼──────────────────────────────────┐
+│                         CORE APPLICATION LAYER                         │
+│  ┌──────────────────────────────────────────────────────────────────┐  │
+│  │              lib/core/database/local_database_service.dart       │  │
+│  │              lib/features/biology_lab/...                        │  │
+│  │              lib/features/study_planner/...                      │  │
 │  └──────────────────────────────────────────────────────────────────┘  │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Relational Schema Blueprint (SQLite)
-1. **`chapters`**: `(id INTEGER PRIMARY KEY, unit_number INTEGER, title_ar TEXT, title_en TEXT, key_concepts_json TEXT, mastery REAL, cards_due INTEGER)`
-2. **`topics`**: `(id TEXT PRIMARY KEY, chapter_id INTEGER, title_ar TEXT, title_en TEXT, summary_markdown TEXT)`
-3. **`questions`**: `(id TEXT PRIMARY KEY, chapter_id INTEGER, question_text TEXT, options_json TEXT, correct_index INTEGER, explanation TEXT, is_ministry_trap INTEGER)`
-4. **`exam_sessions`**: `(id TEXT PRIMARY KEY, title TEXT, mode TEXT, score_percentage REAL, started_at TEXT, completed_at TEXT, duration_seconds INTEGER)`
-5. **`fsrs_mistakes`**: `(question_id TEXT PRIMARY KEY, chapter_id INTEGER, fail_count INTEGER, stability_days REAL, last_failed_at TEXT, next_review_at TEXT, is_resolved INTEGER)`
-6. **`study_notes`**: `(id TEXT PRIMARY KEY, chapter_id INTEGER, title TEXT, content TEXT, updated_at TEXT)`
+### Planned File Modifications & Additions
 
-### Deliverable File Mapping
-1. **Clean Architecture Directory Guide**: Full textual repository breakdown included in project documentation.
-2. **`lib/core/database/local_database_service.dart`**: Complete SQLite engine handling initialization, schemas, indexing, seeds, and CRUD queries.
-3. **`lib/features/architecture_hub/presentation/screens/app_architecture_hub.dart`**: Interactive Bento Grid UI with real-time benchmark runner, CI/CD telemetry toggles, and expandable architectural cards.
+1. **`test/mocks/database_mock.dart` [NEW]**:
+   - Implements `DatabaseMock` initializing `sqfliteFfiInit()`, setting `databaseFactory = databaseFactoryFfi`.
+   - Creates in-memory or isolated SQLite databases with full schema (`chapters`, `textbooks`, `questions`, `fsrs_mistakes`, `exam_attempts`).
+   - Automatically pre-seeds all 11 Egyptian curriculum chapters and 3 textbooks before test execution.
+
+2. **`test/local_database_service_test.dart` [UPDATE]**:
+   - Integrates `DatabaseMock` in the `setUp` lifecycle to guarantee 100% initialized tables and seed data.
+   - Verifies chapter retrieval, unit filtering, textbooks, and exam attempt recordings against the isolated database.
+
+3. **`test/biology_lab_test.dart` [UPDATE]**:
+   - Updates `BiologyLabController` instantiation with non-null initial state values (`zoom = 1.0`, `activeHotspot = 'none'`).
+   - Implements a test helper to explicitly verify widget state propagation after controller operations.
+
+4. **`test/study_planner_test.dart` [UPDATE]**:
+   - Initializes `ProviderContainer` with `ProviderScope` override for database and repository dependencies.
+   - Uses `testWidgets` with `tester.pump()` / `tester.pumpAndSettle()` to ensure reactive state transitions complete before assertions.

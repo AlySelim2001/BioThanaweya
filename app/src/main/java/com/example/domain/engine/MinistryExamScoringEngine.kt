@@ -4,6 +4,8 @@ import com.example.data.model.QuestionType
 import com.example.data.model.UnitCategory
 import com.example.domain.model.*
 
+typealias ArabicTextNormalizer = com.example.util.ArabicSearchUtils
+
 object MinistryExamScoringEngine {
 
     fun gradeExamSession(
@@ -94,6 +96,8 @@ object MinistryExamScoringEngine {
             val (uArabic, uEnglish) = when (unit) {
                 UnitCategory.UNIT_1 -> "الوحدة الأولى: التركيب والوظيفة (الدعامة، الحركة، الهرمونات، التكاثر، المناعة)" to "Unit 1: Structure & Function"
                 UnitCategory.UNIT_2 -> "الوحدة الثانية: البيولوجيا الجزيئية (DNA & RNA والهندسة الوراثية)" to "Unit 2: Molecular Biology"
+                UnitCategory.UNIT_3 -> "الوحدة الثالثة: الوراثة والمناعة" to "Unit 3: Genetics & Immunity"
+                UnitCategory.COMPREHENSIVE -> "المراجعات الشاملة ونماذج الوزارة" to "Comprehensive Reviews"
             }
 
             UnitPerformanceBreakdown(

@@ -72,12 +72,12 @@ class CurriculumCoverageTest {
             assertTrue("MCQ in '${subTopic.id}' must have a scientific rationale", firstMcq.rationale.isNotBlank())
 
             // 3. Check Essay / Free Response Question (FRQ)
-            val hasEssayQuestion = pack.examSimulationItem.prompt.isNotBlank() ||
+            val hasEssayQuestion = (pack.examSimulationItem?.prompt?.isNotBlank() == true) ||
                     pack.questions.any { it.type == QuestionType.GIVE_REASON || it.type == QuestionType.WHAT_HAPPENS_IF || it.type == QuestionType.SCIENTIFIC_TERM }
             assertTrue("Topic '${subTopic.id}' must contain an essay/free-response question with mark scheme", hasEssayQuestion)
-            assertTrue("Exam simulation item prompt in '${subTopic.id}' must not be blank", pack.examSimulationItem.prompt.isNotBlank())
-            assertTrue("Exam simulation model answer in '${subTopic.id}' must not be blank", pack.examSimulationItem.modelAnswer.isNotBlank())
-            assertTrue("Exam simulation in '${subTopic.id}' must have required keywords", pack.examSimulationItem.requiredKeywords.isNotEmpty())
+            assertTrue("Exam simulation item prompt in '${subTopic.id}' must not be blank", pack.examSimulationItem?.prompt?.isNotBlank() == true)
+            assertTrue("Exam simulation model answer in '${subTopic.id}' must not be blank", pack.examSimulationItem?.modelAnswer?.isNotBlank() == true)
+            assertTrue("Exam simulation in '${subTopic.id}' must have required keywords", pack.examSimulationItem?.requiredKeywords?.isNotEmpty() == true)
 
             // 4. Check Visual Diagram (ASCII Schematic)
             assertTrue("Topic '${subTopic.id}' must have an ASCII schematic diagram", pack.asciiSchematic.isNotBlank())

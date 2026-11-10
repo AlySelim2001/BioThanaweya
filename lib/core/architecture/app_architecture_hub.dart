@@ -2,8 +2,157 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smarts_bio/features/architecture_hub/presentation/bloc/architecture_hub_notifier.dart';
-import 'package:smarts_bio/features/architecture_hub/presentation/bloc/architecture_hub_providers.dart';
+import '../database/local_database_service.dart';
+
+enum CiPipelineStage { idle, linting, testing, building, completed, failed }
+enum ArchitectureLoadStatus { initial, loading, success, error }
+
+class ArchitectureMetrics {
+  final int chapterCount;
+  final int textbookCount;
+  final int examAttemptCount;
+  final bool offlineReady;
+  final bool fsrsReady;
+
+  const ArchitectureMetrics({
+    required this.chapterCount,
+    required this.textbookCount,
+    this.examAttemptCount = 0,
+    required this.offlineReady,
+    required this.fsrsReady,
+  });
+}
+
+class ArchitectureHubState {
+  final bool isArabic;
+  final bool isLightPreview;
+  final bool isOfflineForced;
+  final bool isTelemetryEnabled;
+  final int activeTab;
+  final CiPipelineStage ciStage;
+  final bool isCiRunning;
+  final String ciLog;
+  final ArchitectureLoadStatus loadStatus;
+  final ArchitectureMetrics? metrics;
+  final DatabaseBenchmarkResult? benchmarkResult;
+  final bool isBenchmarking;
+  final String? errorMessage;
+
+  const ArchitectureHubState({
+    this.isArabic = true,
+    this.isLightPreview = false,
+    this.isOfflineForced = true,
+    this.isTelemetryEnabled = false,
+    this.activeTab = 0,
+    this.ciStage = CiPipelineStage.idle,
+    this.isCiRunning = false,
+    this.ciLog = 'Idle',
+    this.loadStatus = ArchitectureLoadStatus.initial,
+    this.metrics,
+    this.benchmarkResult,
+    this.isBenchmarking = false,
+    this.errorMessage,
+  });
+
+  bool get isLoading => loadStatus == ArchitectureLoadStatus.loading;
+  bool get hasError => loadStatus == ArchitectureLoadStatus.error;
+
+  ArchitectureHubState copyWith({
+    bool? isArabic,
+    bool? isLightPreview,
+    bool? isOfflineForced,
+    bool? isTelemetryEnabled,
+    int? activeTab,
+    CiPipelineStage? ciStage,
+    bool? isCiRunning,
+    String? ciLog,
+    ArchitectureLoadStatus? loadStatus,
+    ArchitectureMetrics? metrics,
+    DatabaseBenchmarkResult? benchmarkResult,
+    bool? isBenchmarking,
+    String? errorMessage,
+  }) {
+    return ArchitectureHubState(
+      isArabic: isArabic ?? this.isArabic,
+      isLightPreview: isLightPreview ?? this.isLightPreview,
+      isOfflineForced: isOfflineForced ?? this.isOfflineForced,
+      isTelemetryEnabled: isTelemetryEnabled ?? this.isTelemetryEnabled,
+      activeTab: activeTab ?? this.activeTab,
+      ciStage: ciStage ?? this.ciStage,
+      isCiRunning: isCiRunning ?? this.isCiRunning,
+      ciLog: ciLog ?? this.ciLog,
+      loadStatus: loadStatus ?? this.loadStatus,
+      metrics: metrics ?? this.metrics,
+      benchmarkResult: benchmarkResult ?? this.benchmarkResult,
+      isBenchmarking: isBenchmarking ?? this.isBenchmarking,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
+}
+
+class ArchitectureHubNotifier extends StateNotifier<ArchitectureHubState> {
+  final LocalDatabaseService _db;
+
+  ArchitectureHubNotifier({LocalDatabaseService? db})
+      : _db = db ?? LocalDatabaseService.instance,
+        super(const ArchitectureHubState());
+
+  void toggleLanguage() => state = state.copyWith(isArabic: !state.isArabic);
+  void toggleThemePreview() => state = state.copyWith(isLightPreview: !state.isLightPreview);
+  void toggleOfflineMode() => state = state.copyWith(isOfflineForced: !state.isOfflineForced);
+  void toggleTelemetry() => state = state.copyWith(isTelemetryEnabled: !state.isTelemetryEnabled);
+  void setActiveTab(int tab) => state = state.copyWith(activeTab: tab);
+
+  Future<void> loadMetrics() async {
+    state = state.copyWith(loadStatus: ArchitectureLoadStatus.loading);
+    try {
+      final chapters = await _db.getAllChapters();
+      final textbooks = await _db.queryTextbooks();
+      final attempts = await _db.queryExamAttempts();
+
+      state = state.copyWith(
+        loadStatus: ArchitectureLoadStatus.success,
+        metrics: ArchitectureMetrics(
+          chapterCount: chapters.length,
+          textbookCount: textbooks.length,
+          examAttemptCount: attempts.length,
+          offlineReady: chapters.isNotEmpty,
+          fsrsReady: true,
+        ),
+      );
+    } catch (e) {
+      state = state.copyWith(
+        loadStatus: ArchitectureLoadStatus.error,
+        errorMessage: e.toString(),
+      );
+    }
+  }
+
+  Future<void> runDatabaseBenchmark() async {
+    state = state.copyWith(isBenchmarking: true);
+    try {
+      final result = await _db.runBenchmark(queryIterations: 20);
+      state = state.copyWith(benchmarkResult: result, isBenchmarking: false);
+    } catch (_) {
+      state = state.copyWith(isBenchmarking: false);
+    }
+  }
+
+  Future<void> triggerCiPipelineSimulation() async {
+    state = state.copyWith(isCiRunning: true, ciStage: CiPipelineStage.linting, ciLog: 'Running lint checks...');
+    await Future.delayed(const Duration(milliseconds: 50));
+    state = state.copyWith(ciStage: CiPipelineStage.testing, ciLog: 'Running unit & widget tests...');
+    await Future.delayed(const Duration(milliseconds: 50));
+    state = state.copyWith(ciStage: CiPipelineStage.building, ciLog: 'Building APK artifact...');
+    await Future.delayed(const Duration(milliseconds: 50));
+    state = state.copyWith(isCiRunning: false, ciStage: CiPipelineStage.completed, ciLog: 'Simulation complete: Artifact ready.');
+  }
+}
+
+final architectureHubProvider = StateNotifierProvider<ArchitectureHubNotifier, ArchitectureHubState>((ref) {
+  final db = ref.watch(localDatabaseServiceProvider);
+  return ArchitectureHubNotifier(db: db);
+});
 
 class AppArchitectureHub extends ConsumerStatefulWidget {
   const AppArchitectureHub({super.key});

@@ -98,3 +98,15 @@ data class MinistryExamFullReport(
     val fallenTraps: List<Pair<MinistryExamQuestion, String>>, // Question and Trap warning
     val recommendedActions: List<String>
 )
+
+data class ExamResultReport(
+    val totalScore: Double = 0.0,
+    val maxScore: Double = 60.0,
+    val percentage: Int = 0,
+    val letterGrade: String = "A",
+    val passed: Boolean = true,
+    val timeSpentSeconds: Long = 0L,
+    val chapterBreakdown: Map<String, Double> = emptyMap(),
+    val questionsReviewed: List<Any> = emptyList()
+)
+

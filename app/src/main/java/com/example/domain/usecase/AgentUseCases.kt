@@ -190,25 +190,22 @@ class Agent5MetacognitiveUseCase {
             else -> MetacognitiveGapType.CALIBRATED_HUMILITY
         }
 
-        val title: String
-        val advice: String
-
-        when (gapType) {
+        val (title, advice) = when (gapType) {
             MetacognitiveGapType.CALIBRATED_MASTERY -> {
-                title = "🎯 معايرة مثالية (Calibrated Mastery)"
-                advice = "ثقتك العالية تطابقت مع دقتك العلمية. أنت متمكن من هذا المفهوم؛ أضف بطاقته إلى جدول FSRS للمراجعات المتباعدة طويلة الأجل."
+                "🎯 معايرة مثالية (Calibrated Mastery)" to
+                "ثقتك العالية تطابقت مع دقتك العلمية. أنت متمكن من هذا المفهوم؛ أضف بطاقته إلى جدول FSRS للمراجعات المتباعدة طويلة الأجل."
             }
             MetacognitiveGapType.OVERCONFIDENCE_BIAS -> {
-                title = "⚠️ وهم الإلمام (Dunning-Kruger / Overconfidence Bias)"
-                advice = "كانت ثقتك مرتفعة ($confidencePercent%) بينما احتوت إجابتك على نقص في الكلمات المفتاحية أو مصائد امتحانية. احذر من 'وهم المعرفة' وركز على كتابة خطوات الآلية بدقة."
+                "⚠️ وهم الإلمام (Dunning-Kruger / Overconfidence Bias)" to
+                "كانت ثقتك مرتفعة ($confidencePercent%) بينما احتوت إجابتك على نقص في الكلمات المفتاحية أو مصائد امتحانية. احذر من 'وهم المعرفة' وركز على كتابة خطوات الآلية بدقة."
             }
             MetacognitiveGapType.UNDERCONFIDENCE_DOUBT -> {
-                title = "💡 شك غير مبرر (Imposter Effect / Underconfidence)"
-                advice = "إجابتك كانت صحيحة ودقيقة رغم أن ثقتك كانت منخفضة ($confidencePercent%). ثق في حصيلتك المعرفية واعتمد على استدعاء المفاهيم بثقة أكبر في الامتحان."
+                "💡 شك غير مبرر (Imposter Effect / Underconfidence)" to
+                "إجابتك كانت صحيحة ودقيقة رغم أن ثقتك كانت منخفضة ($confidencePercent%). ثق في حصيلتك المعرفية واعتمد على استدعاء المفاهيم بثقة أكبر في الامتحان."
             }
             MetacognitiveGapType.CALIBRATED_HUMILITY -> {
-                title = "🔍 وعي سليم بالفجوة المعرفية (Calibrated Humility)"
-                advice = "كنت واعيًا بنقص الإلمام ($confidencePercent%). هذه نقطة بداية ممتازة: راجع شرح المعلم البصري ثم أعد حل السؤال فورًا لتثبيت المفهوم."
+                "🔍 وعي سليم بالفجوة المعرفية (Calibrated Humility)" to
+                "كنت واعيًا بنقص الإلمام ($confidencePercent%). هذه نقطة بداية ممتازة: راجع شرح المعلم البصري ثم أعد حل السؤال فورًا لتثبيت المفهوم."
             }
         }
 

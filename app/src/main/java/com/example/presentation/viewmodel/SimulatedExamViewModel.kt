@@ -9,6 +9,7 @@ import com.example.data.provider.MinistryOfficialExamsProvider
 import com.example.domain.engine.MarkSchemeEngine
 import com.example.domain.engine.MinistryExamScoringEngine
 import com.example.domain.model.ExamDurationMode
+import com.example.domain.model.ExamResultReport
 import com.example.domain.model.MinistryExamFullReport
 import com.example.domain.model.MinistryExamPaper
 import com.example.domain.model.MinistryExamQuestion
@@ -248,7 +249,7 @@ class SimulatedExamViewModel @Inject constructor(
                 "Unit 1: Structure & Function" to (fullReport.unitBreakdowns.getOrNull(0)?.scoredMarks ?: 0.0),
                 "Unit 2: Molecular Biology" to (fullReport.unitBreakdowns.getOrNull(1)?.scoredMarks ?: 0.0)
             ),
-            questionsReviewed = emptyList()
+            questionsReviewed = emptyList<Any>()
         )
 
         _uiState.value = ExamUiState.Completed(

@@ -36,7 +36,7 @@ import com.example.presentation.components.EmpatheticCompanionCard
 import com.example.presentation.components.SevenAgentBadge
 import com.example.presentation.viewmodel.TopicUiState
 import com.example.presentation.viewmodel.TopicViewModel
-import com.example.ui.components.ComparisonTableCard
+import com.example.presentation.components.ComparisonTableCard
 import com.example.ui.theme.*
 import com.example.util.TextToSpeechHelper
 

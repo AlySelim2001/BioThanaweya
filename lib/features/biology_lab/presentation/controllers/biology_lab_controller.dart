@@ -9,9 +9,25 @@ import 'lab_session_state.dart';
 class BiologyLabController extends StateNotifier<LabSessionState> {
   final BiologyLabRepository _repository;
 
-  BiologyLabController({BiologyLabRepository? repository})
-      : _repository = repository ?? BiologyLabRepositoryImpl(),
-        super(const LabSessionState(diagrams: [], studentNotes: [])) {
+  BiologyLabController({
+    BiologyLabRepository? repository,
+    LabSessionState? initialState,
+  })  : _repository = repository ?? BiologyLabRepositoryImpl(),
+        super(
+          initialState ??
+              LabSessionState(
+                diagrams: CurriculumLabDatabase.getCoreCurriculumDiagrams()
+                    .map((dto) => dto.toEntity())
+                    .toList(),
+                selectedDiagram: CurriculumLabDatabase.getCoreCurriculumDiagrams().isNotEmpty
+                    ? CurriculumLabDatabase.getCoreCurriculumDiagrams().first.toEntity()
+                    : null,
+                activeHotspotId: 'none',
+                currentZoomScale: 1.0,
+                studentNotes: const [],
+                isLoading: false,
+              ),
+        ) {
     loadDiagrams();
   }
 
@@ -23,7 +39,7 @@ class BiologyLabController extends StateNotifier<LabSessionState> {
 
     state = state.copyWith(
       diagrams: entities,
-      selectedDiagram: entities.isNotEmpty ? entities.first : null,
+      selectedDiagram: state.selectedDiagram ?? (entities.isNotEmpty ? entities.first : null),
       studentNotes: savedNotes,
       isLoading: false,
     );
@@ -33,13 +49,17 @@ class BiologyLabController extends StateNotifier<LabSessionState> {
     final diagram = state.diagrams.firstWhere((d) => d.id == diagramId);
     state = state.copyWith(
       selectedDiagram: diagram,
-      activeHotspotId: null,
+      clearActiveHotspot: true,
       currentZoomScale: 1.0,
     );
   }
 
   void selectHotspot(String? hotspotId) {
-    state = state.copyWith(activeHotspotId: hotspotId);
+    if (hotspotId == null) {
+      state = state.copyWith(clearActiveHotspot: true);
+    } else {
+      state = state.copyWith(activeHotspotId: hotspotId);
+    }
   }
 
   void updateZoom(double scale) {

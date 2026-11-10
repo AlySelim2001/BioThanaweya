@@ -25,6 +25,8 @@ enum class PacingCategory(
         adviceArabic = "استغراق وقت أطول من المخصص قد يضغط على وقت باقي أسئلة الامتحان."
     );
 
+    val label: String get() = labelArabic
+
     companion object {
         fun fromSeconds(seconds: Int): PacingCategory {
             return when {

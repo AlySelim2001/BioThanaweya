@@ -13,7 +13,7 @@ class LabSessionState {
   const LabSessionState({
     required this.diagrams,
     this.selectedDiagram,
-    this.activeHotspotId,
+    this.activeHotspotId = 'none',
     this.currentZoomScale = 1.0,
     required this.studentNotes,
     this.isLoading = false,
@@ -33,6 +33,7 @@ class LabSessionState {
     List<LabDiagram>? diagrams,
     LabDiagram? selectedDiagram,
     String? activeHotspotId,
+    bool clearActiveHotspot = false,
     double? currentZoomScale,
     List<StudentLabNote>? studentNotes,
     bool? isLoading,
@@ -40,7 +41,7 @@ class LabSessionState {
     return LabSessionState(
       diagrams: diagrams ?? this.diagrams,
       selectedDiagram: selectedDiagram ?? this.selectedDiagram,
-      activeHotspotId: activeHotspotId ?? this.activeHotspotId,
+      activeHotspotId: clearActiveHotspot ? null : (activeHotspotId ?? this.activeHotspotId),
       currentZoomScale: currentZoomScale ?? this.currentZoomScale,
       studentNotes: studentNotes ?? this.studentNotes,
       isLoading: isLoading ?? this.isLoading,

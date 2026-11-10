@@ -1,7 +1,13 @@
 import 'dart:io';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as p;
 import 'package:sqflite/sqflite.dart';
+
+/// Riverpod provider for LocalDatabaseService
+final localDatabaseServiceProvider = Provider<LocalDatabaseService>((ref) {
+  return LocalDatabaseService.instance;
+});
 
 class DbChapterRecord {
   final String id;
@@ -36,14 +42,14 @@ class DbChapterRecord {
       };
 
   factory DbChapterRecord.fromMap(Map<String, Object?> map) => DbChapterRecord(
-        id: map['id'] as String,
-        unitCode: map['unit_code'] as String,
-        chapterNumber: map['chapter_number'] as int,
-        titleEn: map['title_en'] as String,
-        titleAr: map['title_ar'] as String,
-        summaryEn: map['summary_en'] as String,
-        summaryAr: map['summary_ar'] as String,
-        isHighYield: (map['is_high_yield'] as int? ?? 1) == 1,
+        id: (map['code'] as String?) ?? (map['id']?.toString() ?? ''),
+        unitCode: (map['unit_code'] as String?) ?? ((map['unit_number'] == 1) ? 'UNIT_1' : 'UNIT_2'),
+        chapterNumber: (map['chapter_number'] as int?) ?? 1,
+        titleEn: (map['title_en'] as String?) ?? '',
+        titleAr: (map['title_ar'] as String?) ?? '',
+        summaryEn: (map['summary_en'] as String?) ?? '',
+        summaryAr: (map['summary_ar'] as String?) ?? '',
+        isHighYield: ((map['is_high_yield'] as int?) ?? 1) == 1,
       );
 }
 
@@ -106,7 +112,17 @@ class DatabaseBenchmarkResult {
 class LocalDatabaseService {
   LocalDatabaseService({String? databasePath}) : _databasePath = databasePath;
 
-  static final LocalDatabaseService instance = LocalDatabaseService();
+  static LocalDatabaseService instance = LocalDatabaseService();
+
+  /// Allows unit and integration tests to inject an isolated mock database instance
+  static void setMockInstance(LocalDatabaseService mock) {
+    instance = mock;
+  }
+
+  /// Resets the singleton instance to a default uninitialized LocalDatabaseService
+  static void resetInstance() {
+    instance = LocalDatabaseService();
+  }
   static const int schemaVersion = 2;
   static const String databaseName = 'biothanaweya_offline.db';
 
