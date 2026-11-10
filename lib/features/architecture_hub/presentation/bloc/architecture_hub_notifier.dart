@@ -1,14 +1,13 @@
+import 'package:smarts_bio/features/architecture_hub/domain/entities/architecture_benchmark_result.dart';
+import 'package:smarts_bio/features/architecture_hub/domain/entities/architecture_metrics.dart';
+import 'package:smarts_bio/features/architecture_hub/domain/repositories/architecture_hub_repository.dart';
+import 'package:smarts_bio/features/architecture_hub/domain/usecases/load_architecture_metrics.dart';
+import 'package:smarts_bio/features/architecture_hub/domain/usecases/run_local_database_benchmark.dart';
+
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/entities/architecture_benchmark_result.dart';
-import '../../domain/entities/architecture_metrics.dart';
-import '../../domain/usecases/load_architecture_metrics.dart';
-import '../../domain/usecases/run_local_database_benchmark.dart';
-import '../../domain/repositories/architecture_hub_repository.dart';
-
-// A narrow test seam that lets tests inject a fake repository without a platform database.
 ArchitectureHubNotifier notifierForRepository(ArchitectureHubRepository repository) {
   return ArchitectureHubNotifier(
     loadMetricsUseCase: LoadArchitectureMetrics(repository),
@@ -68,23 +67,21 @@ class ArchitectureHubState {
     CiPipelineStage? ciStage,
     String? ciLog,
     int? activeTab,
-  }) {
-    return ArchitectureHubState(
-      isArabic: isArabic ?? this.isArabic,
-      isOfflineForced: isOfflineForced ?? this.isOfflineForced,
-      isBenchmarking: isBenchmarking ?? this.isBenchmarking,
-      isCiRunning: isCiRunning ?? this.isCiRunning,
-      isTelemetryEnabled: isTelemetryEnabled ?? this.isTelemetryEnabled,
-      isLightPreview: isLightPreview ?? this.isLightPreview,
-      loadStatus: loadStatus ?? this.loadStatus,
-      metrics: metrics ?? this.metrics,
-      benchmarkResult: benchmarkResult ?? this.benchmarkResult,
-      errorMessage: clearError ? null : errorMessage ?? this.errorMessage,
-      ciStage: ciStage ?? this.ciStage,
-      ciLog: ciLog ?? this.ciLog,
-      activeTab: activeTab ?? this.activeTab,
-    );
-  }
+  }) => ArchitectureHubState(
+        isArabic: isArabic ?? this.isArabic,
+        isOfflineForced: isOfflineForced ?? this.isOfflineForced,
+        isBenchmarking: isBenchmarking ?? this.isBenchmarking,
+        isCiRunning: isCiRunning ?? this.isCiRunning,
+        isTelemetryEnabled: isTelemetryEnabled ?? this.isTelemetryEnabled,
+        isLightPreview: isLightPreview ?? this.isLightPreview,
+        loadStatus: loadStatus ?? this.loadStatus,
+        metrics: metrics ?? this.metrics,
+        benchmarkResult: benchmarkResult ?? this.benchmarkResult,
+        errorMessage: clearError ? null : errorMessage ?? this.errorMessage,
+        ciStage: ciStage ?? this.ciStage,
+        ciLog: ciLog ?? this.ciLog,
+        activeTab: activeTab ?? this.activeTab,
+      );
 }
 
 class ArchitectureHubNotifier extends StateNotifier<ArchitectureHubState> {
@@ -114,18 +111,9 @@ class ArchitectureHubNotifier extends StateNotifier<ArchitectureHubState> {
     state = state.copyWith(loadStatus: ArchitectureLoadStatus.loading, clearError: true);
     try {
       final metrics = await _loadMetricsUseCase();
-      state = state.copyWith(
-        loadStatus: ArchitectureLoadStatus.success,
-        metrics: metrics,
-        isOfflineForced: metrics.offlineReady,
-        clearError: true,
-      );
+      state = state.copyWith(loadStatus: ArchitectureLoadStatus.success, metrics: metrics, isOfflineForced: metrics.offlineReady, clearError: true);
     } catch (error) {
-      state = state.copyWith(
-        loadStatus: ArchitectureLoadStatus.error,
-        errorMessage: error.toString(),
-        isOfflineForced: true,
-      );
+      state = state.copyWith(loadStatus: ArchitectureLoadStatus.error, errorMessage: error.toString(), isOfflineForced: true);
     }
   }
 
@@ -134,12 +122,7 @@ class ArchitectureHubNotifier extends StateNotifier<ArchitectureHubState> {
     state = state.copyWith(isBenchmarking: true, clearError: true);
     try {
       final result = await _benchmarkUseCase(queryIterations: 20);
-      state = state.copyWith(
-        isBenchmarking: false,
-        benchmarkResult: result,
-        ciLog: 'SQLite OK • ${result.totalRecordsQueried} local records queried',
-        clearError: true,
-      );
+      state = state.copyWith(isBenchmarking: false, benchmarkResult: result, ciLog: 'SQLite OK • ${result.totalRecordsQueried} local records queried', clearError: true);
     } catch (error) {
       state = state.copyWith(isBenchmarking: false, errorMessage: error.toString());
     }
@@ -159,10 +142,6 @@ class ArchitectureHubNotifier extends StateNotifier<ArchitectureHubState> {
       state = state.copyWith(ciStage: stages[index].$1, ciLog: stages[index].$2);
     }
     await Future<void>.delayed(const Duration(milliseconds: 220));
-    state = state.copyWith(
-      isCiRunning: false,
-      ciStage: CiPipelineStage.completed,
-      ciLog: 'Simulation complete • GitHub Actions status is not queried live',
-    );
+    state = state.copyWith(isCiRunning: false, ciStage: CiPipelineStage.completed, ciLog: 'Simulation complete • GitHub Actions status is not queried live');
   }
 }

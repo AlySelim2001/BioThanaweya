@@ -1,3 +1,3 @@
-export '../../../../core/architecture/app_architecture_hub.dart';
-export '../bloc/architecture_hub_notifier.dart' show ArchitectureHubNotifier, ArchitectureHubState, ArchitectureLoadStatus, CiPipelineStage;
-export '../bloc/architecture_hub_providers.dart' show architectureHubProvider, architectureHubRepositoryProvider, loadArchitectureMetricsProvider, runLocalDatabaseBenchmarkProvider;
+export 'package:smarts_bio/core/architecture/app_architecture_hub.dart';
+export 'package:smarts_bio/features/architecture_hub/presentation/bloc/architecture_hub_notifier.dart' show ArchitectureHubNotifier, ArchitectureHubState, ArchitectureLoadStatus, CiPipelineStage;
+export 'package:smarts_bio/features/architecture_hub/presentation/bloc/architecture_hub_providers.dart' show architectureHubProvider, architectureHubRepositoryProvider, loadArchitectureMetricsProvider, runLocalDatabaseBenchmarkProvider;

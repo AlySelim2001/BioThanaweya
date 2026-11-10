@@ -4,15 +4,6 @@ import 'package:path/path.dart' as p;
 import 'package:sqflite/sqflite.dart';
 
 class DbChapterRecord {
-  final String id;
-  final String unitCode;
-  final int chapterNumber;
-  final String titleEn;
-  final String titleAr;
-  final String summaryEn;
-  final String summaryAr;
-  final bool isHighYield;
-
   const DbChapterRecord({
     required this.id,
     required this.unitCode,
@@ -23,6 +14,15 @@ class DbChapterRecord {
     required this.summaryAr,
     this.isHighYield = true,
   });
+
+  final String id;
+  final String unitCode;
+  final int chapterNumber;
+  final String titleEn;
+  final String titleAr;
+  final String summaryEn;
+  final String summaryAr;
+  final bool isHighYield;
 
   Map<String, Object?> toMap() => {
         'id': id,
@@ -36,8 +36,8 @@ class DbChapterRecord {
       };
 
   factory DbChapterRecord.fromMap(Map<String, Object?> map) => DbChapterRecord(
-        id: map['id'] as String,
-        unitCode: map['unit_code'] as String,
+        id: map['code'] as String,
+        unitCode: (map['unit_number'] as int) == 1 ? 'UNIT_1' : 'UNIT_2',
         chapterNumber: map['chapter_number'] as int,
         titleEn: map['title_en'] as String,
         titleAr: map['title_ar'] as String,
@@ -48,13 +48,6 @@ class DbChapterRecord {
 }
 
 class DbTextbookRecord {
-  final String id;
-  final String title;
-  final String edition;
-  final String fileSize;
-  final String downloadUrl;
-  final bool isOfflineCached;
-
   const DbTextbookRecord({
     required this.id,
     required this.title,
@@ -63,6 +56,13 @@ class DbTextbookRecord {
     required this.downloadUrl,
     this.isOfflineCached = false,
   });
+
+  final String id;
+  final String title;
+  final String edition;
+  final String fileSize;
+  final String downloadUrl;
+  final bool isOfflineCached;
 
   Map<String, Object?> toMap() => {
         'id': id,
@@ -84,13 +84,6 @@ class DbTextbookRecord {
 }
 
 class DatabaseBenchmarkResult {
-  final int totalRecordsQueried;
-  final int totalRecordsInserted;
-  final double averageReadLatencyMs;
-  final double averageWriteLatencyMs;
-  final double cacheHitRate;
-  final int databaseSizeKb;
-
   const DatabaseBenchmarkResult({
     required this.totalRecordsQueried,
     required this.totalRecordsInserted,
@@ -99,10 +92,16 @@ class DatabaseBenchmarkResult {
     required this.cacheHitRate,
     required this.databaseSizeKb,
   });
+
+  final int totalRecordsQueried;
+  final int totalRecordsInserted;
+  final double averageReadLatencyMs;
+  final double averageWriteLatencyMs;
+  final double cacheHitRate;
+  final int databaseSizeKb;
 }
 
-/// Device-local SQLite database. Curriculum reads and writes never require a network.
-/// Repository implementations should depend on this data source through domain contracts.
+/// SQLite data source for curriculum and student records. All methods operate locally.
 class LocalDatabaseService {
   LocalDatabaseService({String? databasePath}) : _databasePath = databasePath;
 
@@ -112,10 +111,9 @@ class LocalDatabaseService {
 
   final String? _databasePath;
   Database? _database;
-  Future<void>? _initialization;
+  Future<void>? _opening;
 
   bool get isInitialized => _database?.isOpen ?? false;
-  int get totalIndexedChapters => 11;
 
   Future<Database> get database async {
     await initializeDatabase();
@@ -124,15 +122,23 @@ class LocalDatabaseService {
 
   Future<void> initialize() => initializeDatabase();
 
-  Future<void> initializeDatabase() {
-    if (isInitialized) return Future<void>.value();
-    return _initialization ??= _openDatabase().whenComplete(() => _initialization = null);
+  Future<void> initializeDatabase() async {
+    if (isInitialized) return;
+    final pending = _opening;
+    if (pending != null) return pending;
+    final opening = _open();
+    _opening = opening;
+    try {
+      await opening;
+    } finally {
+      if (identical(_opening, opening)) _opening = null;
+    }
   }
 
-  Future<void> _openDatabase() async {
-    final dbPath = _databasePath ?? p.join(await getDatabasesPath(), databaseName);
+  Future<void> _open() async {
+    final path = _databasePath ?? p.join(await getDatabasesPath(), databaseName);
     _database = await openDatabase(
-      dbPath,
+      path,
       version: schemaVersion,
       onConfigure: (db) async {
         await db.execute('PRAGMA foreign_keys = ON');
@@ -144,97 +150,78 @@ class LocalDatabaseService {
   }
 
   Future<void> _createSchema(Database db, int version) async {
-    await db.execute('''
-      CREATE TABLE chapters (
-        id INTEGER PRIMARY KEY,
-        code TEXT NOT NULL UNIQUE,
-        unit_number INTEGER NOT NULL,
-        chapter_number INTEGER NOT NULL,
-        title_en TEXT NOT NULL,
-        title_ar TEXT NOT NULL,
-        summary_en TEXT NOT NULL,
-        summary_ar TEXT NOT NULL,
-        is_high_yield INTEGER NOT NULL DEFAULT 1
-      )
-    ''');
+    await db.execute('''CREATE TABLE chapters (
+      id INTEGER PRIMARY KEY,
+      code TEXT NOT NULL UNIQUE,
+      unit_number INTEGER NOT NULL,
+      chapter_number INTEGER NOT NULL,
+      title_en TEXT NOT NULL,
+      title_ar TEXT NOT NULL,
+      summary_en TEXT NOT NULL,
+      summary_ar TEXT NOT NULL,
+      is_high_yield INTEGER NOT NULL DEFAULT 1
+    )''');
     await db.execute('CREATE INDEX idx_chapters_unit ON chapters(unit_number, chapter_number)');
-    await db.execute('''
-      CREATE TABLE textbooks (
-        id TEXT PRIMARY KEY,
-        title TEXT NOT NULL,
-        edition TEXT NOT NULL,
-        file_size TEXT NOT NULL,
-        download_url TEXT NOT NULL,
-        is_offline_cached INTEGER NOT NULL DEFAULT 0,
-        local_path TEXT
-      )
-    ''');
-    await db.execute('''
-      CREATE TABLE questions (
-        id TEXT PRIMARY KEY,
-        chapter_id INTEGER NOT NULL REFERENCES chapters(id) ON DELETE CASCADE,
-        question_text TEXT NOT NULL,
-        explanation TEXT NOT NULL,
-        is_ministry_trap INTEGER NOT NULL DEFAULT 0
-      )
-    ''');
+    await db.execute('''CREATE TABLE textbooks (
+      id TEXT PRIMARY KEY,
+      title TEXT NOT NULL,
+      edition TEXT NOT NULL,
+      file_size TEXT NOT NULL,
+      download_url TEXT NOT NULL,
+      is_offline_cached INTEGER NOT NULL DEFAULT 0,
+      local_path TEXT
+    )''');
+    await db.execute('''CREATE TABLE questions (
+      id TEXT PRIMARY KEY,
+      chapter_id INTEGER NOT NULL REFERENCES chapters(id) ON DELETE CASCADE,
+      question_text TEXT NOT NULL,
+      explanation TEXT NOT NULL,
+      is_ministry_trap INTEGER NOT NULL DEFAULT 0
+    )''');
     await db.execute('CREATE INDEX idx_questions_chapter ON questions(chapter_id)');
-    await db.execute('''
-      CREATE TABLE fsrs_mistakes (
-        question_id TEXT PRIMARY KEY,
-        chapter_id INTEGER NOT NULL REFERENCES chapters(id) ON DELETE CASCADE,
-        fail_count INTEGER NOT NULL DEFAULT 1,
-        consecutive_correct INTEGER NOT NULL DEFAULT 0,
-        next_review_at TEXT NOT NULL,
-        is_resolved INTEGER NOT NULL DEFAULT 0
-      )
-    ''');
-    await db.execute('CREATE INDEX idx_mistakes_due ON fsrs_mistakes(is_resolved, next_review_at)');
-    await db.execute('''
-      CREATE TABLE exam_attempts (
-        id TEXT PRIMARY KEY,
-        paper_id TEXT NOT NULL,
-        score REAL NOT NULL,
-        max_score REAL NOT NULL,
-        percentage REAL NOT NULL,
-        time_spent_seconds INTEGER NOT NULL,
-        created_at TEXT NOT NULL
-      )
-    ''');
+    await _createMistakesTable(db);
+    await db.execute('''CREATE TABLE exam_attempts (
+      id TEXT PRIMARY KEY,
+      paper_id TEXT NOT NULL,
+      score REAL NOT NULL,
+      max_score REAL NOT NULL,
+      percentage REAL NOT NULL,
+      time_spent_seconds INTEGER NOT NULL,
+      created_at TEXT NOT NULL
+    )''');
     await _seedCurriculum(db);
   }
 
+  Future<void> _createMistakesTable(Database db) async {
+    await db.execute('''CREATE TABLE IF NOT EXISTS fsrs_mistakes (
+      question_id TEXT PRIMARY KEY,
+      chapter_id INTEGER NOT NULL REFERENCES chapters(id) ON DELETE CASCADE,
+      fail_count INTEGER NOT NULL DEFAULT 1,
+      consecutive_correct INTEGER NOT NULL DEFAULT 0,
+      next_review_at TEXT NOT NULL,
+      is_resolved INTEGER NOT NULL DEFAULT 0
+    )''');
+    await db.execute('CREATE INDEX IF NOT EXISTS idx_mistakes_due ON fsrs_mistakes(is_resolved, next_review_at)');
+  }
+
   Future<void> _upgradeSchema(Database db, int oldVersion, int newVersion) async {
-    if (oldVersion < 2) {
-      await db.execute('''
-        CREATE TABLE IF NOT EXISTS fsrs_mistakes (
-          question_id TEXT PRIMARY KEY,
-          chapter_id INTEGER NOT NULL REFERENCES chapters(id) ON DELETE CASCADE,
-          fail_count INTEGER NOT NULL DEFAULT 1,
-          consecutive_correct INTEGER NOT NULL DEFAULT 0,
-          next_review_at TEXT NOT NULL,
-          is_resolved INTEGER NOT NULL DEFAULT 0
-        )
-      ''');
-      await db.execute('CREATE INDEX IF NOT EXISTS idx_mistakes_due ON fsrs_mistakes(is_resolved, next_review_at)');
-    }
+    if (oldVersion < 2) await _createMistakesTable(db);
   }
 
   Future<void> _seedCurriculum(Database db) async {
-    const chapters = <DbChapterRecord>[
-      DbChapterRecord(id: 'ch_01', unitCode: 'UNIT_1', chapterNumber: 1, titleEn: 'Support and Movement in Living Organisms', titleAr: 'الدعامة والحركة في الكائنات الحية', summaryEn: 'Support tissues, skeleton, and muscle contraction.', summaryAr: 'أنواع الدعامة والهيكل العظمي وآلية انقباض العضلات.'),
-      DbChapterRecord(id: 'ch_02', unitCode: 'UNIT_1', chapterNumber: 2, titleEn: 'Hormonal Coordination in Living Organisms', titleAr: 'التنسيق الهرموني في الكائنات الحية', summaryEn: 'Plant hormones and endocrine regulation.', summaryAr: 'الهرمونات النباتية وتنظيم الغدد ال��ماء.'),
-      DbChapterRecord(id: 'ch_03', unitCode: 'UNIT_1', chapterNumber: 3, titleEn: 'Reproduction in Living Organisms', titleAr: 'التكاثر في الكائنات الحية', summaryEn: 'Reproductive strategies and life cycles.', summaryAr: 'أنماط التكاثر ودورات الحياة.'),
-      DbChapterRecord(id: 'ch_04', unitCode: 'UNIT_1', chapterNumber: 4, titleEn: 'Immunity in Living Organisms', titleAr: 'المناعة في الكائنات الحية', summaryEn: 'Immune defenses, antibodies, and lymphocytes.', summaryAr: 'وسائل الدفاع المناعي والأجسام المضادة والخلايا اللمفاوية.'),
-      DbChapterRecord(id: 'ch_05', unitCode: 'UNIT_2', chapterNumber: 1, titleEn: 'DNA Structure, Genetic Code and Replication', titleAr: 'الحمض النووي DNA وتضاعفه', summaryEn: 'DNA structure, replication enzymes, and genetic code.', summaryAr: 'تركيب DNA وإنزيمات التضاعف والشفرة الوراثية.'),
-      DbChapterRecord(id: 'ch_06', unitCode: 'UNIT_2', chapterNumber: 2, titleEn: 'RNA and Protein Synthesis', titleAr: 'الأحماض النووية RNA وتخليق البروتين', summaryEn: 'Transcription, translation, and protein synthesis.', summaryAr: 'النسخ والترجمة وتخليق البروتين.'),
-      DbChapterRecord(id: 'ch_07', unitCode: 'UNIT_2', chapterNumber: 3, titleEn: 'Biotechnology and Genetic Engineering', titleAr: 'التكنولوجيا الحيوية والهندسة الوراثية', summaryEn: 'PCR, restriction enzymes, and recombinant DNA.', summaryAr: 'تفاعل PCR وإنزيمات القصر والحمض النووي المعاد تركيبه.'),
-      DbChapterRecord(id: 'ch_08', unitCode: 'UNIT_1', chapterNumber: 5, titleEn: 'Nutrition and Digestion in Living Organisms', titleAr: 'التغذية والهضم في الكائنات الحية', summaryEn: 'Nutrition, digestion, and metabolic pathways.', summaryAr: 'التغذية والهضم ومسارات الأيض.'),
-      DbChapterRecord(id: 'ch_09', unitCode: 'UNIT_1', chapterNumber: 6, titleEn: 'Transport in Living Organisms', titleAr: 'النقل في الكائنات الحية', summaryEn: 'Transport systems in plants and animals.', summaryAr: 'أجهزة النقل في النبات والحيوان.'),
-      DbChapterRecord(id: 'ch_10', unitCode: 'UNIT_1', chapterNumber: 7, titleEn: 'Cellular Respiration and Energy Production', titleAr: 'التنفس الخلوي وإنتاج الطاقة', summaryEn: 'Cellular respiration and ATP production.', summaryAr: 'التنفس الخلوي وإنتاج جزيئات ATP.'),
-      DbChapterRecord(id: 'ch_11', unitCode: 'UNIT_1', chapterNumber: 8, titleEn: 'Excretion and Osmoregulation', titleAr: 'الإخراج والتنظيم الأسموزي', summaryEn: 'Excretion and maintenance of internal balance.', summaryAr: 'الإخراج والحفاظ على الاتزان الداخلي.'),
+    const chapterRows = <Map<String, Object?>>[
+      {'code': 'ch_01', 'unit': 1, 'number': 1, 'en': 'Support and Movement in Living Organisms', 'ar': 'الدعامة والحركة في الكائنات الحية', 'enSummary': 'Support tissues, skeleton, and muscle contraction.', 'arSummary': 'أنواع الدعامة والهيكل العظمي وآلية انقباض العضلات.'},
+      {'code': 'ch_02', 'unit': 1, 'number': 2, 'en': 'Hormonal Coordination in Living Organisms', 'ar': 'التنسيق الهرموني في الكائنات الحية', 'enSummary': 'Plant hormones and endocrine regulation.', 'arSummary': 'الهرمونات النباتية وتنظيم الغدد الصماء.'},
+      {'code': 'ch_03', 'unit': 1, 'number': 3, 'en': 'Reproduction in Living Organisms', 'ar': 'التكاثر في الكائنات الحية', 'enSummary': 'Reproductive strategies and life cycles.', 'arSummary': 'أنماط التكاثر ودورات الحياة.'},
+      {'code': 'ch_04', 'unit': 1, 'number': 4, 'en': 'Immunity in Living Organisms', 'ar': 'المناعة في الكائنات الحية', 'enSummary': 'Immune defenses, antibodies, and lymphocytes.', 'arSummary': 'وسائل الدفاع المناعي والأجسام المضادة والخلايا اللمفاوية.'},
+      {'code': 'ch_05', 'unit': 2, 'number': 1, 'en': 'DNA Structure, Genetic Code and Replication', 'ar': 'الحمض النووي DNA وتضاعفه', 'enSummary': 'DNA structure, replication enzymes, and genetic code.', 'arSummary': 'تركيب DNA وإنزيمات التضاعف والشفرة الوراثية.'},
+      {'code': 'ch_06', 'unit': 2, 'number': 2, 'en': 'RNA and Protein Synthesis', 'ar': 'الأحماض النووية RNA وتخليق البروتين', 'enSummary': 'Transcription, translation, and protein synthesis.', 'arSummary': 'النسخ والترجمة وتخليق البروتين.'},
+      {'code': 'ch_07', 'unit': 2, 'number': 3, 'en': 'Biotechnology and Genetic Engineering', 'ar': 'التكنولوجيا الحيوية والهندسة الوراثية', 'enSummary': 'PCR, restriction enzymes, and recombinant DNA.', 'arSummary': 'تفاعل PCR وإنزيمات القصر والحمض النووي المعاد تركيبه.'},
+      {'code': 'ch_08', 'unit': 1, 'number': 5, 'en': 'Nutrition and Digestion in Living Organisms', 'ar': 'التغذية والهضم في الكائنات الحية', 'enSummary': 'Nutrition, digestion, and metabolic pathways.', 'arSummary': 'التغذية والهضم ومسارات الأيض.'},
+      {'code': 'ch_09', 'unit': 1, 'number': 6, 'en': 'Transport in Living Organisms', 'ar': 'النقل في الكائنات الحية', 'enSummary': 'Transport systems in plants and animals.', 'arSummary': 'أجهزة النقل في النبات والحيوان.'},
+      {'code': 'ch_10', 'unit': 1, 'number': 7, 'en': 'Cellular Respiration and Energy Production', 'ar': 'التنفس الخلوي وإنتاج الطاقة', 'enSummary': 'Cellular respiration and ATP production.', 'arSummary': 'التنفس الخلوي وإنتاج جزيئات ATP.'},
+      {'code': 'ch_11', 'unit': 1, 'number': 8, 'en': 'Excretion and Osmoregulation', 'ar': 'الإخراج والتنظيم الأسموزي', 'enSummary': 'Excretion and maintenance of internal balance.', 'arSummary': 'الإخراج والحفاظ على الاتزان الداخلي.'},
     ];
-
     const textbooks = <Map<String, Object?>>[
       {'id': 'biology_ar_2025', 'title': 'كتاب الأحياء للثانوية العامة', 'edition': 'وزارة التربية والتعليم', 'file_size': 'محلي', 'download_url': '', 'is_offline_cached': 1},
       {'id': 'biology_en_2025', 'title': 'Official Biology Textbook (Languages)', 'edition': 'Ministry curriculum', 'file_size': 'Local asset', 'download_url': '', 'is_offline_cached': 1},
@@ -242,14 +229,18 @@ class LocalDatabaseService {
     ];
 
     await db.transaction((txn) async {
-      for (var index = 0; index < chapters.length; index++) {
-        final chapter = chapters[index];
-        final values = chapter.toMap();
+      for (var index = 0; index < chapterRows.length; index++) {
+        final row = chapterRows[index];
         await txn.insert('chapters', {
-          ...values,
           'id': index + 1,
-          'code': chapter.id,
-          'unit_number': chapter.unitCode == 'UNIT_1' ? 1 : 2,
+          'code': row['code'],
+          'unit_number': row['unit'],
+          'chapter_number': row['number'],
+          'title_en': row['en'],
+          'title_ar': row['ar'],
+          'summary_en': row['enSummary'],
+          'summary_ar': row['arSummary'],
+          'is_high_yield': 1,
         });
       }
       for (final textbook in textbooks) {
@@ -280,13 +271,13 @@ class LocalDatabaseService {
       whereArgs: unitCode == null || unitCode.isEmpty ? null : [unitCode == 'UNIT_1' ? 1 : 2],
       orderBy: 'id ASC',
     );
-    return rows.map((row) => DbChapterRecord.fromMap(row)).toList(growable: false);
+    return rows.map(DbChapterRecord.fromMap).toList(growable: false);
   }
 
   Future<List<DbTextbookRecord>> queryTextbooks() async {
     final db = await database;
     final rows = await db.query('textbooks', orderBy: 'id ASC');
-    return rows.map((row) => DbTextbookRecord.fromMap(row)).toList(growable: false);
+    return rows.map(DbTextbookRecord.fromMap).toList(growable: false);
   }
 
   Future<List<Map<String, Object?>>> queryExamAttempts() async {
@@ -294,17 +285,12 @@ class LocalDatabaseService {
     return db.query('exam_attempts', orderBy: 'created_at DESC');
   }
 
-  Future<void> recordExamAttempt({
-    required String paperId,
-    required double score,
-    required double maxScore,
-    required int timeSpentSeconds,
-  }) async {
+  Future<void> recordExamAttempt({required String paperId, required double score, required double maxScore, required int timeSpentSeconds}) async {
     if (maxScore <= 0 || score < 0 || score > maxScore || timeSpentSeconds < 0) {
       throw ArgumentError('Exam attempt values are outside their valid range.');
     }
-    final db = await database;
     final now = DateTime.now();
+    final db = await database;
     await db.insert('exam_attempts', {
       'id': 'attempt_${now.microsecondsSinceEpoch}',
       'paper_id': paperId,
@@ -346,29 +332,20 @@ class LocalDatabaseService {
     final term = query.trim();
     if (term.isEmpty) return const [];
     final db = await database;
-    return db.query(
-      'questions',
-      where: 'question_text LIKE ? OR explanation LIKE ?',
-      whereArgs: ['%$term%', '%$term%'],
-      orderBy: 'id ASC',
-    );
+    return db.query('questions', where: 'question_text LIKE ? OR explanation LIKE ?', whereArgs: ['%$term%', '%$term%'], orderBy: 'id ASC');
   }
 
-  Future<void> recordMistake({
-    required String questionId,
-    required int chapterId,
-    required bool wasCorrect,
-  }) async {
+  Future<void> recordMistake({required String questionId, required int chapterId, required bool wasCorrect}) async {
     final db = await database;
     final now = DateTime.now();
     await db.transaction((txn) async {
       final rows = await txn.query('fsrs_mistakes', where: 'question_id = ?', whereArgs: [questionId], limit: 1);
       if (!wasCorrect) {
-        final previousFails = rows.isEmpty ? 0 : (rows.first['fail_count'] as int? ?? 0);
+        final failures = rows.isEmpty ? 0 : (rows.first['fail_count'] as int? ?? 0);
         await txn.insert('fsrs_mistakes', {
           'question_id': questionId,
           'chapter_id': chapterId,
-          'fail_count': previousFails + 1,
+          'fail_count': failures + 1,
           'consecutive_correct': 0,
           'next_review_at': now.toIso8601String(),
           'is_resolved': 0,
@@ -379,7 +356,7 @@ class LocalDatabaseService {
           'fsrs_mistakes',
           {
             'consecutive_correct': correctCount,
-            'next_review_at': now.add(Duration(days: correctCount)).toIso8601String(),
+            'next_review_at': now.toIso8601String(),
             'is_resolved': correctCount >= 2 ? 1 : 0,
           },
           where: 'question_id = ?',
@@ -391,12 +368,7 @@ class LocalDatabaseService {
 
   Future<List<Map<String, Object?>>> getDueMistakesForReview() async {
     final db = await database;
-    return db.query(
-      'fsrs_mistakes',
-      where: 'is_resolved = 0 AND next_review_at <= ?',
-      whereArgs: [DateTime.now().toIso8601String()],
-      orderBy: 'next_review_at ASC',
-    );
+    return db.query('fsrs_mistakes', where: 'is_resolved = 0 AND next_review_at <= ?', whereArgs: [DateTime.now().toIso8601String()], orderBy: 'next_review_at ASC');
   }
 
   Future<DatabaseBenchmarkResult> runBenchmark({int queryIterations = 40}) async {
@@ -426,8 +398,8 @@ class LocalDatabaseService {
     });
     writeWatch.stop();
 
-    final dbFile = File(db.path);
-    final sizeKb = await dbFile.exists() ? (await dbFile.length() / 1024).ceil() : 1;
+    final file = File(db.path);
+    final sizeKb = await file.exists() ? (await file.length() / 1024).ceil() : 1;
     return DatabaseBenchmarkResult(
       totalRecordsQueried: queryIterations * 11,
       totalRecordsInserted: queryIterations,
@@ -451,9 +423,9 @@ class LocalDatabaseService {
   }
 
   Future<void> close() async {
-    final db = _database;
+    final current = _database;
     _database = null;
-    _initialization = null;
-    if (db != null && db.isOpen) await db.close();
+    _opening = null;
+    if (current != null && current.isOpen) await current.close();
   }
 }
