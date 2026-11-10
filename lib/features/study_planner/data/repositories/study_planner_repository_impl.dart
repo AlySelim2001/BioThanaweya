@@ -6,7 +6,6 @@ import '../datasources/adaptive_plan_generator.dart';
 import '../datasources/local_planner_storage_source.dart';
 import '../models/study_schedule_dto.dart';
 import '../models/study_task_dto.dart';
-import '../models/ai_coach_tip_dto.dart';
 
 /// التنفيذ العملي لمستودع خطة المذاكرة التكيفية والمساعد الذكي
 class StudyPlannerRepositoryImpl implements StudyPlannerRepository {

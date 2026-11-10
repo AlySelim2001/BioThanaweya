@@ -68,9 +68,9 @@ class _ExamSimulatorScreenState extends State<ExamSimulatorScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: AppTheme.examGold.withOpacity(0.1),
+                color: AppTheme.examGold.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: AppTheme.examGold.withOpacity(0.4)),
+                border: Border.all(color: AppTheme.examGold.withValues(alpha: 0.4)),
               ),
               child: const Row(
                 children: [
@@ -100,7 +100,7 @@ class _ExamSimulatorScreenState extends State<ExamSimulatorScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: AppTheme.molecularPurple.withOpacity(0.1),
+                            color: AppTheme.molecularPurple.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: const Text('Give Reason (2 Marks)', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppTheme.molecularPurple)),
@@ -173,7 +173,7 @@ class _ExamSimulatorScreenState extends State<ExamSimulatorScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: result.fullCreditAwarded ? AppTheme.emeraldSuccess.withOpacity(0.08) : Colors.orange.shade50,
+        color: result.fullCreditAwarded ? AppTheme.emeraldSuccess.withValues(alpha: 0.08) : Colors.orange.shade50,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
           color: result.fullCreditAwarded ? AppTheme.emeraldSuccess : Colors.orange.shade300,

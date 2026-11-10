@@ -197,7 +197,7 @@ class _ModernBioDashboardScreenState extends State<ModernBioDashboardScreen> {
             // Sliver App Bar
             SliverAppBar(
               pinned: true,
-              backgroundColor: const Color(0xFF0A192F).withOpacity(0.95),
+              backgroundColor: const Color(0xFF0A192F).withValues(alpha: 0.95),
               elevation: 0,
               expandedHeight: 80,
               flexibleSpace: FlexibleSpaceBar(
@@ -220,7 +220,7 @@ class _ModernBioDashboardScreenState extends State<ModernBioDashboardScreen> {
                           end: Alignment.bottomRight,
                         ),
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: const Color(0xFF64FFDA).withOpacity(0.4)),
+                        border: Border.all(color: const Color(0xFF64FFDA).withValues(alpha: 0.4)),
                       ),
                       child: const Icon(Icons.biotech, color: Color(0xFF64FFDA), size: 22),
                     ),
@@ -292,10 +292,10 @@ class _ModernBioDashboardScreenState extends State<ModernBioDashboardScreen> {
                           end: Alignment.bottomRight,
                         ),
                         borderRadius: BorderRadius.circular(24),
-                        border: Border.all(color: const Color(0xFF64FFDA).withOpacity(0.35)),
+                        border: Border.all(color: const Color(0xFF64FFDA).withValues(alpha: 0.35)),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF64FFDA).withOpacity(0.12),
+                            color: const Color(0xFF64FFDA).withValues(alpha: 0.12),
                             blurRadius: 24,
                             spreadRadius: 2,
                             offset: const Offset(0, 8),
@@ -328,9 +328,9 @@ class _ModernBioDashboardScreenState extends State<ModernBioDashboardScreen> {
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                 decoration: BoxDecoration(
-                                  color: const Color(0xFF64FFDA).withOpacity(0.12),
+                                  color: const Color(0xFF64FFDA).withValues(alpha: 0.12),
                                   borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(color: const Color(0xFF64FFDA).withOpacity(0.3)),
+                                  border: Border.all(color: const Color(0xFF64FFDA).withValues(alpha: 0.3)),
                                 ),
                                 child: const Text(
                                   'أوفلاين مفعل ⚡',
@@ -467,12 +467,12 @@ class _ModernBioDashboardScreenState extends State<ModernBioDashboardScreen> {
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
                                 color: (progress == 1.0)
-                                    ? const Color(0xFF2E7D32).withOpacity(0.6)
-                                    : const Color(0xFF64FFDA).withOpacity(0.15),
+                                    ? const Color(0xFF2E7D32).withValues(alpha: 0.6)
+                                    : const Color(0xFF64FFDA).withValues(alpha: 0.15),
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
+                                  color: Colors.black.withValues(alpha: 0.2),
                                   blurRadius: 10,
                                   offset: const Offset(0, 4),
                                 ),
@@ -769,7 +769,7 @@ class _ModernExamSimulationScreenState extends State<ModernExamSimulationScreen>
               decoration: BoxDecoration(
                 color: const Color(0xFF0A192F),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFF64FFDA).withOpacity(0.4)),
+                border: Border.all(color: const Color(0xFF64FFDA).withValues(alpha: 0.4)),
               ),
               child: Row(
                 children: [
@@ -815,7 +815,7 @@ class _ModernExamSimulationScreenState extends State<ModernExamSimulationScreen>
                   border: Border.all(color: const Color(0xFF233554)),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
+                      color: Colors.black.withValues(alpha: 0.2),
                       blurRadius: 10,
                     ),
                   ],
@@ -1073,10 +1073,10 @@ class _ModernCellSimulationScreenState extends State<ModernCellSimulationScreen>
                     colors: [Color(0xFF1D3557), Color(0xFF0A192F)],
                   ),
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: const Color(0xFF64FFDA).withOpacity(0.3)),
+                  border: Border.all(color: const Color(0xFF64FFDA).withValues(alpha: 0.3)),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF64FFDA).withOpacity(0.1),
+                      color: const Color(0xFF64FFDA).withValues(alpha: 0.1),
                       blurRadius: 20,
                       offset: const Offset(0, 4),
                     ),
@@ -1091,9 +1091,9 @@ class _ModernCellSimulationScreenState extends State<ModernCellSimulationScreen>
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF112240).withOpacity(0.8),
+                          color: const Color(0xFF112240).withValues(alpha: 0.8),
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: const Color(0xFF64FFDA).withOpacity(0.3)),
+                          border: Border.all(color: const Color(0xFF64FFDA).withValues(alpha: 0.3)),
                         ),
                         child: const Text('3D Viewport Active', style: TextStyle(color: Color(0xFF64FFDA), fontSize: 10)),
                       ),
@@ -1109,7 +1109,7 @@ class _ModernCellSimulationScreenState extends State<ModernCellSimulationScreen>
                             border: Border.all(color: const Color(0xFF64FFDA), width: 2),
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xFF64FFDA).withOpacity(0.3),
+                                color: const Color(0xFF64FFDA).withValues(alpha: 0.3),
                                 blurRadius: 30,
                               ),
                             ],
@@ -1285,7 +1285,7 @@ class _ModernChapterSearchScreenState extends State<ModernChapterSearchScreen> {
                 decoration: BoxDecoration(
                   color: const Color(0xFF112240),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFF64FFDA).withOpacity(0.3)),
+                  border: Border.all(color: const Color(0xFF64FFDA).withValues(alpha: 0.3)),
                 ),
                 child: TextField(
                   controller: _searchController,

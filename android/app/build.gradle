@@ -23,34 +23,26 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(
-                System.getenv("KEYSTORE_PATH") ?: 
-                keystoreProperties['KEYSTORE_PATH'] ?: 
-                'keystores/biothanaweya-release-key.jks'
-            )
-            storePassword(
-                System.getenv("KEYSTORE_PASSWORD") ?: 
-                System.getenv("STORE_PASSWORD") ?: 
-                keystoreProperties['KEYSTORE_PASSWORD'] ?: 
-                keystoreProperties['STORE_PASSWORD'] ?: 
-                "bio_secure_2026_pass"
-            )
-            keyAlias(
-                System.getenv("KEY_ALIAS") ?: 
-                keystoreProperties['KEY_ALIAS'] ?: 
-                "biothanaweya-alias"
-            )
-            keyPassword(
-                System.getenv("KEY_PASSWORD") ?: 
-                keystoreProperties['KEY_PASSWORD'] ?: 
-                "bio_secure_2026_pass"
-            )
+            def ksPath = System.getenv("KEYSTORE_PATH") ?: keystoreProperties['KEYSTORE_PATH']
+            if (ksPath && file(ksPath).exists()) {
+                storeFile file(ksPath)
+                storePassword System.getenv("KEYSTORE_PASSWORD") ?: System.getenv("STORE_PASSWORD") ?: keystoreProperties['KEYSTORE_PASSWORD'] ?: keystoreProperties['STORE_PASSWORD']
+                keyAlias System.getenv("KEY_ALIAS") ?: keystoreProperties['KEY_ALIAS']
+                keyPassword System.getenv("KEY_PASSWORD") ?: keystoreProperties['KEY_PASSWORD']
+            }
         }
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+        }
         release {
-            signingConfig signingConfigs.release
+            def ksPath = System.getenv("KEYSTORE_PATH") ?: keystoreProperties['KEYSTORE_PATH']
+            if (ksPath && file(ksPath).exists()) {
+                signingConfig signingConfigs.release
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

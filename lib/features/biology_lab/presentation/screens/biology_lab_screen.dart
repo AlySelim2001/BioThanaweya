@@ -159,7 +159,7 @@ class BiologyLabScreen extends ConsumerWidget {
               decoration: BoxDecoration(
                 color: darkSurfaceColor,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: Colors.green.withOpacity(0.3)),
+                border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
               ),
               child: Stack(
                 children: [
@@ -181,7 +181,7 @@ class BiologyLabScreen extends ConsumerWidget {
                                 radius: 0.85,
                               ),
                               borderRadius: BorderRadius.circular(16),
-                              border: Border.all(color: Colors.greenAccent.withOpacity(0.2)),
+                              border: Border.all(color: Colors.greenAccent.withValues(alpha: 0.2)),
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -213,9 +213,9 @@ class BiologyLabScreen extends ConsumerWidget {
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                   decoration: BoxDecoration(
-                                    color: Colors.green.withOpacity(0.15),
+                                    color: Colors.green.withValues(alpha: 0.15),
                                     borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(color: Colors.greenAccent.withOpacity(0.3)),
+                                    border: Border.all(color: Colors.greenAccent.withValues(alpha: 0.3)),
                                   ),
                                   child: const Text(
                                     'انقر على أيقونات النبض للاستكشاف والتحليل',
@@ -248,7 +248,7 @@ class BiologyLabScreen extends ConsumerWidget {
                                     border: Border.all(color: Colors.white, width: 2),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: (isActive ? Colors.amber : activeColor).withOpacity(0.6),
+                                        color: (isActive ? Colors.amber : activeColor).withValues(alpha: 0.6),
                                         blurRadius: isActive ? 12 : 6,
                                         spreadRadius: isActive ? 2 : 1,
                                       ),
@@ -284,12 +284,12 @@ class BiologyLabScreen extends ConsumerWidget {
                           return Container(
                             padding: const EdgeInsets.all(14),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF1E1E2C).withOpacity(0.96),
+                              color: const Color(0xFF1E1E2C).withValues(alpha: 0.96),
                               borderRadius: BorderRadius.circular(14),
                               border: Border.all(color: Colors.amber, width: 1.5),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.5),
+                                  color: Colors.black.withValues(alpha: 0.5),
                                   blurRadius: 16,
                                   offset: const Offset(0, 4),
                                 ),
@@ -340,9 +340,9 @@ class BiologyLabScreen extends ConsumerWidget {
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                    color: Colors.red.withOpacity(0.18),
+                                    color: Colors.red.withValues(alpha: 0.18),
                                     borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(color: Colors.redAccent.withOpacity(0.5)),
+                                    border: Border.all(color: Colors.redAccent.withValues(alpha: 0.5)),
                                   ),
                                   child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -374,9 +374,9 @@ class BiologyLabScreen extends ConsumerWidget {
                                           ? Container(
                                               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                                               decoration: BoxDecoration(
-                                                color: Colors.green.withOpacity(0.12),
+                                                color: Colors.green.withValues(alpha: 0.12),
                                                 borderRadius: BorderRadius.circular(8),
-                                                border: Border.all(color: Colors.green.withOpacity(0.4)),
+                                                border: Border.all(color: Colors.green.withValues(alpha: 0.4)),
                                               ),
                                               child: Text(
                                                 'ملاحظتك: ${existingNote.content}',

@@ -271,7 +271,7 @@ class _SmartQuizScreenState extends State<SmartQuizScreen> {
                 margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                  color: state.isTimeWarning ? const Color(0xFFEF4444).withOpacity(0.2) : const Color(0xFF1D3557),
+                  color: state.isTimeWarning ? const Color(0xFFEF4444).withValues(alpha: 0.2) : const Color(0xFF1D3557),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
                     color: state.isTimeWarning ? const Color(0xFFEF4444) : const Color(0xFF64FFDA),
@@ -334,7 +334,7 @@ class _SmartQuizScreenState extends State<SmartQuizScreen> {
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFF59E0B).withOpacity(0.2),
+                              color: const Color(0xFFF59E0B).withValues(alpha: 0.2),
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(color: const Color(0xFFF59E0B)),
                             ),

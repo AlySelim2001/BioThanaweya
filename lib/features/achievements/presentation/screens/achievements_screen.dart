@@ -32,7 +32,7 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
         title: Row(
           children: [
             CircleAvatar(
-              backgroundColor: badge.badgeColor.withOpacity(0.2),
+              backgroundColor: badge.badgeColor.withValues(alpha: 0.2),
               child: Icon(badge.iconData, color: badge.badgeColor),
             ),
             const SizedBox(width: 12),
@@ -60,7 +60,7 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
-                color: badge.rarity.primaryColor.withOpacity(0.15),
+                color: badge.rarity.primaryColor.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
@@ -155,7 +155,7 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.blue.withOpacity(0.2),
+                        color: Colors.blue.withValues(alpha: 0.2),
                         blurRadius: 10,
                         offset: const Offset(0, 4),
                       ),
@@ -168,7 +168,7 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
                           Container(
                             padding: const EdgeInsets.all(14),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFF59E0B).withOpacity(0.2),
+                              color: const Color(0xFFF59E0B).withValues(alpha: 0.2),
                               shape: BoxShape.circle,
                               border: Border.all(color: const Color(0xFFF59E0B), width: 2),
                             ),
@@ -268,7 +268,7 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
           boxShadow: [
             if (isSelected)
               BoxShadow(
-                color: const Color(0xFF0D9488).withOpacity(0.3),
+                color: const Color(0xFF0D9488).withValues(alpha: 0.3),
                 blurRadius: 6,
                 offset: const Offset(0, 2),
               )
@@ -295,7 +295,7 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
           borderRadius: BorderRadius.circular(16),
           side: BorderSide(
             color: badge.isUnlocked
-                ? badge.badgeColor.withOpacity(0.6)
+                ? badge.badgeColor.withValues(alpha: 0.6)
                 : Colors.grey.shade300,
             width: badge.isUnlocked ? 1.5 : 1.0,
           ),
@@ -316,7 +316,7 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
                       shape: BoxShape.circle,
                       gradient: badge.isUnlocked
                           ? LinearGradient(
-                              colors: [badge.badgeColor, badge.badgeColor.withOpacity(0.6)],
+                              colors: [badge.badgeColor, badge.badgeColor.withValues(alpha: 0.6)],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                             )
@@ -326,7 +326,7 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
                       boxShadow: [
                         if (badge.isUnlocked)
                           BoxShadow(
-                            color: badge.badgeColor.withOpacity(0.4),
+                            color: badge.badgeColor.withValues(alpha: 0.4),
                             blurRadius: 8,
                             offset: const Offset(0, 3),
                           )
@@ -376,7 +376,7 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(
-                            color: badge.rarity.primaryColor.withOpacity(0.12),
+                            color: badge.rarity.primaryColor.withValues(alpha: 0.12),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(

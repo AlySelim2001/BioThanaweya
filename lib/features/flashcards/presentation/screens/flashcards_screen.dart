@@ -95,13 +95,13 @@ class _FlashcardsScreenState extends State<FlashcardsScreen> {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.08),
+                          color: Colors.black.withValues(alpha: 0.08),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         ),
                       ],
                       border: Border.all(
-                        color: _isFlipped ? AppTheme.bioCyanAccent : AppTheme.bioTealPrimary.withOpacity(0.3),
+                        color: _isFlipped ? AppTheme.bioCyanAccent : AppTheme.bioTealPrimary.withValues(alpha: 0.3),
                         width: 2,
                       ),
                     ),
@@ -111,7 +111,7 @@ class _FlashcardsScreenState extends State<FlashcardsScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                           decoration: BoxDecoration(
-                            color: _isFlipped ? AppTheme.bioCyanAccent.withOpacity(0.2) : AppTheme.bioTealPrimary.withOpacity(0.1),
+                            color: _isFlipped ? AppTheme.bioCyanAccent.withValues(alpha: 0.2) : AppTheme.bioTealPrimary.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
@@ -139,7 +139,7 @@ class _FlashcardsScreenState extends State<FlashcardsScreen> {
                           Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.1),
+                              color: Colors.white.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(

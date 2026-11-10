@@ -19,8 +19,8 @@ echo -e "${CYAN}Target Runtime: Android Termux / Low-Memory Container${NC}"
 echo -e "${CYAN}=====================================================${NC}"
 
 # Step 1: Memory Constraint Enforcement
-echo -e "\n${YELLOW}[1/4] Enforcing 256MB Node memory allocation boundary...${NC}"
-export NODE_OPTIONS="--max-old-space-size=256"
+echo -e "\n${YELLOW}[1/4] Enforcing 512MB Node memory allocation boundary...${NC}"
+export NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=512}"
 echo -e "${GREEN}✓ NODE_OPTIONS set to: ${NODE_OPTIONS}${NC}"
 
 # Step 2: Strict Type & Lint Checking

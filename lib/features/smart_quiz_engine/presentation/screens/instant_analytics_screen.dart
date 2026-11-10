@@ -76,7 +76,7 @@ class InstantAnalyticsScreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
-                        color: (isPassed ? const Color(0xFF10B981) : const Color(0xFFEF4444)).withOpacity(0.2),
+                        color: (isPassed ? const Color(0xFF10B981) : const Color(0xFFEF4444)).withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color: isPassed ? const Color(0xFF10B981) : const Color(0xFFEF4444),
@@ -134,7 +134,7 @@ class InstantAnalyticsScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: const Color(0xFF112240),
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: const Color(0xFFF59E0B).withOpacity(0.5)),
+                border: Border.all(color: const Color(0xFFF59E0B).withValues(alpha: 0.5)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -287,7 +287,7 @@ class InstantAnalyticsScreen extends StatelessWidget {
                 color: const Color(0xFF112240),
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(
-                  color: isCorrect ? const Color(0xFF10B981).withOpacity(0.5) : const Color(0xFFEF4444).withOpacity(0.5),
+                  color: isCorrect ? const Color(0xFF10B981).withValues(alpha: 0.5) : const Color(0xFFEF4444).withValues(alpha: 0.5),
                 ),
               ),
               child: Column(

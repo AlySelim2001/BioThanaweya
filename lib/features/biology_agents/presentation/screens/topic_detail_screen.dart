@@ -97,9 +97,9 @@ class _TopicDetailScreenState extends State<TopicDetailScreen> {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: AppTheme.bioTealPrimary.withOpacity(0.08),
+                      color: AppTheme.bioTealPrimary.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: AppTheme.bioTealPrimary.withOpacity(0.25)),
+                      border: Border.all(color: AppTheme.bioTealPrimary.withValues(alpha: 0.25)),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -145,9 +145,9 @@ class _TopicDetailScreenState extends State<TopicDetailScreen> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
-                      color: AppTheme.bioTealPrimary.withOpacity(0.06),
+                      color: AppTheme.bioTealPrimary.withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: AppTheme.bioTealPrimary.withOpacity(0.2)),
+                      border: Border.all(color: AppTheme.bioTealPrimary.withValues(alpha: 0.2)),
                     ),
                     child: Text(
                       _educatorPayload.eli5Arabic,
@@ -162,9 +162,9 @@ class _TopicDetailScreenState extends State<TopicDetailScreen> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
-                      color: AppTheme.molecularPurple.withOpacity(0.06),
+                      color: AppTheme.molecularPurple.withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: AppTheme.molecularPurple.withOpacity(0.2)),
+                      border: Border.all(color: AppTheme.molecularPurple.withValues(alpha: 0.2)),
                     ),
                     child: Text(
                       _educatorPayload.deepTechnicalEnglish,
@@ -198,7 +198,7 @@ class _TopicDetailScreenState extends State<TopicDetailScreen> {
                           .map((vocab) => Chip(
                                 label: Text(vocab, style: const TextStyle(fontSize: 11)),
                                 backgroundColor: Colors.teal.shade50,
-                                side: BorderSide(color: AppTheme.bioTealPrimary.withOpacity(0.3)),
+                                side: BorderSide(color: AppTheme.bioTealPrimary.withValues(alpha: 0.3)),
                               ))
                           .toList(),
                     ),
@@ -282,9 +282,9 @@ class _TopicDetailScreenState extends State<TopicDetailScreen> {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: AppTheme.alertCoral.withOpacity(0.1),
+                      color: AppTheme.alertCoral.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: AppTheme.alertCoral.withOpacity(0.4)),
+                      border: Border.all(color: AppTheme.alertCoral.withValues(alpha: 0.4)),
                     ),
                     child: Text(
                       assessmentItem.examTrapWarning,
@@ -305,7 +305,7 @@ class _TopicDetailScreenState extends State<TopicDetailScreen> {
                         margin: const EdgeInsets.symmetric(vertical: 4),
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: isCorrect ? AppTheme.emeraldSuccess.withOpacity(0.15) : Colors.transparent,
+                          color: isCorrect ? AppTheme.emeraldSuccess.withValues(alpha: 0.15) : Colors.transparent,
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
                             color: isCorrect ? AppTheme.emeraldSuccess : Colors.grey.shade300,

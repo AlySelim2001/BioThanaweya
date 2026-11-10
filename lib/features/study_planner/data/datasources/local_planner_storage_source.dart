@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/study_task_dto.dart';
 import '../models/study_schedule_dto.dart';
-import '../models/ai_coach_tip_dto.dart';
 
 /// محرك التخزين الدائم لخطط المذاكرة والمهام اليومية محلياً
 class LocalPlannerStorageSource {

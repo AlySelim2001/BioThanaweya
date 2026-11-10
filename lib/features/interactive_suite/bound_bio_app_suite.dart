@@ -7,6 +7,7 @@ import '../smart_quiz_engine/presentation/screens/smart_quiz_screen.dart';
 import '../biology_lab/presentation/screens/biology_lab_screen.dart';
 import '../study_planner/presentation/screens/smart_planner_screen.dart';
 import '../architecture_hub/presentation/screens/app_architecture_hub.dart';
+import '../ministry_textbooks/presentation/screens/ministry_textbook_screen.dart';
 
 // ==============================================================================
 // 🧬 BOUND BIO APP ROOT (Controller-Driven UI Suite)
@@ -179,11 +180,11 @@ class _BoundDashboardScreenState extends ConsumerState<BoundDashboardScreen> {
               decoration: BoxDecoration(
                 color: const Color(0xFF161622),
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: BioTheme.warningAmber.withOpacity(0.3)),
+                border: Border.all(color: BioTheme.warningAmber.withValues(alpha: 0.3)),
               ),
               child: ListTile(
                 leading: CircleAvatar(
-                  backgroundColor: BioTheme.warningAmber.withOpacity(0.18),
+                  backgroundColor: BioTheme.warningAmber.withValues(alpha: 0.18),
                   child: const Icon(Icons.assignment_turned_in, color: BioTheme.warningAmber, size: 20),
                 ),
                 title: Text(
@@ -213,11 +214,11 @@ class _BoundDashboardScreenState extends ConsumerState<BoundDashboardScreen> {
               decoration: BoxDecoration(
                 color: const Color(0xFF161622),
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: BioTheme.bioGreen.withOpacity(0.3)),
+                border: Border.all(color: BioTheme.bioGreen.withValues(alpha: 0.3)),
               ),
               child: ListTile(
                 leading: CircleAvatar(
-                  backgroundColor: BioTheme.bioGreen.withOpacity(0.18),
+                  backgroundColor: BioTheme.bioGreen.withValues(alpha: 0.18),
                   child: const Icon(Icons.history_edu_rounded, color: BioTheme.bioGreen, size: 20),
                 ),
                 title: Text(
@@ -262,7 +263,7 @@ class _BoundDashboardScreenState extends ConsumerState<BoundDashboardScreen> {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: BioTheme.bioGreen.withOpacity(0.15),
+                  color: BioTheme.bioGreen.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(Icons.biotech, color: BioTheme.bioGreen, size: 22),
@@ -327,10 +328,10 @@ class _BoundDashboardScreenState extends ConsumerState<BoundDashboardScreen> {
                 decoration: BoxDecoration(
                   color: BioTheme.surfaceGlass,
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: BioTheme.bioGreen.withOpacity(0.3)),
+                  border: Border.all(color: BioTheme.bioGreen.withValues(alpha: 0.3)),
                   boxShadow: [
                     BoxShadow(
-                      color: BioTheme.bioGreen.withOpacity(0.05),
+                      color: BioTheme.bioGreen.withValues(alpha: 0.05),
                       blurRadius: 20,
                       spreadRadius: 2,
                     ),
@@ -360,7 +361,7 @@ class _BoundDashboardScreenState extends ConsumerState<BoundDashboardScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                           decoration: BoxDecoration(
-                            color: BioTheme.bioGreen.withOpacity(0.2),
+                            color: BioTheme.bioGreen.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Text(
@@ -444,6 +445,21 @@ class _BoundDashboardScreenState extends ConsumerState<BoundDashboardScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (_) => const AppArchitectureHub()),
+                  );
+                },
+              ),
+              const SizedBox(height: 14),
+
+              // هـ. مكتبة كتب وكتيبات الوزارة الرسمية دون اتصال
+              _buildEngineCard(
+                title: isArabic ? 'مكتبة كتب الوزارة الرسمية ومجلد المفاهيم' : 'Ministry Textbooks & Concepts Atlas',
+                subtitle: isArabic ? 'كتب الوزارة الرسمية، قراءة أوفلاين، وحفظ الصفحة.' : 'Official curriculum PDFs, offline reader, & auto bookmarking.',
+                icon: Icons.menu_book_rounded,
+                accentColor: const Color(0xFF10B981),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const MinistryTextbookScreen()),
                   );
                 },
               ),
@@ -549,14 +565,14 @@ class _BoundDashboardScreenState extends ConsumerState<BoundDashboardScreen> {
           decoration: BoxDecoration(
             color: BioTheme.surfaceGlass,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: accentColor.withOpacity(0.3)),
+            border: Border.all(color: accentColor.withValues(alpha: 0.3)),
           ),
           child: Row(
             children: [
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: accentColor.withOpacity(0.15),
+                  color: accentColor.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(icon, color: accentColor, size: 26),
@@ -578,7 +594,7 @@ class _BoundDashboardScreenState extends ConsumerState<BoundDashboardScreen> {
                   ],
                 ),
               ),
-              Icon(Icons.arrow_forward_ios_rounded, color: BioTheme.textSecondary.withOpacity(0.5), size: 16),
+              Icon(Icons.arrow_forward_ios_rounded, color: BioTheme.textSecondary.withValues(alpha: 0.5), size: 16),
             ],
           ),
         ),

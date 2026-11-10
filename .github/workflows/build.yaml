@@ -1,4 +1,4 @@
-name: BioThanaweya Production Build & Release Pipeline
+name: BioThanaweya Production Build & Multi-Platform Release Pipeline
 
 on:
   push:
@@ -60,7 +60,7 @@ jobs:
           retention-days: 30
 
   android-build:
-    name: 📱 Android APK & AAB Compilation
+    name: 📱 Android Native Container APK Compilation
     needs: preflight-and-web
     runs-on: ubuntu-latest
     steps:
@@ -96,29 +96,6 @@ jobs:
             echo "Synthesized placeholder google-services.json"
           fi
 
-      - name: 🔑 Resolve Android Release Keystore
-        id: resolve-keystore
-        env:
-          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-        run: |
-          KEYSTORE_PATH="$GITHUB_WORKSPACE/my-upload-key.jks"
-          if [ -n "${KEYSTORE_BASE64}" ]; then
-            echo "Decoding release keystore from GitHub Secrets..."
-            echo "${KEYSTORE_BASE64}" | base64 --decode > "${KEYSTORE_PATH}"
-          elif [ -f "android/app/keystores/biothanaweya-release-key.jks" ]; then
-            echo "Using bundled repository release key..."
-            cp android/app/keystores/biothanaweya-release-key.jks "${KEYSTORE_PATH}"
-          else
-            echo "Generating fallback signing key for CI workflow..."
-            keytool -genkeypair -v \
-              -keystore "${KEYSTORE_PATH}" \
-              -alias "biothanaweya-alias" \
-              -keyalg RSA -keysize 2048 -validity 10000 \
-              -storepass "bio_secure_2026_pass" -keypass "bio_secure_2026_pass" \
-              -dname "CN=BioThanaweya CI, OU=Engineering, O=BioThanaweya, L=Cairo, C=EG"
-          fi
-          echo "KEYSTORE_PATH=${KEYSTORE_PATH}" >> $GITHUB_ENV
-
       - name: ⚙️ Grant Execution Rights to Gradle Wrapper
         run: |
           cd android
@@ -129,66 +106,183 @@ jobs:
             chmod +x gradlew
           fi
 
-      - name: 🚀 Compile Universal Release APK
-        env:
-          KEYSTORE_PATH: ${{ env.KEYSTORE_PATH }}
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD || secrets.STORE_PASSWORD || 'bio_secure_2026_pass' }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS || 'biothanaweya-alias' }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD || 'bio_secure_2026_pass' }}
+      - name: 🚀 Compile Universal Debug APK
         run: |
           cd android
-          ./gradlew assembleRelease --no-daemon --stacktrace
+          ./gradlew assembleDebug --no-daemon --stacktrace
 
-      - name: 📦 Compile Google Play App Bundle (AAB)
+      - name: 🔑 Check Release Keystore Configuration
+        id: check-keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "${KEYSTORE_BASE64}" ]; then
+            echo "has_keystore=true" >> $GITHUB_OUTPUT
+            echo "Release keystore detected in GitHub Secrets."
+            KEYSTORE_PATH="$RUNNER_TEMP/release.jks"
+            echo "${KEYSTORE_BASE64}" | base64 --decode > "${KEYSTORE_PATH}"
+            echo "KEYSTORE_PATH=${KEYSTORE_PATH}" >> $GITHUB_ENV
+          else
+            echo "has_keystore=false" >> $GITHUB_OUTPUT
+            echo "No release keystore configured; building debug APK artifact."
+          fi
+
+      - name: 📦 Compile Signed Release APK & AAB (Optional)
+        if: steps.check-keystore.outputs.has_keystore == 'true'
         env:
           KEYSTORE_PATH: ${{ env.KEYSTORE_PATH }}
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD || secrets.STORE_PASSWORD || 'bio_secure_2026_pass' }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS || 'biothanaweya-alias' }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD || 'bio_secure_2026_pass' }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           cd android
-          ./gradlew bundleRelease --no-daemon --stacktrace
+          ./gradlew assembleRelease bundleRelease --no-daemon --stacktrace
 
-      - name: 🛡️ Compute SHA-256 Cryptographic Integrity Checksums
+      - name: 🛡️ Stage Binaries & Compute SHA-256 Checksums
         run: |
-          mkdir -p release-binaries
+          mkdir -p output-binaries
           
-          # Find and stage APK
-          APK_FILE=$(find android/app/build/outputs/apk/release -name "*.apk" | head -n 1)
-          if [ -n "$APK_FILE" ]; then
-            cp "$APK_FILE" release-binaries/BioThanaweya-release.apk
+          # Stage Debug APK
+          DEBUG_APK=$(find android/app/build/outputs/apk/debug -name "*.apk" 2>/dev/null | head -n 1 || true)
+          if [ -n "$DEBUG_APK" ]; then
+            cp "$DEBUG_APK" output-binaries/BioThanaweya-debug.apk
+            echo "Staged Debug APK: $(ls -lh output-binaries/BioThanaweya-debug.apk)"
           fi
           
-          # Find and stage AAB
-          AAB_FILE=$(find android/app/build/outputs/bundle/release -name "*.aab" | head -n 1)
-          if [ -n "$AAB_FILE" ]; then
-            cp "$AAB_FILE" release-binaries/BioThanaweya-release.aab
+          # Stage Release APK if built
+          RELEASE_APK=$(find android/app/build/outputs/apk/release -name "*.apk" 2>/dev/null | head -n 1 || true)
+          if [ -n "$RELEASE_APK" ]; then
+            cp "$RELEASE_APK" output-binaries/BioThanaweya-release.apk
+            echo "Staged Release APK: $(ls -lh output-binaries/BioThanaweya-release.apk)"
+          fi
+          
+          # Stage Release AAB if built
+          RELEASE_AAB=$(find android/app/build/outputs/bundle/release -name "*.aab" 2>/dev/null | head -n 1 || true)
+          if [ -n "$RELEASE_AAB" ]; then
+            cp "$RELEASE_AAB" output-binaries/BioThanaweya-release.aab
+            echo "Staged Release AAB: $(ls -lh output-binaries/BioThanaweya-release.aab)"
           fi
 
-          cd release-binaries
+          cd output-binaries
           sha256sum * > SHA256SUMS.txt
           cat SHA256SUMS.txt
 
-          echo "### 🔐 Release Binary Integrity Verification" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔐 Android Binary Artifacts & SHA-256 Checksums" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           cat SHA256SUMS.txt >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
 
-      - name: 📤 Archive Binary Artifacts (APK, AAB & Checksums)
+      - name: 📤 Archive Android Binaries (APK & Checksums)
         uses: actions/upload-artifact@v4
         with:
-          name: biothanaweya-android-binaries
-          path: release-binaries/
+          name: biothanaweya-android-apk
+          path: output-binaries/
           retention-days: 30
 
-      - name: 🚀 Publish GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v') || github.event.inputs.publish_release == 'true'
+  flutter-qa-and-build:
+    name: 💙 Flutter QA & Multi-ABI Split APK Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: ☕ Setup Java 17 (Eclipse Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - name: 🤖 Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: 💙 Setup Flutter SDK Environment
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.0'
+          channel: 'stable'
+          cache: true
+
+      - name: 📦 Retrieve Flutter Dependencies
+        run: flutter pub get
+
+      - name: 🛡️ Strict Static Analysis (flutter analyze)
+        run: flutter analyze --no-fatal-infos
+
+      - name: 🧪 Execute Flutter Unit & Widget Test Suite
+        run: flutter test
+
+      - name: 🔑 Check Release Keystore Configuration
+        id: check-keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "${KEYSTORE_BASE64}" ]; then
+            echo "has_keystore=true" >> $GITHUB_OUTPUT
+            echo "Release keystore detected in GitHub Secrets."
+            KEYSTORE_PATH="$RUNNER_TEMP/flutter-release.jks"
+            echo "${KEYSTORE_BASE64}" | base64 --decode > "${KEYSTORE_PATH}"
+            echo "KEYSTORE_PATH=${KEYSTORE_PATH}" >> $GITHUB_ENV
+          else
+            echo "has_keystore=false" >> $GITHUB_OUTPUT
+            echo "No release keystore secret found; compiling debug split APKs."
+          fi
+
+      - name: 🚀 Compile Flutter Universal & Split APKs (Debug)
+        run: |
+          flutter build apk --split-per-abi --debug
+          flutter build apk --debug
+
+      - name: 📦 Compile Flutter Release APKs & AAB (Optional)
+        if: steps.check-keystore.outputs.has_keystore == 'true'
+        run: |
+          flutter build apk --split-per-abi --release
+          flutter build apk --release
+          flutter build appbundle --release
+
+      - name: 🛡️ Stage Flutter Binaries & Compute SHA-256 Checksums
+        run: |
+          mkdir -p flutter-binaries
+          find build/app/outputs/flutter-apk/ -name "*.apk" -exec cp {} flutter-binaries/ \;
+          find build/app/outputs/bundle/ -name "*.aab" -exec cp {} flutter-binaries/ \; 2>/dev/null || true
+          
+          cd flutter-binaries
+          sha256sum * > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
+          echo "### 📱 Flutter APK Artifacts & SHA-256 Checksums" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat SHA256SUMS.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: 📤 Archive Flutter Binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: biothanaweya-flutter-binaries
+          path: flutter-binaries/
+          retention-days: 30
+
+  publish-release:
+    name: 🚀 Publish Unified GitHub Release
+    if: startsWith(github.ref, 'refs/tags/v') || github.event.inputs.publish_release == 'true'
+    needs: [preflight-and-web, android-build, flutter-qa-and-build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Download Android Native Binaries
+        uses: actions/download-artifact@v4
+        with:
+          name: biothanaweya-android-apk
+          path: release-assets/android
+
+      - name: 📥 Download Flutter Binaries
+        uses: actions/download-artifact@v4
+        with:
+          name: biothanaweya-flutter-binaries
+          path: release-assets/flutter
+
+      - name: 🚀 Create Unified GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            release-binaries/BioThanaweya-release.apk
-            release-binaries/BioThanaweya-release.aab
-            release-binaries/SHA256SUMS.txt
+          files: release-assets/**/*
           generate_release_notes: true
           draft: false
           prerelease: false

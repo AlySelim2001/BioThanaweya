@@ -107,8 +107,8 @@ class _SparklinePainter extends CustomPainter {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            lineColor.withOpacity(0.25),
-            lineColor.withOpacity(0.0),
+            lineColor.withValues(alpha: 0.25),
+            lineColor.withValues(alpha: 0.0),
           ],
         ).createShader(Rect.fromLTWH(0, 0, size.width, size.height))
         ..style = PaintingStyle.fill;
@@ -132,7 +132,7 @@ class _SparklinePainter extends CustomPainter {
 
       // Glow halo
       final Paint glowPaint = Paint()
-        ..color = lineColor.withOpacity(0.3)
+        ..color = lineColor.withValues(alpha: 0.3)
         ..style = PaintingStyle.fill;
       canvas.drawCircle(lastPoint, strokeWidth * 2.5, glowPaint);
 

@@ -81,10 +81,10 @@ class ModernBioDashboardScreen extends StatelessWidget {
                             end: Alignment.bottomRight,
                           ),
                           borderRadius: BorderRadius.circular(24),
-                          border: Border.all(color: const Color(0xFF64FFDA).withOpacity(0.3)),
+                          border: Border.all(color: const Color(0xFF64FFDA).withValues(alpha: 0.3)),
                           boxShadow: [
                             BoxShadow(
-                              color: const Color(0xFF64FFDA).withOpacity(0.1),
+                              color: const Color(0xFF64FFDA).withValues(alpha: 0.1),
                               blurRadius: 20,
                               spreadRadius: 2,
                             ),
@@ -100,7 +100,7 @@ class ModernBioDashboardScreen extends StatelessWidget {
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF64FFDA).withOpacity(0.1),
+                                    color: const Color(0xFF64FFDA).withValues(alpha: 0.1),
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: const Text('نشط الآن (أوفلاين)', style: TextStyle(color: Color(0xFF64FFDA), fontSize: 10)),
@@ -149,7 +149,7 @@ class ModernBioDashboardScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: const Color(0xFF112240),
                               borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: Colors.white.withOpacity(0.05)),
+                              border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

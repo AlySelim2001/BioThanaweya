@@ -86,36 +86,31 @@ jobs:
       - name: 📦 Fetch Packages
         run: flutter pub get
 
-      - name: 🔑 Resolve Android Signing Key
+      - name: 🔑 Check Android Signing Configuration
         id: resolve-keystore
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
         run: |
-          KEYSTORE_PATH="$GITHUB_WORKSPACE/upload-keystore.jks"
           if [ -n "${KEYSTORE_BASE64}" ]; then
+            echo "has_keystore=true" >> $GITHUB_OUTPUT
             echo "Decoding production keystore from GitHub Secrets..."
+            KEYSTORE_PATH="$RUNNER_TEMP/upload-keystore.jks"
             echo "${KEYSTORE_BASE64}" | base64 --decode > "${KEYSTORE_PATH}"
-          elif [ -f "android/app/keystores/biothanaweya-release-key.jks" ]; then
-            echo "Using existing repository release key..."
-            cp android/app/keystores/biothanaweya-release-key.jks "${KEYSTORE_PATH}"
+            echo "KEYSTORE_PATH=${KEYSTORE_PATH}" >> $GITHUB_ENV
           else
-            echo "Generating fallback signing key for CI artifact release..."
-            keytool -genkeypair -v \
-              -keystore "${KEYSTORE_PATH}" \
-              -alias "biothanaweya-alias" \
-              -keyalg RSA -keysize 2048 -validity 10000 \
-              -storepass "bio_secure_2026_pass" -keypass "bio_secure_2026_pass" \
-              -dname "CN=BioThanaweya CI, OU=Engineering, O=BioThanaweya, L=Cairo, C=EG"
+            echo "has_keystore=false" >> $GITHUB_OUTPUT
+            echo "No release keystore secret found; will build debug APK."
           fi
-          echo "KEYSTORE_PATH=${KEYSTORE_PATH}" >> $GITHUB_ENV
 
-      - name: 🚀 Build Universal & Split Android APKs (Release)
+      - name: 🚀 Build Universal Debug APK
+        run: |
+          flutter build apk --debug
+
+      - name: 📦 Build Release Android APKs & AAB (Optional)
+        if: steps.resolve-keystore.outputs.has_keystore == 'true'
         run: |
           flutter build apk --split-per-abi --release
           flutter build apk --release
-
-      - name: 📦 Build Google Play App Bundle (AAB)
-        run: |
           flutter build appbundle --release
 
       - name: 🛡️ Collect Binaries & Compute SHA-256 Checksums

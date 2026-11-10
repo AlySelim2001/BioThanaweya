@@ -5,7 +5,7 @@ import 'ai_coach_insights_screen.dart';
 
 /// شاشة خطة المذاكرة التكيفية والمساعد الذكي الرئيسي (Smart Study Planner)
 class SmartPlannerScreen extends ConsumerWidget {
-  const SmartPlannerScreen({Key? key}) : super(key: key);
+  const SmartPlannerScreen({super.key});
 
   void _showAddTaskDialog(BuildContext context, WidgetRef ref) {
     final titleController = TextEditingController();
@@ -297,10 +297,10 @@ class SmartPlannerScreen extends ConsumerWidget {
                   decoration: BoxDecoration(
                     color: darkSurfaceColor,
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: primaryGreen.withOpacity(0.4)),
+                    border: Border.all(color: primaryGreen.withValues(alpha: 0.4)),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
+                        color: Colors.black.withValues(alpha: 0.3),
                         blurRadius: 10,
                         offset: const Offset(0, 4),
                       ),
@@ -316,7 +316,7 @@ class SmartPlannerScreen extends ConsumerWidget {
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                             decoration: BoxDecoration(
-                              color: primaryGreen.withOpacity(0.15),
+                              color: primaryGreen.withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
@@ -401,7 +401,7 @@ class SmartPlannerScreen extends ConsumerWidget {
                     decoration: BoxDecoration(
                       color: const Color(0xFF252536),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.amber.withOpacity(0.35)),
+                      border: Border.all(color: Colors.amber.withValues(alpha: 0.35)),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -427,7 +427,7 @@ class SmartPlannerScreen extends ConsumerWidget {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                           decoration: BoxDecoration(
-                            color: primaryGreen.withOpacity(0.12),
+                            color: primaryGreen.withValues(alpha: 0.12),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Row(
@@ -494,7 +494,7 @@ class SmartPlannerScreen extends ConsumerWidget {
                         alignment: Alignment.centerLeft,
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         decoration: BoxDecoration(
-                          color: Colors.redAccent.withOpacity(0.2),
+                          color: Colors.redAccent.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: const Icon(Icons.delete, color: Colors.redAccent),
@@ -514,7 +514,7 @@ class SmartPlannerScreen extends ConsumerWidget {
                             color: task.isCompleted
                                 ? Colors.transparent
                                 : isHigh
-                                    ? Colors.redAccent.withOpacity(0.4)
+                                    ? Colors.redAccent.withValues(alpha: 0.4)
                                     : Colors.white12,
                           ),
                         ),
@@ -549,7 +549,7 @@ class SmartPlannerScreen extends ConsumerWidget {
                                   Container(
                                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                     decoration: BoxDecoration(
-                                      color: Colors.redAccent.withOpacity(0.18),
+                                      color: Colors.redAccent.withValues(alpha: 0.18),
                                       borderRadius: BorderRadius.circular(4),
                                     ),
                                     child: const Text('أولوية FSRS', style: TextStyle(color: Colors.redAccent, fontSize: 9, fontWeight: FontWeight.bold)),
