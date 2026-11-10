@@ -1,58 +1,58 @@
-# خطة التطوير الشاملة: واجهة Bento Grid ثنائية اللغة وتجربة المستخدم لـ "تعلم مع علي" (BioThanaweya)
+# خطة المعمارية والتنفيذ: وحدة Git & Dev Cheat-Sheet وسير عمل GitHub Actions لـ BioThanaweya
 
-بناءً على متطلبات التصميم والخيارات المعمارية المعتمدة، سنقوم بنقل واجهة التطبيق وتجربة المستخدم إلى مستوى إنتاجي عالمي بمعايير EdTech الحديثة.
-
----
-
-### 1. المعمارية المعتمدة
-1. **نظام اللغة التفاعلي (`LanguageContext`)**:
-   - موفّر سياق (`LanguageProvider`) يحفظ لغة الطالب (`ar` أو `en`) في التخزين المحلي (`localStorage`).
-   - مزامنة فورية لاتجاه الصفحة (`dir="rtl"` مع خطوط عربية Tajawal/Cairo، أو `dir="ltr"` مع خطوط Inter/Outfit).
-   - توفير دالة ترجمة سلسة `t(key)` أو نصوص ثنائية في جميع الشاشات.
-2. **شريط التنقل العلوي الزجاجي الفاخر (Glassmorphic Sticky Navbar)**:
-   - علامة تجارية مميزة: "تعلم مع علي | Thanaweya Amma Biology" مع نبض حيوي.
-   - زر تبديل اللغة التلقائي بنقرة واحدة (العربية / English).
-   - زر بارز غير قابل للتفويت: **`زر تحميل كتاب الوزارة الشامل`** يفتح نافذة تفاعلية (`MinistryTextbookModal`) تحتوي على روابط مباشرة لكتب الوزارة الرسمية (الوحدة الأولى والوحدة الثانية وكتيب المفاهيم الرسمي 2026) مع إرشادات الحفظ الأوفلاين.
-   - عداد الحماس وStreak (🔥)، وشارات الذكاء الاصطناعي (🤖 7-Agents)، وحالة المزامنة الأوفلاين.
-3. **لوحة التحكم بنمط Bento Grid (Sci-Fi EdTech Aesthetics)**:
-   - بطاقات زجاجية عالية التباين (`bg-slate-900/80 backdrop-blur-md border border-slate-700/50`) مع ظلال نيون خضراء وزرقاء وذهبية.
-   - قطاع البداية (Hero Section) الترحيبي الذكي للطلاب المصريين مع إحصائيات FSRS السريعة.
-   - بطاقات Bento Grid متكاملة لجميع الفصول الـ 6 والموضوعات الـ 9 الأساسية (الدعامة والحركة، التنسيق الهرموني، التكاثر، المناعة، DNA، RNA وتخليق البروتين، والهندسة الوراثية).
-   - تضمين 4 أزرار وصول مباشر في كل بطاقة:
-     1. **Practice Exam Items** (حل أسئلة امتحانية وتصحيح بنموذج الإجابة الوزاري).
-     2. **FSRS Flashcards** (بطاقات استرجاع متباعد).
-     3. **Bio-Law Lab / Interactive Diagrams** (شرح الآليات والقوانين والتشبيهات المبسطة).
-     4. **Download Official PDF Textbook** (تحميل كتاب الوزارة للفصل المحدد).
-4. **شاشة امتحان المحاكاة الوزارية (Simulated Ministry Exam Mode)**:
-   - عداد تنازلي دقيق 45 دقيقة مع شريط تقدم حي.
-   - 15 سؤالاً وزارياً منتقى بعناية مع تصحيح ذكي وملاحظات فورية مستندة لكتب الوزارة.
+بصفتي مهندس معمارية الهواتف وتطبيقات Flutter/Dart، سنقوم بتنفيذ المتطلبات البرمجية والمعمارية وفق أعلى معايير الـ Clean Architecture وتصميم Bento Grid الحديث، مع تجهيز مسار عمل آلي كامل للنشر وبناء تطبيقات Flutter Android APK.
 
 ---
 
-### 2. خطوات التنفيذ البرمجية
+### 1. المكونات والمعمارية المقترحة
 
-#### الخطوة 1: إنشاء `src/context/LanguageContext.tsx`
-- إنشاء السياق وخطاف `useLanguage()`.
-- دعم الترجمة الشاملة للنصوص، والمصطلحات، والعناوين مع تحديث `document.documentElement.dir` و `lang`.
+#### 📦 أولاً: مسار البناء والنشر الآلي (.github/workflows/deploy.yml)
+- **الأحداث المشغلة (Triggers)**:
+  - تشغيل تلقائي عند فتح Pull Request على `main` أو فروع `release/*`.
+  - تشغيل عند الدفع (Push) أو دمج PR في `main`، أو دفع وسوم الإصدار `v*`.
+  - دعم التشغيل اليدوي (`workflow_dispatch`).
+- **المراحل والمهام (Jobs)**:
+  1. `flutter-preflight-and-test`:
+     - فحص الأكواد وتثبيت التبعيات (`flutter pub get`).
+     - التحقق الصارم من الأنماط (`flutter analyze`).
+     - تنفيذ اختبارات الوحدة والتكامل (`flutter test`).
+  2. `flutter-android-build`:
+     - بناء حزم APK مقسمة للمعالجات (`flutter build apk --split-per-abi --release`) لتوفير حزم خفيفة الحجم لـ `arm64-v8a` و `armeabi-v7a` و `x86_64`.
+     - بناء حزمة `app-bundle` (AAB) لمتجر Google Play.
+     - توليد بصمات `SHA256SUMS.txt` وحفظ الملفات كـ Actions Artifacts لمدة 30 يوماً.
+  3. `github-release-publish`:
+     - نشر تلقائي إلى GitHub Releases عند الاندماج في `main` أو وجود وسم `v*` باستخدام `softprops/action-gh-release@v2`.
 
-#### الخطوة 2: إنشاء مكون نافذة كتاب الوزارة `src/components/MinistryTextbookModal.tsx`
-- نافذة عصرية تفاعلية تسرد كتب الوزارة الرسمية الصادرة عن وزارة التربية والتعليم المصرية:
-  - كتاب الأحياء لغات الرسمي (Biology Third Secondary).
-  - كتاب الأحياء العربي المعتمد.
-  - كتيب المفاهيم الرسمي للثانوية العامة (Concepts Booklet).
-  - ملخصات أسئلة بنك المعرفة وحصص مصر الرسمية.
-  - إمكانية الفتح أو التحميل المباشر مع نصائح الحفظ للمراجعة دون اتصال بالإنترنت.
+#### 📱 ثانياً: وحدة Flutter Git & Dev Cheat-Sheet (`lib/features/git_dev_tools/`)
+اتباع مبادئ الـ **Clean Architecture**:
+1. **طبقة النطاق والبيانات (Domain & Data Layer)**:
+   - `lib/features/git_dev_tools/domain/entities/git_command.dart`:
+     - كائن `GitCommand` و `GitCategory` مع حقول: المعرّف، الأمر الفعلي، الشرح بالإنجليزية، الشرح بالعربية، رايات الأوامر، مستوى الخطورة، والحفظ في المفضلة.
+   - `lib/features/git_dev_tools/data/datasources/git_commands_database.dart`:
+     - مستودع بيانات محلي معبأ بـ 130+ أمراً من المجالات الثمانية (Tracking Changes, Branching, Remote Collaboration, Undo/Recovery, Advanced Branching, Stashing, Debugging/Inspection, Power Commands) ومراحل خارطة الطريق الـ 7.
+   - `lib/features/git_dev_tools/data/datasources/local_git_storage_source.dart`:
+     - محرك حفظ المفضلة دون إنترنت باستخدام `shared_preferences` مع استرجاع وحفظ فوري.
+2. **طبقة العرض والتحكم (Presentation & Riverpod State Layer)**:
+   - `lib/features/git_dev_tools/presentation/controllers/git_cheat_sheet_controller.dart`:
+     - إدارة حالة البحث، التصنيف المحدد، والمفضلة عبر `StateNotifier` أو `ChangeNotifier` مدعوم بـ Riverpod.
+   - `lib/features/git_dev_tools/presentation/screens/git_cheat_sheet_screen.dart`:
+     - شاشة Bento Grid متجاوبة تدعم الوضع المظلم والفاتح، والاتجاه العربي RTL والإنجليزي LTR.
+     - شريط بحث ذكي، أزرار تصنيف، زر نسخ الأمر إلى الحافظة مع إشعار فوري (Snackbar)، وزر تبديل المفضلة.
 
-#### الخطوة 3: تحديث وتطوير `src/components/Navbar.tsx`
-- تضمين زر تبديل اللغة الفوري (العربية / English).
-- تضمين زر تحميل كتاب الوزارة البارز بستايل متوهج وأيقونة واضحة.
-- ضبط التوافقية لشاشات الهواتف وأجهزة التابلت والكمبيوتر بدون أي تجاوز أفقي (Zero Horizontal Overflow).
+---
 
-#### الخطوة 4: إعادة تصميم `src/screens/DashboardScreen.tsx` بأسلوب Bento Grid
-- إعادة هيكلة الشاشة الرئيسية بالكامل لتعتمد على شبكة Bento Grid المتجاوبة.
-- إضافة بطاقات الفصول والموضوعات مع العناوين الثنائية (عربي/إنجليزي)، شارات الأهمية القصوى (`⚡ High-Yield`)، وأزرار التفاعل الأربعة لكل موضوع.
+### 2. خطة الملفات البرمجية المطلوب إنشاؤها
 
-#### الخطوة 5: التحقق والتأكد من خلو الأخطاء
-- تشغيل فحص الأنواع الصارم `tsc --noEmit`.
-- تشغيل اختبارات `vitest run` والتأكد من اجتياز 45/45 فحصاً.
-- تشغيل `compile_applet` و `lint_applet` والتأكد من استقرار الخادم على المنفذ 3000 بـ HTTP 200.
+1. `.github/workflows/deploy.yml`: مسار الـ CI/CD الشامل لـ Flutter Android.
+2. `lib/features/git_dev_tools/domain/entities/git_command.dart`: نماذج البيانات.
+3. `lib/features/git_dev_tools/data/datasources/git_commands_database.dart`: بنك الأوامر الشامل.
+4. `lib/features/git_dev_tools/data/datasources/local_git_storage_source.dart`: خدمة التخزين المحلي.
+5. `lib/features/git_dev_tools/presentation/controllers/git_cheat_sheet_controller.dart`: المتحكم.
+6. `lib/features/git_dev_tools/presentation/screens/git_cheat_sheet_screen.dart`: واجهة Bento Grid.
+7. `test/git_cheat_sheet_test.dart`: اختبارات الوحدة للبيانات والتخزين.
+
+---
+
+### 3. خطة التحقق والجاهزية
+- كتابة كود Dart و YAML كامل وخالٍ تماماً من الاختصارات أو تعليقات `// TODO`.
+- فحص سلامة استدعاءات TypeScript و React في الحاوية لضمان عدم حدوث أي تعارض مع تطبيق الويب الحالي.
