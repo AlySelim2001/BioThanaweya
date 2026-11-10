@@ -33,7 +33,6 @@ class UltraModernBioThanaweyaApp extends StatelessWidget {
           primary: Color(0xFF64FFDA),
           secondary: Color(0xFF00B4D8),
           surface: Color(0xFF112240),
-          background: Color(0xFF0A192F),
           tertiary: Color(0xFF2E7D32),
         ),
         fontFamily: 'Cairo',

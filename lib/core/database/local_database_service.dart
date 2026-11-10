@@ -116,6 +116,7 @@ class LocalDatabaseService {
 
   bool get isInitialized => _database?.isOpen ?? false;
   int get totalIndexedChapters => 11;
+  int get totalIndexedTextbooks => 3;
 
   Future<Database> get database async {
     await initializeDatabase();

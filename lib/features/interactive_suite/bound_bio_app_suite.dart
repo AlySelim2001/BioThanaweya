@@ -34,7 +34,6 @@ class BoundBioAppRoot extends StatelessWidget {
           primary: Color(0xFF64FFDA),
           secondary: Color(0xFF1D3557),
           surface: Color(0xFF112240),
-          background: Color(0xFF0A192F),
         ),
         fontFamily: 'Cairo',
         useMaterial3: true,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../controllers/textbook_controller.dart';
-import '../../domain/entities/ministry_textbook.dart';
 import 'textbook_pdf_reader_screen.dart';
 
 /// شاشة مكتبة كتب وكتيبات مفاهيم الوزارة الرسمية (Ministry Official Textbooks Library)

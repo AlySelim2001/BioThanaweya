@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:smarts_bio/features/study_planner/domain/entities/study_task.dart';
 import 'package:smarts_bio/features/study_planner/domain/entities/study_schedule.dart';
-import 'package:smarts_bio/features/study_planner/domain/entities/ai_coach_tip.dart';
 import 'package:smarts_bio/features/study_planner/data/datasources/adaptive_plan_generator.dart';
 import 'package:smarts_bio/features/study_planner/data/repositories/study_planner_repository_impl.dart';
 import 'package:smarts_bio/features/study_planner/presentation/controllers/study_planner_controller.dart';
