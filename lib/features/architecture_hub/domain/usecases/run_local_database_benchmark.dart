@@ -1,4 +1,4 @@
-import '../../../../core/database/local_database_service.dart';
+import '../entities/architecture_benchmark_result.dart';
 import '../repositories/architecture_hub_repository.dart';
 
 class RunLocalDatabaseBenchmark {
@@ -6,7 +6,7 @@ class RunLocalDatabaseBenchmark {
 
   final ArchitectureHubRepository _repository;
 
-  Future<DatabaseBenchmarkResult> call({int queryIterations = 20}) {
+  Future<ArchitectureBenchmarkResult> call({int queryIterations = 20}) {
     return _repository.runLocalBenchmark(queryIterations: queryIterations);
   }
 }

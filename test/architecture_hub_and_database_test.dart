@@ -91,8 +91,9 @@ void main() {
       temporaryDirectory = await Directory.systemTemp.createTemp('biothanaweya_hub_test_');
       database = LocalDatabaseService(databasePath: '${temporaryDirectory.path}/hub.db');
       await database.initialize();
-      final dataSource = SqliteArchitectureDataSource(database);
-      notifier = ArchitectureHubNotifier(ArchitectureHubRepositoryImpl(dataSource));
+      notifier = ArchitectureHubNotifier.fromRepository(
+        ArchitectureHubRepositoryImpl(SqliteArchitectureDataSource(database)),
+      );
     });
 
     tearDown(() async {
@@ -106,6 +107,7 @@ void main() {
       expect(notifier.state.isOfflineForced, isTrue);
       expect(notifier.state.activeTab, 0);
       expect(notifier.state.ciStage, CiPipelineStage.idle);
+      expect(notifier.state.loadStatus, ArchitectureLoadStatus.initial);
     });
 
     test('language, offline, telemetry, theme and tab actions update state', () {
@@ -121,10 +123,15 @@ void main() {
       expect(notifier.state.activeTab, 2);
     });
 
-    test('loads local architecture metrics through domain repository', () async {
-      await notifier.loadMetrics();
+    test('loadMetrics moves through loading to success and loads local metrics', () async {
+      final future = notifier.loadMetrics();
+      expect(notifier.state.loadStatus, ArchitectureLoadStatus.loading);
+      await future;
+      expect(notifier.state.loadStatus, ArchitectureLoadStatus.success);
       expect(notifier.state.metrics?.chapterCount, 11);
       expect(notifier.state.metrics?.textbookCount, 3);
+      expect(notifier.state.metrics?.offlineReady, isTrue);
+      expect(notifier.state.metrics?.fsrsReady, isTrue);
     });
 
     test('CI simulation completes and describes its simulated nature', () async {
