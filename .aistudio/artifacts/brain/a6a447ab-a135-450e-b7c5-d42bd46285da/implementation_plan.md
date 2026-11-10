@@ -1,43 +1,69 @@
-# خطة المعمارية والتنفيذ: وحدة مركز موارد المطورين (Developer Resource Hub)
+# خطة المعمارية والتنفيذ: المعمارية النظيفة ومحرك قواعد البيانات المحلي لـ BioThanaweya
 
-بصفتي مهندس معمارية الهواتف وتطبيقات Flutter/Dart، سنقوم بتنفيذ وحدة **Developer Resource Hub** لـ BioThanaweya تحت مسار `lib/features/developer_resources/` وفق أصول الـ Clean Architecture وشبكة Bento Grid الحديثة، لدعم استكشاف أفضل 25 مستودعاً على GitHub لتطوير المهارات دون الحاجة لأي خدمات سحابية مدفوعة.
-
----
-
-### 1. المعمارية المعتمدة والتصنيفات
-- **مسار الوحدة**: `lib/features/developer_resources/`
-- **التصنيفات الأربعة الأساسية**:
-  1. **Learn & Roadmaps (التعلم والخرائط)**: `developer-roadmap`, `freeCodeCamp`, `coding-interview-university`, `computer-science-curriculum`.
-  2. **Build & Projects (المشاريع والتطبيق)**: `build-your-own-x`, `app-ideas`, `project-based-learning`, `free-programming-books`.
-  3. **System Design & Clean Code (المعمارية والكود النظيف)**: `system-design-primer`, `clean-code-javascript`, `design-patterns-for-humans`, `awesome-architecture`.
-  4. **APIs & Tools (الواجهات والأدوات)**: `public-apis`, `awesome`, `awesome-flutter`, `developer-cheat-sheets`.
-
-- **آلية فتح الروابط**:
-  - نسخ الرابط المباشر إلى الحافظة (`Clipboard`) مع اهتزاز لمسي (`HapticFeedback`) وإشعار فوري (Snackbar).
-  - إظهار نافذة تفاعلية (`Quick Overview Dialog`) تعرض تفاصيل المستودع، التراخيص، النجوم، ووسائل الاستفادة منه في مشاريع الطلاب والمطورين.
-
-- **التخزين المحلي (Offline-first)**:
-  - استخدام `SharedPreferences` لتخزين معرفات المستودعات المفضلة محلياً في الذاكرة دون الحاجة للإنترنت.
+بصفتي مهندس معمارية الهواتف وتطبيقات Flutter/Dart، سنقوم بتنفيذ المخطط المعماري الشامل (Clean Architecture Blueprint) ومحرك قواعد البيانات المحلي ومكون لوحة المعمارية (Architecture Hub Widget) وفق المتطلبات المحددة وبدون أي تبعيات خارجية غير متوافقة.
 
 ---
 
-### 2. خطة الملفات البرمجية المطلوب إنشاؤها
+### 1. شجرة مجلدات المعمارية النظيفة (Clean Architecture Directory Structure)
 
-1. `lib/features/developer_resources/domain/entities/developer_resource_model.dart`:
-   - نماذج البيانات `DevResourceItem` و `ResourceCategory` مع `toMap()`, `fromMap()`, و `copyWith`.
-2. `lib/features/developer_resources/data/datasources/developer_resources_database.dart`:
-   - قاعدة البيانات المحلية المعبأة مسبقاً بأفضل 25 مستودعاً من الإنفوجرافيك بتفاصيل دقيقة ثنائية اللغة.
-3. `lib/features/developer_resources/data/datasources/local_resource_storage_source.dart`:
-   - خدمة حفظ واسترجاع المستودعات المفضلة باستخدام `shared_preferences`.
-4. `lib/features/developer_resources/presentation/controllers/developer_resource_hub_controller.dart`:
-   - متحكم الحالة (`ChangeNotifier`) لإدارة البحث الفوري والتصفية والمفضلة.
-5. `lib/features/developer_resources/presentation/screens/developer_resource_hub_screen.dart`:
-   - شاشة Bento Grid متجاوبة تدعم الوضعين المظلم والفاتح، والاتجاه العربي RTL والإنجليزي LTR.
-6. `test/developer_resource_hub_test.dart`:
-   - اختبارات وحدة شاملة للتأكد من صحة البيانات وعمليات التصفية والتخزين.
+```text
+lib/
+├── core/                               # النواة المشتركة لجميع وحدات التطبيق
+│   ├── architecture/                   # لوحة ومخطط المعمارية الشاملة
+│   │   └── app_architecture_hub.dart   # شاشة العرض التفاعلية لأركان التطبيق
+│   ├── constants/                      # الثوابت وبيانات المنهج الوزاري
+│   │   └── curriculum_data.dart
+│   ├── database/                       # محرك التخزين المحلي SQL-Compatible
+│   │   ├── local_database_service.dart # خدمة تهيئة الجداول والاستعلامات
+│   │   └── models/                     # نماذج الجداول (فصول، أسئلة، كتب)
+│   ├── network/                        # خدمات الاتصال والأمان
+│   │   └── gemini_service.dart
+│   ├── services/                       # خدمات البيانات والتخزين
+│   │   ├── bio_app_controller.dart
+│   │   └── curriculum_data_service.dart
+│   └── theme/                          # سمات التطبيق (Dark/Light & RTL)
+│       └── app_theme.dart
+│
+├── features/                           # وحدات الميزات المقسمة معمارياً (Feature-First)
+│   ├── achievements/                   # شارات الإنجاز ونقاط XP
+│   ├── biology_agents/                 # وكلاء الذكاء الاصطناعي الـ 7
+│   ├── biology_lab/                    # معمل الرسوم البيانية التفاعلية
+│   ├── developer_resources/            # مركز موارد المطورين ومستودعات GitHub
+│   ├── exam_simulator/                 # شاشة محاكاة امتحان الوزارة
+│   ├── flashcards/                     # بطاقات الاسترجاع المتباعد SM-2/FSRS
+│   ├── git_dev_tools/                  # دليل أوامر Git التفاعلي
+│   ├── interactive_suite/              # المنظومة التعليمية التفاعلية
+│   ├── smart_quiz_engine/              # محرك الاختبارات الذكي
+│   └── study_planner/                  # المخطط الدراسي وجدول المذاكرة
+│
+└── main.dart                           # نقطة الانطلاق الرئيسية للتطبيق
+```
 
 ---
 
-### 3. معايير الجودة وخلو الأخطاء
-- كود Dart كامل ومكتمل (بدون أي تعليقات اختصار مثل `// TODO`).
-- التحقق المتقاطع مع سير العمل والاختبارات للتأكد من خلوه تماماً من أي تعارضات.
+### 2. محرك التخزين المحلي (`lib/core/database/local_database_service.dart`)
+- **المعمارية**: محرك SQL-Compatible متكامل مكتوب بلغة Dart الصافية (Pure Dart) يعمل بذاكرة فورية وفهرسة سريعة مدعومة بـ `SharedPreferences` للتخزين الدائم دون الاعتماد على مكتبات C-Native SQLite المعقدة.
+- **الجداول الأساسية**:
+  - `chapters_table`: فصول المنهج الوزاري المصري (الوحدتان الأولى والثانية).
+  - `textbooks_table`: كتب الوزارة وكتيب المفاهيم المعتمد مع مسارات التحميل والأوفلاين.
+  - `offline_exam_cache_table`: أسئلة الامتحانات الرسمية ومحاولات الطلاب.
+- **العمليات المدعومة**:
+  - `createTablesIfNotExists()`: بناء هياكل الجداول.
+  - `seedDefaultCurriculumData()`: ملء بيانات المنهج فوراً عند أول تشغيل.
+  - `queryChapters()`, `queryTextbooks()`, `saveExamAttempt()`.
+
+---
+
+### 3. شاشة لوحة المعمارية (`lib/core/architecture/app_architecture_hub.dart`)
+- تصميم Bento Grid تفاعلي يبرز أركان بناء التطبيق:
+  1. **UI/UX Paradigm**: توضيح معمارية Flutter و Hot Reload والتصميم المتجاوب لـ RTL.
+  2. **Local Database & Offline State**: حالة محرك البيانات المحلي والجاهزية للعمل دون إنترنت.
+  3. **Multi-Platform Native Container**: تشغيل التطبيق كـ Android Native و PWA.
+  4. **GitHub CI/CD Deployment**: حالة مسارات البناء المؤتمتة وتوليد الـ APK.
+- إمكانية طي وفرد الأقسام، واختبار استعلام قاعدة البيانات الحية، واختبار مسار العمل.
+
+---
+
+### 4. الاختبارات والتحقق
+- كتابة اختبارات وحدة شاملة في `test/local_database_service_test.dart`.
+- فحص سلامة جميع الأكواد وخلوها تماماً من أي تعليقات اختصار.
