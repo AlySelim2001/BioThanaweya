@@ -4,6 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'package:smarts_bio/core/database/local_database_service.dart';
+import 'package:smarts_bio/features/architecture_hub/data/datasources/architecture_local_data_source.dart';
+import 'package:smarts_bio/features/architecture_hub/data/repositories/architecture_hub_repository_impl.dart';
 import 'package:smarts_bio/features/architecture_hub/presentation/screens/app_architecture_hub.dart';
 
 void main() {
@@ -81,17 +83,32 @@ void main() {
   });
 
   group('Architecture hub state and telemetry', () {
+    late LocalDatabaseService database;
+    late ArchitectureHubNotifier notifier;
+    late Directory temporaryDirectory;
+
+    setUp(() async {
+      temporaryDirectory = await Directory.systemTemp.createTemp('biothanaweya_hub_test_');
+      database = LocalDatabaseService(databasePath: '${temporaryDirectory.path}/hub.db');
+      await database.initialize();
+      final dataSource = SqliteArchitectureDataSource(database);
+      notifier = ArchitectureHubNotifier(ArchitectureHubRepositoryImpl(dataSource));
+    });
+
+    tearDown(() async {
+      notifier.dispose();
+      await database.close();
+      await temporaryDirectory.delete(recursive: true);
+    });
+
     test('defaults to Arabic RTL and offline readiness', () {
-      final notifier = ArchitectureHubNotifier(LocalDatabaseService());
       expect(notifier.state.isArabic, isTrue);
       expect(notifier.state.isOfflineForced, isTrue);
       expect(notifier.state.activeTab, 0);
       expect(notifier.state.ciStage, CiPipelineStage.idle);
-      notifier.dispose();
     });
 
     test('language, offline, telemetry, theme and tab actions update state', () {
-      final notifier = ArchitectureHubNotifier(LocalDatabaseService());
       notifier.toggleLanguage();
       notifier.toggleOfflineMode();
       notifier.toggleTelemetry();
@@ -102,11 +119,15 @@ void main() {
       expect(notifier.state.isTelemetryEnabled, isTrue);
       expect(notifier.state.isLightPreview, isTrue);
       expect(notifier.state.activeTab, 2);
-      notifier.dispose();
+    });
+
+    test('loads local architecture metrics through domain repository', () async {
+      await notifier.loadMetrics();
+      expect(notifier.state.metrics?.chapterCount, 11);
+      expect(notifier.state.metrics?.textbookCount, 3);
     });
 
     test('CI simulation completes and describes its simulated nature', () async {
-      final notifier = ArchitectureHubNotifier(LocalDatabaseService());
       final future = notifier.triggerCiPipelineSimulation();
       expect(notifier.state.isCiRunning, isTrue);
       expect(notifier.state.ciStage, CiPipelineStage.linting);
@@ -114,7 +135,6 @@ void main() {
       expect(notifier.state.isCiRunning, isFalse);
       expect(notifier.state.ciStage, CiPipelineStage.completed);
       expect(notifier.state.ciLog, contains('Simulation complete'));
-      notifier.dispose();
     });
   });
 }
