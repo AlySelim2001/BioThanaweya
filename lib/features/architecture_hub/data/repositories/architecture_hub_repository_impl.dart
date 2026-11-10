@@ -1,7 +1,7 @@
-import '../../domain/entities/architecture_benchmark_result.dart';
-import '../../domain/entities/architecture_metrics.dart';
-import '../../domain/repositories/architecture_hub_repository.dart';
-import '../datasources/architecture_local_data_source.dart';
+import 'package:smarts_bio/features/architecture_hub/domain/entities/architecture_benchmark_result.dart';
+import 'package:smarts_bio/features/architecture_hub/domain/entities/architecture_metrics.dart';
+import 'package:smarts_bio/features/architecture_hub/domain/repositories/architecture_hub_repository.dart';
+import 'package:smarts_bio/features/architecture_hub/data/datasources/architecture_local_data_source.dart';
 
 class ArchitectureHubRepositoryImpl implements ArchitectureHubRepository {
   const ArchitectureHubRepositoryImpl(this._dataSource);
@@ -25,15 +25,7 @@ class ArchitectureHubRepositoryImpl implements ArchitectureHubRepository {
   }
 
   @override
-  Future<ArchitectureBenchmarkResult> runLocalBenchmark({required int queryIterations}) async {
-    final result = await _dataSource.benchmark(queryIterations: queryIterations);
-    return ArchitectureBenchmarkResult(
-      totalRecordsQueried: result.totalRecordsQueried,
-      totalRecordsInserted: result.totalRecordsInserted,
-      averageReadLatencyMs: result.averageReadLatencyMs,
-      averageWriteLatencyMs: result.averageWriteLatencyMs,
-      cacheHitRate: result.cacheHitRate,
-      databaseSizeKb: result.databaseSizeKb,
-    );
+  Future<ArchitectureBenchmarkResult> runLocalBenchmark({required int queryIterations}) {
+    return _dataSource.benchmark(queryIterations: queryIterations);
   }
 }

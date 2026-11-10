@@ -1,5 +1,5 @@
-import '../entities/architecture_benchmark_result.dart';
-import '../repositories/architecture_hub_repository.dart';
+import 'package:smarts_bio/features/architecture_hub/domain/entities/architecture_benchmark_result.dart';
+import 'package:smarts_bio/features/architecture_hub/domain/repositories/architecture_hub_repository.dart';
 
 class RunLocalDatabaseBenchmark {
   const RunLocalDatabaseBenchmark(this._repository);
