@@ -146,14 +146,28 @@ class LocalDatabaseService {
     return _initialization ??= _openDatabase().whenComplete(() => _initialization = null);
   }
 
+  Future<String> _resolveDatabasePath() async {
+    if (_databasePath != null && _databasePath!.isNotEmpty) {
+      return _databasePath!;
+    }
+    try {
+      final basePath = await getDatabasesPath();
+      return p.join(basePath, databaseName);
+    } catch (_) {
+      return inMemoryDatabasePath;
+    }
+  }
+
   Future<void> _openDatabase() async {
-    final dbPath = _databasePath ?? p.join(await getDatabasesPath(), databaseName);
+    final dbPath = await _resolveDatabasePath();
     _database = await openDatabase(
       dbPath,
       version: schemaVersion,
       onConfigure: (db) async {
         await db.execute('PRAGMA foreign_keys = ON');
-        await db.execute('PRAGMA journal_mode = WAL');
+        if (dbPath != inMemoryDatabasePath && dbPath != ':memory:') {
+          await db.execute('PRAGMA journal_mode = WAL');
+        }
       },
       onCreate: _createSchema,
       onUpgrade: _upgradeSchema,

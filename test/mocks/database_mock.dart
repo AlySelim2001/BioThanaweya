@@ -32,14 +32,11 @@ class DatabaseMock {
     return service;
   }
 
-  /// Initializes a global mock database and sets it onto LocalDatabaseService.instance.
-  /// Injects all 11 curriculum chapters, 3 official textbooks, and trap questions.
-  static Future<LocalDatabaseService> createInitializedAndSetGlobal() async {
+  static Future<LocalDatabaseService> createInitializedAndSetGlobal({String? path}) async {
     initializeEnvironment();
-    _tempDir ??= await Directory.systemTemp.createTemp('biothanaweya_mock_db_');
-    final dbFile = '${_tempDir!.path}/mock_curriculum.db';
+    final dbPath = path ?? inMemoryDatabasePath;
 
-    _mockService = LocalDatabaseService(databasePath: dbFile);
+    _mockService = LocalDatabaseService(databasePath: dbPath);
     await _mockService!.initializeDatabase();
     await _mockService!.reseedDatabase();
     LocalDatabaseService.setMockInstance(_mockService!);

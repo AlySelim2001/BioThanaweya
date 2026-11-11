@@ -1,31 +1,32 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:smarts_bio/core/database/local_database_service.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'mocks/database_mock.dart';
+import 'package:smarts_bio/core/database/local_database_service.dart';
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  });
 
   group('Pure Dart SQL-Compatible Local Database Engine Tests', () {
-    setUpAll(() async {
-      DatabaseMock.initializeEnvironment();
-      // Ensure the 11-chapter seed data is injected before any setUp block runs
-      await DatabaseMock.createInitializedAndSetGlobal();
-    });
+    late LocalDatabaseService db;
 
     setUp(() async {
       SharedPreferences.setMockInitialValues({});
-      await DatabaseMock.ensureGlobalSeeded();
+      db = LocalDatabaseService(databasePath: inMemoryDatabasePath);
+      await db.initializeDatabase();
+      await db.reseedDatabase();
+      LocalDatabaseService.setMockInstance(db);
     });
 
-    tearDownAll(() async {
-      await DatabaseMock.disposeGlobal();
+    tearDown(() async {
+      await db.close();
+      LocalDatabaseService.resetInstance();
     });
 
     test('LocalDatabaseService initializes schemas and seeds default chapters', () async {
-      final db = LocalDatabaseService.instance;
-      await db.reseedDatabase();
-
       expect(db.isInitialized, isTrue);
       expect(db.totalIndexedChapters, equals(11));
       expect(db.totalIndexedTextbooks, equals(3));
@@ -46,9 +47,6 @@ void main() {
     });
 
     test('LocalDatabaseService queries official textbooks', () async {
-      final db = LocalDatabaseService.instance;
-      await db.initializeDatabase();
-
       final textbooks = await db.queryTextbooks();
       expect(textbooks.length, equals(3));
       expect(textbooks.any((t) => t.title.contains('Languages')), isTrue);
@@ -56,9 +54,6 @@ void main() {
     });
 
     test('LocalDatabaseService records and queries student exam attempts', () async {
-      final db = LocalDatabaseService.instance;
-      await db.initializeDatabase();
-
       await db.recordExamAttempt(
         paperId: 'exam_ministry_2024_s1',
         score: 56.0,
@@ -73,3 +68,4 @@ void main() {
     });
   });
 }
+
