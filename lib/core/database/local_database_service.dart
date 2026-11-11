@@ -141,9 +141,18 @@ class LocalDatabaseService {
 
   Future<void> initialize() => initializeDatabase();
 
-  Future<void> initializeDatabase() {
-    if (isInitialized) return Future<void>.value();
-    return _initialization ??= _openDatabase().whenComplete(() => _initialization = null);
+  Future<void> initializeDatabase() async {
+    if (!isInitialized) {
+      await (_initialization ??= _openDatabase().whenComplete(() => _initialization = null));
+    }
+    if (_database != null && _database!.isOpen) {
+      final count = Sqflite.firstIntValue(
+        await _database!.rawQuery('SELECT COUNT(*) FROM chapters'),
+      ) ?? 0;
+      if (count == 0) {
+        await _seedCurriculum(_database!);
+      }
+    }
   }
 
   Future<String> _resolveDatabasePath() async {
@@ -179,6 +188,7 @@ class LocalDatabaseService {
       CREATE TABLE chapters (
         id INTEGER PRIMARY KEY,
         code TEXT NOT NULL UNIQUE,
+        unit_code TEXT NOT NULL DEFAULT 'UNIT_1',
         unit_number INTEGER NOT NULL,
         chapter_number INTEGER NOT NULL,
         title_en TEXT NOT NULL,
@@ -249,6 +259,9 @@ class LocalDatabaseService {
       ''');
       await db.execute('CREATE INDEX IF NOT EXISTS idx_mistakes_due ON fsrs_mistakes(is_resolved, next_review_at)');
     }
+    try {
+      await db.execute("ALTER TABLE chapters ADD COLUMN unit_code TEXT NOT NULL DEFAULT 'UNIT_1'");
+    } catch (_) {}
   }
 
   Future<void> _seedCurriculum(DatabaseExecutor db) async {

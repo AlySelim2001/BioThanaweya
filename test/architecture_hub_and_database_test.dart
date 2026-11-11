@@ -97,6 +97,10 @@ class MockLocalDatabaseService extends LocalDatabaseService {
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  sqfliteFfiInit();
+  databaseFactory = databaseFactoryFfi;
+
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     sqfliteFfiInit();
@@ -107,7 +111,9 @@ void main() {
     late LocalDatabaseService dbService;
 
     setUp(() async {
-      dbService = await DatabaseMock.createInitialized(path: inMemoryDatabasePath);
+      dbService = LocalDatabaseService(databasePath: inMemoryDatabasePath);
+      await dbService.initialize();
+      await dbService.reseedDatabase();
     });
 
     tearDown(() async {

@@ -4,6 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smarts_bio/core/database/local_database_service.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  sqfliteFfiInit();
+  databaseFactory = databaseFactoryFfi;
+
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     sqfliteFfiInit();
@@ -16,7 +20,7 @@ void main() {
     setUp(() async {
       SharedPreferences.setMockInitialValues({});
       db = LocalDatabaseService(databasePath: inMemoryDatabasePath);
-      await db.initializeDatabase();
+      await db.initialize();
       await db.reseedDatabase();
       LocalDatabaseService.setMockInstance(db);
     });
