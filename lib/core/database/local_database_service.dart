@@ -237,10 +237,10 @@ class LocalDatabaseService {
     }
   }
 
-  Future<void> _seedCurriculum(Database db) async {
+  Future<void> _seedCurriculum(DatabaseExecutor db) async {
     const chapters = <DbChapterRecord>[
       DbChapterRecord(id: 'ch_01', unitCode: 'UNIT_1', chapterNumber: 1, titleEn: 'Support and Movement in Living Organisms', titleAr: 'الدعامة والحركة في الكائنات الحية', summaryEn: 'Support tissues, skeleton, and muscle contraction.', summaryAr: 'أنواع الدعامة والهيكل العظمي وآلية انقباض العضلات.'),
-      DbChapterRecord(id: 'ch_02', unitCode: 'UNIT_1', chapterNumber: 2, titleEn: 'Hormonal Coordination in Living Organisms', titleAr: 'التنسيق الهرموني في الكائنات الحية', summaryEn: 'Plant hormones and endocrine regulation.', summaryAr: 'الهرمونات النباتية وتنظيم الغدد ال��ماء.'),
+      DbChapterRecord(id: 'ch_02', unitCode: 'UNIT_1', chapterNumber: 2, titleEn: 'Hormonal Coordination in Living Organisms', titleAr: 'التنسيق الهرموني في الكائنات الحية', summaryEn: 'Plant hormones and endocrine regulation.', summaryAr: 'الهرمونات النباتية وتنظيم الغدد الماء.'),
       DbChapterRecord(id: 'ch_03', unitCode: 'UNIT_1', chapterNumber: 3, titleEn: 'Reproduction in Living Organisms', titleAr: 'التكاثر في الكائنات الحية', summaryEn: 'Reproductive strategies and life cycles.', summaryAr: 'أنماط التكاثر ودورات الحياة.'),
       DbChapterRecord(id: 'ch_04', unitCode: 'UNIT_1', chapterNumber: 4, titleEn: 'Immunity in Living Organisms', titleAr: 'المناعة في الكائنات الحية', summaryEn: 'Immune defenses, antibodies, and lymphocytes.', summaryAr: 'وسائل الدفاع المناعي والأجسام المضادة والخلايا اللمفاوية.'),
       DbChapterRecord(id: 'ch_05', unitCode: 'UNIT_2', chapterNumber: 1, titleEn: 'DNA Structure, Genetic Code and Replication', titleAr: 'الحمض النووي DNA وتضاعفه', summaryEn: 'DNA structure, replication enzymes, and genetic code.', summaryAr: 'تركيب DNA وإنزيمات التضاعف والشفرة الوراثية.'),
@@ -258,34 +258,32 @@ class LocalDatabaseService {
       {'id': 'biology_concepts', 'title': 'كتيب مفاهيم الأحياء', 'edition': 'مفاهيم المنهج', 'file_size': 'محلي', 'download_url': '', 'is_offline_cached': 1},
     ];
 
-    await db.transaction((txn) async {
-      for (var index = 0; index < chapters.length; index++) {
-        final chapter = chapters[index];
-        final values = chapter.toMap();
-        await txn.insert('chapters', {
-          ...values,
-          'id': index + 1,
-          'code': chapter.id,
-          'unit_number': chapter.unitCode == 'UNIT_1' ? 1 : 2,
-        });
-      }
-      for (final textbook in textbooks) {
-        await txn.insert('textbooks', textbook);
-      }
-      await txn.insert('questions', {
-        'id': 'seed_muscle_myosin',
-        'chapter_id': 1,
-        'question_text': 'ما دور الميوسين في انقباض العضلة؟',
-        'explanation': 'يرتبط الميوسين بخيوط الأكتين ويسهم في انزلاقها أثناء انقباض العضلة.',
-        'is_ministry_trap': 1,
+    for (var index = 0; index < chapters.length; index++) {
+      final chapter = chapters[index];
+      final values = chapter.toMap();
+      await db.insert('chapters', {
+        ...values,
+        'id': index + 1,
+        'code': chapter.id,
+        'unit_number': chapter.unitCode == 'UNIT_1' ? 1 : 2,
       });
-      await txn.insert('questions', {
-        'id': 'seed_dna_replication',
-        'chapter_id': 5,
-        'question_text': 'ما دور إنزيم DNA polymerase؟',
-        'explanation': 'يبني شريط DNA جديداً مكملاً أثناء التضاعف.',
-        'is_ministry_trap': 0,
-      });
+    }
+    for (final textbook in textbooks) {
+      await db.insert('textbooks', textbook);
+    }
+    await db.insert('questions', {
+      'id': 'seed_muscle_myosin',
+      'chapter_id': 1,
+      'question_text': 'ما دور الميوسين في انقباض العضلة؟',
+      'explanation': 'يرتبط الميوسين بخيوط الأكتين ويسهم في انزلاقها أثناء انقباض العضلة.',
+      'is_ministry_trap': 1,
+    });
+    await db.insert('questions', {
+      'id': 'seed_dna_replication',
+      'chapter_id': 5,
+      'question_text': 'ما دور إنزيم DNA polymerase؟',
+      'explanation': 'يبني شريط DNA جديداً مكملاً أثناء التضاعف.',
+      'is_ministry_trap': 0,
     });
   }
 
@@ -396,7 +394,9 @@ class LocalDatabaseService {
           'fsrs_mistakes',
           {
             'consecutive_correct': correctCount,
-            'next_review_at': now.add(Duration(days: correctCount)).toIso8601String(),
+            'next_review_at': correctCount >= 2
+                ? now.add(Duration(days: correctCount)).toIso8601String()
+                : now.toIso8601String(),
             'is_resolved': correctCount >= 2 ? 1 : 0,
           },
           where: 'question_id = ?',
@@ -463,8 +463,8 @@ class LocalDatabaseService {
       await txn.delete('questions');
       await txn.delete('textbooks');
       await txn.delete('chapters');
+      await _seedCurriculum(txn);
     });
-    await _seedCurriculum(db);
   }
 
   Future<void> close() async {

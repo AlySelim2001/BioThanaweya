@@ -1,106 +1,101 @@
-# BioThanaweya Architectural Hardening & Offline-First Modernization
+# Test Harness & Database Controller Remediation Plan
 
-خطة شاملة لهندسة وتوسيع تطبيق الأحياء للثانوية العامة المصرية "تعلم مع علي" (BioThanaweya) وفق مبادئ Clean Architecture الصارمة، مع تعزيز قدرات التشغيل دون اتصال (100% Offline-First) عبر محرك SQLite وSharedPreferences، وعارض كتب الوزارة PDF المدمج، وتوحيد سير عمل GitHub Actions.
+Hardening the local SQLite database service and Riverpod state controllers to resolve all failing test cases and achieve 100% clean test execution (`flutter test --coverage` with Exit Code 0).
 
-### User Review & Critical Decisions
+## User Review & Critical Decisions
 
 > [!IMPORTANT]
-> تم التوافق مع المستخدم في مرحلة التوضيح على القرارات المعمارية التالية:
-> 1. **محرك قواعد البيانات المحلي**: اعتماد محرك **SQLite** المتين عبر حزمة `sqflite` لإدارة بيانات المنهج الدراسي، أسئلة الامتحانات الوزارية، سجلات بطاقات تكرار FSRS، وتفاصيل كتب الوزارة، بالتكامل مع `shared_preferences` للتفضيلات السريعة وحالة الجلسات.
-> 2. **توحيد خط الأنابيب (CI/CD)**: دمج فحص وبناء منصات الويب وCapacitor وفلاتر في خط سير عمل موحد ومحمي (`.github/workflows/build.yaml`) مع تنفيذ الاختبارات الصارمة (45+ اختباراً)، وإنتاج حزم APK المجزأة بحسب المعمارية (`arm64-v8a`, `armeabi-v7a`)، والأرشفة الآمنة كـ Actions Artifacts وReleases.
-> 3. **خدمة كتب الوزارة المدمجة**: توفير عارض PDF تفاعلي مدمج ومفتوح المصدر داخل التطبيق، يتيح للطلاب تحميل وتصفح كتب الوزارة الرسمية والرسومات الحيوية وتخزينها محلياً دون الحاجة لأي خوادم خارجية أو تطبيقات طرف ثالث.
-
-- **Confirmed Decision 1**: استخدام `sqflite` كأساس للبيانات المنظمة والمستمرة محلياً بنسبة 100% بدون أي حاجة للاتصال بالإنترنت بعد المزامنة الأولى.
-- **Confirmed Decision 2**: توحيد مسار `.github/workflows/build.yaml` ليشمل `flutter analyze` و`flutter test` مع بناء حزم الأندرويد، مع عزل أي أسرار وعدم تضمين أي كلمات مرور صريحة.
-- **Confirmed Decision 3**: تضمين عارض PDF مدمج مع دعم التكبير والبحث والتنقل بين الفصول والصفحات وتثبيت الملاحظات الذاتية على الرسومات.
+> The following architectural decisions were confirmed via interactive clarification:
+> - **SQLite Test Isolation**: Standardize unit tests on `sqflite_common_ffi` with temporary directory databases (`Directory.systemTemp.createTemp`) and explicit `databaseFactory = databaseFactoryFfi` initialization per test group.
+> - **Controller State Hydration**: Eagerly seed initial state synchronously upon controller instantiation (e.g. from local curriculum datasources), ensuring immediate non-empty state in synchronous test assertions while running asynchronous refreshes in the background.
+> - **Service Location & Backward Compatibility**: Maintain the canonical implementation at `lib/core/database/local_database_service.dart` and provide an export alias forwarding file at `lib/core/services/local_database_service.dart`.
 
 ---
 
-### 1. Overview & Core Concept
+## 1. Overview & Core Concept
 
-- **What It Does**: منظومة تعليمية تفاعلية شاملة لطلاب الثانوية العامة (علمي علوم) بمصر، تغطي منهج الأحياء كاملاً (الدعامة والحركة، التنسيق الهرموني، التكاثر، المناعة، الحمض النووي DNA وRNA)، مع محاكاة بابل شيت الوزارة، ومختبر الرسومات الحيوية ثلاثي الأبعاد، وعارض كتب الوزارة الرسمية، وحاسبة المسائل البيولوجية، ونظام المراجعة الذكية FSRS.
-- **Target Audience / Persona**: طلاب الثانوية العامة بمصر والمعلمون الباحثون عن تطبيق أصيل فائق السرعة، موثوق، ويعمل بنسبة 100% دون إنترنت في أي وقت ومن أي هاتف Android، مع إمكانية التثبيت المباشر كـ APK أو PWA.
-- **Key Value**: منصة مفتوحة المصدر بالكامل (100% FOSS)، خالية من الإعلانات ومن الـ APIs المدفوعة، تضمن حفظ خصوصية بيانات ودرجات الطلاب محلياً، وتوفر تجربة مستخدم سلسة بمعدل 60 إطاراً في الثانية.
-
----
-
-### 2. User Experience & Visual Design
-
-- **Key User Flows**:
-  1. **لوحة التحكم المركزية (Bento Grid Dashboard)**: بطاقات إحصائية ذكية تعرض نسبة الإنجاز اليومي، منحنى استقرار الذاكرة FSRS، الوصول السريع لمحاكي الامتحانات، والمختبر الحيوي.
-  2. **مكتبة كتب الوزارة دون اتصال (Ministry Textbook Library & Offline Viewer)**: استعراض كتب الأحياء الرسمية، تنزيلها محلياً وتخزينها في ذاكرة الهاتف المشفرة، وفتحها داخل عارض PDF فائق النعومة مع أدوات التكبير ووضع القراءة الليلي.
-  3. **محرك الامتحانات وبنك الأسئلة (Smart Quiz & Bubble Sheet)**: محاكاة نماذج الامتحانات الوزارية مع مؤقت رقمي ذكي، تصحيح فوري بابل شيت، وتقرير تشخيصي للأخطاء.
-  4. **مختبر الرسومات والنقاط الحساسة (Biology Lab)**: فحص رسومات الأجهزة العضلية والخلوية مع استكشاف فخاخ الوزارة وإمكانية تدوين ملاحظات شخصية مثبتة على كل رسم.
-  5. **خطة المذاكرة التكيفية وتحليلات المساعد (FSRS Planner & AI Coach)**: توليد جدول مذاكرة يومي يتكيف تلقائياً مع الفصول التي ارتكب فيها الطالب أخطاء متكررة.
-
-- **Visual Identity & Theme**:
-  - *Aesthetic Direction*: أسلوب Bento Grid حديث، علمي ورصين، يدمج بين الفخامة الداكنة (Dark Slate `#12121A` و `#1E1E2C`) والأخضر الزمردي الحيوي (`#10B981`) مع لمسات كهرمانية تنبيهية (`#F59E0B`).
-  - *Modern Color Tokens*: الامتثال الصارم لـ Flutter 3.27+ و 3.29.0 باستخدام `.withValues(alpha: ...)` لجميع درجات الشفافية والظلال، مع منع أي استدعاء قديم لـ `.withOpacity()`.
-  - *Typography & Ergonomics*: خطوط عربية واضحة ومقروءة (`Cairo` / `Plus Jakarta Sans`)، محاذاة RTL طبيعية بنسبة 100%، أهداف لمسية لا تقل عن 48×48 بكسل مع اهتزازات لمسية خفيفة (Haptic Feedback) عند التفاعل.
+- **What It Does**: Fixes test fixture initialization, mock database bindings, and controller state management so that all database queries, spaced-repetition (FSRS) mistakes persistence, benchmark telemetry, and controller UI interactions pass with zero unhandled exceptions or assertion failures.
+- **Target Audience**: Flutter CI/CD automated test runners (GitHub Actions) and developers running local test suites in Termux, Linux, and developer workstations.
+- **Key Value**: Guarantees offline database reliability, prevents runtime initialization crashes, and delivers an uncompromising 100% green test pass rate.
 
 ---
 
-### 3. Key Product Decisions & Trade-Offs
-
-- **Decision 1: استخدام SQLite المدمج (`sqflite`) بدلاً من قواعد البيانات السحابية**
-  - *Chosen Approach*: جداول محلية متوافقة مع معايير SQL العلائقية لتخزين الفصول والأسئلة والنتائج، مع إنشاء فهارس (Indexes) على معرفات الفصول لتحقيق استعلامات في أقل من 5 ميلي ثانية.
-  - *Why*: يضمن الاستقلالية التامة عن اتصال الإنترنت، ويمنع تكاليف استضافة السيرفرات السحابية، ويوفر بيئة آمنة لا تسرب بيانات الطلاب.
-  - *Alternatives Considered*: Firebase / Supabase تم استبعادهما بناءً على متطلبات التشغيل الحر والمجاني دون اتصال (100% FOSS offline-first).
-
-- **Decision 2: عارض PDF محلي داخل التطبيق بدلاً من الاعتماد على تطبيقات خارجية**
-  - *Chosen Approach*: تضمين مكتبة قراءة PDF مفتوحة المصدر تدعم التخزين المؤقت في مسار التطبيق الآمن (`path_provider`).
-  - *Why*: إبقاء الطالب داخل سياق التطبيق التعليمي دون تشتت، ومنع الخروج إلى تطبيقات قارئ PDF التجارية المليئة بالإعلانات.
-
-- **Decision 3: توحيد خط سير العمل في `.github/workflows/build.yaml`**
-  - *Chosen Approach*: دمج خطوات الفحص والتحليل (`tsc --noEmit`، `vitest`، `flutter analyze`، `flutter test`) ثم تجميع حزم الويب وCapacitor وبناء APK فلاتر المجزأ (`split-per-abi`) في مسار واحد متسلسل ومترابط.
-  - *Why*: منع تكرار الأكواد في ملفات CI متعددة، وتوفير وقت تشغيل أجهزة GitHub Actions الافتراضية، وتقديم حزم موحدة قابلة للتنزيل كـ Artifacts.
-
----
-
-### 4. Technical Architecture & Data Strategy
+## 2. Technical Architecture & Test Strategy
 
 ```
-┌────────────────────────────────────────────────────────────────────────┐
-│                   BioThanaweya Clean Architecture                      │
-└────────────────────────────────────────────────────────────────────────┘
-                                    │
-    ┌───────────────────────────────┼───────────────────────────────┐
-    ▼                               ▼                               ▼
-┌───────────────────────┐ ┌───────────────────────┐ ┌───────────────────────┐
-│     Domain Layer      │ │      Data Layer       │ │  Presentation Layer   │
-│ (Entities & UseCases) │ │  (Repos & DataSources)│ │  (Riverpod & Bento UI)│
-├───────────────────────┤ ├───────────────────────┤ ├───────────────────────┤
-│ • StudyTask & Schedule│ │ • Local SQLite DB     │ │ • Modern Dashboard    │
-│ • AiCoachTip          │ │   (sqflite / schema)  │ │ • Smart Quiz Engine   │
-│ • LabDiagram & Hotspot│ │ • TextbookDownloader  │ │ • FSRS Study Planner  │
-│ • TextbookMetadata    │ │ • SharedPreferences   │ │ • Biology Lab View    │
-│ • FSRS RepetitionItem │ │ • Model DTOs & Mappers│ │ • Textbook PDF Screen │
-└───────────────────────┘ └───────────────────────┘ └───────────────────────┘
-                                    │
-                                    ▼
-┌────────────────────────────────────────────────────────────────────────┐
-│               Unified GitHub Actions Automation Pipeline               │
-│                                                                        │
-│   [Web Lint & Vitest] ──► [Flutter Analyze & Tests] ──► [Web Bundle]   │
-│                                                              │         │
-│                                                              ▼         │
-│         [Capacitor Android Sync] ──► [Flutter Split APK Builds]        │
-│                                                              │         │
-│                                                              ▼         │
-│              [SHA-256 Checksums] ──► [Actions Artifacts & Release]     │
-└────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│                 Test Execution Context (Dart VM)                │
+└────────────────────────────────┬────────────────────────────────┘
+                                 │
+                 sqfliteFfiInit() & databaseFactoryFfi
+                                 │
+         ┌───────────────────────┴───────────────────────┐
+         ▼                                               ▼
+┌────────────────────────────────┐              ┌─────────────────────────────┐
+│ Architecture Hub & DB Tests    │              │ Local Database Tests        │
+│ (Isolated Temp SQLite DB)      │              │ (Isolated Temp SQLite DB)   │
+└────────────────┬───────────────┘              └──────────────┬──────────────┘
+                 │                                             │
+                 ▼                                             ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│             LocalDatabaseService (lib/core/database/ & services/)           │
+│  - 11 Indexed Curriculum Chapters                                           │
+│  - 3 Official Ministry Textbooks                                            │
+│  - Recursive Transaction Safeguards in _seedCurriculum                      │
+│  - Full-Text Search (FTS) & FSRS Spaced-Repetition Tracking                  │
+└────────────────────────────────┬────────────────────────────────────────────┘
+                                 │
+         ┌───────────────────────┴───────────────────────┐
+         ▼                                               ▼
+┌────────────────────────────────┐              ┌─────────────────────────────┐
+│ BiologyLabController           │              │ StudyPlannerController      │
+│ - Synchronous initial diagrams │              │ - Synchronous initial tasks │
+│ - Immediate active selection   │              │ - Immediate completion %    │
+└────────────────────────────────┘              └─────────────────────────────┘
 ```
 
-#### Detailed Execution Steps:
+---
 
-1. **إعداد التبعيات وتحديث `pubspec.yaml`**:
-   - تثبيت حزم `sqflite`, `path`, `path_provider`, `flutter_riverpod`, `shared_preferences`, `google_fonts`, ومكتبة عارض PDF المستقرة مع ضبط الإصدارات بدقة.
-2. **بناء مستودع قاعدة بيانات SQLite وقارئ كتب الوزارة**:
-   - إنشاء خدمة `BioSqliteDatabase` مع جداول: `curriculum_chapters`، `textbooks`، `fsrs_cards`، `quiz_attempts`.
-   - تنفيذ خدمة `TextbookDownloadManager` لتنزيل وإدارة كتب الوزارة الرسمية وتخزينها محلياً مع مؤشرات التقدم.
-3. **تطوير شاشة عارض كتب الوزارة (Ministry Textbook Screen)**:
-   - واجهة Bento Grid تتيح استعراض كتب الصف الثالث الثانوي المعتمدة، معرفة حجم كل كتاب، حالة التنزيل دون اتصال، وقراءته بملء الشاشة مع الوضع الليلي.
-4. **تحديث مسار العمل الموحد (`.github/workflows/build.yaml`)**:
-   - دمج مراحل التحقق من جودة الويب وفلاتر، تشغيل كامل الاختبارات (45+ اختباراً)، بناء حزم `app-arm64-v8a-release.apk` و`app-armeabi-v7a-release.apk` وحزمة `BioThanaweya-debug.apk`، وحساب تجزئة SHA-256 وأرشفتها.
-5. **التحقق والاختبار الشامل**:
-   - تشغيل `npm run verify`، والتأكد من خلو المشروع تماماً من أي استدعاءات قديمة أو تحذيرات، واكتمال فحص TypeScript وبناء الويب وحاوية أندرويد.
+## 3. Product & Engineering Decisions
+
+- **Decision 1: SQLite Transaction Nesting in `_seedCurriculum`**
+  - *Chosen Approach*: Refactor `_seedCurriculum` to accept a `DatabaseExecutor` (which can be either a `Database` or an active `Transaction`), avoiding nested `db.transaction(...)` calls inside `_createSchema` (which sqflite already executes inside an active transaction).
+  - *Why*: Eliminates `SqfliteDatabaseException: cannot start a transaction within a transaction` when creating or reseeding databases.
+
+- **Decision 2: Eager Initial State Seeding in StateNotifiers**
+  - *Chosen Approach*: Initialize `BiologyLabController` with `CurriculumLabDatabase.getCoreCurriculumDiagrams()` and `StudyPlannerController` with default adaptive tasks directly in their constructors' `super(...)` calls.
+  - *Why*: Resolves race conditions in synchronous unit tests that expect `controller.state.diagrams.isNotEmpty` and `controller.state.tasks.isNotEmpty` immediately upon creation without requiring brittle sleep timers.
+
+- **Decision 3: Canonical Export Forwarder**
+  - *Chosen Approach*: Keep `lib/core/database/local_database_service.dart` and add `lib/core/services/local_database_service.dart` containing `export '../database/local_database_service.dart';`.
+  - *Why*: Provides 100% backward compatibility for imports expecting `lib/core/services/local_database_service.dart` while preserving the clean architecture directory structure.
+
+---
+
+## 4. Step-by-Step Implementation Steps
+
+1. **`lib/core/database/local_database_service.dart`**:
+   - Refactor `_seedCurriculum` to take `DatabaseExecutor db` rather than initiating a redundant nested transaction.
+   - Ensure all 11 chapters, 3 textbooks, sample questions, and FSRS tables initialize cleanly.
+   - Verify `totalIndexedChapters` (11) and `totalIndexedTextbooks` (3) getters.
+
+2. **`lib/core/services/local_database_service.dart`**:
+   - Create export forwarder: `export '../database/local_database_service.dart';`.
+
+3. **`test/local_database_service_test.dart`**:
+   - Initialize `sqfliteFfiInit()` and `databaseFactory = databaseFactoryFfi;`.
+   - Setup an isolated temporary directory per test run to prevent file contention and state leakage.
+   - Run tests against the isolated instance with proper teardown (`close()` and temp directory deletion).
+
+4. **`test/architecture_hub_and_database_test.dart`**:
+   - Verify all test assertions align with the robust 11-chapter curriculum schema and clean teardown.
+
+5. **`lib/features/biology_lab/presentation/controllers/biology_lab_controller.dart`**:
+   - Eagerly populate `diagrams` in `super(LabSessionState(...))` using `CurriculumLabDatabase.getCoreCurriculumDiagrams()`.
+
+6. **`lib/features/study_planner/presentation/controllers/study_planner_controller.dart`**:
+   - Eagerly populate `tasks` in `super(PlannerSessionState(...))` with adaptive baseline tasks so initial state is non-empty.
+
+7. **Verification**:
+   - Validate syntax and types across all files.
+   - Run verification tools to confirm zero regressions.

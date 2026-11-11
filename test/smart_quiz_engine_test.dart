@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smarts_bio/features/smart_quiz_engine/domain/entities/question.dart';
 import 'package:smarts_bio/features/smart_quiz_engine/domain/entities/user_answer.dart';
 import 'package:smarts_bio/features/smart_quiz_engine/domain/entities/exam_session.dart';
@@ -7,7 +8,12 @@ import 'package:smarts_bio/features/smart_quiz_engine/data/datasources/offline_c
 import 'package:smarts_bio/features/smart_quiz_engine/data/repositories/exam_repository_impl.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   group('Smart Quiz Engine Domain Entities & Calculations', () {
+    setUp(() {
+      SharedPreferences.setMockInitialValues({});
+    });
     test('QuizQuestion entity correctly validates choices', () {
       const question = QuizQuestion(
         id: 'test_q1',

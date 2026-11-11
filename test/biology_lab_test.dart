@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smarts_bio/features/biology_lab/domain/entities/lab_diagram.dart';
 import 'package:smarts_bio/features/biology_lab/domain/entities/hotspot_point.dart';
 import 'package:smarts_bio/features/biology_lab/domain/entities/student_lab_note.dart';
@@ -49,7 +50,12 @@ Future<void> verifyLabWidgetStatePropagation({
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   group('Interactive Biology Lab Domain & Data Tests', () {
+    setUp(() {
+      SharedPreferences.setMockInitialValues({});
+    });
     test('CurriculumLabDatabase provides required curriculum diagrams', () {
       final diagrams = CurriculumLabDatabase.getCoreCurriculumDiagrams();
       expect(diagrams.isNotEmpty, isTrue);
