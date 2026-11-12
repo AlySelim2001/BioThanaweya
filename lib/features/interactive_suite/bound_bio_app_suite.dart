@@ -7,7 +7,7 @@ import '../smart_quiz_engine/presentation/screens/smart_quiz_screen.dart';
 import '../biology_lab/presentation/screens/biology_lab_screen.dart';
 import '../study_planner/presentation/screens/smart_planner_screen.dart';
 import '../architecture_hub/presentation/screens/app_architecture_hub.dart';
-import '../ministry_textbooks/presentation/screens/ministry_textbook_screen.dart';
+import '../biology_calculators/presentation/screens/biology_calculators_bento_screen.dart';
 
 // ==============================================================================
 // 🧬 BOUND BIO APP ROOT (Controller-Driven UI Suite)
@@ -449,16 +449,16 @@ class _BoundDashboardScreenState extends ConsumerState<BoundDashboardScreen> {
               ),
               const SizedBox(height: 14),
 
-              // هـ. مكتبة كتب وكتيبات الوزارة الرسمية دون اتصال
+              // هـ. معمل القوانين وحاسبات الأحياء التفاعلية
               _buildEngineCard(
-                title: isArabic ? 'مكتبة كتب الوزارة الرسمية ومجلد المفاهيم' : 'Ministry Textbooks & Concepts Atlas',
-                subtitle: isArabic ? 'كتب الوزارة الرسمية، قراءة أوفلاين، وحفظ الصفحة.' : 'Official curriculum PDFs, offline reader, & auto bookmarking.',
-                icon: Icons.menu_book_rounded,
-                accentColor: const Color(0xFF10B981),
+                title: isArabic ? 'معمل القوانين وحاسبات الأحياء (Calculators)' : 'Biology Calculators & Formula Lab',
+                subtitle: isArabic ? 'تحليل شارجاف لـ DNA، مربع بانيت الوراثي، وانقباض القطع العضلية.' : 'DNA Chargaff analysis, Punnett square genetics, & sarcomere calculations.',
+                icon: Icons.calculate_rounded,
+                accentColor: const Color(0xFF38BDF8),
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const MinistryTextbookScreen()),
+                    MaterialPageRoute(builder: (_) => const BiologyCalculatorsBentoScreen()),
                   );
                 },
               ),
