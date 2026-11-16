@@ -2,56 +2,83 @@ plugins {
     id 'com.android.application'
 }
 
-def keystorePropertiesFile = rootProject.file("local.properties")
-def keystoreProperties = new Properties()
-if (keystorePropertiesFile.exists()) {
-    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-}
-
 android {
-    namespace "com.biothanaweya.app"
+    namespace 'com.biothanaweya.app'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.biothanaweya.app"
-        minSdk 24
+        applicationId 'com.biothanaweya.app'
+        minSdk 26
         targetSdk 34
         versionCode 1
-        versionName "1.0.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    signingConfigs {
-        release {
-            def ksPath = System.getenv("KEYSTORE_PATH") ?: keystoreProperties['KEYSTORE_PATH']
-            if (ksPath && file(ksPath).exists()) {
-                storeFile file(ksPath)
-                storePassword System.getenv("KEYSTORE_PASSWORD") ?: System.getenv("STORE_PASSWORD") ?: keystoreProperties['KEYSTORE_PASSWORD'] ?: keystoreProperties['STORE_PASSWORD']
-                keyAlias System.getenv("KEY_ALIAS") ?: keystoreProperties['KEY_ALIAS']
-                keyPassword System.getenv("KEY_PASSWORD") ?: keystoreProperties['KEY_PASSWORD']
-            }
-        }
-    }
-
-    buildTypes {
-        debug {
-            applicationIdSuffix ".debug"
-            debuggable true
-        }
-        release {
-            def ksPath = System.getenv("KEYSTORE_PATH") ?: keystoreProperties['KEYSTORE_PATH']
-            if (ksPath && file(ksPath).exists()) {
-                signingConfig signingConfigs.release
-            }
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+        versionName '1.0.0'
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
+    signingConfigs {
+        release {
+            def localProperties = new Properties()
+            def localPropertiesFile = rootProject.file('local.properties')
+            if (localPropertiesFile.isFile()) {
+                localPropertiesFile.withInputStream { stream -> localProperties.load(stream) }
+            }
+
+            def keystorePath = System.getenv('KEYSTORE_PATH') ?: localProperties.getProperty('KEYSTORE_PATH')
+            def storePasswordValue = System.getenv('KEYSTORE_PASSWORD') ?: localProperties.getProperty('KEYSTORE_PASSWORD')
+            def keyAliasValue = System.getenv('KEY_ALIAS') ?: localProperties.getProperty('KEY_ALIAS')
+            def keyPasswordValue = System.getenv('KEY_PASSWORD') ?: localProperties.getProperty('KEY_PASSWORD')
+            def keystoreFile = keystorePath ? rootProject.file(keystorePath) : null
+
+            if (keystoreFile?.isFile() && storePasswordValue && keyAliasValue && keyPasswordValue) {
+                storeFile keystoreFile
+                storePassword storePasswordValue
+                keyAlias keyAliasValue
+                keyPassword keyPasswordValue
+            } else {
+                logger.lifecycle('Release signing credentials are incomplete or unavailable; release variants will use the debug signing key.')
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+            debuggable true
+        }
+        release {
+            def releaseSigningReady = signingConfigs.release.storeFile?.isFile() &&
+                signingConfigs.release.storePassword &&
+                signingConfigs.release.keyAlias &&
+                signingConfigs.release.keyPassword
+            signingConfig releaseSigningReady ? signingConfigs.release : signingConfigs.debug
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+def repositoryRoot = rootProject.projectDir.parentFile
+def webDistDirectory = new File(repositoryRoot, 'dist')
+def webAssetsDirectory = file('src/main/assets/public')
+
+tasks.register('syncWebAssets', Sync) {
+    from(webDistDirectory)
+    into(webAssetsDirectory)
+    doFirst {
+        if (!webDistDirectory.isDirectory() || !new File(webDistDirectory, 'index.html').isFile()) {
+            throw new GradleException("Missing production web bundle at ${webDistDirectory}. Run 'npm run build' before building Android.")
+        }
+    }
+}
+
+tasks.named('preBuild').configure {
+    dependsOn tasks.named('syncWebAssets')
 }
 
 dependencies {

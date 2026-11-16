@@ -14,7 +14,7 @@
     "test:watch": "vitest",
     "clean": "bash scripts/clean-slate.sh",
     "android:sync": "bash scripts/sync-android-assets.sh",
-    "build:android": "npm run lint && npm test && npm run android:sync && (cd android && if [ -f gradlew ]; then ./gradlew assembleRelease bundleRelease; else echo 'Gradle build verified.'; fi)",
+    "build:android": "npm run lint && npm test && bash scripts/build-android.sh",
     "audit": "npm audit --audit-level=high && tsc --noEmit",
     "audit:full": "bash scripts/audit-and-validate.sh",
     "verify": "bash scripts/verify-local.sh",
