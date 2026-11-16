@@ -73,8 +73,17 @@ jobs:
           distribution: 'temurin'
           java-version: 17
 
-      - name: 🤖 Setup Android SDK
+      - name: 🤖 Setup Android SDK (Hardened Configuration)
         uses: android-actions/setup-android@v3
+        with:
+          api-level: 34
+          build-tools-version: "34.0.0"
+          cmdline-tools-version: "11076708_latest"
+
+      - name: 📜 Accept SDK Licenses Non-Interactively
+        run: |
+          yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses
+          echo "SDK licenses accepted successfully."
 
       - name: 📥 Download Web Dist Artifacts
         uses: actions/download-artifact@v4
@@ -181,6 +190,7 @@ jobs:
 
   flutter-qa-and-build:
     name: 💙 Flutter QA & Multi-ABI Split APK Build
+    needs: preflight-and-web
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout Repository
@@ -192,8 +202,17 @@ jobs:
           distribution: 'temurin'
           java-version: 17
 
-      - name: 🤖 Setup Android SDK
+      - name: 🤖 Setup Android SDK (Hardened Configuration)
         uses: android-actions/setup-android@v3
+        with:
+          api-level: 34
+          build-tools-version: "34.0.0"
+          cmdline-tools-version: "11076708_latest"
+
+      - name: 📜 Accept SDK Licenses Non-Interactively
+        run: |
+          yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses
+          echo "SDK licenses accepted successfully."
 
       - name: 💙 Setup Flutter SDK Environment
         uses: subosito/flutter-action@v2
@@ -268,7 +287,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Download Android Native Binaries
-        uses: actions/download-artifact@v4
+        uses: download-artifact@v4 # note: actions/download-artifact@v4
         with:
           name: biothanaweya-android-apk
           path: release-assets/android
