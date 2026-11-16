@@ -74,7 +74,16 @@ jobs:
           java-version: 17
 
       - name: 🤖 Setup Android SDK
-        uses: android-actions/setup-android@v3
+       uses: android-actions/setup-android@v3
+       with:
+         api-level: 34
+         build-tools-version: "34.0.0"
+         cmdline-tools-version: "11076708_latest"
+
+      - name: 📜 Accept SDK Licenses Non-Interactively
+        run: |
+          yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses
+          echo "SDK licenses accepted successfully."
 
       - name: 📥 Download Web Dist Artifacts
         uses: actions/download-artifact@v4
@@ -193,7 +202,16 @@ jobs:
           java-version: 17
 
       - name: 🤖 Setup Android SDK
-        uses: android-actions/setup-android@v3
+       uses: android-actions/setup-android@v3
+       with:
+         api-level: 34
+         build-tools-version: "34.0.0"
+         cmdline-tools-version: "11076708_latest"
+
+      - name: 📜 Accept SDK Licenses Non-Interactively
+        run: |
+          yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses
+          echo "SDK licenses accepted successfully."
 
       - name: 💙 Setup Flutter SDK Environment
         uses: subosito/flutter-action@v2
