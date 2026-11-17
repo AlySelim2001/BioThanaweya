@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion, type Variants } from 'framer-motion';
 import { Navbar } from './components/Navbar';
 import { SevenAgentsModal } from './components/SevenAgentsModal';
@@ -157,7 +157,6 @@ function MainApp() {
                 onNavigateToFsrs={(tId) => handleNavigate('fsrs', tId)}
                 onNavigateToFormulaLab={() => handleNavigate('formula_lab')}
                 onNavigateToSimulatedExam={() => handleNavigate('simulated_exam')}
-                onOpenAgentsModal={handleOpenAgentsModal}
                 onOpenTextbookModal={handleOpenTextbookModal}
                 topicMasteries={topicMasteries}
                 profile={profile}

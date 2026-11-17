@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {
   Activity,
-  Award,
   BookOpen,
   Calculator,
   Database,
   Flame,
   Globe2,
-  HardDriveDownload,
   Layers,
   Sparkles,
   Timer,

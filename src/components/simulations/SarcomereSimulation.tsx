@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, Play, RotateCcw, AlertTriangle, CheckCircle2, Waves, Activity } from 'lucide-react';
+import { Zap, Play, RotateCcw, AlertTriangle, Activity } from 'lucide-react';
 import { haptics } from '../../services/haptics';
 
 export const SarcomereSimulation: React.FC = () => {

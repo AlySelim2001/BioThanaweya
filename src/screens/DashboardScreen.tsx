@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import {
   Activity,
-  ArrowRight,
   BookOpen,
   Calculator,
-  CheckCircle2,
   Clock,
   Download,
   Dna,
   Droplet,
-  ExternalLink,
   Flame,
   FlaskConical,
   Layers,
@@ -21,7 +18,7 @@ import {
 } from 'lucide-react';
 import { SUB_TOPICS, CHAPTERS } from '../services/curriculumRepository';
 import { GamificationBanner } from '../components/GamificationBanner';
-import { SubTopic, TopicMastery, UnitCategory, WellbeingProfile } from '../types';
+import { TopicMastery, UnitCategory, WellbeingProfile } from '../types';
 import { useLanguage } from '../context/LanguageContext';
 
 interface DashboardScreenProps {
@@ -30,7 +27,6 @@ interface DashboardScreenProps {
   onNavigateToFsrs: (topicId?: string) => void;
   onNavigateToFormulaLab: () => void;
   onNavigateToSimulatedExam: () => void;
-  onOpenAgentsModal: () => void;
   onOpenTextbookModal: () => void;
   topicMasteries: TopicMastery[];
   profile: WellbeingProfile;
@@ -42,7 +38,6 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
   onNavigateToFsrs,
   onNavigateToFormulaLab,
   onNavigateToSimulatedExam,
-  onOpenAgentsModal,
   onOpenTextbookModal,
   topicMasteries,
   profile,
@@ -54,13 +49,6 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
     if (selectedUnit === 'ALL') return true;
     return tItem.unit === selectedUnit;
   });
-
-  // Calculate overall retention
-  const overallRetained = Math.round(
-    (topicMasteries.reduce((acc, m) => acc + (m.stability >= 7 ? 1 : 0), 0) /
-      (topicMasteries.length || 1)) *
-      100
-  );
 
   const getChapterIcon = (iconName: string) => {
     switch (iconName) {

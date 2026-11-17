@@ -1,14 +1,13 @@
 import React from 'react';
 import {
   BookOpen,
+  CheckCircle2,
   Download,
   ExternalLink,
   FileText,
   ShieldCheck,
   Sparkles,
   X,
-  CheckCircle2,
-  HardDriveDownload,
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 

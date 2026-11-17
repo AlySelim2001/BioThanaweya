@@ -1,0 +1,15 @@
+# Normalize every text file to LF in the repository, regardless of OS.
+* text=auto eol=lf
+
+# Source, config, and documentation are always LF text.
+*.{ts,tsx,js,jsx,mjs,cjs,json,jsonc,css,scss,html,md,yml,yaml,sh,dart,kt,kts,gradle,xml,txt,svg} text eol=lf
+
+# Gradle wrapper must keep LF or it breaks on unix.
+gradlew text eol=lf
+
+# Binary assets must never be normalized or diffed as text.
+*.{png,jpg,jpeg,gif,webp,ico,woff,woff2,ttf,eot,mp3,mp4,webm,pdf,zip,apk,aab,jar,keystore,jks} binary
+
+# Lockfiles: treat as generated, and do not show diffs for lock noise.
+package-lock.json -diff linguist-generated
+bun.lock -diff linguist-generated

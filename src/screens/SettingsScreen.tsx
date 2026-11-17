@@ -3,7 +3,6 @@ import {
   ArrowLeft,
   Settings,
   Clock,
-  Shield,
   RotateCcw,
   BookOpen,
   Check,
