@@ -40,8 +40,10 @@ export const MINISTRY_RESOURCES: TextbookResource[] = [
     edition: '2025/2026 Edition',
     size: '34.2 MB',
     url: 'https://moe.gov.eg/media/q0rfeip5/biology_3sec.pdf',
-    descriptionEn: 'Complete ministerial curriculum covering Units 1 & 2 with all diagrams, clinical boxes, and review questions.',
-    descriptionAr: 'المنهج الكامل المعتمد من وزارة التربية والتعليم للثانوية العامة لغات متضمناً الرسوم والمصطلحات والأسئلة.',
+    descriptionEn:
+      'Complete ministerial curriculum covering Units 1 & 2 with all diagrams, clinical boxes, and review questions.',
+    descriptionAr:
+      'المنهج الكامل المعتمد من وزارة التربية والتعليم للثانوية العامة لغات متضمناً الرسوم والمصطلحات والأسئلة.',
     highYieldTag: true,
   },
   {
@@ -52,8 +54,10 @@ export const MINISTRY_RESOURCES: TextbookResource[] = [
     edition: '2025/2026 Edition',
     size: '31.8 MB',
     url: 'https://moe.gov.eg/media/biology_arabic_3sec.pdf',
-    descriptionEn: 'The authoritative Egyptian Ministry curriculum textbook in Arabic for standard secondary school candidates.',
-    descriptionAr: 'الكتاب المدرسي الأصلي المعتمد باللغة العربية مع كل التجارب والرسوم البيانية المعتمدة في امتحانات الثانوية.',
+    descriptionEn:
+      'The authoritative Egyptian Ministry curriculum textbook in Arabic for standard secondary school candidates.',
+    descriptionAr:
+      'الكتاب المدرسي الأصلي المعتمد باللغة العربية مع كل التجارب والرسوم البيانية المعتمدة في امتحانات الثانوية.',
     highYieldTag: true,
   },
   {
@@ -64,8 +68,10 @@ export const MINISTRY_RESOURCES: TextbookResource[] = [
     edition: 'Official Exam Booklet',
     size: '12.5 MB',
     url: 'https://moe.gov.eg/media/biology_concepts_booklet.pdf',
-    descriptionEn: 'The exact open-book reference booklet provided to students inside the official Thanaweya examination hall.',
-    descriptionAr: 'الكتيب الرسمي الذي يتم تسليمه للطالب داخل لجنة الامتحان ويحتوي على كافة القوانين والرسوم والتصنيفات.',
+    descriptionEn:
+      'The exact open-book reference booklet provided to students inside the official Thanaweya examination hall.',
+    descriptionAr:
+      'الكتيب الرسمي الذي يتم تسليمه للطالب داخل لجنة الامتحان ويحتوي على كافة القوانين والرسوم والتصنيفات.',
     highYieldTag: true,
   },
   {
@@ -76,8 +82,10 @@ export const MINISTRY_RESOURCES: TextbookResource[] = [
     edition: 'Ministry Question Bank',
     size: '8.4 MB',
     url: 'https://moe.gov.eg/media/unit1_biology_guide.pdf',
-    descriptionEn: 'Targeted chapter excerpts with official Egyptian mark schemes and model answer keyword distribution.',
-    descriptionAr: 'مذكرة الوزارة التوجيهية للوحدة الأولى مع توزيع الدرجات ونماذج الإجابة لأسئلة المقال والاختيار.',
+    descriptionEn:
+      'Targeted chapter excerpts with official Egyptian mark schemes and model answer keyword distribution.',
+    descriptionAr:
+      'مذكرة الوزارة التوجيهية للوحدة الأولى مع توزيع الدرجات ونماذج الإجابة لأسئلة المقال والاختيار.',
     highYieldTag: false,
   },
   {
@@ -88,8 +96,10 @@ export const MINISTRY_RESOURCES: TextbookResource[] = [
     edition: 'Ministry Question Bank',
     size: '9.1 MB',
     url: 'https://moe.gov.eg/media/unit2_molecular_biology.pdf',
-    descriptionEn: 'Complete DNA/RNA molecular biology chapter with Chargaff formulas, codons, and PCR techniques.',
-    descriptionAr: 'ملخص الوزارة للبيولوجيا الجزيئية ومسائل شارجاف ومضادات الكودونات وتطبيقات الهندسة الوراثية.',
+    descriptionEn:
+      'Complete DNA/RNA molecular biology chapter with Chargaff formulas, codons, and PCR techniques.',
+    descriptionAr:
+      'ملخص الوزارة للبيولوجيا الجزيئية ومسائل شارجاف ومضادات الكودونات وتطبيقات الهندسة الوراثية.',
     highYieldTag: false,
   },
 ];
@@ -104,7 +114,7 @@ export const MinistryTextbookModal: React.FC<MinistryTextbookModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div 
+      <div
         className="relative w-full max-w-3xl max-h-[90vh] flex flex-col rounded-3xl bg-slate-900 border border-teal-500/30 shadow-2xl shadow-teal-500/10 overflow-hidden"
         dir={isRtl ? 'rtl' : 'ltr'}
       >
@@ -124,9 +134,7 @@ export const MinistryTextbookModal: React.FC<MinistryTextbookModalProps> = ({
                   {language === 'ar' ? 'معتمد رسمياً' : 'Verified MOE'}
                 </span>
               </div>
-              <p className="text-xs text-slate-400 mt-0.5">
-                {t('modalDesc')}
-              </p>
+              <p className="text-xs text-slate-400 mt-0.5">{t('modalDesc')}</p>
             </div>
           </div>
 
@@ -145,9 +153,7 @@ export const MinistryTextbookModal: React.FC<MinistryTextbookModalProps> = ({
           <div className="rounded-2xl bg-cyan-950/30 border border-cyan-500/30 p-4 flex items-start gap-3">
             <Sparkles className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
             <div className="text-xs text-cyan-200/90 leading-relaxed">
-              <p className="font-semibold text-cyan-100 mb-1">
-                {t('offlineTip')}
-              </p>
+              <p className="font-semibold text-cyan-100 mb-1">{t('offlineTip')}</p>
               <p className="text-slate-400">
                 {language === 'ar'
                   ? 'بإمكانك تنزيل ملفات الـ PDF وحفظها في جهازك للرجوع إليها في أي وقت دون الحاجة لشبكة الإنترنت أثناء المذاكرة.'
@@ -213,7 +219,9 @@ export const MinistryTextbookModal: React.FC<MinistryTextbookModalProps> = ({
         {/* Footer */}
         <div className="px-6 py-4 border-t border-slate-800 bg-slate-950/70 flex items-center justify-between">
           <span className="text-xs text-slate-500">
-            {language === 'ar' ? 'وزارة التربية والتعليم والتعليم الفني - جمهورية مصر العربية' : 'Ministry of Education & Technical Education - Egypt'}
+            {language === 'ar'
+              ? 'وزارة التربية والتعليم والتعليم الفني - جمهورية مصر العربية'
+              : 'Ministry of Education & Technical Education - Egypt'}
           </span>
           <button
             onClick={onClose}

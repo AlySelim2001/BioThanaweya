@@ -9,10 +9,21 @@ export class FSRS {
   private readonly maximumInterval: number;
   // Standard FSRS default weights
   private readonly w: number[] = [
-    0.40255, 1.18385, 3.173, 15.69105, // initial stabilities for Again, Hard, Good, Easy
-    7.1949, 0.5345, 1.4604, 0.0046,     // difficulty updates
-    1.54575, 0.1192, 1.01925,           // stability updates
-    1.9395, 0.11, 0.29605, 2.2698       // retrieval factors
+    0.40255,
+    1.18385,
+    3.173,
+    15.69105, // initial stabilities for Again, Hard, Good, Easy
+    7.1949,
+    0.5345,
+    1.4604,
+    0.0046, // difficulty updates
+    1.54575,
+    0.1192,
+    1.01925, // stability updates
+    1.9395,
+    0.11,
+    0.29605,
+    2.2698, // retrieval factors
   ];
 
   constructor(requestRetention = 0.9, maximumInterval = 36500) {
@@ -21,9 +32,13 @@ export class FSRS {
   }
 
   public repeat(card: FSRSCard, now: Date = new Date()): Record<FSRSRating, SchedulingInfo> {
-    const elapsedDays = card.state === 0 /* NEW */
-      ? 0
-      : Math.max(0, Math.floor((now.getTime() - (card.lastReview ?? now.getTime())) / (1000 * 60 * 60 * 24)));
+    const elapsedDays =
+      card.state === 0 /* NEW */
+        ? 0
+        : Math.max(
+            0,
+            Math.floor((now.getTime() - (card.lastReview ?? now.getTime())) / (1000 * 60 * 60 * 24))
+          );
 
     const updatedCard: FSRSCard = { ...card, elapsedDays };
 
@@ -38,11 +53,11 @@ export class FSRS {
   public schedule(card: FSRSCard, rating: FSRSRating, now: Date = new Date()): SchedulingInfo {
     let nextState: FSRSState = 0;
     if (card.state === 0 /* NEW */) {
-      nextState = rating === 1 ? 1 /* LEARNING */ : 2 /* REVIEW */;
+      nextState = rating === 1 ? 1 /* LEARNING */ : 2; /* REVIEW */
     } else if (card.state === 1 || card.state === 3 /* LEARNING or RELEARNING */) {
-      nextState = rating === 1 ? card.state : 2 /* REVIEW */;
+      nextState = rating === 1 ? card.state : 2; /* REVIEW */
     } else if (card.state === 2 /* REVIEW */) {
-      nextState = rating === 1 ? 3 /* RELEARNING */ : 2 /* REVIEW */;
+      nextState = rating === 1 ? 3 /* RELEARNING */ : 2; /* REVIEW */
     }
 
     const nextDiff = this.nextDifficulty(card, rating);
@@ -50,7 +65,7 @@ export class FSRS {
     const nextIntervalDays = this.nextInterval(nextStab);
 
     const nextDue = now.getTime() + nextIntervalDays * 24 * 60 * 60 * 1000;
-    const nextLapses = (card.state === 2 && rating === 1) ? card.lapses + 1 : card.lapses;
+    const nextLapses = card.state === 2 && rating === 1 ? card.lapses + 1 : card.lapses;
 
     const nextCard: FSRSCard = {
       cardId: card.cardId,
@@ -82,7 +97,8 @@ export class FSRS {
       return Math.min(10.0, Math.max(1.0, d0));
     } else {
       const nextD = card.difficulty - this.w[6] * (rating - 3);
-      const meanReversion = this.w[7] * (this.w[4] - Math.exp(this.w[5] * 2) + 1) + (1 - this.w[7]) * nextD;
+      const meanReversion =
+        this.w[7] * (this.w[4] - Math.exp(this.w[5] * 2) + 1) + (1 - this.w[7]) * nextD;
       return Math.min(10.0, Math.max(1.0, meanReversion));
     }
   }
@@ -118,7 +134,9 @@ export class FSRS {
   }
 
   private nextInterval(stability: number): number {
-    const interval = Math.round((stability / 19.0) * (Math.pow(this.requestRetention, -1.0 / 0.5) - 1.0));
+    const interval = Math.round(
+      (stability / 19.0) * (Math.pow(this.requestRetention, -1.0 / 0.5) - 1.0)
+    );
     return Math.min(this.maximumInterval, Math.max(1, interval));
   }
 

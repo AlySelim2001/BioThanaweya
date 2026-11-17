@@ -1,9 +1,11 @@
 # CURRICULUM VALIDATION REPORT — EGYPTIAN THANAWEYA AMMA BIOLOGY
 
 ## 1. Statutory Curriculum Scope
+
 The Egyptian Secondary General & Language Schools Biology curriculum is divided into two primary disciplines comprising 11 chapters:
 
 ### Part I: Structure and Function in Living Organisms (التركيب والوظيفة في الكائنات الحية)
+
 1. **Chapter 1: Support and Movement (الدعامة والحركة)**
    - Plant support: Physiological (osmotic pressure) vs. Structural (cellulose, lignin, suberin, cutin).
    - Human musculoskeletal system: Axial skeleton (skull, vertebral column, thoracic cage) & Appendicular skeleton.
@@ -37,6 +39,7 @@ The Egyptian Secondary General & Language Schools Biology curriculum is divided 
    - Acquired adaptive immunity: Humoral immunity (B cells, antibodies) and Cell-mediated immunity (Helper T cells, Cytotoxic T cells, Natural Killer cells, MHC presentation).
 
 ### Part II: Molecular Biology (البيولوجيا الجزيئية)
+
 10. **Chapter 10: DNA and Genetic Information (الحمض النووي DNA والمعلومات الوراثية)**
     - Identification of genetic material: Griffith's experiment, Avery-MacLeod-McCarty, Hershey-Chase bacteriophage experiment.
     - DNA structure: Watson-Crick double helix, nucleotide bonds, Chargaff's rules (A=T, G=C).
@@ -50,6 +53,7 @@ The Egyptian Secondary General & Language Schools Biology curriculum is divided 
 ---
 
 ## 2. Validation Methodology & Verification Results
+
 - **Automated Verification**: `CurriculumCoverageTest` executed via Gradle JUnit 4 suite.
 - **Traceability Criteria**:
   - `curriculum covers at least 11 comprehensive chapters`: **PASSED**.

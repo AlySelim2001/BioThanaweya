@@ -57,8 +57,8 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
 
   // Calculate overall retention
   const overallRetained = Math.round(
-    topicMasteries.reduce((acc, m) => acc + (m.stability >= 7 ? 1 : 0), 0) /
-      (topicMasteries.length || 1) *
+    (topicMasteries.reduce((acc, m) => acc + (m.stability >= 7 ? 1 : 0), 0) /
+      (topicMasteries.length || 1)) *
       100
   );
 
@@ -82,13 +82,19 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-300" dir={isRtl ? 'rtl' : 'ltr'}>
+    <div
+      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-300"
+      dir={isRtl ? 'rtl' : 'ltr'}
+    >
       {/* 1. Hero Bento Card */}
       <div className="relative rounded-3xl bg-gradient-to-br from-[#071329] via-[#0E2045] to-[#123060] border border-cyan-500/20 p-6 md:p-8 shadow-2xl shadow-cyan-950/30 overflow-hidden">
         <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-3xl space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/15 border border-teal-500/30 text-teal-300 text-xs font-bold tracking-wide">
-            <Sparkles className="w-3.5 h-3.5 text-teal-400 animate-spin" style={{ animationDuration: '6s' }} />
+            <Sparkles
+              className="w-3.5 h-3.5 text-teal-400 animate-spin"
+              style={{ animationDuration: '6s' }}
+            />
             <span>{t('heroBadge')}</span>
           </div>
 
@@ -145,17 +151,11 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                 <Clock className="w-5 h-5 animate-pulse" />
               </div>
               <div>
-                <h3 className="text-lg md:text-xl font-bold text-rose-200">
-                  {t('examHeroTitle')}
-                </h3>
-                <p className="text-xs text-rose-300/80 font-medium">
-                  {t('examHeroSpecs')}
-                </p>
+                <h3 className="text-lg md:text-xl font-bold text-rose-200">{t('examHeroTitle')}</h3>
+                <p className="text-xs text-rose-300/80 font-medium">{t('examHeroSpecs')}</p>
               </div>
             </div>
-            <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
-              {t('examHeroDesc')}
-            </p>
+            <p className="text-xs md:text-sm text-slate-300 leading-relaxed">{t('examHeroDesc')}</p>
           </div>
 
           <button
@@ -178,9 +178,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                 {t('curriculumBentoTitle')}
               </h2>
             </div>
-            <p className="text-xs text-slate-400 mt-1">
-              {t('curriculumBentoSub')}
-            </p>
+            <p className="text-xs text-slate-400 mt-1">{t('curriculumBentoSub')}</p>
           </div>
 
           {/* Unit Filter Tabs */}
@@ -235,12 +233,20 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 rounded-xl bg-slate-800 border border-slate-700/60 flex items-center justify-center">
-                        {chapter ? getChapterIcon(chapter.iconName) : <Sparkles className="w-4 h-4 text-teal-400" />}
+                        {chapter ? (
+                          getChapterIcon(chapter.iconName)
+                        ) : (
+                          <Sparkles className="w-4 h-4 text-teal-400" />
+                        )}
                       </div>
                       <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
                         {topic.unit === 'UNIT_1'
-                          ? language === 'ar' ? 'الوحدة الأولى' : 'Unit 1'
-                          : language === 'ar' ? 'الوحدة الثانية' : 'Unit 2'}
+                          ? language === 'ar'
+                            ? 'الوحدة الأولى'
+                            : 'Unit 1'
+                          : language === 'ar'
+                            ? 'الوحدة الثانية'
+                            : 'Unit 2'}
                       </span>
                     </div>
 
@@ -313,7 +319,9 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                       <Flame className="w-3 h-3 text-amber-400" />
                       {language === 'ar' ? 'الاستقرار التكراري:' : 'FSRS Stability:'}
                     </span>
-                    <span className={`font-bold ${isMastered ? 'text-emerald-400' : 'text-slate-400'}`}>
+                    <span
+                      className={`font-bold ${isMastered ? 'text-emerald-400' : 'text-slate-400'}`}
+                    >
                       {mastery ? `${mastery.stability.toFixed(1)}d` : '3.0d'}
                     </span>
                   </div>

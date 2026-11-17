@@ -45,7 +45,8 @@ export const ExamPaperSelector: FC<ExamPaperSelectorProps> = ({ onSelectPaper })
               استعد للامتحان الوزاري بأعلى معايير الإتقان والتصحيح
             </h1>
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-              تدرب على النماذج الرسمية المعتمدة (60 درجة) مع بابل شيت رقمي، ومؤقت زمني دقيق، وتحليل فوري لفخاخ الأسئلة والمفاهيم العلمية.
+              تدرب على النماذج الرسمية المعتمدة (60 درجة) مع بابل شيت رقمي، ومؤقت زمني دقيق، وتحليل
+              فوري لفخاخ الأسئلة والمفاهيم العلمية.
             </p>
           </div>
 
@@ -77,9 +78,7 @@ export const ExamPaperSelector: FC<ExamPaperSelectorProps> = ({ onSelectPaper })
 
             <div className="bg-obsidian-900/90 border border-slate-700/80 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-md min-w-[130px]">
               <Shield className="w-6 h-6 text-cyan-400 mb-1" />
-              <span className="text-2xl font-black text-white font-mono">
-                {papers.length}
-              </span>
+              <span className="text-2xl font-black text-white font-mono">{papers.length}</span>
               <span className="text-[11px] text-slate-400 font-semibold">نماذج وزارية</span>
             </div>
           </div>
@@ -109,7 +108,10 @@ export const ExamPaperSelector: FC<ExamPaperSelectorProps> = ({ onSelectPaper })
             {papers.map((paper) => {
               // Find matching attempt for this paper if any
               const pastAttempts = historySummary.attempts.filter((a) => a.paperId === paper.id);
-              const bestAttempt = pastAttempts.reduce<number>((max, curr) => Math.max(max, curr.scoreObtained), 0);
+              const bestAttempt = pastAttempts.reduce<number>(
+                (max, curr) => Math.max(max, curr.scoreObtained),
+                0
+              );
               const hasAttempted = pastAttempts.length > 0;
 
               return (
@@ -140,15 +142,23 @@ export const ExamPaperSelector: FC<ExamPaperSelectorProps> = ({ onSelectPaper })
                     <div className="grid grid-cols-3 gap-2 bg-obsidian-900/80 p-3 rounded-xl border border-slate-800 text-center mb-4">
                       <div>
                         <span className="block text-[10px] text-slate-400 font-medium">الدرجة</span>
-                        <strong className="text-xs font-bold text-slate-200 font-mono">{paper.totalMarks} درجة</strong>
+                        <strong className="text-xs font-bold text-slate-200 font-mono">
+                          {paper.totalMarks} درجة
+                        </strong>
                       </div>
                       <div>
                         <span className="block text-[10px] text-slate-400 font-medium">الزمن</span>
-                        <strong className="text-xs font-bold text-slate-200 font-mono">{paper.durationMinutes} دقيقة</strong>
+                        <strong className="text-xs font-bold text-slate-200 font-mono">
+                          {paper.durationMinutes} دقيقة
+                        </strong>
                       </div>
                       <div>
-                        <span className="block text-[10px] text-slate-400 font-medium">الأسئلة</span>
-                        <strong className="text-xs font-bold text-slate-200 font-mono">{paper.questionCount} سؤال</strong>
+                        <span className="block text-[10px] text-slate-400 font-medium">
+                          الأسئلة
+                        </span>
+                        <strong className="text-xs font-bold text-slate-200 font-mono">
+                          {paper.questionCount} سؤال
+                        </strong>
                       </div>
                     </div>
                   </div>
@@ -158,7 +168,9 @@ export const ExamPaperSelector: FC<ExamPaperSelectorProps> = ({ onSelectPaper })
                     {hasAttempted && (
                       <div className="mb-3 px-3 py-1.5 rounded-lg bg-bioemerald/10 border border-bioemerald/30 text-bioemerald text-xs font-bold flex items-center justify-between">
                         <span>أفضل نتيجة سابقة:</span>
-                        <span className="font-mono font-extrabold">{bestAttempt} / {paper.totalMarks}</span>
+                        <span className="font-mono font-extrabold">
+                          {bestAttempt} / {paper.totalMarks}
+                        </span>
                       </div>
                     )}
 

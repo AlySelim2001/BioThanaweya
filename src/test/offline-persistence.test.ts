@@ -21,7 +21,9 @@ const createStorageHarness = async (): Promise<StorageHarness> => {
   vi.resetModules();
   const localValues = new Map<string, string>();
   const localStorageMock: Storage = {
-    get length(): number { return localValues.size; },
+    get length(): number {
+      return localValues.size;
+    },
     clear: vi.fn(() => localValues.clear()),
     getItem: vi.fn((key: string) => localValues.get(key) ?? null),
     key: vi.fn((index: number) => [...localValues.keys()][index] ?? null),

@@ -4,11 +4,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import {
-  SarcomereCalculator,
-  DnaCalculator,
-  CodonCalculator,
-} from './calculators';
+import { SarcomereCalculator, DnaCalculator, CodonCalculator } from './calculators';
 
 describe('SarcomereCalculator', () => {
   it('correctly calculates structural landmarks for 5 sarcomeres', () => {

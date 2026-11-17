@@ -21,6 +21,7 @@
 ---
 
 ## 📖 Table of Contents / فهرس المحتويات
+
 - [🇪🇬 نبذة عامة ومعايير الوزارة (Arabic Overview)](#-نبذة-عامة-ومعايير-الوزارة)
 - [🌟 7-Agent AI Learning Framework](#-7-agent-ai-learning-framework)
 - [🏛️ Repository Architecture & Directory Structure](#️-repository-architecture--directory-structure)
@@ -37,17 +38,20 @@
 ## 🇪🇬 نبذة عامة ومعايير الوزارة (Arabic Overview)
 
 صُمم تطبيق **BioThanaweya** ليكون الأداة التفاعلية الأولى المجانية بالكامل (100% FOSS) والمفتوحة المصدر الموجهة لطلاب الثانوية العامة (مدارس اللغات والرسمية المتميزة والتجريبية لغات والخاصة لغات)، لتغطية منهج علم الأحياء (Biology Syllabus) للوحدتين:
-1. **Unit 1: Structure and Function in Living Organisms**  
+
+1. **Unit 1: Structure and Function in Living Organisms**
    - Support and Movement in Living Organisms (الدعامة والحركة).
    - Hormonal Coordination (التنسيق الهرموني).
    - Reproduction in Living Organisms (التكاثر).
    - Immunity in Living Organisms (المناعة).
-2. **Unit 2: Molecular Biology**  
+2. **Unit 2: Molecular Biology**
    - DNA and Genetic Information (الحمض النووي والمعلومات الوراثية).
    - RNA, Genetic Code and Protein Synthesis (الأحماض النووية وتخليق البروتين والتكنولوجيا الجزيئية).
 
 ### ⚖️ صرامة نماذج الإجابة (Ministry Mark Schemes)
+
 يحتوي النظام على محرك تدقيق يماثل نماذج تصحيح مستشاري المادة بالوزارة، ويقوم باحتساب الخصومات الإلزامية في حال إغفال:
+
 - الأيونات المحورية مثل الكالسيوم ($Ca^{2+}$) في تحفيز انطلاق الأسيتيل كولين وتكوين الروابط المستعرضة.
 - الإنزيمات الحيوية مثل الكولين إستريز ($Cholinesterase$) لعودة الغشاء لحالة الاستقطاب، وإنزيمات الربط واللملمة في تضاعف الـ DNA.
 - المناطق الهيكلية للقطعة العضلية ($A-band, I-band, H-zone, Z-lines$).
@@ -58,15 +62,15 @@
 
 BioThanaweya integrates a 7-agent pedagogical scaffolding system:
 
-| Agent | Role | Educational Scaffolding |
-| :--- | :--- | :--- |
-| **Agent 1** | **Master Biology Educator** | Dual-layer explanations: deep technical molecular mechanics paired with Egyptian Arabic ELI5 analogies, with Bloom's Taxonomy progression. |
-| **Agent 2** | **Visual Learning Architect** | Monospace LTR ASCII schematics, visual inspection cues, and diagram recognition markers. |
-| **Agent 3** | **Assessment Specialist** | Authentic Ministry question types (*Scientific Term*, *Give Reason*, *What Happens If*, *MCQ*), unmasking Exam Traps and golden rules. |
-| **Agent 4** | **Ministry Examiner & FSRS Engine** | Keyword deduction grading and modern spaced repetition scheduling based on FSRS v4.5/v5 parameters. |
-| **Agent 5** | **Metacognitive Evaluator** | Confidence-accuracy calibration widget detecting overconfidence bias (Dunning-Kruger) and underconfidence imposter doubt. |
-| **Agent 6** | **Problem-Based Learning (PBL)** | Real-world toxicology cases, autoimmune disorders, and genetic engineering missions with rubric grading. |
-| **Agent 7** | **Student Wellbeing & Gamification** | Active study streaks, XP progression, achievement badges, anxiety scoring, and Pomodoro study intervals. |
+| Agent       | Role                                 | Educational Scaffolding                                                                                                                    |
+| :---------- | :----------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
+| **Agent 1** | **Master Biology Educator**          | Dual-layer explanations: deep technical molecular mechanics paired with Egyptian Arabic ELI5 analogies, with Bloom's Taxonomy progression. |
+| **Agent 2** | **Visual Learning Architect**        | Monospace LTR ASCII schematics, visual inspection cues, and diagram recognition markers.                                                   |
+| **Agent 3** | **Assessment Specialist**            | Authentic Ministry question types (_Scientific Term_, _Give Reason_, _What Happens If_, _MCQ_), unmasking Exam Traps and golden rules.     |
+| **Agent 4** | **Ministry Examiner & FSRS Engine**  | Keyword deduction grading and modern spaced repetition scheduling based on FSRS v4.5/v5 parameters.                                        |
+| **Agent 5** | **Metacognitive Evaluator**          | Confidence-accuracy calibration widget detecting overconfidence bias (Dunning-Kruger) and underconfidence imposter doubt.                  |
+| **Agent 6** | **Problem-Based Learning (PBL)**     | Real-world toxicology cases, autoimmune disorders, and genetic engineering missions with rubric grading.                                   |
+| **Agent 7** | **Student Wellbeing & Gamification** | Active study streaks, XP progression, achievement badges, anxiety scoring, and Pomodoro study intervals.                                   |
 
 ---
 
@@ -145,7 +149,8 @@ npm run dev
 # 5. أو تشغيل واجهة الويب الخفيفة للعميل فقط (Client-Only Mode)
 npm run dev:client
 ```
-*افتح المتصفح على الهاتف وانتقل إلى:* `http://localhost:3000`
+
+_افتح المتصفح على الهاتف وانتقل إلى:_ `http://localhost:3000`
 
 ---
 
@@ -179,6 +184,7 @@ BioThanaweya operates as a true Progressive Web App with 100% offline capability
 ## 🔬 Interactive Formula Lab (معمل حل مسائل الأحياء)
 
 يتضمن التطبيق حواسب فورية للمسائل الرياضية وفق القوانين الإلزامية للثانوية العامة:
+
 1. **Sarcomere Landmark Solver**:
    - حساب $Z-lines = n + 1$، $A-bands = n$، $I_{complete} = n - 1$.
    - التحقق من ثبات طول المنطقة الداكنة وانعدام المنطقة شبه المضيئة ($H = 0$) أثناء الانقباض التام.
@@ -193,6 +199,7 @@ BioThanaweya operates as a true Progressive Web App with 100% offline capability
 ## 🤝 Contributing & Community (المساهمة والتطوير)
 
 المشروع مفتوح للمساهمات من المطورين والمعلمين والطلاب. نرجو مراجعة دليل المساهمة [CONTRIBUTING.md](CONTRIBUTING.md) للتعرف على:
+
 - معايير كتابة الكود النظيف (Clean Code Standards).
 - قواعد التسمية في Git والرسائل الموحدة (Conventional Commits).
 - خطوات إجراء التحقق القبلي (`npm run lint` و `npm run build`).

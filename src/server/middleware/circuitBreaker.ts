@@ -22,7 +22,7 @@ const envLimit = process.env.MEMORY_LIMIT_MB ? parseInt(process.env.MEMORY_LIMIT
 
 const DEFAULT_OPTIONS: CircuitBreakerOptions = {
   maxRssMb: envLimit || (isProd ? 128 : 512),
-  warnRssMb: envLimit ? Math.floor(envLimit * 0.8) : (isProd ? 100 : 400),
+  warnRssMb: envLimit ? Math.floor(envLimit * 0.8) : isProd ? 100 : 400,
   retryAfterSec: 5,
 };
 
@@ -40,15 +40,19 @@ export function createMemoryCircuitBreaker(options: Partial<CircuitBreakerOption
 
     // Hard Limit Trip: Shed load immediately to prevent Android LMK process termination
     if (currentRssMb >= config.maxRssMb) {
-      logger.warn('memory_circuit_breaker_tripped', 'Threshold exceeded; shedding incoming request', {
-        path: req.path,
-        method: req.method,
-        clientIp: req.ip,
-        metadata: {
-          currentRssMb: Math.round(currentRssMb * 10) / 10,
-          maxRssMb: config.maxRssMb,
-        },
-      });
+      logger.warn(
+        'memory_circuit_breaker_tripped',
+        'Threshold exceeded; shedding incoming request',
+        {
+          path: req.path,
+          method: req.method,
+          clientIp: req.ip,
+          metadata: {
+            currentRssMb: Math.round(currentRssMb * 10) / 10,
+            maxRssMb: config.maxRssMb,
+          },
+        }
+      );
 
       // Suggest garbage collection if V8 flags allow (--expose-gc)
       if (typeof global.gc === 'function') {

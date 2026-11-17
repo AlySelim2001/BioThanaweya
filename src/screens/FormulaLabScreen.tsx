@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  ArrowLeft,
-  Calculator,
-  Activity,
-  Dna,
-  FlaskConical,
-  AlertCircle,
-} from 'lucide-react';
+import { ArrowLeft, Calculator, Activity, Dna, FlaskConical, AlertCircle } from 'lucide-react';
 import {
   SarcomereCalculator,
   SarcomereResult,
@@ -197,14 +190,13 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                 🔬 Sarcomere Landmark Solver (حل مسائل القطع العضلية):
               </h3>
               <p className="text-xs text-slate-400">
-                Validates positive integer inputs while enforcing constant A-band length and maximal contraction H-zone collapse.
+                Validates positive integer inputs while enforcing constant A-band length and maximal
+                contraction H-zone collapse.
               </p>
             </div>
 
             <div className="max-w-xs space-y-1">
-              <label className="text-xs font-bold text-slate-300">
-                Number of Sarcomeres (n):
-              </label>
+              <label className="text-xs font-bold text-slate-300">Number of Sarcomeres (n):</label>
               <input
                 type="number"
                 min="1"
@@ -227,7 +219,9 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
             <div className="space-y-4">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3.5">
                 <div className="p-4 rounded-xl bg-slate-900 border border-teal-500/30 space-y-1">
-                  <div className="text-[11px] font-bold text-slate-400 font-arabic">خطوط Z (Z-lines)</div>
+                  <div className="text-[11px] font-bold text-slate-400 font-arabic">
+                    خطوط Z (Z-lines)
+                  </div>
                   <div className="text-2xl font-mono font-black text-teal-400">
                     {sarcomereResult.zLinesCount}
                   </div>
@@ -253,7 +247,9 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                   <div className="text-2xl font-mono font-black text-cyan-400">
                     {sarcomereResult.completeIBandsCount}
                   </div>
-                  <div className="text-[10px] text-cyan-300/70 font-mono">Formula: n - 1 = Z - 2</div>
+                  <div className="text-[10px] text-cyan-300/70 font-mono">
+                    Formula: n - 1 = Z - 2
+                  </div>
                 </div>
 
                 <div className="p-4 rounded-xl bg-slate-900 border border-slate-700 space-y-1">
@@ -263,7 +259,9 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                   <div className="text-2xl font-mono font-black text-slate-300">
                     {sarcomereResult.incompleteIBandsCount}
                   </div>
-                  <div className="text-[10px] text-slate-500 font-mono">دائمًا 2 على طرفي اللييفة</div>
+                  <div className="text-[10px] text-slate-500 font-mono">
+                    دائمًا 2 على طرفي اللييفة
+                  </div>
                 </div>
 
                 <div className="p-4 rounded-xl bg-slate-900 border border-amber-500/30 space-y-1">
@@ -289,7 +287,9 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
 
               {/* Explanations */}
               <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
-                <h4 className="text-xs font-bold text-slate-300 font-arabic">خطوات الاستنتاج الرياضي:</h4>
+                <h4 className="text-xs font-bold text-slate-300 font-arabic">
+                  خطوات الاستنتاج الرياضي:
+                </h4>
                 <div className="space-y-1.5 text-xs text-slate-300 font-arabic">
                   {sarcomereResult.explanations.map((exp, idx) => (
                     <div key={idx} className="flex items-start gap-2">
@@ -314,7 +314,8 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                 🧬 Chargaff's Law & DNA Double Helix Solver (قوانين شارجاف واللفات):
               </h3>
               <p className="text-xs text-slate-400">
-                Enforces %A = %T and %G = %C, 50% purines/pyrimidines, and 10 base pairs per helical turn.
+                Enforces %A = %T and %G = %C, 50% purines/pyrimidines, and 10 base pairs per helical
+                turn.
               </p>
             </div>
 
@@ -412,7 +413,9 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                 <div className="p-4 rounded-xl bg-slate-900 border border-cyan-500/30 space-y-1">
-                  <div className="text-[11px] font-bold text-slate-400">Base Pairs (أزواج القواعد)</div>
+                  <div className="text-[11px] font-bold text-slate-400">
+                    Base Pairs (أزواج القواعد)
+                  </div>
                   <div className="text-2xl font-mono font-black text-cyan-400">
                     {chargaffResult.basePairsCount}
                   </div>
@@ -420,7 +423,9 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                 </div>
 
                 <div className="p-4 rounded-xl bg-slate-900 border border-amber-500/30 space-y-1">
-                  <div className="text-[11px] font-bold text-slate-400">Complete Turns (اللفات التامة)</div>
+                  <div className="text-[11px] font-bold text-slate-400">
+                    Complete Turns (اللفات التامة)
+                  </div>
                   <div className="text-2xl font-mono font-black text-amber-400">
                     {chargaffResult.completeTurnsCount.toFixed(1)}
                   </div>
@@ -428,7 +433,9 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                 </div>
 
                 <div className="p-4 rounded-xl bg-slate-900 border border-rose-500/30 space-y-1">
-                  <div className="text-[11px] font-bold text-slate-400">Hydrogen Bonds (الروابط)</div>
+                  <div className="text-[11px] font-bold text-slate-400">
+                    Hydrogen Bonds (الروابط)
+                  </div>
                   <div className="text-2xl font-mono font-black text-rose-400">
                     {chargaffResult.hydrogenBondsTotal}
                   </div>
@@ -438,7 +445,9 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
 
               {/* Explanations */}
               <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
-                <h4 className="text-xs font-bold text-slate-300 font-arabic">خطوات التحقق الرياضي:</h4>
+                <h4 className="text-xs font-bold text-slate-300 font-arabic">
+                  خطوات التحقق الرياضي:
+                </h4>
                 <div className="space-y-1.5 text-xs text-slate-300 font-arabic">
                   {chargaffResult.explanations.map((exp, idx) => (
                     <div key={idx} className="flex items-start gap-2">
@@ -463,7 +472,8 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                 🧪 Codon & Protein Synthesis Calculator (حاسبة الشفرة الوراثية):
               </h3>
               <p className="text-xs text-slate-400">
-                Verifies triplet codons, excludes stop codons from amino acid counts, and calculates peptide bonds and water elimination.
+                Verifies triplet codons, excludes stop codons from amino acid counts, and calculates
+                peptide bonds and water elimination.
               </p>
             </div>
 
@@ -506,7 +516,9 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
             <div className="space-y-4">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3.5">
                 <div className="p-4 rounded-xl bg-slate-900 border border-teal-500/30 space-y-1">
-                  <div className="text-[11px] font-bold text-slate-400 font-arabic">كودونات mRNA</div>
+                  <div className="text-[11px] font-bold text-slate-400 font-arabic">
+                    كودونات mRNA
+                  </div>
                   <div className="text-2xl font-mono font-black text-teal-400">
                     {codonResult.totalCodons}
                   </div>
@@ -514,7 +526,9 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                 </div>
 
                 <div className="p-4 rounded-xl bg-slate-900 border border-purple-500/30 space-y-1">
-                  <div className="text-[11px] font-bold text-slate-400 font-arabic">الأحماض الأمينية</div>
+                  <div className="text-[11px] font-bold text-slate-400 font-arabic">
+                    الأحماض الأمينية
+                  </div>
                   <div className="text-2xl font-mono font-black text-purple-400">
                     {codonResult.aminoAcidsCount}
                   </div>
@@ -522,7 +536,9 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                 </div>
 
                 <div className="p-4 rounded-xl bg-slate-900 border border-cyan-500/30 space-y-1">
-                  <div className="text-[11px] font-bold text-slate-400 font-arabic">الروابط الببتيدية</div>
+                  <div className="text-[11px] font-bold text-slate-400 font-arabic">
+                    الروابط الببتيدية
+                  </div>
                   <div className="text-2xl font-mono font-black text-cyan-400">
                     {codonResult.peptideBondsCount}
                   </div>
@@ -536,7 +552,9 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                   <div className="text-2xl font-mono font-black text-rose-400">
                     {codonResult.waterMoleculesReleased}
                   </div>
-                  <div className="text-[10px] text-rose-300/70 font-mono">= عدد الروابط الببتيدية</div>
+                  <div className="text-[10px] text-rose-300/70 font-mono">
+                    = عدد الروابط الببتيدية
+                  </div>
                 </div>
 
                 <div className="p-4 rounded-xl bg-slate-900 border border-amber-500/30 space-y-1">
@@ -546,7 +564,9 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                   <div className="text-2xl font-mono font-black text-amber-400">
                     {codonResult.trnaMoleculesRequired}
                   </div>
-                  <div className="text-[10px] text-amber-300/70 font-mono">كودون الوقف ليس له tRNA!</div>
+                  <div className="text-[10px] text-amber-300/70 font-mono">
+                    كودون الوقف ليس له tRNA!
+                  </div>
                 </div>
 
                 <div className="p-4 rounded-xl bg-slate-900 border border-emerald-500/30 space-y-1">
@@ -556,13 +576,17 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                   <div className="text-2xl font-mono font-black text-emerald-400">
                     {codonResult.dnaDoubleHelixNucleotides}
                   </div>
-                  <div className="text-[10px] text-emerald-300/70 font-mono">شريط مزدوج = mRNA × 2</div>
+                  <div className="text-[10px] text-emerald-300/70 font-mono">
+                    شريط مزدوج = mRNA × 2
+                  </div>
                 </div>
               </div>
 
               {/* Explanations */}
               <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
-                <h4 className="text-xs font-bold text-slate-300 font-arabic">خطوات التحقق الرياضي:</h4>
+                <h4 className="text-xs font-bold text-slate-300 font-arabic">
+                  خطوات التحقق الرياضي:
+                </h4>
                 <div className="space-y-1.5 text-xs text-slate-300 font-arabic">
                   {codonResult.explanations.map((exp, idx) => (
                     <div key={idx} className="flex items-start gap-2">

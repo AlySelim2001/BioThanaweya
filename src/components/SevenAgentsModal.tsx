@@ -1,5 +1,15 @@
 import React from 'react';
-import { X, Bot, BookOpen, Eye, Target, CheckCircle2, Compass, FlaskRound as Flask, Heart } from 'lucide-react';
+import {
+  X,
+  Bot,
+  BookOpen,
+  Eye,
+  Target,
+  CheckCircle2,
+  Compass,
+  FlaskRound as Flask,
+  Heart,
+} from 'lucide-react';
 
 interface SevenAgentsModalProps {
   isOpen: boolean;
@@ -16,7 +26,7 @@ export const SevenAgentsModal: React.FC<SevenAgentsModalProps> = ({ isOpen, onCl
       color: 'from-teal-500 to-emerald-500',
       title: 'Master Biology Educator',
       titleArabic: 'معلم الأحياء المرجعي',
-      desc: 'Delivers dual-layer cognitive scaffolding: deep English physiological mechanics alongside relatable Egyptian Arabic ELI5 analogies, with Bloom\'s taxonomy progression.',
+      desc: "Delivers dual-layer cognitive scaffolding: deep English physiological mechanics alongside relatable Egyptian Arabic ELI5 analogies, with Bloom's taxonomy progression.",
     },
     {
       num: 2,
@@ -97,7 +107,9 @@ export const SevenAgentsModal: React.FC<SevenAgentsModalProps> = ({ isOpen, onCl
         {/* Content */}
         <div className="p-6 overflow-y-auto space-y-4">
           <p className="text-sm text-slate-300 leading-relaxed">
-            BioThanaweya operates with seven specialized AI cognitive roles working in synergy to ensure complete conceptual mastery, exam trap vigilance, and official Egyptian Ministry mark scheme compliance.
+            BioThanaweya operates with seven specialized AI cognitive roles working in synergy to
+            ensure complete conceptual mastery, exam trap vigilance, and official Egyptian Ministry
+            mark scheme compliance.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-2">
@@ -119,7 +131,9 @@ export const SevenAgentsModal: React.FC<SevenAgentsModalProps> = ({ isOpen, onCl
                         <span className="text-xs font-black text-slate-400">#{agent.num}</span>
                         <h3 className="text-sm font-bold text-slate-100">{agent.title}</h3>
                       </div>
-                      <p className="text-xs text-teal-400 font-arabic font-semibold">{agent.titleArabic}</p>
+                      <p className="text-xs text-teal-400 font-arabic font-semibold">
+                        {agent.titleArabic}
+                      </p>
                     </div>
                   </div>
                   <p className="text-xs text-slate-400 mt-2.5 leading-relaxed">{agent.desc}</p>

@@ -20,11 +20,7 @@ interface PracticeScreenProps {
   onXpEarned: (xp: number) => void;
 }
 
-export const PracticeScreen: React.FC<PracticeScreenProps> = ({
-  topicId,
-  onBack,
-  onXpEarned,
-}) => {
+export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack, onXpEarned }) => {
   const pack = getMasterStudyPack(topicId);
   const questions: PracticeQuestion[] = pack.questions;
 
@@ -36,7 +32,9 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({
 
   // Metacognitive state
   const [confidence, setConfidence] = useState(70);
-  const [metacognitiveAnalysis, setMetacognitiveAnalysis] = useState<MetacognitiveAnalysis | null>(null);
+  const [metacognitiveAnalysis, setMetacognitiveAnalysis] = useState<MetacognitiveAnalysis | null>(
+    null
+  );
 
   // Speech Recognition state
   const [isListening, setIsListening] = useState(false);
@@ -166,16 +164,12 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({
           </button>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-teal-400 font-mono">
-                {pack.topicTitle}
-              </span>
+              <span className="text-xs font-bold text-teal-400 font-mono">{pack.topicTitle}</span>
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">
                 Item {currentIndex + 1} of {questions.length}
               </span>
             </div>
-            <h1 className="text-lg font-black text-white">
-              Official Ministry Exam Practice
-            </h1>
+            <h1 className="text-lg font-black text-white">Official Ministry Exam Practice</h1>
           </div>
         </div>
 
@@ -206,9 +200,7 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({
           <span className="text-xs font-mono text-slate-400">2 Marks</span>
         </div>
 
-        <p className="text-base font-bold text-white leading-relaxed">
-          {currentQ.question}
-        </p>
+        <p className="text-base font-bold text-white leading-relaxed">{currentQ.question}</p>
 
         {/* MCQ Options */}
         {currentQ.type === 'MCQ' && currentQ.options && (
@@ -283,7 +275,9 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({
             onClick={handleGrade}
             disabled={
               isGrading ||
-              (currentQ.type === 'MCQ' ? selectedOption === null : studentAnswer.trim().length === 0)
+              (currentQ.type === 'MCQ'
+                ? selectedOption === null
+                : studentAnswer.trim().length === 0)
             }
             className="w-full py-3 rounded-xl bg-teal-500 hover:bg-teal-400 disabled:opacity-40 text-slate-950 font-bold text-xs shadow-lg transition flex items-center justify-center gap-2"
           >
@@ -300,8 +294,8 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({
             result.gradeStatus === 'FULL_MARK'
               ? 'bg-emerald-950/20 border-emerald-500/40'
               : result.gradeStatus === 'PARTIAL_CREDIT'
-              ? 'bg-amber-950/20 border-amber-500/40'
-              : 'bg-rose-950/20 border-rose-500/40'
+                ? 'bg-amber-950/20 border-amber-500/40'
+                : 'bg-rose-950/20 border-rose-500/40'
           }`}
         >
           <div className="flex items-center justify-between pb-3 border-b border-slate-800">
@@ -311,8 +305,8 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({
                   result.gradeStatus === 'FULL_MARK'
                     ? 'text-emerald-400'
                     : result.gradeStatus === 'PARTIAL_CREDIT'
-                    ? 'text-amber-400'
-                    : 'text-rose-400'
+                      ? 'text-amber-400'
+                      : 'text-rose-400'
                 }`}
               />
               <span>Ministry Examiner Mark Scheme Report</span>

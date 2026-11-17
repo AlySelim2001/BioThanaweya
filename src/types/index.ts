@@ -87,11 +87,7 @@ export interface VideoQuery {
 }
 
 export type QuestionType =
-  | 'SCIENTIFIC_TERM'
-  | 'GIVE_REASON'
-  | 'WHAT_HAPPENS_IF'
-  | 'DIAGRAM_ANALYSIS'
-  | 'MCQ';
+  'SCIENTIFIC_TERM' | 'GIVE_REASON' | 'WHAT_HAPPENS_IF' | 'DIAGRAM_ANALYSIS' | 'MCQ';
 
 export interface PracticeQuestion {
   id: string;
@@ -249,10 +245,7 @@ export interface WellbeingProfile {
 }
 
 export type MetacognitiveGapType =
-  | 'CALIBRATED_MASTERY'
-  | 'OVERCONFIDENCE_BIAS'
-  | 'UNDERCONFIDENCE_DOUBT'
-  | 'CALIBRATED_HUMILITY';
+  'CALIBRATED_MASTERY' | 'OVERCONFIDENCE_BIAS' | 'UNDERCONFIDENCE_DOUBT' | 'CALIBRATED_HUMILITY';
 
 export interface MetacognitiveAnalysis {
   confidencePercent: number;

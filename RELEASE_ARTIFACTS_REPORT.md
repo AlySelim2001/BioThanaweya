@@ -3,6 +3,7 @@
 ## 1. Verified Release Artifacts
 
 ### A. Production Release APK (Native Android)
+
 - **Path**: `app/build/outputs/apk/release/app-release.apk`
 - **File Size**: 4.8 MB (5,033,984 bytes)
 - **Build Variant**: `release`
@@ -22,6 +23,7 @@
 ---
 
 ### B. Development Debug APK (Native Android)
+
 - **Path**: `app/build/outputs/apk/debug/app-debug.apk`
 - **File Size**: 24 MB (25,165,824 bytes)
 - **Build Variant**: `debug`
@@ -39,6 +41,7 @@
 ---
 
 ### C. Continuous Integration Output (Flutter)
+
 - **Artifact Name**: `smarts-bio-release-apk`
 - **Generated via**: GitHub Actions runner on push to `main`
 - **Download Location**: GitHub Actions Artifacts section on `https://github.com/AlySelim2001/BioThanaweya/actions`

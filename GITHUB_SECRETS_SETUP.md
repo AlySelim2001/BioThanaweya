@@ -1,4 +1,5 @@
 # 🔐 دليل إعداد أسرار توقيع أندرويد على GitHub
+
 ## GitHub Secrets Setup Guide for Android Automated Signing
 
 يقدم هذا الدليل الميداني الخطوات التفصيلية لإعداد أسرار المستودع (`Repository Secrets`) على GitHub لتشغيل خط أنابيب البناء الآلي (`.github/workflows/build-android-release.yml`) وتوقيع حزم أندرويد الإنتاجية (`app-release.apk`) بصورة مؤتمتة ومحمية بالكامل.
@@ -7,12 +8,12 @@
 
 ### 📋 قائمة الأسرار المطلوبة (Required Secrets Matrix)
 
-| اسم السر (Secret Name) | الوصف الهندسي (Description) | مثال على القيمة (Example Value) |
-|---|---|---|
-| `KEYSTORE_BASE64` | محتوى ملف مفتاح التوقيع (`.jks`) بعد تحويله إلى تشفير Base64 | `MIIKpgIBAzCCCm4GCSqGSIb3DQEHAaCCCm8EggprMIIKazCC...` |
-| `KEYSTORE_PASSWORD` | كلمة مرور ملف مخزن المفاتيح (`storePassword`) | `bio_secure_2026_pass` |
-| `KEY_ALIAS` | الاسم المستعار للمفتاح داخل المخزن (`keyAlias`) | `biothanaweya-alias` |
-| `KEY_PASSWORD` | كلمة مرور المفتاح المستعار نفسه (`keyPassword`) | `bio_secure_2026_pass` |
+| اسم السر (Secret Name) | الوصف الهندسي (Description)                                  | مثال على القيمة (Example Value)                       |
+| ---------------------- | ------------------------------------------------------------ | ----------------------------------------------------- |
+| `KEYSTORE_BASE64`      | محتوى ملف مفتاح التوقيع (`.jks`) بعد تحويله إلى تشفير Base64 | `MIIKpgIBAzCCCm4GCSqGSIb3DQEHAaCCCm8EggprMIIKazCC...` |
+| `KEYSTORE_PASSWORD`    | كلمة مرور ملف مخزن المفاتيح (`storePassword`)                | `bio_secure_2026_pass`                                |
+| `KEY_ALIAS`            | الاسم المستعار للمفتاح داخل المخزن (`keyAlias`)              | `biothanaweya-alias`                                  |
+| `KEY_PASSWORD`         | كلمة مرور المفتاح المستعار نفسه (`keyPassword`)              | `bio_secure_2026_pass`                                |
 
 ---
 
@@ -21,18 +22,21 @@
 إذا كان لديك بالفعل ملف مفتاح التوقيع `biothanaweya-release-key.jks`:
 
 #### على أنظمة Linux / Termux:
+
 ```bash
 base64 -w 0 android/app/keystores/biothanaweya-release-key.jks > keystore_base64.txt
 cat keystore_base64.txt
 ```
 
 #### على أنظمة macOS:
+
 ```bash
 base64 -i android/app/keystores/biothanaweya-release-key.jks -o keystore_base64.txt
 cat keystore_base64.txt
 ```
 
 #### على أنظمة Windows (PowerShell):
+
 ```powershell
 [Convert]::ToBase64String([IO.File]::ReadAllBytes("android/app/keystores/biothanaweya-release-key.jks")) | Out-File -Encoding ASCII keystore_base64.txt
 Get-Content keystore_base64.txt
@@ -45,6 +49,7 @@ Get-Content keystore_base64.txt
 ### 🔑 الخطوة 2: توليد مفتاح جديد (في حال عدم وجود مفتاح سابق)
 
 إذا لم تكن قد أنشأت مفتاح التوقيع بعد، يمكنك توليده في سطر أوامر واحد:
+
 ```bash
 keytool -genkeypair -v \
   -keystore android/app/keystores/biothanaweya-release-key.jks \
@@ -92,12 +97,14 @@ keytool -genkeypair -v \
 بمجرد ضبط الأسرار، يعمل خط الأنابيب بطريقتين:
 
 #### الطريقة أ: عبر دفع وسم إصدار جديد (Recommended)
+
 ```bash
 git tag -a v1.0.0 -m "Release v1.0.0: Initial Signed Production APK"
 git push origin v1.0.0
 ```
 
 #### الطريقة ب: يدوياً عبر GitHub Actions Web UI
+
 1. افتح تبويب **Actions** في مستودع GitHub.
 2. من القائمة الجانبية، اختر مسار العمل:
    `Build & Publish Android Release APK`
@@ -108,6 +115,7 @@ git push origin v1.0.0
 ---
 
 ### 📦 النتيجة المتوقعة (Pipeline Artifacts)
+
 1. تنفيذ فحص الجودة (Linting + Vitest Units + Zero Plaintext Secrets).
 2. استخراج وفك تشفير الـ Keystore وتجميع أندرويد عبر Gradle.
 3. إنتاج الحزمة الموقعة رقمياً: `android/app/build/outputs/apk/release/app-release.apk`.

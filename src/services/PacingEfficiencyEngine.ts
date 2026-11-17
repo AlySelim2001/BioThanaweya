@@ -24,7 +24,7 @@ export class PacingEfficiencyEngine {
   ): PacingMetrics {
     const remainingSeconds = Math.max(0, totalAllocatedSeconds - elapsedSeconds);
     const safeTotalQuestions = totalQuestions > 0 ? totalQuestions : 46;
-    
+
     // Reserve ~20 minutes (1200 seconds) for final review
     const bufferSeconds = Math.min(1200, Math.floor(totalAllocatedSeconds * 0.15));
     const activeSolvingBudget = Math.max(1, totalAllocatedSeconds - bufferSeconds);
@@ -62,7 +62,7 @@ export class PacingEfficiencyEngine {
       status,
       statusArabic,
       adviceArabic,
-      colorClass
+      colorClass,
     };
   }
 }

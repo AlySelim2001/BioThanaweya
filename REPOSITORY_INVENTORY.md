@@ -1,6 +1,7 @@
 # REPOSITORY INVENTORY — SCHOLAR SIDEKICK (BIOTHANAWEYA)
+
 **Project**: BioThanaweya (`smarts.bio`)  
-**Audit Scope**: Repository-wide source files, modules, configs, and assets.  
+**Audit Scope**: Repository-wide source files, modules, configs, and assets.
 
 ---
 
@@ -41,6 +42,7 @@
 ## 2. Detailed Component Inventory
 
 ### A. Native Android Core (`app/src/main/java/com/example/`)
+
 - **`BioThanaweyaApp.kt`**: Application class annotated with `@HiltAndroidApp` for dependency graph initialization.
 - **`MainActivity.kt`**: Single-Activity Compose host annotated with `@AndroidEntryPoint`, handling window insets and edge-to-edge rendering.
 - **Domain Engines (`domain/engine/`)**:
@@ -63,6 +65,7 @@
   - `presentation/components/`: `ConfettiCanvasAnimation.kt` (Compose particle physics), `SpecializedComponents.kt`.
 
 ### B. Flutter / Dart Application (`lib/`)
+
 - **`main.dart`**: Complete RTL (`TextDirection.rtl`) production application launching `BioDashboardScreen`.
 - **`features/biology_agents/`**:
   - `domain/agents/base_agent.dart`: Core agent abstraction with offline resilience.
@@ -82,6 +85,7 @@
   - `presentation/widgets/confetti_particle_widget.dart`: 75-particle physics celebration animation.
 
 ### C. Build & Continuous Integration
+
 - `.github/workflows/build.yaml`: GitHub Actions pipeline with dynamic `PUBSPEC_FILE` search and artifact upload.
 - `app/build.gradle.kts`: Configured for Android SDK 36, minSdk 24, Compose, Room, Hilt, R8 minification.
 - `gradle/libs.versions.toml`: Centralized Version Catalog.

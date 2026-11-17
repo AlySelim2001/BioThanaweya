@@ -13,7 +13,7 @@ interface MistakeReviewModalProps {
 export const MistakeReviewModal: FC<MistakeReviewModalProps> = ({
   question,
   answerRecord,
-  onClose
+  onClose,
 }) => {
   const [noteText, setNoteText] = useState<string>('');
   const [isSavedNote, setIsSavedNote] = useState<boolean>(false);
@@ -45,7 +45,7 @@ export const MistakeReviewModal: FC<MistakeReviewModalProps> = ({
       id: `note_${question.id}`,
       questionId: question.id,
       noteText: noteText.trim(),
-      createdAt: Date.now()
+      createdAt: Date.now(),
     });
     setIsSavedNote(true);
   };
@@ -56,9 +56,11 @@ export const MistakeReviewModal: FC<MistakeReviewModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between gap-3 pb-4 border-b border-slate-700/80 mb-5">
           <div className="flex items-center gap-2">
-            <span className={`w-8 h-8 rounded-xl flex items-center justify-center text-obsidian-950 font-black text-sm ${
-              isCorrect ? 'bg-bioemerald' : 'bg-red-500'
-            }`}>
+            <span
+              className={`w-8 h-8 rounded-xl flex items-center justify-center text-obsidian-950 font-black text-sm ${
+                isCorrect ? 'bg-bioemerald' : 'bg-red-500'
+              }`}
+            >
               {question.questionNumber}
             </span>
             <div>
@@ -150,7 +152,9 @@ export const MistakeReviewModal: FC<MistakeReviewModalProps> = ({
           </p>
           <div className="mt-3 pt-2.5 border-t border-biotrap-500/20 flex items-center gap-1.5 text-[11px] text-slate-400">
             <BookOpen className="w-3.5 h-3.5 text-bioteal shrink-0" />
-            <span><strong>المرجع المعتمد:</strong> {question.scientificReferenceArabic}</span>
+            <span>
+              <strong>المرجع المعتمد:</strong> {question.scientificReferenceArabic}
+            </span>
           </div>
         </div>
 

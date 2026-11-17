@@ -4,18 +4,18 @@
 **Artifact Inspected**: `app/build/outputs/apk/release/app-release.apk`  
 **Reference Artifact**: `app/build/outputs/apk/debug/app-debug.apk`  
 **Audit Timestamp**: 2026-11-01T13:09:00Z  
-**Verification Auditor**: Senior Android Release Engineer & Security Auditor  
+**Verification Auditor**: Senior Android Release Engineer & Security Auditor
 
 ---
 
 ## 1. Release Artifact Metrics & Cryptographic Digests
 
-| Attribute | Release APK Specification | Debug APK Reference |
-| :--- | :--- | :--- |
-| **Filesystem Location** | `app/build/outputs/apk/release/app-release.apk` | `app/build/outputs/apk/debug/app-debug.apk` |
-| **File Size (Exact Bytes)** | **4,944,937 bytes** (~4.72 MB) | **25,115,012 bytes** (~23.95 MB) |
-| **SHA-256 Digest** | `bca0c22a9b7175beb9a8677e71fe09bf7f87198ab900e1fd58355af38698bebc` | `1297ceef7df2833f5aefb3c8bdafbdf89b1e66112ae6c76ef6fc41b95857d2ed` |
-| **Shrinkage & Optimization** | 80.3% size reduction via R8 & resource shrinking | Unshrunk debug container build |
+| Attribute                    | Release APK Specification                                          | Debug APK Reference                                                |
+| :--------------------------- | :----------------------------------------------------------------- | :----------------------------------------------------------------- |
+| **Filesystem Location**      | `app/build/outputs/apk/release/app-release.apk`                    | `app/build/outputs/apk/debug/app-debug.apk`                        |
+| **File Size (Exact Bytes)**  | **4,944,937 bytes** (~4.72 MB)                                     | **25,115,012 bytes** (~23.95 MB)                                   |
+| **SHA-256 Digest**           | `bca0c22a9b7175beb9a8677e71fe09bf7f87198ab900e1fd58355af38698bebc` | `1297ceef7df2833f5aefb3c8bdafbdf89b1e66112ae6c76ef6fc41b95857d2ed` |
+| **Shrinkage & Optimization** | 80.3% size reduction via R8 & resource shrinking                   | Unshrunk debug container build                                     |
 
 ---
 
@@ -35,6 +35,7 @@ Number of signers: 1
 ```
 
 ### Signer #1 Certificate Details
+
 - **Subject / Owner**: `CN=Android Debug, O=Android, C=US`
 - **Issuer**: `CN=Android Debug, O=Android, C=US`
 - **Key Algorithm**: `RSA (2048 bits)`
@@ -66,11 +67,13 @@ native-code: 'arm64-v8a' 'armeabi-v7a' 'x86' 'x86_64'
 ```
 
 ### 3.1 Debuggable Flag Analysis
+
 - **Release APK**: Verified `android:debuggable="false"` (No `application-debuggable` token present in badging or XML tree).
 - **Debug APK**: Verified `application-debuggable` is present exclusively in `app-debug.apk`.
 - **Verdict**: Compliant with OWASP MASVS-MSTG-CODE-2 (Production release binary is non-debuggable).
 
 ### 3.2 Declared & Merged Permissions
+
 1. `android.permission.RECORD_AUDIO`: Voice input for Empathetic Companion / Speech-to-Text.
 2. `android.permission.ACCESS_NETWORK_STATE`: Network availability detection for Firebase and dynamic AI model fallbacks.
 3. `android.permission.INTERNET`: Cloud AI model access and telemetry when online.
@@ -92,6 +95,7 @@ Length      Name
    9540     AndroidManifest.xml
  241520     resources.arsc
 ```
+
 - **Dex Partitioning**: Multidex structure (`classes.dex` and `classes2.dex`) cleanly processed by R8.
 - **Resources**: Shrunk binary table `resources.arsc` optimized with dead resource stripping.
 
@@ -99,5 +103,5 @@ Length      Name
 
 ## 5. Gate R1 Verification Verdict
 
-- **Gate R1 Status**: **PASS**  
+- **Gate R1 Status**: **PASS**
 - **Audit Findings**: The release APK exists at the standard output path, is intact, validly signed with APK Signature Scheme v2, is non-debuggable, targets SDK 36, and features a clean 4.94 MB distribution footprint.

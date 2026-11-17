@@ -6,6 +6,7 @@
 ---
 
 ## 📑 Table of Contents / فهرس المحتويات
+
 1. [📱 Module 1: Termux & Mobile Field Operations (دليل التشغيل الميداني)](#1--module-1-termux--mobile-field-operations)
 2. [🏛️ Module 2: Clean Architecture & Domain Layering (الهيكل المعماري)](#2--module-2-clean-architecture--domain-layering)
 3. [📊 Module 3: System Data Flow & ASCII Sequence Diagrams (مخططات تدفق البيانات)](#3--module-3-system-data-flow--ascii-sequence-diagrams)
@@ -19,6 +20,7 @@
 BioThanaweya is engineered to run seamlessly inside **Termux** on non-rooted Android devices with resource throttling designed to prevent background OS process termination.
 
 ### Clean Setup from Zero (التهيئة النظيفة من الصفر)
+
 Open the Termux terminal and execute the following bootstrap sequence:
 
 ```bash
@@ -43,13 +45,13 @@ npm install
 
 ### Execution Modes Comparison (أوضاع التشغيل المتاحة)
 
-| Command | Environment | Memory Target | Purpose |
-| :--- | :--- | :--- | :--- |
-| `npm run dev` | Full-Stack (Express + Vite) | $\le 128\text{MB}$ RSS | Production-simulated server with memory circuit breaker and API proxies. |
-| `npm run dev:client` | Client-Only Vite | $\le 64\text{MB}$ RSS | Lightweight mobile frontend editing with minimal battery consumption. |
-| `npm run verify` | Termux Pre-Flight Check | Capped at 256MB | Runs strict linting, 21 unit tests, and production PWA compilation. |
-| `npm run release` | Semantic Versioning Tool | Interactive CLI | Bumps `package.json`, stamps `CHANGELOG.md`, and generates `git tag`. |
-| `npm run preview` | Production Web Preview | Static HTTP | Serves the pre-compiled `dist/` PWA bundle on `0.0.0.0:3000`. |
+| Command              | Environment                 | Memory Target          | Purpose                                                                  |
+| :------------------- | :-------------------------- | :--------------------- | :----------------------------------------------------------------------- |
+| `npm run dev`        | Full-Stack (Express + Vite) | $\le 128\text{MB}$ RSS | Production-simulated server with memory circuit breaker and API proxies. |
+| `npm run dev:client` | Client-Only Vite            | $\le 64\text{MB}$ RSS  | Lightweight mobile frontend editing with minimal battery consumption.    |
+| `npm run verify`     | Termux Pre-Flight Check     | Capped at 256MB        | Runs strict linting, 21 unit tests, and production PWA compilation.      |
+| `npm run release`    | Semantic Versioning Tool    | Interactive CLI        | Bumps `package.json`, stamps `CHANGELOG.md`, and generates `git tag`.    |
+| `npm run preview`    | Production Web Preview      | Static HTTP            | Serves the pre-compiled `dist/` PWA bundle on `0.0.0.0:3000`.            |
 
 ```bash
 # Launch default full-stack server
@@ -86,6 +88,7 @@ src/
 ## 3. 📊 Module 3: System Data Flow & ASCII Sequence Diagrams
 
 ### Diagram 1: Transactional Persistence & Real-Time Sync Lifecycle
+
 Shows how state changes (e.g. card review or profile update) are updated synchronously in memory for 60 FPS rendering, while being committed asynchronously to IndexedDB:
 
 ```
@@ -120,6 +123,7 @@ Shows how state changes (e.g. card review or profile update) are updated synchro
 ---
 
 ### Diagram 2: Ministry Examination Evaluation & Mark Scheme Flow
+
 Shows how student answers are graded against official Ministry criteria, enforcing deductions for omitted structural landmarks before updating FSRS spaced repetition stability:
 
 ```
@@ -157,6 +161,7 @@ Shows how student answers are graded against official Ministry criteria, enforci
 ## 4. 🧯 Module 4: Mobile Troubleshooting Playbook
 
 ### Issue 1: Termux Out-Of-Memory (OOM) Process Killed
+
 - **Symptoms**: The build or dev server stops abruptly with `Killed` or `Out of memory` logged by Android kernel.
 - **Root Cause**: Node.js defaults to 2GB or 4GB heap size, exceeding Android's background cgroup limits (typically 384MB–512MB per app).
 - **Remedy**: Constrain the V8 old space size before running Node:
@@ -164,11 +169,12 @@ Shows how student answers are graded against official Ministry criteria, enforci
   export NODE_OPTIONS="--max-old-space-size=256"
   npm run dev
   ```
-  *Note*: This flag is automatically embedded in `npm run verify`.
+  _Note_: This flag is automatically embedded in `npm run verify`.
 
 ---
 
 ### Issue 2: Port Collision (`EADDRINUSE 0.0.0.0:3000`)
+
 - **Symptoms**: `Error: listen EADDRINUSE: address already in use 0.0.0.0:3000`.
 - **Root Cause**: A previous Node or Vite process remains running in the background after closing Termux.
 - **Remedy**: Terminate orphaned processes bound to port 3000:
@@ -186,6 +192,7 @@ Shows how student answers are graded against official Ministry criteria, enforci
 ---
 
 ### Issue 3: Corrupted or Stale IndexedDB Quota
+
 - **Symptoms**: Changes fail to persist, or `StorageVaultModal` shows sync error state.
 - **Root Cause**: Browser storage sandbox reached quota limits or private browsing mode restricted IndexedDB storage.
 - **Remedy**:
@@ -198,6 +205,7 @@ Shows how student answers are graded against official Ministry criteria, enforci
 ---
 
 ### Issue 4: Git Remote Synchronization & Detached Tags on Mobile
+
 - **Symptoms**: `git push origin main` fails with rejection or detached HEAD warnings.
 - **Remedy**:
   ```bash
@@ -217,6 +225,7 @@ Shows how student answers are graded against official Ministry criteria, enforci
 ## 5. 🧪 Module 5: Quality Assurance & Release Governance
 
 ### Running the Vitest Unit Test Suite
+
 The project includes 21 comprehensive unit tests verifying formulas and haptic handlers:
 
 ```bash
@@ -228,6 +237,7 @@ npm run test:watch
 ```
 
 ### Automated Local Verification Script
+
 Before committing or pushing changes to GitHub, execute:
 
 ```bash
@@ -235,19 +245,24 @@ npm run verify
 # or directly:
 bash scripts/verify-local.sh
 ```
+
 This script executes four automated gates:
+
 1. Enforces the 256MB memory boundary.
 2. Runs strict TypeScript type-checking (`tsc --noEmit`).
 3. Executes all 21 Vitest unit tests.
 4. Compiles production assets and PWA service worker.
 
 ### Generating Semantic Releases
+
 To release a new version from Termux:
 
 ```bash
 npm run release
 ```
+
 Select the bump type (`patch`, `minor`, `major`). The script automatically:
+
 1. Updates the version in `package.json`.
 2. Adds a stamped release header to `CHANGELOG.md`.
 3. Creates an annotated Git commit and tag (`vX.Y.Z`).

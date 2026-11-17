@@ -1,13 +1,16 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { bioDb } from '../db/bioDatabase';
-import { MinistryExamScoringEngine, type DetailedEvaluationResult } from '../services/MinistryExamScoringEngine';
+import {
+  MinistryExamScoringEngine,
+  type DetailedEvaluationResult,
+} from '../services/MinistryExamScoringEngine';
 import { PacingEfficiencyEngine, type PacingMetrics } from '../services/PacingEfficiencyEngine';
 import {
   ExamAnswerRecord,
   ExamAttempt,
   ExamQuestion,
   OfficialExamPaper,
-  OptionKey
+  OptionKey,
 } from '../types/exam';
 
 export interface ExamSessionState {
@@ -92,7 +95,7 @@ export function useExamSession(paperId: string) {
             selectedOption: null,
             isFlaggedForReview: false,
             timeSpentSeconds: 0,
-            isAnswered: false
+            isAnswered: false,
           };
         });
         setAnswers(initialAnswers);
@@ -183,18 +186,18 @@ export function useExamSession(paperId: string) {
         selectedOption: null,
         isFlaggedForReview: false,
         timeSpentSeconds: 0,
-        isAnswered: false
+        isAnswered: false,
       };
 
       const updatedRecord: ExamAnswerRecord = {
         ...currentRecord,
         selectedOption: optionId,
-        isAnswered: true
+        isAnswered: true,
       };
 
       return {
         ...prev,
-        [questionId]: updatedRecord
+        [questionId]: updatedRecord,
       };
     });
   }, []);
@@ -207,17 +210,20 @@ export function useExamSession(paperId: string) {
         ...prev,
         [questionId]: {
           ...currentRecord,
-          isFlaggedForReview: !currentRecord.isFlaggedForReview
-        }
+          isFlaggedForReview: !currentRecord.isFlaggedForReview,
+        },
       };
     });
   }, []);
 
-  const handleNavigate = useCallback((newIndex: number) => {
-    if (newIndex >= 0 && newIndex < questions.length) {
-      setCurrentIndex(newIndex);
-    }
-  }, [questions.length]);
+  const handleNavigate = useCallback(
+    (newIndex: number) => {
+      if (newIndex >= 0 && newIndex < questions.length) {
+        setCurrentIndex(newIndex);
+      }
+    },
+    [questions.length]
+  );
 
   const handleTogglePause = useCallback(() => {
     setIsPaused((prev) => !prev);
@@ -238,11 +244,41 @@ export function useExamSession(paperId: string) {
 
       // Create permanent attempt record for offline analytics
       const chapterBreakdownMap: ExamAttempt['chapterBreakdown'] = {
-        support_and_movement: { totalMarks: 0, obtainedMarks: 0, percentage: 0, questionCount: 0, correctCount: 0 },
-        hormonal_coordination: { totalMarks: 0, obtainedMarks: 0, percentage: 0, questionCount: 0, correctCount: 0 },
-        reproduction: { totalMarks: 0, obtainedMarks: 0, percentage: 0, questionCount: 0, correctCount: 0 },
-        immunity: { totalMarks: 0, obtainedMarks: 0, percentage: 0, questionCount: 0, correctCount: 0 },
-        molecular_biology_dna_rna: { totalMarks: 0, obtainedMarks: 0, percentage: 0, questionCount: 0, correctCount: 0 }
+        support_and_movement: {
+          totalMarks: 0,
+          obtainedMarks: 0,
+          percentage: 0,
+          questionCount: 0,
+          correctCount: 0,
+        },
+        hormonal_coordination: {
+          totalMarks: 0,
+          obtainedMarks: 0,
+          percentage: 0,
+          questionCount: 0,
+          correctCount: 0,
+        },
+        reproduction: {
+          totalMarks: 0,
+          obtainedMarks: 0,
+          percentage: 0,
+          questionCount: 0,
+          correctCount: 0,
+        },
+        immunity: {
+          totalMarks: 0,
+          obtainedMarks: 0,
+          percentage: 0,
+          questionCount: 0,
+          correctCount: 0,
+        },
+        molecular_biology_dna_rna: {
+          totalMarks: 0,
+          obtainedMarks: 0,
+          percentage: 0,
+          questionCount: 0,
+          correctCount: 0,
+        },
       };
 
       evalRes.chapterBreakdowns.forEach((ch) => {
@@ -251,7 +287,7 @@ export function useExamSession(paperId: string) {
           obtainedMarks: ch.obtainedMarks,
           percentage: ch.percentage,
           questionCount: ch.questionCount,
-          correctCount: ch.correctCount
+          correctCount: ch.correctCount,
         };
       });
 
@@ -274,8 +310,8 @@ export function useExamSession(paperId: string) {
         pacingSummary: {
           averageSecondsPerQuestion: Math.round(elapsedSeconds / (questions.length || 1)),
           idealSecondsPerQuestion: Math.round(totalAllocatedSeconds / (questions.length || 1)),
-          pacingEfficiencyStatus: pacing.status
-        }
+          pacingEfficiencyStatus: pacing.status,
+        },
       };
 
       // Persist to Dexie IndexedDB
@@ -286,7 +322,16 @@ export function useExamSession(paperId: string) {
     } finally {
       setIsSubmitting(false);
     }
-  }, [isSubmitting, evaluationResult, paper, questions, answers, elapsedSeconds, totalAllocatedSeconds, pacing.status]);
+  }, [
+    isSubmitting,
+    evaluationResult,
+    paper,
+    questions,
+    answers,
+    elapsedSeconds,
+    totalAllocatedSeconds,
+    pacing.status,
+  ]);
 
   return {
     paper,
@@ -311,6 +356,6 @@ export function useExamSession(paperId: string) {
     handleToggleFlag,
     handleNavigate,
     handleTogglePause,
-    handleSubmitExam
+    handleSubmitExam,
   };
 }

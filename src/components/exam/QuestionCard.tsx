@@ -22,7 +22,7 @@ export const QuestionCard: FC<QuestionCardProps> = ({
   onSelectOption,
   onToggleFlag,
   onPrevious,
-  onNext
+  onNext,
 }) => {
   const [fontSizeTier, setFontSizeTier] = useState<'normal' | 'large' | 'xlarge'>('normal');
 
@@ -32,7 +32,7 @@ export const QuestionCard: FC<QuestionCardProps> = ({
   const fontClass = {
     normal: 'text-base sm:text-lg',
     large: 'text-lg sm:text-xl',
-    xlarge: 'text-xl sm:text-2xl'
+    xlarge: 'text-xl sm:text-2xl',
   }[fontSizeTier];
 
   return (
@@ -143,14 +143,10 @@ export const QuestionCard: FC<QuestionCardProps> = ({
                 <div className="shrink-0">
                   <div
                     className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
-                      isSelected
-                        ? 'border-bioteal bg-bioteal'
-                        : 'border-slate-600'
+                      isSelected ? 'border-bioteal bg-bioteal' : 'border-slate-600'
                     }`}
                   >
-                    {isSelected && (
-                      <div className="w-2 h-2 rounded-full bg-obsidian-950" />
-                    )}
+                    {isSelected && <div className="w-2 h-2 rounded-full bg-obsidian-950" />}
                   </div>
                 </div>
               </button>

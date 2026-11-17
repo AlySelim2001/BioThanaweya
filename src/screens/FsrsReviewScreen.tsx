@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  ArrowLeft,
-  CheckCircle2,
-  Layers,
-  RotateCw,
-  TrendingUp,
-} from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Layers, RotateCw, TrendingUp } from 'lucide-react';
 import { defaultFsrs } from '../services/fsrs';
 import { StorageService } from '../services/storage';
 import { STUDY_PACKS } from '../services/curriculumRepository';
@@ -110,7 +104,8 @@ export const FsrsReviewScreen: React.FC<FsrsReviewScreenProps> = ({
         <div className="space-y-2">
           <h2 className="text-2xl font-black text-white">Review Session Complete!</h2>
           <p className="text-sm text-slate-300">
-            The FSRS-v5 algorithm has updated your memory stability and scheduled optimal future review intervals for long-term Thanaweya exam retention.
+            The FSRS-v5 algorithm has updated your memory stability and scheduled optimal future
+            review intervals for long-term Thanaweya exam retention.
           </p>
         </div>
         <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400">
@@ -209,9 +204,7 @@ export const FsrsReviewScreen: React.FC<FsrsReviewScreenProps> = ({
 
       {/* Rating Buttons */}
       <div className="space-y-2 pt-2">
-        <div className="text-xs font-bold text-slate-400 text-center">
-          Rate Recall Difficulty:
-        </div>
+        <div className="text-xs font-bold text-slate-400 text-center">Rate Recall Difficulty:</div>
         <div className="grid grid-cols-4 gap-2.5">
           <button
             onClick={() => handleRate(1)}

@@ -58,7 +58,8 @@ export const SimulationLabScreen: React.FC = () => {
           BioThanaweya Mechanistic Engines
         </h1>
         <p className="text-xs md:text-sm text-slate-400 mt-1 max-w-2xl leading-relaxed">
-          High-performance, touch-responsive visual simulators for core Egyptian Thanaweya Amma biology mechanisms. Test molecular dynamics and master official ministry grading laws.
+          High-performance, touch-responsive visual simulators for core Egyptian Thanaweya Amma
+          biology mechanisms. Test molecular dynamics and master official ministry grading laws.
         </p>
       </div>
 
@@ -85,7 +86,9 @@ export const SimulationLabScreen: React.FC = () => {
                 />
               )}
               <div className="flex items-start justify-between">
-                <div className={`p-2 rounded-xl ${isActive ? 'bg-teal-500/20 text-teal-300' : 'bg-slate-800 text-slate-400'}`}>
+                <div
+                  className={`p-2 rounded-xl ${isActive ? 'bg-teal-500/20 text-teal-300' : 'bg-slate-800 text-slate-400'}`}
+                >
                   <Icon className="w-5 h-5" />
                 </div>
                 <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-md bg-slate-950/80 text-teal-400 border border-slate-800">
@@ -93,7 +96,9 @@ export const SimulationLabScreen: React.FC = () => {
                 </span>
               </div>
               <div className="mt-3">
-                <h3 className={`text-xs md:text-sm font-bold ${isActive ? 'text-slate-100' : 'text-slate-300'}`}>
+                <h3
+                  className={`text-xs md:text-sm font-bold ${isActive ? 'text-slate-100' : 'text-slate-300'}`}
+                >
                   {sim.title}
                 </h3>
                 <span className="text-[11px] text-teal-400 font-semibold block font-sans">

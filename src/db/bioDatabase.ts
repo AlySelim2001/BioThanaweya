@@ -22,7 +22,7 @@ export class BioDexieDatabase extends Dexie {
       examPapers: 'id, year, session, difficultyTier',
       questions: 'id, paperId, chapterId, questionNumber, marks',
       attempts: 'id, paperId, startedAtTimestamp, isSubmitted, scoreObtained',
-      savedNotes: 'id, questionId, createdAt'
+      savedNotes: 'id, questionId, createdAt',
     });
   }
 

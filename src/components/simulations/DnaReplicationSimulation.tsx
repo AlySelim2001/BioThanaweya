@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Dna, ArrowRight, RotateCcw, CheckCircle2, ShieldAlert, Sparkles, Layers } from 'lucide-react';
+import {
+  Dna,
+  ArrowRight,
+  RotateCcw,
+  CheckCircle2,
+  ShieldAlert,
+  Sparkles,
+  Layers,
+} from 'lucide-react';
 import { haptics } from '../../services/haptics';
 
 export const DnaReplicationSimulation: React.FC = () => {
@@ -31,14 +39,14 @@ export const DnaReplicationSimulation: React.FC = () => {
     {
       title: 'RNA Primase Primer Synthesis (إنزيم البادئ)',
       arabicTitle: 'تكوين بادئ الـ RNA',
-      desc: 'RNA Primase lays down a short RNA primer providing the free 3\'-OH group strictly required by DNA Polymerase.',
+      desc: "RNA Primase lays down a short RNA primer providing the free 3'-OH group strictly required by DNA Polymerase.",
       activeEnzyme: 'RNA Primase (إنزيم البادئ)',
       activeColor: 'pink',
     },
     {
       title: 'Leading Strand & Okazaki Fragment #1',
       arabicTitle: 'بناء الشريط القائد وقطعة أوكازاكي الأولى',
-      desc: 'DNA Polymerase synthesizes continuously 5\' → 3\' towards the fork on the 3\' → 5\' template. On the lagging template, Okazaki Fragment #1 is synthesized in reverse.',
+      desc: "DNA Polymerase synthesizes continuously 5' → 3' towards the fork on the 3' → 5' template. On the lagging template, Okazaki Fragment #1 is synthesized in reverse.",
       activeEnzyme: 'DNA Polymerase (إنزيم بلمرة DNA)',
       activeColor: 'teal',
     },
@@ -119,15 +127,33 @@ export const DnaReplicationSimulation: React.FC = () => {
             <Dna className="w-3.5 h-3.5 text-teal-400" />
             Replication Fork Architecture (Fork Movement: ← Leftwards)
           </span>
-          <span className="text-indigo-400 font-semibold">Polymerase Direction: 5' → 3' Strict</span>
+          <span className="text-indigo-400 font-semibold">
+            Polymerase Direction: 5' → 3' Strict
+          </span>
         </div>
 
         <svg viewBox="0 0 620 280" className="w-full h-auto select-none">
           <defs>
-            <marker id="arrowTeal" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <marker
+              id="arrowTeal"
+              viewBox="0 0 10 10"
+              refX="5"
+              refY="5"
+              markerWidth="6"
+              markerHeight="6"
+              orient="auto-start-reverse"
+            >
               <path d="M 0 0 L 10 5 L 0 10 z" fill="#14B8A6" />
             </marker>
-            <marker id="arrowRose" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <marker
+              id="arrowRose"
+              viewBox="0 0 10 10"
+              refX="5"
+              refY="5"
+              markerWidth="6"
+              markerHeight="6"
+              orient="auto-start-reverse"
+            >
               <path d="M 0 0 L 10 5 L 0 10 z" fill="#F43F5E" />
             </marker>
           </defs>
@@ -135,7 +161,7 @@ export const DnaReplicationSimulation: React.FC = () => {
           {/* Top Parent Template Strand (3' Left to 5' Right) */}
           <motion.path
             animate={{
-              d: step === 0 ? "M 80 110 L 540 110" : "M 80 60 L 260 60 L 370 110 L 540 110"
+              d: step === 0 ? 'M 80 110 L 540 110' : 'M 80 60 L 260 60 L 370 110 L 540 110',
             }}
             transition={{ type: 'spring', stiffness: 180, damping: 20 }}
             fill="none"
@@ -143,14 +169,20 @@ export const DnaReplicationSimulation: React.FC = () => {
             strokeWidth="5"
             strokeLinecap="round"
           />
-          <text x="60" y="55" fill="#CBD5E1" fontSize="12" fontWeight="bold">3'</text>
-          <text x="550" y="115" fill="#CBD5E1" fontSize="12" fontWeight="bold">5'</text>
-          <text x="90" y="45" fill="#94A3B8" fontSize="10">Leading Template Strand (3' → 5')</text>
+          <text x="60" y="55" fill="#CBD5E1" fontSize="12" fontWeight="bold">
+            3'
+          </text>
+          <text x="550" y="115" fill="#CBD5E1" fontSize="12" fontWeight="bold">
+            5'
+          </text>
+          <text x="90" y="45" fill="#94A3B8" fontSize="10">
+            Leading Template Strand (3' → 5')
+          </text>
 
           {/* Bottom Parent Template Strand (5' Left to 3' Right) */}
           <motion.path
             animate={{
-              d: step === 0 ? "M 80 150 L 540 150" : "M 80 220 L 260 220 L 370 150 L 540 150"
+              d: step === 0 ? 'M 80 150 L 540 150' : 'M 80 220 L 260 220 L 370 150 L 540 150',
             }}
             transition={{ type: 'spring', stiffness: 180, damping: 20 }}
             fill="none"
@@ -158,9 +190,15 @@ export const DnaReplicationSimulation: React.FC = () => {
             strokeWidth="5"
             strokeLinecap="round"
           />
-          <text x="60" y="230" fill="#CBD5E1" fontSize="12" fontWeight="bold">5'</text>
-          <text x="550" y="155" fill="#CBD5E1" fontSize="12" fontWeight="bold">3'</text>
-          <text x="90" y="245" fill="#94A3B8" fontSize="10">Lagging Template Strand (5' → 3')</text>
+          <text x="60" y="230" fill="#CBD5E1" fontSize="12" fontWeight="bold">
+            5'
+          </text>
+          <text x="550" y="155" fill="#CBD5E1" fontSize="12" fontWeight="bold">
+            3'
+          </text>
+          <text x="90" y="245" fill="#94A3B8" fontSize="10">
+            Lagging Template Strand (5' → 3')
+          </text>
 
           {/* Hydrogen Bonds in Unreplicated Duplex (Right Side) */}
           {[390, 420, 450, 480, 510].map((xPos, idx) => (
@@ -172,7 +210,7 @@ export const DnaReplicationSimulation: React.FC = () => {
               y2="147"
               stroke="#64748B"
               strokeWidth="2.5"
-              strokeDasharray={idx % 2 === 0 ? "2 2" : "3 1"}
+              strokeDasharray={idx % 2 === 0 ? '2 2' : '3 1'}
             />
           ))}
 
@@ -184,7 +222,9 @@ export const DnaReplicationSimulation: React.FC = () => {
               transition={{ type: 'spring', stiffness: 220 }}
             >
               <polygon points="340,105 385,130 340,155" fill="#F59E0B" />
-              <text x="325" y="134" fill="#0B132B" fontSize="9" fontWeight="bold">Helicase</text>
+              <text x="325" y="134" fill="#0B132B" fontSize="9" fontWeight="bold">
+                Helicase
+              </text>
             </motion.g>
           )}
 
@@ -193,11 +233,15 @@ export const DnaReplicationSimulation: React.FC = () => {
             <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               {/* Leading Strand Primer */}
               <line x1="85" y1="80" x2="115" y2="80" stroke="#EC4899" strokeWidth="4" />
-              <text x="85" y="95" fill="#EC4899" fontSize="9" fontWeight="bold">RNA Primer (3'-OH)</text>
+              <text x="85" y="95" fill="#EC4899" fontSize="9" fontWeight="bold">
+                RNA Primer (3'-OH)
+              </text>
 
               {/* Lagging Strand Primer #1 */}
               <line x1="190" y1="200" x2="210" y2="200" stroke="#EC4899" strokeWidth="4" />
-              <text x="190" y="215" fill="#EC4899" fontSize="9" fontWeight="bold">Primer 1</text>
+              <text x="190" y="215" fill="#EC4899" fontSize="9" fontWeight="bold">
+                Primer 1
+              </text>
             </motion.g>
           )}
 
@@ -205,15 +249,33 @@ export const DnaReplicationSimulation: React.FC = () => {
           {step >= 3 && (
             <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               {/* Continuous Leading Strand synthesizing towards fork */}
-              <line x1="115" y1="80" x2="270" y2="80" stroke="#14B8A6" strokeWidth="4" markerEnd="url(#arrowTeal)" />
+              <line
+                x1="115"
+                y1="80"
+                x2="270"
+                y2="80"
+                stroke="#14B8A6"
+                strokeWidth="4"
+                markerEnd="url(#arrowTeal)"
+              />
               <text x="135" y="95" fill="#2DD4BF" fontSize="10" fontWeight="bold">
                 Continuous Leading Strand (5' → 3')
               </text>
               <circle cx="265" cy="80" r="9" fill="#3B82F6" />
-              <text x="258" y="83" fill="#FFFFFF" fontSize="8" fontWeight="bold">Pol</text>
+              <text x="258" y="83" fill="#FFFFFF" fontSize="8" fontWeight="bold">
+                Pol
+              </text>
 
               {/* Okazaki Fragment #1 (Lagging Strand) */}
-              <line x1="210" y1="200" x2="265" y2="200" stroke="#F43F5E" strokeWidth="4" markerEnd="url(#arrowRose)" />
+              <line
+                x1="210"
+                y1="200"
+                x2="265"
+                y2="200"
+                stroke="#F43F5E"
+                strokeWidth="4"
+                markerEnd="url(#arrowRose)"
+              />
               <text x="205" y="190" fill="#FDA4AF" fontSize="9" fontWeight="bold">
                 Okazaki #1 (قطع أوكازاكي)
               </text>
@@ -225,10 +287,20 @@ export const DnaReplicationSimulation: React.FC = () => {
             <motion.g initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}>
               {/* Primer #2 */}
               <line x1="100" y1="200" x2="120" y2="200" stroke="#EC4899" strokeWidth="4" />
-              <text x="95" y="215" fill="#EC4899" fontSize="9" fontWeight="bold">Primer 2</text>
+              <text x="95" y="215" fill="#EC4899" fontSize="9" fontWeight="bold">
+                Primer 2
+              </text>
 
               {/* Okazaki Fragment #2 */}
-              <line x1="120" y1="200" x2="185" y2="200" stroke="#F43F5E" strokeWidth="4" markerEnd="url(#arrowRose)" />
+              <line
+                x1="120"
+                y1="200"
+                x2="185"
+                y2="200"
+                stroke="#F43F5E"
+                strokeWidth="4"
+                markerEnd="url(#arrowRose)"
+              />
               <text x="115" y="190" fill="#FDA4AF" fontSize="9" fontWeight="bold">
                 Okazaki #2
               </text>
@@ -239,7 +311,9 @@ export const DnaReplicationSimulation: React.FC = () => {
           {step >= 5 && (
             <motion.g initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring' }}>
               <rect x="180" y="188" width="18" height="24" rx="4" fill="#8B5CF6" />
-              <text x="168" y="180" fill="#C4B5FD" fontSize="9" fontWeight="bold">DNA Ligase (إنزيم الربط)</text>
+              <text x="168" y="180" fill="#C4B5FD" fontSize="9" fontWeight="bold">
+                DNA Ligase (إنزيم الربط)
+              </text>
               <line x1="185" y1="200" x2="210" y2="200" stroke="#10B981" strokeWidth="4" />
             </motion.g>
           )}
@@ -263,7 +337,9 @@ export const DnaReplicationSimulation: React.FC = () => {
             <span>Leading Strand (الشريط القائد)</span>
           </div>
           <p className="text-[11px] text-slate-300 leading-relaxed">
-            Built continuously upon the parent <strong className="text-teal-200">3' → 5'</strong> template. Polymerase travels in the exact same direction as the unwinding Helicase fork. No Okazaki fragments formed.
+            Built continuously upon the parent <strong className="text-teal-200">3' → 5'</strong>{' '}
+            template. Polymerase travels in the exact same direction as the unwinding Helicase fork.
+            No Okazaki fragments formed.
           </p>
         </div>
 
@@ -273,7 +349,10 @@ export const DnaReplicationSimulation: React.FC = () => {
             <span>Lagging Strand (الشريط المتخلف)</span>
           </div>
           <p className="text-[11px] text-slate-300 leading-relaxed">
-            Built upon the parent <strong className="text-rose-200">5' → 3'</strong> template. Synthesized discontinuously as <strong className="text-rose-300">Okazaki fragments</strong> moving in reverse away from the fork. Strictly requires <strong className="text-indigo-300">DNA Ligase</strong>.
+            Built upon the parent <strong className="text-rose-200">5' → 3'</strong> template.
+            Synthesized discontinuously as{' '}
+            <strong className="text-rose-300">Okazaki fragments</strong> moving in reverse away from
+            the fork. Strictly requires <strong className="text-indigo-300">DNA Ligase</strong>.
           </p>
         </div>
       </div>

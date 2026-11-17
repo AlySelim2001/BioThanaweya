@@ -20,10 +20,36 @@ export type SyncState = 'synced' | 'saving' | 'error';
 export type SyncListener = (state: SyncState) => void;
 
 export const INITIAL_BADGES: StudentBadge[] = [
-  { id: 'b_sarcomere', title: 'Sarcomere Architect', titleArabic: 'مهندس القطعة العضلية', iconName: 'Activity', description: 'Mastered Huxley sliding filament calculations and landmark relationships.', unlockedAt: new Date().toISOString() },
-  { id: 'b_chargaff', title: 'Chargaff Whiz', titleArabic: 'خبير شارجاف والوراثة', iconName: 'Dna', description: 'Solved 10 DNA double helix base pairing puzzles without error.', unlockedAt: new Date().toISOString() },
-  { id: 'b_ministry', title: 'Ministry Gold Scholar', titleArabic: 'طبيب المستقبل - الدرجة النهائية', iconName: 'Award', description: 'Achieved ≥ 90% on a simulated 45-minute Ministry biology examination.' },
-  { id: 'b_streak7', title: '7-Day Focus Titan', titleArabic: 'بطل الالتزام الأسبوعي', iconName: 'Flame', description: 'Maintained a 7-day active study streak in Thanaweya Biology.' },
+  {
+    id: 'b_sarcomere',
+    title: 'Sarcomere Architect',
+    titleArabic: 'مهندس القطعة العضلية',
+    iconName: 'Activity',
+    description: 'Mastered Huxley sliding filament calculations and landmark relationships.',
+    unlockedAt: new Date().toISOString(),
+  },
+  {
+    id: 'b_chargaff',
+    title: 'Chargaff Whiz',
+    titleArabic: 'خبير شارجاف والوراثة',
+    iconName: 'Dna',
+    description: 'Solved 10 DNA double helix base pairing puzzles without error.',
+    unlockedAt: new Date().toISOString(),
+  },
+  {
+    id: 'b_ministry',
+    title: 'Ministry Gold Scholar',
+    titleArabic: 'طبيب المستقبل - الدرجة النهائية',
+    iconName: 'Award',
+    description: 'Achieved ≥ 90% on a simulated 45-minute Ministry biology examination.',
+  },
+  {
+    id: 'b_streak7',
+    title: '7-Day Focus Titan',
+    titleArabic: 'بطل الالتزام الأسبوعي',
+    iconName: 'Flame',
+    description: 'Maintained a 7-day active study streak in Thanaweya Biology.',
+  },
 ];
 
 export const INITIAL_PROFILE: WellbeingProfile = {
@@ -32,7 +58,8 @@ export const INITIAL_PROFILE: WellbeingProfile = {
   earnedBadges: INITIAL_BADGES.slice(0, 2),
   examAnxietyScore: 22,
   studyChunkMinutes: 25,
-  motivationalQuote: 'التميز عادة، وليس فعلًا عابرًا. استمر في التركيز على الآليات والروابط الجزيئية!',
+  motivationalQuote:
+    'التميز عادة، وليس فعلًا عابرًا. استمر في التركيز على الآليات والروابط الجزيئية!',
 };
 
 // In-Memory Cache
@@ -96,7 +123,10 @@ export const StorageService = {
       if (typeof window === 'undefined') return;
 
       // 1. Check if IndexedDB has profile
-      const storedProfile = await dbEngine.get<{ id: string; profile: WellbeingProfile }>('profile', 'current');
+      const storedProfile = await dbEngine.get<{ id: string; profile: WellbeingProfile }>(
+        'profile',
+        'current'
+      );
 
       if (storedProfile && storedProfile.profile) {
         // Load from IndexedDB
@@ -138,8 +168,11 @@ export const StorageService = {
 
       // Assign migrated or default data
       memoryProfile = legacyProfile || INITIAL_PROFILE;
-      memoryCards = (legacyCards && legacyCards.length > 0) ? legacyCards : seedInitialCards();
-      memoryMasteries = (legacyMasteries && legacyMasteries.length > 0) ? legacyMasteries : getDefaultTopicMasteries();
+      memoryCards = legacyCards && legacyCards.length > 0 ? legacyCards : seedInitialCards();
+      memoryMasteries =
+        legacyMasteries && legacyMasteries.length > 0
+          ? legacyMasteries
+          : getDefaultTopicMasteries();
       memoryExams = legacyExams || [];
 
       // 3. Persist to IndexedDB
@@ -289,7 +322,9 @@ export const StorageService = {
 
     persistAsync(async () => {
       await dbEngine.put('exams', report);
-      await BackupService.createAutoSnapshot(`Post-Exam Report: Grade ${report.letterGrade} (${report.percentage}%)`);
+      await BackupService.createAutoSnapshot(
+        `Post-Exam Report: Grade ${report.letterGrade} (${report.percentage}%)`
+      );
     });
   },
 

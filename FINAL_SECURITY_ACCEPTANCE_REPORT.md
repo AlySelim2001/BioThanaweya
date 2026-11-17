@@ -3,14 +3,16 @@
 **Project**: Scholar Sidekick — BioThanaweya  
 **Verification Auditor**: Application Security Auditor & Release Engineer  
 **Audit Timestamp**: 2026-11-01T13:14:00Z  
-**Standards Baseline**: OWASP Mobile Application Security Verification Standard (MASVS v2.0)  
+**Standards Baseline**: OWASP Mobile Application Security Verification Standard (MASVS v2.0)
 
 ---
 
 ## 1. Secrets & Credential Management (Gate R8)
 
 ### 1.1 Static Code Repository Scan
+
 An exhaustive scan across all Kotlin source files, Gradle build scripts, and resource XML files confirms:
+
 - **Hardcoded API Keys**: `0 found`
 - **Exposed Passwords / Tokens**: `0 found`
 - **Secrets Gradle Plugin**: Active and configured via `app/build.gradle.kts:80-84`:
@@ -28,6 +30,7 @@ An exhaustive scan across all Kotlin source files, Gradle build scripts, and res
 ## 2. Attack Surface & Manifest Auditing
 
 ### 2.1 Manifest Component Isolation
+
 ```xml
 <activity
     android:name=".MainActivity"
@@ -40,10 +43,12 @@ An exhaustive scan across all Kotlin source files, Gradle build scripts, and res
     </intent-filter>
 </activity>
 ```
+
 - **Finding**: Exactly one activity is exported (`.MainActivity`), strictly as required by the Android OS for launcher discovery. Zero background services, content providers, or broadcast receivers are exported without permissions.
 - **Dynamic Receiver Protection**: Manifest includes `com.aistudio.biothanaweya.xmptqr.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION`, preventing rogue apps from intercepting internal runtime broadcasts.
 
 ### 2.2 Permissions Least-Privilege Audit
+
 - `android.permission.RECORD_AUDIO`: Required for the voice companion feature.
 - `android.permission.INTERNET`: Required for Firebase AI queries when online.
 - `android.permission.ACCESS_NETWORK_STATE`: Required for network connectivity awareness.

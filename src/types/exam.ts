@@ -7,7 +7,7 @@ export interface QuestionOption {
   textEnglish?: string;
 }
 
-export type UnitChapterId = 
+export type UnitChapterId =
   | 'support_and_movement'
   | 'hormonal_coordination'
   | 'reproduction'
@@ -70,13 +70,16 @@ export interface ExamAttempt {
   percentage: number;
   passed: boolean;
   answers: Record<string, ExamAnswerRecord>;
-  chapterBreakdown: Record<UnitChapterId, {
-    totalMarks: number;
-    obtainedMarks: number;
-    percentage: number;
-    questionCount: number;
-    correctCount: number;
-  }>;
+  chapterBreakdown: Record<
+    UnitChapterId,
+    {
+      totalMarks: number;
+      obtainedMarks: number;
+      percentage: number;
+      questionCount: number;
+      correctCount: number;
+    }
+  >;
   trapsTriggeredCount: number;
   pacingSummary: {
     averageSecondsPerQuestion: number;

@@ -17,11 +17,11 @@ describe('MinistryExamScoringEngine', () => {
         { id: 'A', label: 'أ', textArabic: 'خيار أ' },
         { id: 'B', label: 'ب', textArabic: 'خيار ب' },
         { id: 'C', label: 'ج', textArabic: 'خيار ج' },
-        { id: 'D', label: 'د', textArabic: 'خيار د' }
+        { id: 'D', label: 'د', textArabic: 'خيار د' },
       ],
       correctOptionId: 'A',
       trapExplanationArabic: 'فخ السؤال',
-      scientificReferenceArabic: 'مرجع الوزارة'
+      scientificReferenceArabic: 'مرجع الوزارة',
     },
     {
       id: 'q2',
@@ -36,12 +36,12 @@ describe('MinistryExamScoringEngine', () => {
         { id: 'A', label: 'أ', textArabic: 'خيار أ' },
         { id: 'B', label: 'ب', textArabic: 'خيار ب' },
         { id: 'C', label: 'ج', textArabic: 'خيار ج' },
-        { id: 'D', label: 'د', textArabic: 'خيار د' }
+        { id: 'D', label: 'د', textArabic: 'خيار د' },
       ],
       correctOptionId: 'B',
       trapExplanationArabic: 'فخ السؤال 2',
-      scientificReferenceArabic: 'مرجع الوزارة'
-    }
+      scientificReferenceArabic: 'مرجع الوزارة',
+    },
   ];
 
   it('calculates perfect score correctly with weighted marks (1 + 2 = 3)', () => {
@@ -52,7 +52,7 @@ describe('MinistryExamScoringEngine', () => {
         selectedOption: 'A',
         isFlaggedForReview: false,
         timeSpentSeconds: 60,
-        isAnswered: true
+        isAnswered: true,
       },
       q2: {
         questionId: 'q2',
@@ -60,8 +60,8 @@ describe('MinistryExamScoringEngine', () => {
         selectedOption: 'B',
         isFlaggedForReview: false,
         timeSpentSeconds: 80,
-        isAnswered: true
-      }
+        isAnswered: true,
+      },
     };
 
     const result = MinistryExamScoringEngine.evaluateExam(sampleQuestions, answers, 140);
@@ -83,7 +83,7 @@ describe('MinistryExamScoringEngine', () => {
         selectedOption: 'C', // incorrect (trap option)
         isFlaggedForReview: false,
         timeSpentSeconds: 40,
-        isAnswered: true
+        isAnswered: true,
       },
       q2: {
         questionId: 'q2',
@@ -91,8 +91,8 @@ describe('MinistryExamScoringEngine', () => {
         selectedOption: 'B', // correct (2 marks)
         isFlaggedForReview: false,
         timeSpentSeconds: 70,
-        isAnswered: true
-      }
+        isAnswered: true,
+      },
     };
 
     const result = MinistryExamScoringEngine.evaluateExam(sampleQuestions, answers, 110);

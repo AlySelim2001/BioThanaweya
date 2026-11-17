@@ -13,22 +13,16 @@ export interface ExamHistorySummary {
 }
 
 export function useLiveExamHistory(paperIdFilter?: string): ExamHistorySummary {
-  const attempts = useLiveQuery(
-    async () => {
-      if (paperIdFilter) {
-        return await bioDb.attempts
-          .where('paperId')
-          .equals(paperIdFilter)
-          .reverse()
-          .sortBy('submittedAtTimestamp');
-      }
+  const attempts = useLiveQuery(async () => {
+    if (paperIdFilter) {
       return await bioDb.attempts
-        .orderBy('submittedAtTimestamp')
+        .where('paperId')
+        .equals(paperIdFilter)
         .reverse()
-        .toArray();
-    },
-    [paperIdFilter]
-  );
+        .sortBy('submittedAtTimestamp');
+    }
+    return await bioDb.attempts.orderBy('submittedAtTimestamp').reverse().toArray();
+  }, [paperIdFilter]);
 
   if (attempts === undefined) {
     return {
@@ -38,7 +32,7 @@ export function useLiveExamHistory(paperIdFilter?: string): ExamHistorySummary {
       highestScore: 0,
       maxPossibleScore: 60,
       totalTimeSpentSeconds: 0,
-      isLoading: true
+      isLoading: true,
     };
   }
 
@@ -55,7 +49,8 @@ export function useLiveExamHistory(paperIdFilter?: string): ExamHistorySummary {
     totalTime += att.elapsedSeconds;
   });
 
-  const averageScorePercentage = totalAttempts > 0 ? Math.round((totalPctSum / totalAttempts) * 10) / 10 : 0;
+  const averageScorePercentage =
+    totalAttempts > 0 ? Math.round((totalPctSum / totalAttempts) * 10) / 10 : 0;
 
   return {
     attempts,
@@ -64,6 +59,6 @@ export function useLiveExamHistory(paperIdFilter?: string): ExamHistorySummary {
     highestScore,
     maxPossibleScore: 60,
     totalTimeSpentSeconds: totalTime,
-    isLoading: false
+    isLoading: false,
   };
 }

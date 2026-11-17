@@ -64,7 +64,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 bg-[#0B132B]/95 backdrop-blur-xl border-b border-slate-800/80 shadow-lg shadow-black/20" dir={isRtl ? 'rtl' : 'ltr'}>
+    <header
+      className="sticky top-0 z-40 bg-[#0B132B]/95 backdrop-blur-xl border-b border-slate-800/80 shadow-lg shadow-black/20"
+      dir={isRtl ? 'rtl' : 'ltr'}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
         {/* Brand / Logo */}
         <div
@@ -181,15 +184,19 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Offline/Online Indicator */}
-          <div 
+          <div
             className={`hidden md:flex items-center gap-1 px-2 py-1 rounded-xl text-[11px] font-bold border ${
-              isOnline 
-                ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20' 
+              isOnline
+                ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20'
                 : 'bg-amber-500/15 text-amber-300 border-amber-500/30'
             }`}
             title={isOnline ? 'Network Connected' : 'Offline Mode (Local-First IndexedDB Active)'}
           >
-            {isOnline ? <Wifi className="w-3 h-3 text-emerald-400" /> : <WifiOff className="w-3 h-3 text-amber-400" />}
+            {isOnline ? (
+              <Wifi className="w-3 h-3 text-emerald-400" />
+            ) : (
+              <WifiOff className="w-3 h-3 text-amber-400" />
+            )}
             <span>{isOnline ? 'Online' : 'Offline'}</span>
           </div>
 
@@ -211,8 +218,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               syncState === 'error'
                 ? 'bg-rose-500/20 border-rose-500/40 text-rose-300'
                 : syncState === 'saving'
-                ? 'bg-amber-500/20 border-amber-500/40 text-amber-300 animate-pulse'
-                : 'bg-slate-800/80 hover:bg-slate-700 border-slate-700 text-slate-300 hover:text-white'
+                  ? 'bg-amber-500/20 border-amber-500/40 text-amber-300 animate-pulse'
+                  : 'bg-slate-800/80 hover:bg-slate-700 border-slate-700 text-slate-300 hover:text-white'
             }`}
             title="Offline Storage & Backup Vault"
           >

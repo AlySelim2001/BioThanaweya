@@ -108,7 +108,7 @@ function MainApp() {
   const screenVariants: Variants = {
     initial: (direction: number) => ({
       opacity: 0,
-      x: shouldReduceMotion ? 0 : direction > 0 ? (isRtl ? -32 : 32) : (isRtl ? 32 : -32),
+      x: shouldReduceMotion ? 0 : direction > 0 ? (isRtl ? -32 : 32) : isRtl ? 32 : -32,
     }),
     animate: {
       opacity: 1,
@@ -120,7 +120,7 @@ function MainApp() {
     },
     exit: (direction: number) => ({
       opacity: 0,
-      x: shouldReduceMotion ? 0 : direction > 0 ? (isRtl ? 24 : -24) : (isRtl ? -24 : 24),
+      x: shouldReduceMotion ? 0 : direction > 0 ? (isRtl ? 24 : -24) : isRtl ? -24 : 24,
       transition: {
         x: { type: 'spring' as const, stiffness: 280, damping: 28 },
         opacity: { duration: 0.16, ease: 'easeIn' as const },
@@ -164,14 +164,10 @@ function MainApp() {
               />
             )}
 
-            {currentScreen === 'simulations' && (
-              <SimulationLabScreen />
-            )}
+            {currentScreen === 'simulations' && <SimulationLabScreen />}
 
             {currentScreen === 'formula_lab' && (
-              <FormulaLabScreen
-                onBack={() => handleNavigate('dashboard')}
-              />
+              <FormulaLabScreen onBack={() => handleNavigate('dashboard')} />
             )}
 
             {currentScreen === 'fsrs' && (
@@ -218,10 +214,7 @@ function MainApp() {
       </main>
 
       {/* 7 AI Agents Dialog */}
-      <SevenAgentsModal
-        isOpen={isAgentsModalOpen}
-        onClose={handleCloseAgentsModal}
-      />
+      <SevenAgentsModal isOpen={isAgentsModalOpen} onClose={handleCloseAgentsModal} />
 
       {/* Persistent Storage Vault Dialog */}
       <StorageVaultModal
@@ -231,10 +224,7 @@ function MainApp() {
       />
 
       {/* Official Ministry Textbook Download Dialog */}
-      <MinistryTextbookModal
-        isOpen={isTextbookModalOpen}
-        onClose={handleCloseTextbookModal}
-      />
+      <MinistryTextbookModal isOpen={isTextbookModalOpen} onClose={handleCloseTextbookModal} />
     </div>
   );
 }

@@ -24,6 +24,7 @@ BioThanaweya is an open-source, non-profit, 100% FOSS educational platform built
 ## 🛠️ Local Development Setup
 
 ### Standard Node.js Environment (Linux, macOS, Windows)
+
 ```bash
 # 1. Clone repository
 git clone https://github.com/AlySelim2001/BioThanaweya.git
@@ -38,9 +39,11 @@ npm run dev
 # 4. Or start client-only Vite server
 npm run dev:client
 ```
+
 The app will be accessible at `http://localhost:3000`.
 
 ### Termux Environment (Android)
+
 ```bash
 # 1. Update and install packages
 pkg update -y && pkg install nodejs-lts git -y
@@ -74,6 +77,7 @@ npm run dev
    - `perf:` Performance optimization or memory footprint reduction.
 
 Example:
+
 ```bash
 git commit -m "feat(calculators): add Okazaki fragment count helper for lagging strand"
 ```

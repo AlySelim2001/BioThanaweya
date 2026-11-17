@@ -1,4 +1,11 @@
-import { Chapter, MasterStudyPack, PracticeQuestion, SubTopic, TopicMastery, MasteryLevel } from '../types';
+import {
+  Chapter,
+  MasterStudyPack,
+  PracticeQuestion,
+  SubTopic,
+  TopicMastery,
+  MasteryLevel,
+} from '../types';
 
 export const CHAPTERS: Chapter[] = [
   {
@@ -7,7 +14,8 @@ export const CHAPTERS: Chapter[] = [
     number: 1,
     title: 'Support and Movement',
     arabicTitle: 'الدعامة والحركة في الكائنات الحية',
-    summary: 'Plant physiological/structural support, human skeleton, joints, tendons, ligaments, and muscular contraction mechanism.',
+    summary:
+      'Plant physiological/structural support, human skeleton, joints, tendons, ligaments, and muscular contraction mechanism.',
     iconName: 'Activity',
   },
   {
@@ -16,7 +24,8 @@ export const CHAPTERS: Chapter[] = [
     number: 2,
     title: 'Hormonal Coordination',
     arabicTitle: 'التنسيق الهرموني في الكائنات الحية',
-    summary: 'Endocrine glands, master pituitary gland, negative feedback loops, blood sugar and calcium homeostasis.',
+    summary:
+      'Endocrine glands, master pituitary gland, negative feedback loops, blood sugar and calcium homeostasis.',
     iconName: 'Droplet',
   },
   {
@@ -25,7 +34,8 @@ export const CHAPTERS: Chapter[] = [
     number: 3,
     title: 'Reproduction in Living Organisms',
     arabicTitle: 'التكاثر في الكائنات الحية',
-    summary: 'Alternation of generations (Fern & Plasmodium), double fertilization in angiosperms, human gametogenesis & menstrual cycle.',
+    summary:
+      'Alternation of generations (Fern & Plasmodium), double fertilization in angiosperms, human gametogenesis & menstrual cycle.',
     iconName: 'Repeat',
   },
   {
@@ -34,7 +44,8 @@ export const CHAPTERS: Chapter[] = [
     number: 4,
     title: 'Immunity in Living Organisms',
     arabicTitle: 'المناعة في الكائنات الحية',
-    summary: 'Plant defense, human lymphatic system, antibodies, innate vs acquired immunity (humoral B-cells & cell-mediated T-cells).',
+    summary:
+      'Plant defense, human lymphatic system, antibodies, innate vs acquired immunity (humoral B-cells & cell-mediated T-cells).',
     iconName: 'Shield',
   },
   {
@@ -43,7 +54,8 @@ export const CHAPTERS: Chapter[] = [
     number: 1,
     title: 'DNA & Genetic Information',
     arabicTitle: 'الحمض النووي والمعلومات الوراثية',
-    summary: 'Historical proof experiments (Griffith, Hershey-Chase), DNA structure & Chargaff ratios, replication, repair & nucleosomes.',
+    summary:
+      'Historical proof experiments (Griffith, Hershey-Chase), DNA structure & Chargaff ratios, replication, repair & nucleosomes.',
     iconName: 'Dna',
   },
   {
@@ -52,7 +64,8 @@ export const CHAPTERS: Chapter[] = [
     number: 2,
     title: 'RNA & Protein Synthesis',
     arabicTitle: 'الأحماض النووية وتخليق البروتين',
-    summary: 'Types of RNA, transcription, translation, genetic code math, mutations, and genetic engineering technology.',
+    summary:
+      'Types of RNA, transcription, translation, genetic code math, mutations, and genetic engineering technology.',
     iconName: 'FlaskConical',
   },
 ];
@@ -64,7 +77,8 @@ export const SUB_TOPICS: SubTopic[] = [
     unit: 'UNIT_1',
     title: 'Muscle Contraction & Sliding Filament Theory',
     arabicTitle: 'انقباض العضلة الهيكلية ونظرية الخيوط المنزلقة',
-    summary: "Huxley's sliding filament mechanism, role of Ca²⁺ and ATP, motor units, and sarcomere calculations.",
+    summary:
+      "Huxley's sliding filament mechanism, role of Ca²⁺ and ATP, motor units, and sarcomere calculations.",
     highYieldFlag: true,
   },
   {
@@ -73,7 +87,8 @@ export const SUB_TOPICS: SubTopic[] = [
     unit: 'UNIT_1',
     title: 'Plant Support & Human Skeletal System',
     arabicTitle: 'الدعامة في النبات والجهاز الهيكلي في الإنسان',
-    summary: 'Physiological vs structural support in plants, axial vs appendicular skeleton, joints, tendons vs ligaments.',
+    summary:
+      'Physiological vs structural support in plants, axial vs appendicular skeleton, joints, tendons vs ligaments.',
     highYieldFlag: true,
   },
   {
@@ -82,7 +97,8 @@ export const SUB_TOPICS: SubTopic[] = [
     unit: 'UNIT_1',
     title: 'Pituitary Master Gland & Hormone Feedback',
     arabicTitle: 'الغدة النخامية والتغذية الراجعة الهرمونية',
-    summary: 'Anterior vs posterior pituitary lobes, FSH/LH, TSH, ACTH, ADH/vasopressin, and calcium/glucose regulation.',
+    summary:
+      'Anterior vs posterior pituitary lobes, FSH/LH, TSH, ACTH, ADH/vasopressin, and calcium/glucose regulation.',
     highYieldFlag: true,
   },
   {
@@ -91,7 +107,8 @@ export const SUB_TOPICS: SubTopic[] = [
     unit: 'UNIT_1',
     title: 'Plant Reproduction & Alternation of Generations',
     arabicTitle: 'تعاقب الأجيال والإخصاب المزدوج في النباتات الزهرية',
-    summary: 'Life cycle of Polypodium & Plasmodium, micro/megasporogenesis, double fertilization and 3n endosperm formation.',
+    summary:
+      'Life cycle of Polypodium & Plasmodium, micro/megasporogenesis, double fertilization and 3n endosperm formation.',
     highYieldFlag: true,
   },
   {
@@ -100,7 +117,8 @@ export const SUB_TOPICS: SubTopic[] = [
     unit: 'UNIT_1',
     title: 'Human Reproduction & The Menstrual Cycle',
     arabicTitle: 'التكاثر في الإنسان ودورة الطمث',
-    summary: 'Spermatogenesis vs oogenesis, 28-day ovarian cycle, estrogen & progesterone curves, fertilization, and twins.',
+    summary:
+      'Spermatogenesis vs oogenesis, 28-day ovarian cycle, estrogen & progesterone curves, fertilization, and twins.',
     highYieldFlag: true,
   },
   {
@@ -109,7 +127,8 @@ export const SUB_TOPICS: SubTopic[] = [
     unit: 'UNIT_1',
     title: 'Humoral vs Cell-Mediated Immunity',
     arabicTitle: 'المناعة الخلطية بالخلايا البائية والمناعة الخلوية بالخلايا التائية',
-    summary: 'Antibody anatomy & mechanisms, B-cells & plasma cells, helper TH (CD4+), cytotoxic TC (CD8+), perforin & lymphokines.',
+    summary:
+      'Antibody anatomy & mechanisms, B-cells & plasma cells, helper TH (CD4+), cytotoxic TC (CD8+), perforin & lymphokines.',
     highYieldFlag: true,
   },
   {
@@ -118,7 +137,8 @@ export const SUB_TOPICS: SubTopic[] = [
     unit: 'UNIT_2',
     title: 'DNA Structure, Chargaff Ratios & Replication',
     arabicTitle: 'تركيب DNA وقواعد شارجاف وتضاعف المادة الوراثية',
-    summary: 'Avery & Hershey-Chase proofs, double helix 2nm dimensions, helicase, DNA polymerase 5\'->3\', ligase, Okazaki fragments.',
+    summary:
+      "Avery & Hershey-Chase proofs, double helix 2nm dimensions, helicase, DNA polymerase 5'->3', ligase, Okazaki fragments.",
     highYieldFlag: true,
   },
   {
@@ -127,7 +147,8 @@ export const SUB_TOPICS: SubTopic[] = [
     unit: 'UNIT_2',
     title: 'RNA Transcription, Translation & Genetic Code',
     arabicTitle: 'تخليق RNA وترجمة البروتين والشفرة الوراثية',
-    summary: 'mRNA processing, tRNA cloverleaf & anticodon, ribosomal subunits, peptidyl transferase, codon calculations, and mutations.',
+    summary:
+      'mRNA processing, tRNA cloverleaf & anticodon, ribosomal subunits, peptidyl transferase, codon calculations, and mutations.',
     highYieldFlag: true,
   },
   {
@@ -136,7 +157,8 @@ export const SUB_TOPICS: SubTopic[] = [
     unit: 'UNIT_2',
     title: 'Genetic Engineering & Recombinant DNA',
     arabicTitle: 'الهندسة الوراثية و DNA معاد الاتحاد',
-    summary: 'Restriction endonucleases, sticky ends, DNA ligase, reverse transcriptase, cloning vectors/plasmids, PCR & Taq polymerase.',
+    summary:
+      'Restriction endonucleases, sticky ends, DNA ligase, reverse transcriptase, cloning vectors/plasmids, PCR & Taq polymerase.',
     highYieldFlag: true,
   },
 ];
@@ -174,12 +196,14 @@ export const STUDY_PACKS: Record<string, MasterStudyPack> = {
     keyTerms: [
       {
         term: 'Sarcomere',
-        definition: 'The distance between two successive Z-lines; structural and functional contractile unit of myofibril.',
+        definition:
+          'The distance between two successive Z-lines; structural and functional contractile unit of myofibril.',
         arabicTerm: 'القطعة العضلية',
       },
       {
         term: 'Myosin',
-        definition: 'Thick protein filament bearing cross-bridges (transverse hooks) that interact with actin.',
+        definition:
+          'Thick protein filament bearing cross-bridges (transverse hooks) that interact with actin.',
         arabicTerm: 'الميوسين',
       },
       {
@@ -189,12 +213,14 @@ export const STUDY_PACKS: Record<string, MasterStudyPack> = {
       },
       {
         term: 'Cholinesterase',
-        definition: 'Enzyme that destroys acetylcholine into acetic acid and choline to terminate contraction.',
+        definition:
+          'Enzyme that destroys acetylcholine into acetic acid and choline to terminate contraction.',
         arabicTerm: 'إنزيم كولين إستريز',
       },
       {
         term: 'Motor Unit',
-        definition: 'One motor neuron and all the muscle fibers it innervates (ranging from 5 to 100 fibers).',
+        definition:
+          'One motor neuron and all the muscle fibers it innervates (ranging from 5 to 100 fibers).',
         arabicTerm: 'الوحدة الحركية',
       },
     ],
@@ -209,21 +235,24 @@ export const STUDY_PACKS: Record<string, MasterStudyPack> = {
       {
         name: 'A-Band Count',
         formulaLatex: 'A = n',
-        description: 'Dark bands (A-bands) equal number of sarcomeres and NEVER change length during contraction.',
+        description:
+          'Dark bands (A-bands) equal number of sarcomeres and NEVER change length during contraction.',
         variables: 'A = Number of Dark bands; n = Number of Sarcomeres',
         sampleCalculation: 'For 5 sarcomeres: A-bands = 5.',
       },
       {
         name: 'Complete I-Band Count',
         formulaLatex: 'I_{complete} = n - 1 = Z - 2',
-        description: 'Only internal light bands are complete; 2 incomplete bands exist at the outer ends.',
+        description:
+          'Only internal light bands are complete; 2 incomplete bands exist at the outer ends.',
         variables: 'n = Number of Sarcomeres; Z = Number of Z-lines',
         sampleCalculation: 'For 5 sarcomeres: Complete I-bands = 5 - 1 = 4.',
       },
       {
         name: 'H-Zone Disappearance Rule',
         formulaLatex: 'H_{maximal} = 0',
-        description: 'During complete/strong contraction, actin filaments meet and overlap completely, obliterating the H-zone.',
+        description:
+          'During complete/strong contraction, actin filaments meet and overlap completely, obliterating the H-zone.',
         variables: 'H = Semi-light zone width',
         sampleCalculation: 'Relaxed: H = n; Complete contraction: H = 0.',
       },
@@ -234,10 +263,22 @@ export const STUDY_PACKS: Record<string, MasterStudyPack> = {
         columnA: 'Relaxed State',
         columnB: 'Contracted State',
         rows: [
-          { criteria: 'Z-lines Distance', valueA: 'Normal / Far apart', valueB: 'Decreases / Move closer together' },
+          {
+            criteria: 'Z-lines Distance',
+            valueA: 'Normal / Far apart',
+            valueB: 'Decreases / Move closer together',
+          },
           { criteria: 'I-Band (Light Band)', valueA: 'Wide length', valueB: 'Decreases in width' },
-          { criteria: 'H-Zone (Semi-Light)', valueA: 'Visible (Myosin only)', valueB: 'Decreases, vanishes completely in maximal contraction' },
-          { criteria: 'A-Band (Dark Band)', valueA: 'Constant length', valueB: 'UNALTERED (Constant, length of myosin)' },
+          {
+            criteria: 'H-Zone (Semi-Light)',
+            valueA: 'Visible (Myosin only)',
+            valueB: 'Decreases, vanishes completely in maximal contraction',
+          },
+          {
+            criteria: 'A-Band (Dark Band)',
+            valueA: 'Constant length',
+            valueB: 'UNALTERED (Constant, length of myosin)',
+          },
         ],
       },
       {
@@ -245,20 +286,71 @@ export const STUDY_PACKS: Record<string, MasterStudyPack> = {
         columnA: 'Muscle Fatigue (إجهاد)',
         columnB: 'Muscle Spasm (شد عضلي)',
         rows: [
-          { criteria: 'Primary Cause', valueA: 'Anaerobic respiration due to oxygen shortage; lactic acid accumulates', valueB: 'Absolute depletion of ATP OR erratic motor nerve impulses' },
-          { criteria: 'Cross-Bridges', valueA: 'Detach slowly due to low ATP rate', valueB: 'Remain permanently attached to actin filaments' },
-          { criteria: 'Contraction Force', valueA: 'Weak, sluggish contraction', valueB: 'Severe sustained involuntary contraction; risk of muscle tearing and hemorrhage' },
-          { criteria: 'Remedy', valueA: 'Rest & deep breathing to supply O₂', valueB: 'Immediate rest, anti-spasmodic, restore ATP synthesis' },
+          {
+            criteria: 'Primary Cause',
+            valueA: 'Anaerobic respiration due to oxygen shortage; lactic acid accumulates',
+            valueB: 'Absolute depletion of ATP OR erratic motor nerve impulses',
+          },
+          {
+            criteria: 'Cross-Bridges',
+            valueA: 'Detach slowly due to low ATP rate',
+            valueB: 'Remain permanently attached to actin filaments',
+          },
+          {
+            criteria: 'Contraction Force',
+            valueA: 'Weak, sluggish contraction',
+            valueB:
+              'Severe sustained involuntary contraction; risk of muscle tearing and hemorrhage',
+          },
+          {
+            criteria: 'Remedy',
+            valueA: 'Rest & deep breathing to supply O₂',
+            valueB: 'Immediate rest, anti-spasmodic, restore ATP synthesis',
+          },
         ],
       },
     ],
     bloomProgression: [
-      { levelName: 'Remembering', levelNumber: 1, objective: 'Recall structural proteins of myofibril and role of Ca²⁺.', masteryPrompt: 'What are the two protein filaments forming the sarcomere?' },
-      { levelName: 'Understanding', levelNumber: 2, objective: 'Explain why the A-band length does not change while the I-band shortens.', masteryPrompt: 'Why does the dark band remain constant during Huxley\'s sliding mechanism?' },
-      { levelName: 'Applying', levelNumber: 3, objective: 'Calculate band counts given 8 consecutive Z-lines.', masteryPrompt: 'Given 8 Z-lines: find Sarcomeres, A-bands, Complete I-bands, and H-zones during full contraction.' },
-      { levelName: 'Analyzing', levelNumber: 4, objective: 'Differentiate between fatigue caused by lactic acid vs spasm caused by ATP absence.', masteryPrompt: 'Analyze why a marathon runner suffers fatigue vs a sudden spasm.' },
-      { levelName: 'Evaluating', levelNumber: 5, objective: 'Assess physiological impact of synthetic organophosphate poisons inhibiting cholinesterase.', masteryPrompt: 'Predict the consequence of sarin gas inhibiting AChE on breathing muscles.' },
-      { levelName: 'Creating', levelNumber: 6, objective: 'Formulate a therapeutic intervention to reverse muscle spasm safely.', masteryPrompt: 'Design a rapid recovery protocol to uncouple locked cross-bridges without tissue damage.' },
+      {
+        levelName: 'Remembering',
+        levelNumber: 1,
+        objective: 'Recall structural proteins of myofibril and role of Ca²⁺.',
+        masteryPrompt: 'What are the two protein filaments forming the sarcomere?',
+      },
+      {
+        levelName: 'Understanding',
+        levelNumber: 2,
+        objective: 'Explain why the A-band length does not change while the I-band shortens.',
+        masteryPrompt: "Why does the dark band remain constant during Huxley's sliding mechanism?",
+      },
+      {
+        levelName: 'Applying',
+        levelNumber: 3,
+        objective: 'Calculate band counts given 8 consecutive Z-lines.',
+        masteryPrompt:
+          'Given 8 Z-lines: find Sarcomeres, A-bands, Complete I-bands, and H-zones during full contraction.',
+      },
+      {
+        levelName: 'Analyzing',
+        levelNumber: 4,
+        objective:
+          'Differentiate between fatigue caused by lactic acid vs spasm caused by ATP absence.',
+        masteryPrompt: 'Analyze why a marathon runner suffers fatigue vs a sudden spasm.',
+      },
+      {
+        levelName: 'Evaluating',
+        levelNumber: 5,
+        objective:
+          'Assess physiological impact of synthetic organophosphate poisons inhibiting cholinesterase.',
+        masteryPrompt: 'Predict the consequence of sarin gas inhibiting AChE on breathing muscles.',
+      },
+      {
+        levelName: 'Creating',
+        levelNumber: 6,
+        objective: 'Formulate a therapeutic intervention to reverse muscle spasm safely.',
+        masteryPrompt:
+          'Design a rapid recovery protocol to uncouple locked cross-bridges without tissue damage.',
+      },
     ],
     asciiSchematic: `================ RELAXED SARCOMERE ================
  Z-line                                        Z-line
@@ -286,13 +378,48 @@ export const STUDY_PACKS: Record<string, MasterStudyPack> = {
     schematicCaption:
       "Huxley's Sliding Filament Model: Notice how Z-lines approximate, I-band shortens, H-zone disappears, while A-band length remains strictly unchanged.",
     flowcharts: [
-      { stepNumber: 1, action: 'Nerve Impulse reaches Terminal Arborization', detail: 'Depolarizes axonal membrane', triggerOrEnzyme: 'Action Potential' },
-      { stepNumber: 2, action: 'Voltage-gated Ca²⁺ channels open', detail: 'Ca²⁺ enters synaptic knob and ruptures vesicles', triggerOrEnzyme: 'Ca²⁺ ions' },
-      { stepNumber: 3, action: 'Acetylcholine released into Synaptic Cleft', detail: 'Diffuses across cleft and binds sarcolemma receptors', triggerOrEnzyme: 'ACh neurotransmitter' },
-      { stepNumber: 4, action: 'Sarcolemma Depolarization (+30 mV)', detail: 'T-tubules carry potential to Sarcoplasmic Reticulum', triggerOrEnzyme: 'Na⁺ influx' },
-      { stepNumber: 5, action: 'SR releases Ca²⁺ into Sarcoplasm', detail: 'Ca²⁺ uncovers active sites on actin by moving tropomyosin', triggerOrEnzyme: 'Ca²⁺ from SR' },
-      { stepNumber: 6, action: 'Myosin Cross-Bridges bind Actin', detail: 'ATP hydrolyzes to ADP + Pi; power stroke pulls actin', triggerOrEnzyme: 'Myosin ATPase' },
-      { stepNumber: 7, action: 'Cholinesterase Hydrolyzes ACh', detail: 'Converts ACh to Acetic acid + Choline; sarcolemma repolarizes', triggerOrEnzyme: 'AChE Enzyme' },
+      {
+        stepNumber: 1,
+        action: 'Nerve Impulse reaches Terminal Arborization',
+        detail: 'Depolarizes axonal membrane',
+        triggerOrEnzyme: 'Action Potential',
+      },
+      {
+        stepNumber: 2,
+        action: 'Voltage-gated Ca²⁺ channels open',
+        detail: 'Ca²⁺ enters synaptic knob and ruptures vesicles',
+        triggerOrEnzyme: 'Ca²⁺ ions',
+      },
+      {
+        stepNumber: 3,
+        action: 'Acetylcholine released into Synaptic Cleft',
+        detail: 'Diffuses across cleft and binds sarcolemma receptors',
+        triggerOrEnzyme: 'ACh neurotransmitter',
+      },
+      {
+        stepNumber: 4,
+        action: 'Sarcolemma Depolarization (+30 mV)',
+        detail: 'T-tubules carry potential to Sarcoplasmic Reticulum',
+        triggerOrEnzyme: 'Na⁺ influx',
+      },
+      {
+        stepNumber: 5,
+        action: 'SR releases Ca²⁺ into Sarcoplasm',
+        detail: 'Ca²⁺ uncovers active sites on actin by moving tropomyosin',
+        triggerOrEnzyme: 'Ca²⁺ from SR',
+      },
+      {
+        stepNumber: 6,
+        action: 'Myosin Cross-Bridges bind Actin',
+        detail: 'ATP hydrolyzes to ADP + Pi; power stroke pulls actin',
+        triggerOrEnzyme: 'Myosin ATPase',
+      },
+      {
+        stepNumber: 7,
+        action: 'Cholinesterase Hydrolyzes ACh',
+        detail: 'Converts ACh to Acetic acid + Choline; sarcolemma repolarizes',
+        triggerOrEnzyme: 'AChE Enzyme',
+      },
     ],
     visualInspectionMarkers: [
       'Check Z-line distance: If narrow, muscle is contracted; if wide, muscle is relaxed.',
@@ -301,86 +428,162 @@ export const STUDY_PACKS: Record<string, MasterStudyPack> = {
       'Verify A-band bracket: Must span entire length of thick myosin filaments.',
     ],
     youtube3DQueries: [
-      { query: '3D Animation Sliding Filament Theory Muscle Contraction', topicDescription: 'Shows dynamic motion of myosin heads pulling actin and ATP hydrolysis in high definition.', durationRecommendation: '3-5 mins' },
-      { query: 'Neuromuscular Junction Acetylcholine Release 3D Animation', topicDescription: 'Depicts synaptic vesicles rupturing, acetylcholine diffusing, and cholinesterase breakdown.', durationRecommendation: '2-4 mins' },
+      {
+        query: '3D Animation Sliding Filament Theory Muscle Contraction',
+        topicDescription:
+          'Shows dynamic motion of myosin heads pulling actin and ATP hydrolysis in high definition.',
+        durationRecommendation: '3-5 mins',
+      },
+      {
+        query: 'Neuromuscular Junction Acetylcholine Release 3D Animation',
+        topicDescription:
+          'Depicts synaptic vesicles rupturing, acetylcholine diffusing, and cholinesterase breakdown.',
+        durationRecommendation: '2-4 mins',
+      },
     ],
     questions: [
       {
         id: 'q1',
         type: 'SCIENTIFIC_TERM',
-        question: 'Write the scientific term: The structural and functional contractile unit located between two successive Z-lines in a skeletal muscle fiber.',
+        question:
+          'Write the scientific term: The structural and functional contractile unit located between two successive Z-lines in a skeletal muscle fiber.',
         officialAnswer: 'Sarcomere (القطعة العضلية)',
-        rationale: 'By definition in the Egyptian Ministry curriculum, the sarcomere is bounded by two successive Z-lines.',
+        rationale:
+          'By definition in the Egyptian Ministry curriculum, the sarcomere is bounded by two successive Z-lines.',
         ministryExamTip: "Never confuse 'Sarcomere' with 'Myofibril' or 'Motor Unit'.",
       },
       {
         id: 'q2',
         type: 'GIVE_REASON',
-        question: 'Give reason: The A-band (Dark band) length remains constant during skeletal muscle contraction while the I-band length shortens.',
-        officialAnswer: 'Because the A-band corresponds to the entire length of the thick myosin filaments, which do not change their physical length during contraction. The I-band shortens because actin filaments slide over myosin filaments toward the center of the sarcomere, reducing the uncovered light zone.',
-        rationale: "Huxley's sliding theory states filaments slide past one another without shortening themselves.",
-        ministryExamTip: "Must mention: 'A-band equals the length of thick myosin filaments' for full mark.",
+        question:
+          'Give reason: The A-band (Dark band) length remains constant during skeletal muscle contraction while the I-band length shortens.',
+        officialAnswer:
+          'Because the A-band corresponds to the entire length of the thick myosin filaments, which do not change their physical length during contraction. The I-band shortens because actin filaments slide over myosin filaments toward the center of the sarcomere, reducing the uncovered light zone.',
+        rationale:
+          "Huxley's sliding theory states filaments slide past one another without shortening themselves.",
+        ministryExamTip:
+          "Must mention: 'A-band equals the length of thick myosin filaments' for full mark.",
       },
       {
         id: 'q3',
         type: 'WHAT_HAPPENS_IF',
-        question: 'What happens if: Total absence of cholinesterase enzyme at the motor end plate of a skeletal muscle fiber?',
-        officialAnswer: 'Acetylcholine will not be hydrolyzed into acetic acid and choline. The sarcolemma will remain permanently depolarized, keeping the muscle in continuous state of contraction (unable to relax), which may lead to muscle spasm and tearing.',
-        rationale: 'Cholinesterase is indispensable for muscle relaxation and resting potential restoration.',
-        ministryExamTip: "Keywords required: 'Acetylcholine persists', 'No repolarization', 'Continuous contraction/spasm'.",
+        question:
+          'What happens if: Total absence of cholinesterase enzyme at the motor end plate of a skeletal muscle fiber?',
+        officialAnswer:
+          'Acetylcholine will not be hydrolyzed into acetic acid and choline. The sarcolemma will remain permanently depolarized, keeping the muscle in continuous state of contraction (unable to relax), which may lead to muscle spasm and tearing.',
+        rationale:
+          'Cholinesterase is indispensable for muscle relaxation and resting potential restoration.',
+        ministryExamTip:
+          "Keywords required: 'Acetylcholine persists', 'No repolarization', 'Continuous contraction/spasm'.",
       },
       {
         id: 'q4',
         type: 'MCQ',
-        question: 'If a myofibril contains 6 Z-lines, what is the number of complete I-bands and H-zones during maximal contraction respectively?',
+        question:
+          'If a myofibril contains 6 Z-lines, what is the number of complete I-bands and H-zones during maximal contraction respectively?',
         options: ['5 and 5', '4 and 0', '5 and 0', '4 and 5'],
         correctOptionIndex: 1,
         officialAnswer: '4 and 0',
-        rationale: 'Sarcomeres = Z - 1 = 6 - 1 = 5. Complete I-bands = Sarcomeres - 1 = 5 - 1 = 4. During maximal contraction, H-zones vanish completely, so H = 0.',
+        rationale:
+          'Sarcomeres = Z - 1 = 6 - 1 = 5. Complete I-bands = Sarcomeres - 1 = 5 - 1 = 4. During maximal contraction, H-zones vanish completely, so H = 0.',
         ministryExamTip: "Watch out for 'maximal contraction' trap! H-zone becomes 0.",
       },
     ],
     examTraps: [
       {
         misconception: 'Thinking muscle filaments shrink like an accordion during contraction.',
-        scientificTruth: 'Actin and Myosin filaments maintain their exact length! They only SLIDE past one another, reducing the distance between Z-lines.',
-        examTrapWarning: "Ministry MCQ trap: 'Which of the following shortens during contraction?' Option A: Myosin, Option B: Actin, Option C: Sarcomere. The correct answer is ONLY Sarcomere/I-band/H-zone!",
+        scientificTruth:
+          'Actin and Myosin filaments maintain their exact length! They only SLIDE past one another, reducing the distance between Z-lines.',
+        examTrapWarning:
+          "Ministry MCQ trap: 'Which of the following shortens during contraction?' Option A: Myosin, Option B: Actin, Option C: Sarcomere. The correct answer is ONLY Sarcomere/I-band/H-zone!",
         goldenRule: 'Filaments slide; Sarcomeres shorten.',
       },
       {
-        misconception: 'Confusing the role of Calcium ions in the nerve terminal vs in the muscle sarcoplasm.',
-        scientificTruth: 'Ca²⁺ in nerve knob ruptures synaptic vesicles to release ACh. Ca²⁺ in muscle sarcoplasm unmasks actin binding sites by shifting troponin/tropomyosin.',
-        examTrapWarning: "Questions specifying 'Role of Ca²⁺ at the neuromuscular junction' require mentioning synaptic vesicle rupture!",
-        goldenRule: 'Synaptic knob Ca²⁺ = Neurotransmitter release; Sarcoplasmic Ca²⁺ = Cross-bridge attachment.',
+        misconception:
+          'Confusing the role of Calcium ions in the nerve terminal vs in the muscle sarcoplasm.',
+        scientificTruth:
+          'Ca²⁺ in nerve knob ruptures synaptic vesicles to release ACh. Ca²⁺ in muscle sarcoplasm unmasks actin binding sites by shifting troponin/tropomyosin.',
+        examTrapWarning:
+          "Questions specifying 'Role of Ca²⁺ at the neuromuscular junction' require mentioning synaptic vesicle rupture!",
+        goldenRule:
+          'Synaptic knob Ca²⁺ = Neurotransmitter release; Sarcoplasmic Ca²⁺ = Cross-bridge attachment.',
       },
     ],
     flashcards: [
-      { id: 'fc1', topicId: 'sarcomere_contraction', frontPrompt: 'What is the structural and functional contractile unit of a muscle fiber?', backAnswer: 'The Sarcomere (distance between two successive Z-lines).', category: 'Terminology' },
-      { id: 'fc2', topicId: 'sarcomere_contraction', frontPrompt: 'What happens to the H-zone during maximal muscle contraction?', backAnswer: 'It completely disappears (becomes zero) as actin filaments slide and overlap entirely.', category: 'Mechanism' },
-      { id: 'fc3', topicId: 'sarcomere_contraction', frontPrompt: 'What are the dual requirements for both muscle contraction AND relaxation?', backAnswer: 'ATP and Calcium ions (ATP is required to attach AND detach cross-bridges; Ca²⁺ is pumped back by ATP).', category: 'Physiology' },
-      { id: 'fc4', topicId: 'sarcomere_contraction', frontPrompt: 'What is the mathematical formula for number of complete I-bands given Z-lines?', backAnswer: 'Complete I-bands = Z - 2 (or Sarcomeres - 1).', category: 'Formula' },
+      {
+        id: 'fc1',
+        topicId: 'sarcomere_contraction',
+        frontPrompt: 'What is the structural and functional contractile unit of a muscle fiber?',
+        backAnswer: 'The Sarcomere (distance between two successive Z-lines).',
+        category: 'Terminology',
+      },
+      {
+        id: 'fc2',
+        topicId: 'sarcomere_contraction',
+        frontPrompt: 'What happens to the H-zone during maximal muscle contraction?',
+        backAnswer:
+          'It completely disappears (becomes zero) as actin filaments slide and overlap entirely.',
+        category: 'Mechanism',
+      },
+      {
+        id: 'fc3',
+        topicId: 'sarcomere_contraction',
+        frontPrompt: 'What are the dual requirements for both muscle contraction AND relaxation?',
+        backAnswer:
+          'ATP and Calcium ions (ATP is required to attach AND detach cross-bridges; Ca²⁺ is pumped back by ATP).',
+        category: 'Physiology',
+      },
+      {
+        id: 'fc4',
+        topicId: 'sarcomere_contraction',
+        frontPrompt:
+          'What is the mathematical formula for number of complete I-bands given Z-lines?',
+        backAnswer: 'Complete I-bands = Z - 2 (or Sarcomeres - 1).',
+        category: 'Formula',
+      },
     ],
     examSimulationItem: {
       id: 'sim_sarcomere',
       questionType: 'GIVE_REASON',
-      prompt: 'Give Reason: The absence of ATP in a skeletal muscle fiber leads to sustained muscle spasm.',
+      prompt:
+        'Give Reason: The absence of ATP in a skeletal muscle fiber leads to sustained muscle spasm.',
       maxScore: 2.0,
       requiredKeywords: ['atp', 'cross bridges', 'detach', 'actin', 'spasm'],
       partialCreditKeywords: ['myosin', 'relaxation', 'tear'],
-      modelAnswer: 'Because ATP is necessary for the detachment of myosin cross-bridges (transverse hooks) from actin filaments. In the absence of ATP, cross-bridges remain locked to actin filaments, preventing muscle relaxation and causing painful, sustained muscle spasm.',
-      remediationNotes: 'You must explicitly explain that ATP is required to BREAK the cross-bridge bond, not just for contraction.',
+      modelAnswer:
+        'Because ATP is necessary for the detachment of myosin cross-bridges (transverse hooks) from actin filaments. In the absence of ATP, cross-bridges remain locked to actin filaments, preventing muscle relaxation and causing painful, sustained muscle spasm.',
+      remediationNotes:
+        'You must explicitly explain that ATP is required to BREAK the cross-bridge bond, not just for contraction.',
     },
     pblProject: {
       id: 'pbl_sarcomere',
       topicId: 'sarcomere_contraction',
       title: 'Neuromuscular Toxin Investigation',
       titleArabic: 'مهمة فك شفرة السموم العصبية العضلية',
-      scenario: 'A patient presents with severe rigidity and respiratory muscle lockdown after exposure to an unknown pesticide.',
-      mission: 'Identify whether the toxin targets voltage-gated Ca²⁺ channels, acetylcholine receptors, or cholinesterase enzyme.',
+      scenario:
+        'A patient presents with severe rigidity and respiratory muscle lockdown after exposure to an unknown pesticide.',
+      mission:
+        'Identify whether the toxin targets voltage-gated Ca²⁺ channels, acetylcholine receptors, or cholinesterase enzyme.',
       rubrics: [
-        { criterion: 'Diagnostic Accuracy', weightPoints: 40, excellentDescription: 'Pinpoints cholinesterase inhibition with biochemical mechanism.', poorDescription: 'Confuses pre-synaptic and post-synaptic targets.' },
-        { criterion: 'Therapeutic Plan', weightPoints: 30, excellentDescription: 'Recommends pralidoxime and atropine to restore receptor equilibrium.', poorDescription: 'Fails to address neurotransmitter degradation.' },
-        { criterion: 'Ministry Mark Scheme Terminology', weightPoints: 30, excellentDescription: 'Uses acetylcholine, depolarization, transverse hooks accurately.', poorDescription: 'Uses vague colloquial language without ions.' },
+        {
+          criterion: 'Diagnostic Accuracy',
+          weightPoints: 40,
+          excellentDescription: 'Pinpoints cholinesterase inhibition with biochemical mechanism.',
+          poorDescription: 'Confuses pre-synaptic and post-synaptic targets.',
+        },
+        {
+          criterion: 'Therapeutic Plan',
+          weightPoints: 30,
+          excellentDescription:
+            'Recommends pralidoxime and atropine to restore receptor equilibrium.',
+          poorDescription: 'Fails to address neurotransmitter degradation.',
+        },
+        {
+          criterion: 'Ministry Mark Scheme Terminology',
+          weightPoints: 30,
+          excellentDescription: 'Uses acetylcholine, depolarization, transverse hooks accurately.',
+          poorDescription: 'Uses vague colloquial language without ions.',
+        },
       ],
       tips: ['Remember: Irreversible AChE inhibitors cause continuous depolarization!'],
     },
@@ -454,35 +657,77 @@ Divided into two primary divisions:
   - *Rupture causes*: Excessive physical effort, sudden calf muscle contraction, or loss of muscular elasticity.
   - *Treatment*: Anti-inflammatory drugs and splints if partial; surgical intervention if complete tear.`,
     keyTerms: [
-      { term: 'Physiological Support', definition: 'Temporary osmotic support involving the entire plant cell via turgor pressure exerted by the swollen sap vacuole on the cell wall.', arabicTerm: 'الدعامة الفسيولوجية' },
-      { term: 'Structural Support', definition: 'Permanent mechanical support achieved by deposition of impermeable or rigid chemical substances (cutin, suberin, cellulose, lignin) in or on cell walls.', arabicTerm: 'الدعامة التركيبية' },
-      { term: 'Turgor Pressure', definition: 'Outward hydrostatic pressure exerted by the fluid contents of the vacuole against the elastic cell wall.', arabicTerm: 'ضغط الامتلاء' },
-      { term: 'Axial Skeleton', definition: 'The central longitudinal axis of the human skeleton comprising 80 bones: vertebral column (26 bones), skull & accessories (29 bones), and thoracic cage (25 bones).', arabicTerm: 'الهيكل المحوري' },
-      { term: 'Appendicular Skeleton', definition: 'The peripheral framework comprising 126 bones: pectoral girdle and upper limbs (64 bones) plus pelvic girdle and lower limbs (62 bones).', arabicTerm: 'الهيكل الطرفي' },
-      { term: 'Ligament', definition: 'Dense fibrous connective tissue connecting bone to bone with high elasticity to control the direction of joint movement.', arabicTerm: 'الرباط' },
-      { term: 'Tendon', definition: 'Strong, non-elastic fibrous cord connecting muscle to bone to transmit muscle contraction force, such as the Achilles tendon.', arabicTerm: 'الوتر' },
+      {
+        term: 'Physiological Support',
+        definition:
+          'Temporary osmotic support involving the entire plant cell via turgor pressure exerted by the swollen sap vacuole on the cell wall.',
+        arabicTerm: 'الدعامة الفسيولوجية',
+      },
+      {
+        term: 'Structural Support',
+        definition:
+          'Permanent mechanical support achieved by deposition of impermeable or rigid chemical substances (cutin, suberin, cellulose, lignin) in or on cell walls.',
+        arabicTerm: 'الدعامة التركيبية',
+      },
+      {
+        term: 'Turgor Pressure',
+        definition:
+          'Outward hydrostatic pressure exerted by the fluid contents of the vacuole against the elastic cell wall.',
+        arabicTerm: 'ضغط الامتلاء',
+      },
+      {
+        term: 'Axial Skeleton',
+        definition:
+          'The central longitudinal axis of the human skeleton comprising 80 bones: vertebral column (26 bones), skull & accessories (29 bones), and thoracic cage (25 bones).',
+        arabicTerm: 'الهيكل المحوري',
+      },
+      {
+        term: 'Appendicular Skeleton',
+        definition:
+          'The peripheral framework comprising 126 bones: pectoral girdle and upper limbs (64 bones) plus pelvic girdle and lower limbs (62 bones).',
+        arabicTerm: 'الهيكل الطرفي',
+      },
+      {
+        term: 'Ligament',
+        definition:
+          'Dense fibrous connective tissue connecting bone to bone with high elasticity to control the direction of joint movement.',
+        arabicTerm: 'الرباط',
+      },
+      {
+        term: 'Tendon',
+        definition:
+          'Strong, non-elastic fibrous cord connecting muscle to bone to transmit muscle contraction force, such as the Achilles tendon.',
+        arabicTerm: 'الوتر',
+      },
     ],
     formulas: [
       {
         name: 'Vertebral Column Bones vs Vertebrae Count',
-        formulaLatex: '\\text{Bones} = 24 + 1 + 1 = 26 \\quad (\\text{from } 33 \\text{ vertebrae})',
-        description: 'While humans have 33 total vertebrae, the 5 sacral vertebrae fuse into 1 bone and 4 coccygeal fuse into 1 bone, yielding 26 adult functional bones.',
+        formulaLatex:
+          '\\text{Bones} = 24 + 1 + 1 = 26 \\quad (\\text{from } 33 \\text{ vertebrae})',
+        description:
+          'While humans have 33 total vertebrae, the 5 sacral vertebrae fuse into 1 bone and 4 coccygeal fuse into 1 bone, yielding 26 adult functional bones.',
         variables: '24 articulating vertebrae + 1 sacrum + 1 coccyx = 26 bones',
-        sampleCalculation: 'Number of articulating vertebrae = 7 + 12 + 5 = 24. Number of fused vertebral bones = 2.',
+        sampleCalculation:
+          'Number of articulating vertebrae = 7 + 12 + 5 = 24. Number of fused vertebral bones = 2.',
       },
       {
         name: 'Rib Attachment Number to Vertebra Number',
         formulaLatex: '\\text{Vertebra Number} = \\text{Rib Pair Number} + 7',
-        description: 'Connects the anatomical pair number of ribs to its corresponding thoracic vertebra in the vertebral column (adding the 7 cervical vertebrae).',
+        description:
+          'Connects the anatomical pair number of ribs to its corresponding thoracic vertebra in the vertebral column (adding the 7 cervical vertebrae).',
         variables: 'Rib pair (1 to 12) + 7 cervical = Dorsal vertebra sequence number (8 to 19)',
-        sampleCalculation: 'Rib pair 10 connects to vertebra number = 10 + 7 = 17 (which is the 10th thoracic vertebra). Floating rib pair 1 connects to vertebra 11 + 7 = 18.',
+        sampleCalculation:
+          'Rib pair 10 connects to vertebra number = 10 + 7 = 17 (which is the 10th thoracic vertebra). Floating rib pair 1 connects to vertebra 11 + 7 = 18.',
       },
       {
         name: 'Appendicular Skeleton Division',
         formulaLatex: '126 = (4 + 60) + (2 + 60)',
-        description: 'Pectoral girdle (4) + Upper limbs (60) + Pelvic girdle (2) + Lower limbs (60) = 126 bones.',
+        description:
+          'Pectoral girdle (4) + Upper limbs (60) + Pelvic girdle (2) + Lower limbs (60) = 126 bones.',
         variables: 'Upper division = 64 bones; Lower division = 62 bones',
-        sampleCalculation: 'Single limb bones = 30 bones. Both upper + both lower = 30 * 4 = 120 bones.',
+        sampleCalculation:
+          'Single limb bones = 30 bones. Both upper + both lower = 30 * 4 = 120 bones.',
       },
     ],
     comparisonTables: [
@@ -491,11 +736,31 @@ Divided into two primary divisions:
         columnA: 'Physiological Support (دعامة فسيولوجية)',
         columnB: 'Structural Support (دعامة تركيبية)',
         rows: [
-          { criteria: 'Permanence', valueA: 'Temporary (depends on water availability)', valueB: 'Permanent (irreversible chemical deposits)' },
-          { criteria: 'Scope', valueA: 'Involves the entire living cell as a whole', valueB: 'Involves cell walls or parts of the wall' },
-          { criteria: 'Key Mechanism', valueA: 'Osmosis ➔ Vacuole swells ➔ Turgor pressure', valueB: 'Chemical precipitation of structural polymers' },
-          { criteria: 'Substances Involved', valueA: 'Water entering the cell sap', valueB: 'Cellulose, Lignin, Cutin, Suberin' },
-          { criteria: 'Living Status of Cells', valueA: 'Requires living protoplasm and intact vacuole', valueB: 'Can exist in living (collenchyma) or dead cells (sclerenchyma, cork, xylem)' },
+          {
+            criteria: 'Permanence',
+            valueA: 'Temporary (depends on water availability)',
+            valueB: 'Permanent (irreversible chemical deposits)',
+          },
+          {
+            criteria: 'Scope',
+            valueA: 'Involves the entire living cell as a whole',
+            valueB: 'Involves cell walls or parts of the wall',
+          },
+          {
+            criteria: 'Key Mechanism',
+            valueA: 'Osmosis ➔ Vacuole swells ➔ Turgor pressure',
+            valueB: 'Chemical precipitation of structural polymers',
+          },
+          {
+            criteria: 'Substances Involved',
+            valueA: 'Water entering the cell sap',
+            valueB: 'Cellulose, Lignin, Cutin, Suberin',
+          },
+          {
+            criteria: 'Living Status of Cells',
+            valueA: 'Requires living protoplasm and intact vacuole',
+            valueB: 'Can exist in living (collenchyma) or dead cells (sclerenchyma, cork, xylem)',
+          },
         ],
       },
       {
@@ -503,10 +768,26 @@ Divided into two primary divisions:
         columnA: 'Ligaments (الأربطة)',
         columnB: 'Tendons (الأوتار)',
         rows: [
-          { criteria: 'Connection', valueA: 'Connects Bone to Bone at joints', valueB: 'Connects Muscle to Bone' },
-          { criteria: 'Elasticity', valueA: 'High degree of elasticity (allows joint stretch without dislocation)', valueB: 'Strong, non-elastic fibrous tissue (transmits pull directly)' },
-          { criteria: 'Primary Function', valueA: 'Determines and limits movement directions at joints', valueB: 'Transmits muscular contraction force to move the skeleton' },
-          { criteria: 'Classic Clinical Injury', valueA: 'Cruciate ligament sprain or tear (تمزق الرباط الصليبي)', valueB: 'Achilles tendon rupture (تمزق وتر أخيل)' },
+          {
+            criteria: 'Connection',
+            valueA: 'Connects Bone to Bone at joints',
+            valueB: 'Connects Muscle to Bone',
+          },
+          {
+            criteria: 'Elasticity',
+            valueA: 'High degree of elasticity (allows joint stretch without dislocation)',
+            valueB: 'Strong, non-elastic fibrous tissue (transmits pull directly)',
+          },
+          {
+            criteria: 'Primary Function',
+            valueA: 'Determines and limits movement directions at joints',
+            valueB: 'Transmits muscular contraction force to move the skeleton',
+          },
+          {
+            criteria: 'Classic Clinical Injury',
+            valueA: 'Cruciate ligament sprain or tear (تمزق الرباط الصليبي)',
+            valueB: 'Achilles tendon rupture (تمزق وتر أخيل)',
+          },
         ],
       },
       {
@@ -514,19 +795,71 @@ Divided into two primary divisions:
         columnA: 'Joint Classification',
         columnB: 'Mobility & Ministry Examples',
         rows: [
-          { criteria: 'Fibrous Joints (مفاصل ليفية)', valueA: 'Bones locked by fibrous connective tissue that turns to bone with age', valueB: 'Immovable; Serrated sutures between cranial skull bones' },
-          { criteria: 'Cartilaginous Joints (مفاصل غضروفية)', valueA: 'Cartilaginous pad separates adjacent articulating bones', valueB: 'Very limited movement; Intervertebral discs, Pubic symphysis' },
-          { criteria: 'Synovial Joints (مفاصل زلالية)', valueA: 'Cartilage-coated ends bathed in lubricating synovial fluid', valueB: 'Freely movable: Hinge (knee/elbow) & Ball-and-Socket (shoulder/hip)' },
+          {
+            criteria: 'Fibrous Joints (مفاصل ليفية)',
+            valueA: 'Bones locked by fibrous connective tissue that turns to bone with age',
+            valueB: 'Immovable; Serrated sutures between cranial skull bones',
+          },
+          {
+            criteria: 'Cartilaginous Joints (مفاصل غضروفية)',
+            valueA: 'Cartilaginous pad separates adjacent articulating bones',
+            valueB: 'Very limited movement; Intervertebral discs, Pubic symphysis',
+          },
+          {
+            criteria: 'Synovial Joints (مفاصل زلالية)',
+            valueA: 'Cartilage-coated ends bathed in lubricating synovial fluid',
+            valueB: 'Freely movable: Hinge (knee/elbow) & Ball-and-Socket (shoulder/hip)',
+          },
         ],
       },
     ],
     bloomProgression: [
-      { levelName: 'Remembering', levelNumber: 1, objective: 'Recall total bone counts of axial (80) and appendicular (126) skeletons.', masteryPrompt: 'How many total bones form the adult human skeleton, and how many belong to the axial division?' },
-      { levelName: 'Understanding', levelNumber: 2, objective: 'Explain why physiological support in plants is considered temporary while structural is permanent.', masteryPrompt: 'Why does a wilted basil plant regain firmness within hours of watering, while boiled wood remains rigid forever?' },
-      { levelName: 'Applying', levelNumber: 3, objective: 'Calculate the number of the vertebra articulating with the 2nd floating rib.', masteryPrompt: 'Which vertebra number in the vertebral column articulates with the second pair of floating ribs?' },
-      { levelName: 'Analyzing', levelNumber: 4, objective: 'Differentiate between the structural consequences of ligament damage versus tendon rupture.', masteryPrompt: 'Compare the joint dysfunction caused by an anterior cruciate ligament tear to that caused by an Achilles tendon rupture.' },
-      { levelName: 'Evaluating', levelNumber: 5, objective: 'Judge the physiological relationship between Cutin deposition and plant turgor retention.', masteryPrompt: 'Assess the statement: "Structural support can protect and maintain physiological support."' },
-      { levelName: 'Creating', levelNumber: 6, objective: 'Formulate an anatomical rationale for the structural differences between the pectoral and pelvic girdles.', masteryPrompt: 'Hypothesize why the pelvic girdle consists of 2 fused bones with a deep socket, while the pectoral girdle has 4 bones with a shallow cavity.' },
+      {
+        levelName: 'Remembering',
+        levelNumber: 1,
+        objective: 'Recall total bone counts of axial (80) and appendicular (126) skeletons.',
+        masteryPrompt:
+          'How many total bones form the adult human skeleton, and how many belong to the axial division?',
+      },
+      {
+        levelName: 'Understanding',
+        levelNumber: 2,
+        objective:
+          'Explain why physiological support in plants is considered temporary while structural is permanent.',
+        masteryPrompt:
+          'Why does a wilted basil plant regain firmness within hours of watering, while boiled wood remains rigid forever?',
+      },
+      {
+        levelName: 'Applying',
+        levelNumber: 3,
+        objective: 'Calculate the number of the vertebra articulating with the 2nd floating rib.',
+        masteryPrompt:
+          'Which vertebra number in the vertebral column articulates with the second pair of floating ribs?',
+      },
+      {
+        levelName: 'Analyzing',
+        levelNumber: 4,
+        objective:
+          'Differentiate between the structural consequences of ligament damage versus tendon rupture.',
+        masteryPrompt:
+          'Compare the joint dysfunction caused by an anterior cruciate ligament tear to that caused by an Achilles tendon rupture.',
+      },
+      {
+        levelName: 'Evaluating',
+        levelNumber: 5,
+        objective:
+          'Judge the physiological relationship between Cutin deposition and plant turgor retention.',
+        masteryPrompt:
+          'Assess the statement: "Structural support can protect and maintain physiological support."',
+      },
+      {
+        levelName: 'Creating',
+        levelNumber: 6,
+        objective:
+          'Formulate an anatomical rationale for the structural differences between the pectoral and pelvic girdles.',
+        masteryPrompt:
+          'Hypothesize why the pelvic girdle consists of 2 fused bones with a deep socket, while the pectoral girdle has 4 bones with a shallow cavity.',
+      },
     ],
     asciiSchematic: `================= PLANT CELL SUPPORT DYNAMICS =================
    PLASMOLYZED (Flaccid)                TURGID (Firm Support)
@@ -553,12 +886,42 @@ Divided into two primary divisions:
     schematicCaption:
       'Plant Turgor Dynamics & Human Skeleton Hierarchy: Notice that 33 vertebrae fuse into 26 distinct functional bones in adults, while each limb contains precisely 30 bones.',
     flowcharts: [
-      { stepNumber: 1, action: 'Water absorption from soil', detail: 'Enters root hair sap vacuole via osmosis due to high osmotic pressure', triggerOrEnzyme: 'Osmotic gradient' },
-      { stepNumber: 2, action: 'Endosmosis into cortical parenchyma', detail: 'Water moves cell to cell until herbaceous stem cells swell', triggerOrEnzyme: 'Turgor pressure' },
-      { stepNumber: 3, action: 'Transpiration through stomata', detail: 'If transpiration exceeds uptake, cell sap volume diminishes', triggerOrEnzyme: 'Stomatal water loss' },
-      { stepNumber: 4, action: 'Cutin & Suberin barrier activation', detail: 'Waxy deposits prevent excessive cuticular transpiration', triggerOrEnzyme: 'Structural barrier' },
-      { stepNumber: 5, action: 'Skeletal weight bearing', detail: 'Lumbar vertebrae bear vertical torso weight down to sacrum and pelvic ilium', triggerOrEnzyme: 'Gravity & Axial skeleton' },
-      { stepNumber: 6, action: 'Muscular force transmission', detail: 'Gastrocnemius calf muscle pulls Achilles tendon, elevating the calcaneus heel', triggerOrEnzyme: 'Tendon tension' },
+      {
+        stepNumber: 1,
+        action: 'Water absorption from soil',
+        detail: 'Enters root hair sap vacuole via osmosis due to high osmotic pressure',
+        triggerOrEnzyme: 'Osmotic gradient',
+      },
+      {
+        stepNumber: 2,
+        action: 'Endosmosis into cortical parenchyma',
+        detail: 'Water moves cell to cell until herbaceous stem cells swell',
+        triggerOrEnzyme: 'Turgor pressure',
+      },
+      {
+        stepNumber: 3,
+        action: 'Transpiration through stomata',
+        detail: 'If transpiration exceeds uptake, cell sap volume diminishes',
+        triggerOrEnzyme: 'Stomatal water loss',
+      },
+      {
+        stepNumber: 4,
+        action: 'Cutin & Suberin barrier activation',
+        detail: 'Waxy deposits prevent excessive cuticular transpiration',
+        triggerOrEnzyme: 'Structural barrier',
+      },
+      {
+        stepNumber: 5,
+        action: 'Skeletal weight bearing',
+        detail: 'Lumbar vertebrae bear vertical torso weight down to sacrum and pelvic ilium',
+        triggerOrEnzyme: 'Gravity & Axial skeleton',
+      },
+      {
+        stepNumber: 6,
+        action: 'Muscular force transmission',
+        detail: 'Gastrocnemius calf muscle pulls Achilles tendon, elevating the calcaneus heel',
+        triggerOrEnzyme: 'Tendon tension',
+      },
     ],
     visualInspectionMarkers: [
       'In cross-sections: Check epidermis wall thickening (Cutin = outer wall only; Collenchyma = uneven cellulose angles; Sclerenchyma = uniform lignin).',
@@ -567,80 +930,145 @@ Divided into two primary divisions:
       'Limb bone counting: Both Upper and Lower limbs have 30 bones each (Upper has 8 carpals; Lower has 7 tarsals + 1 patella).',
     ],
     youtube3DQueries: [
-      { query: 'Plant cell turgor pressure and plasmolysis 3D animation', topicDescription: 'Visualizes sap vacuole swelling, cell wall elasticity, and plant wilting at the microscopic level.', durationRecommendation: '3-4 mins' },
-      { query: 'Human skeleton 3D anatomy axial and appendicular', topicDescription: 'Detailed walkthrough of skull sutures, vertebral column articulation, and pectoral vs pelvic girdles.', durationRecommendation: '5-7 mins' },
+      {
+        query: 'Plant cell turgor pressure and plasmolysis 3D animation',
+        topicDescription:
+          'Visualizes sap vacuole swelling, cell wall elasticity, and plant wilting at the microscopic level.',
+        durationRecommendation: '3-4 mins',
+      },
+      {
+        query: 'Human skeleton 3D anatomy axial and appendicular',
+        topicDescription:
+          'Detailed walkthrough of skull sutures, vertebral column articulation, and pectoral vs pelvic girdles.',
+        durationRecommendation: '5-7 mins',
+      },
     ],
     questions: [
       {
         id: 'q_supp_1',
         type: 'SCIENTIFIC_TERM',
-        question: 'Write the scientific term: A waxy chemical substance deposited on the outer epidermal walls of plants that is impermeable to water and indirectly preserves physiological support.',
+        question:
+          'Write the scientific term: A waxy chemical substance deposited on the outer epidermal walls of plants that is impermeable to water and indirectly preserves physiological support.',
         officialAnswer: 'Cutin (الكيوتين)',
-        rationale: 'Cutin forms a waterproof cuticle on epidermal surfaces, preventing evaporation and maintaining cell turgor.',
+        rationale:
+          'Cutin forms a waterproof cuticle on epidermal surfaces, preventing evaporation and maintaining cell turgor.',
         ministryExamTip: 'Do not confuse Cutin (on epidermis) with Suberin (in cork cell walls).',
       },
       {
         id: 'q_supp_2',
         type: 'GIVE_REASON',
-        question: 'Give reason: The adult human vertebral column is counted as 26 bones, despite consisting of 33 vertebrae.',
-        officialAnswer: 'Because the 24 cervical (7), thoracic (12), and lumbar (5) vertebrae are separate articulating bones, while the 5 sacral vertebrae are completely fused into 1 single bone (the sacrum) and the 4 coccygeal vertebrae are fused into 1 single bone (the coccyx): 24 + 1 + 1 = 26 bones.',
+        question:
+          'Give reason: The adult human vertebral column is counted as 26 bones, despite consisting of 33 vertebrae.',
+        officialAnswer:
+          'Because the 24 cervical (7), thoracic (12), and lumbar (5) vertebrae are separate articulating bones, while the 5 sacral vertebrae are completely fused into 1 single bone (the sacrum) and the 4 coccygeal vertebrae are fused into 1 single bone (the coccyx): 24 + 1 + 1 = 26 bones.',
         rationale: 'Fusion in adults reduces 9 lower vertebrae into 2 functional bone units.',
-        ministryExamTip: 'Must mention the exact breakdown: 24 separate + 1 sacral unit + 1 coccygeal unit.',
+        ministryExamTip:
+          'Must mention the exact breakdown: 24 separate + 1 sacral unit + 1 coccygeal unit.',
       },
       {
         id: 'q_supp_3',
         type: 'WHAT_HAPPENS_IF',
-        question: 'What happens if: A competitive athlete suffers a complete tear of the Achilles tendon (وتر أخيل)?',
-        officialAnswer: 'The athlete will be unable to walk or flex the foot downward, accompanied by acute pain and severe swelling in the heel area; this condition requires urgent surgical intervention to suture the ruptured tendon ends.',
-        rationale: 'Tendons lack elasticity; a complete tear severs the connection between the calf muscle and the calcaneus.',
+        question:
+          'What happens if: A competitive athlete suffers a complete tear of the Achilles tendon (وتر أخيل)?',
+        officialAnswer:
+          'The athlete will be unable to walk or flex the foot downward, accompanied by acute pain and severe swelling in the heel area; this condition requires urgent surgical intervention to suture the ruptured tendon ends.',
+        rationale:
+          'Tendons lack elasticity; a complete tear severs the connection between the calf muscle and the calcaneus.',
         ministryExamTip: 'Keywords: inability to walk, acute pain, surgical intervention required.',
       },
       {
         id: 'q_supp_4',
         type: 'MCQ',
-        question: 'Which dorsal vertebra in the human vertebral column articulates with the second pair of floating ribs (rib pair 12)?',
+        question:
+          'Which dorsal vertebra in the human vertebral column articulates with the second pair of floating ribs (rib pair 12)?',
         options: ['Vertebra 17', 'Vertebra 18', 'Vertebra 19', 'Vertebra 12'],
         correctOptionIndex: 2,
         officialAnswer: 'Vertebra 19',
-        rationale: 'Vertebra number = Rib pair number + 7 cervical vertebrae. Second floating rib is pair 12: 12 + 7 = Vertebra 19 (which is thoracic vertebra 12).',
-        ministryExamTip: 'Always add 7 cervical vertebrae to the rib pair number to determine the absolute vertebra sequence!',
+        rationale:
+          'Vertebra number = Rib pair number + 7 cervical vertebrae. Second floating rib is pair 12: 12 + 7 = Vertebra 19 (which is thoracic vertebra 12).',
+        ministryExamTip:
+          'Always add 7 cervical vertebrae to the rib pair number to determine the absolute vertebra sequence!',
       },
     ],
     examTraps: [
       {
-        misconception: 'Equating the number of vertebrae with the number of bones in the vertebral column.',
-        scientificTruth: 'Vertebrae count = 33; Bone units count = 26 (because 5 sacral = 1 bone, and 4 coccygeal = 1 bone).',
-        examTrapWarning: 'Read the question carefully: If it asks for "number of vertebrae", write 33. If it asks for "number of bones in the vertebral column", write 26!',
+        misconception:
+          'Equating the number of vertebrae with the number of bones in the vertebral column.',
+        scientificTruth:
+          'Vertebrae count = 33; Bone units count = 26 (because 5 sacral = 1 bone, and 4 coccygeal = 1 bone).',
+        examTrapWarning:
+          'Read the question carefully: If it asks for "number of vertebrae", write 33. If it asks for "number of bones in the vertebral column", write 26!',
         goldenRule: '33 Vertebrae = 26 Bones.',
       },
       {
         misconception: 'Thinking ligaments and tendons have identical physical elasticity.',
-        scientificTruth: 'Ligaments are highly elastic (allowing joint leeway); tendons are strong and non-elastic (transmitting pull directly).',
-        examTrapWarning: 'If asked why a joint dislocates: Ligament rupture or overstretching. If asked why foot movement fails despite muscle contraction: Tendon rupture (Achilles)!',
+        scientificTruth:
+          'Ligaments are highly elastic (allowing joint leeway); tendons are strong and non-elastic (transmitting pull directly).',
+        examTrapWarning:
+          'If asked why a joint dislocates: Ligament rupture or overstretching. If asked why foot movement fails despite muscle contraction: Tendon rupture (Achilles)!',
         goldenRule: 'Ligaments = Elastic (Bone to Bone); Tendons = Inelastic (Muscle to Bone).',
       },
       {
-        misconception: 'Forgetting that both upper and lower human limbs have the exact same total number of bones (30 bones).',
-        scientificTruth: 'Upper limb has 30 bones (Humerus 1 + Radius/Ulna 2 + Carpals 8 + Metacarpals 5 + Phalanges 14). Lower limb has 30 bones (Femur 1 + Patella 1 + Tibia/Fibula 2 + Tarsals 7 + Metatarsals 5 + Phalanges 14).',
-        examTrapWarning: 'Lower limb has 1 fewer tarsal (7 vs 8 carpals), but gains 1 patella kneecap, keeping the sum at 30!',
+        misconception:
+          'Forgetting that both upper and lower human limbs have the exact same total number of bones (30 bones).',
+        scientificTruth:
+          'Upper limb has 30 bones (Humerus 1 + Radius/Ulna 2 + Carpals 8 + Metacarpals 5 + Phalanges 14). Lower limb has 30 bones (Femur 1 + Patella 1 + Tibia/Fibula 2 + Tarsals 7 + Metatarsals 5 + Phalanges 14).',
+        examTrapWarning:
+          'Lower limb has 1 fewer tarsal (7 vs 8 carpals), but gains 1 patella kneecap, keeping the sum at 30!',
         goldenRule: 'Single limb = 30 bones always.',
       },
     ],
     flashcards: [
-      { id: 'fc_supp_1', topicId: 'plant_human_support', frontPrompt: 'What is the only plant structural substance that is completely PERMEABLE to water?', backAnswer: 'Cellulose (found in collenchyma and parenchyma walls).', category: 'Plant Biology' },
-      { id: 'fc_supp_2', topicId: 'plant_human_support', frontPrompt: 'How many total bones are in the axial skeleton vs the appendicular skeleton?', backAnswer: 'Axial = 80 bones; Appendicular = 126 bones (Total = 206).', category: 'Anatomy' },
-      { id: 'fc_supp_3', topicId: 'plant_human_support', frontPrompt: 'What formula calculates the vertebral column sequence number for a given rib pair?', backAnswer: 'Vertebra Sequence Number = Rib Pair Number + 7 (cervical vertebrae).', category: 'Formulas' },
-      { id: 'fc_supp_4', topicId: 'plant_human_support', frontPrompt: 'What structure connects the gastrocnemius calf muscle to the calcaneus heel bone?', backAnswer: 'Achilles tendon (وتر أخيل).', category: 'Connective Tissue' },
+      {
+        id: 'fc_supp_1',
+        topicId: 'plant_human_support',
+        frontPrompt:
+          'What is the only plant structural substance that is completely PERMEABLE to water?',
+        backAnswer: 'Cellulose (found in collenchyma and parenchyma walls).',
+        category: 'Plant Biology',
+      },
+      {
+        id: 'fc_supp_2',
+        topicId: 'plant_human_support',
+        frontPrompt: 'How many total bones are in the axial skeleton vs the appendicular skeleton?',
+        backAnswer: 'Axial = 80 bones; Appendicular = 126 bones (Total = 206).',
+        category: 'Anatomy',
+      },
+      {
+        id: 'fc_supp_3',
+        topicId: 'plant_human_support',
+        frontPrompt:
+          'What formula calculates the vertebral column sequence number for a given rib pair?',
+        backAnswer: 'Vertebra Sequence Number = Rib Pair Number + 7 (cervical vertebrae).',
+        category: 'Formulas',
+      },
+      {
+        id: 'fc_supp_4',
+        topicId: 'plant_human_support',
+        frontPrompt:
+          'What structure connects the gastrocnemius calf muscle to the calcaneus heel bone?',
+        backAnswer: 'Achilles tendon (وتر أخيل).',
+        category: 'Connective Tissue',
+      },
     ],
     examSimulationItem: {
       id: 'sim_plant_support',
       questionType: 'GIVE_REASON',
-      prompt: 'Give Reason: Deposition of Cutin on the epidermal cells of plant leaves plays a dual role in supporting the plant.',
+      prompt:
+        'Give Reason: Deposition of Cutin on the epidermal cells of plant leaves plays a dual role in supporting the plant.',
       maxScore: 2.0,
-      requiredKeywords: ['structural support', 'impermeable', 'transpiration', 'physiological support', 'turgor'],
+      requiredKeywords: [
+        'structural support',
+        'impermeable',
+        'transpiration',
+        'physiological support',
+        'turgor',
+      ],
       partialCreditKeywords: ['water loss', 'wilting', 'epidermis'],
-      modelAnswer: 'Because Cutin itself is a permanent chemical substance deposited on the outer walls of epidermal cells, acting directly as structural support. Furthermore, being impermeable to water, it prevents excessive transpirational water loss, which indirectly maintains the cell turgor and preserves physiological support.',
-      remediationNotes: 'Full mark requires explaining both: 1) Its direct structural role, and 2) Its indirect preservation of physiological turgor.',
+      modelAnswer:
+        'Because Cutin itself is a permanent chemical substance deposited on the outer walls of epidermal cells, acting directly as structural support. Furthermore, being impermeable to water, it prevents excessive transpirational water loss, which indirectly maintains the cell turgor and preserves physiological support.',
+      remediationNotes:
+        'Full mark requires explaining both: 1) Its direct structural role, and 2) Its indirect preservation of physiological turgor.',
     },
   },
 
@@ -653,7 +1081,8 @@ Divided into two primary divisions:
       'Hormones are chemical letters. In a plant, auxin is a broadcast message sent from the growing tip telling cells on the shaded side to grow longer, so the stem bends toward the light. In humans, endocrine glands post targeted letters into the bloodstream; only cells with the matching mailbox (receptor) open them. A thermostat is the best picture of negative feedback: when the output reaches the set level, it switches the source off.',
     arabicEli5:
       'الهرمونات رسايل كيميائية. في النبات، الأوكسين رسالة بتطلع من القمة النامية وتقول لخلايا الجانب المظلل تطول أكتر، فالساق تنحني ناحية الضوء. وفي الإنسان، الغدد الصماء بتبعت جوابات مخصوصة في الدم، ومفيش غير الخلايا اللي معاها صندوق البريد المناسب (المستقبل) اللي تفتحها. والتغذية الراجعة السالبة زي الترموستات: لما الناتج يوصل للمستوى المطلوب يوقف المصدر.',
-    textbookPageReference: 'Ministry Textbook Unit 1, Chapter 2 (page numbers to be filled from the printed book)',
+    textbookPageReference:
+      'Ministry Textbook Unit 1, Chapter 2 (page numbers to be filled from the printed book)',
     deepTechnicalBreakdown: `### 1. Auxins (Plant Hormones)
 - Organic substances (mainly **indole acetic acid, IAA**) made in the **apical meristems** (shoot tip, young leaves) and transported to the zones of response.
 - **Stems**: auxin stimulates cell elongation.
@@ -681,29 +1110,67 @@ Endocrine glands are **ductless**; hormones pass into the blood. Hormones are ei
 ### 6. Pancreas (mixed gland)
 **Islets of Langerhans**: beta cells secrete **insulin** (lowers blood glucose, promotes glycogen storage); alpha cells secrete **glucagon** (raises blood glucose by converting liver glycogen to glucose). Diabetes mellitus (insulin deficiency) gives hyperglycemia, glucosuria, polyuria and thirst. Diabetes insipidus is caused by ADH deficiency and gives large dilute urine without glucose.`,
     keyTerms: [
-      { term: 'Auxin', definition: 'Plant hormone (mainly IAA) made in apical meristems that stimulates stem cell elongation.', arabicTerm: 'الأوكسين' },
-      { term: 'Endocrine Gland', definition: 'Ductless gland that releases hormones directly into the blood.', arabicTerm: 'الغدة الصماء' },
-      { term: 'Negative Feedback', definition: 'Regulation in which the output inhibits further secretion of the hormone.', arabicTerm: 'التغذية الراجعة السالبة' },
-      { term: 'Phototropism', definition: 'Directional growth of a plant organ in response to one-sided light.', arabicTerm: 'الانتحاء الضوئي' },
-      { term: 'Neurohypophysis', definition: 'Posterior pituitary: stores and releases ADH and oxytocin made in the hypothalamus.', arabicTerm: 'النخامية الخلفية' },
-      { term: 'Goiter', definition: 'Enlargement of the thyroid gland (iodine deficiency or hyperthyroidism).', arabicTerm: 'الجويتر' },
-      { term: 'Acromegaly', definition: 'Overgrowth of hands, feet and jaw due to GH hypersecretion in adults.', arabicTerm: 'ضخامة الأطراف' },
-      { term: 'Islets of Langerhans', definition: 'Endocrine clusters in the pancreas secreting insulin and glucagon.', arabicTerm: 'جزر لانجرهانز' },
+      {
+        term: 'Auxin',
+        definition:
+          'Plant hormone (mainly IAA) made in apical meristems that stimulates stem cell elongation.',
+        arabicTerm: 'الأوكسين',
+      },
+      {
+        term: 'Endocrine Gland',
+        definition: 'Ductless gland that releases hormones directly into the blood.',
+        arabicTerm: 'الغدة الصماء',
+      },
+      {
+        term: 'Negative Feedback',
+        definition: 'Regulation in which the output inhibits further secretion of the hormone.',
+        arabicTerm: 'التغذية الراجعة السالبة',
+      },
+      {
+        term: 'Phototropism',
+        definition: 'Directional growth of a plant organ in response to one-sided light.',
+        arabicTerm: 'الانتحاء الضوئي',
+      },
+      {
+        term: 'Neurohypophysis',
+        definition:
+          'Posterior pituitary: stores and releases ADH and oxytocin made in the hypothalamus.',
+        arabicTerm: 'النخامية الخلفية',
+      },
+      {
+        term: 'Goiter',
+        definition: 'Enlargement of the thyroid gland (iodine deficiency or hyperthyroidism).',
+        arabicTerm: 'الجويتر',
+      },
+      {
+        term: 'Acromegaly',
+        definition: 'Overgrowth of hands, feet and jaw due to GH hypersecretion in adults.',
+        arabicTerm: 'ضخامة الأطراف',
+      },
+      {
+        term: 'Islets of Langerhans',
+        definition: 'Endocrine clusters in the pancreas secreting insulin and glucagon.',
+        arabicTerm: 'جزر لانجرهانز',
+      },
     ],
     formulas: [
       {
         name: 'Blood Glucose Homeostasis',
         formulaLatex: 'Glucose \\uparrow \\rightarrow Insulin \\rightarrow Glucose \\downarrow',
-        description: 'High glucose stimulates beta cells; low glucose stimulates alpha cells to release glucagon, completing the loop.',
+        description:
+          'High glucose stimulates beta cells; low glucose stimulates alpha cells to release glucagon, completing the loop.',
         variables: 'Insulin lowers glucose; glucagon raises glucose (liver)',
-        sampleCalculation: 'After a sugary meal: glucose rises, insulin is released, glucose is stored as glycogen, glucose falls, insulin release decreases.',
+        sampleCalculation:
+          'After a sugary meal: glucose rises, insulin is released, glucose is stored as glycogen, glucose falls, insulin release decreases.',
       },
       {
         name: 'Blood Calcium Homeostasis',
-        formulaLatex: 'Ca^{2+} \\uparrow \\rightarrow Calcitonin;\\; Ca^{2+} \\downarrow \\rightarrow PTH',
+        formulaLatex:
+          'Ca^{2+} \\uparrow \\rightarrow Calcitonin;\\; Ca^{2+} \\downarrow \\rightarrow PTH',
         description: 'Calcitonin lowers blood calcium; parathormone raises it.',
         variables: 'Calcitonin: thyroid; PTH: parathyroids',
-        sampleCalculation: 'Low blood calcium: PTH is released, calcium moves from bone to blood, level returns to normal.',
+        sampleCalculation:
+          'Low blood calcium: PTH is released, calcium moves from bone to blood, level returns to normal.',
       },
     ],
     comparisonTables: [
@@ -712,9 +1179,21 @@ Endocrine glands are **ductless**; hormones pass into the blood. Hormones are ei
         columnA: 'Anterior Lobe',
         columnB: 'Posterior Lobe',
         rows: [
-          { criteria: 'Type', valueA: 'Glandular tissue', valueB: 'Neural tissue (neurosecretory)' },
-          { criteria: 'Hormones', valueA: 'GH, TSH, ACTH, FSH, LH, prolactin (made here)', valueB: 'ADH and oxytocin (made in hypothalamus, stored and released here)' },
-          { criteria: 'Control', valueA: 'Hypothalamic releasing factors', valueB: 'Nerve impulses from the hypothalamus' },
+          {
+            criteria: 'Type',
+            valueA: 'Glandular tissue',
+            valueB: 'Neural tissue (neurosecretory)',
+          },
+          {
+            criteria: 'Hormones',
+            valueA: 'GH, TSH, ACTH, FSH, LH, prolactin (made here)',
+            valueB: 'ADH and oxytocin (made in hypothalamus, stored and released here)',
+          },
+          {
+            criteria: 'Control',
+            valueA: 'Hypothalamic releasing factors',
+            valueB: 'Nerve impulses from the hypothalamus',
+          },
         ],
       },
       {
@@ -724,7 +1203,11 @@ Endocrine glands are **ductless**; hormones pass into the blood. Hormones are ei
         rows: [
           { criteria: 'Gland', valueA: 'Thyroid', valueB: 'Parathyroids' },
           { criteria: 'Stimulus', valueA: 'High blood calcium', valueB: 'Low blood calcium' },
-          { criteria: 'Effect', valueA: 'Lowers blood calcium (deposition in bone)', valueB: 'Raises blood calcium (release from bone)' },
+          {
+            criteria: 'Effect',
+            valueA: 'Lowers blood calcium (deposition in bone)',
+            valueB: 'Raises blood calcium (release from bone)',
+          },
         ],
       },
       {
@@ -734,17 +1217,51 @@ Endocrine glands are **ductless**; hormones pass into the blood. Hormones are ei
         rows: [
           { criteria: 'Cells', valueA: 'Beta cells', valueB: 'Alpha cells' },
           { criteria: 'Stimulus', valueA: 'High blood glucose', valueB: 'Low blood glucose' },
-          { criteria: 'Effect', valueA: 'Lowers glucose; stores glycogen', valueB: 'Raises glucose; liver glycogen to glucose' },
+          {
+            criteria: 'Effect',
+            valueA: 'Lowers glucose; stores glycogen',
+            valueB: 'Raises glucose; liver glycogen to glucose',
+          },
         ],
       },
     ],
     bloomProgression: [
-      { levelName: 'Remembering', levelNumber: 1, objective: 'List the hormones of the anterior and posterior pituitary.', masteryPrompt: 'Which pituitary lobe stores ADH?' },
-      { levelName: 'Understanding', levelNumber: 2, objective: 'Explain how auxin causes a stem to bend toward light.', masteryPrompt: 'Why does the shaded side elongate more?' },
-      { levelName: 'Applying', levelNumber: 3, objective: 'Predict the effect of hormone excess or deficiency.', masteryPrompt: 'What does iodine deficiency cause, and why?' },
-      { levelName: 'Analyzing', levelNumber: 4, objective: 'Differentiate diabetes mellitus from diabetes insipidus.', masteryPrompt: 'Both cause thirst and polyuria. How do urine tests differ?' },
-      { levelName: 'Evaluating', levelNumber: 5, objective: 'Judge the effect of removing the parathyroids.', masteryPrompt: 'Predict calcium level and symptoms after parathyroid removal.' },
-      { levelName: 'Creating', levelNumber: 6, objective: 'Design an experiment testing auxin and phototropism.', masteryPrompt: 'Design an experiment using coleoptiles with the tip removed or covered.' },
+      {
+        levelName: 'Remembering',
+        levelNumber: 1,
+        objective: 'List the hormones of the anterior and posterior pituitary.',
+        masteryPrompt: 'Which pituitary lobe stores ADH?',
+      },
+      {
+        levelName: 'Understanding',
+        levelNumber: 2,
+        objective: 'Explain how auxin causes a stem to bend toward light.',
+        masteryPrompt: 'Why does the shaded side elongate more?',
+      },
+      {
+        levelName: 'Applying',
+        levelNumber: 3,
+        objective: 'Predict the effect of hormone excess or deficiency.',
+        masteryPrompt: 'What does iodine deficiency cause, and why?',
+      },
+      {
+        levelName: 'Analyzing',
+        levelNumber: 4,
+        objective: 'Differentiate diabetes mellitus from diabetes insipidus.',
+        masteryPrompt: 'Both cause thirst and polyuria. How do urine tests differ?',
+      },
+      {
+        levelName: 'Evaluating',
+        levelNumber: 5,
+        objective: 'Judge the effect of removing the parathyroids.',
+        masteryPrompt: 'Predict calcium level and symptoms after parathyroid removal.',
+      },
+      {
+        levelName: 'Creating',
+        levelNumber: 6,
+        objective: 'Design an experiment testing auxin and phototropism.',
+        masteryPrompt: 'Design an experiment using coleoptiles with the tip removed or covered.',
+      },
     ],
     asciiSchematic: `PHOTOTROPISM (one-sided light)
       light  --->
@@ -765,12 +1282,42 @@ NEGATIVE FEEDBACK
     schematicCaption:
       'Auxin redistribution in phototropism and the negative feedback loops of glucose and the hypothalamus-pituitary axis.',
     flowcharts: [
-      { stepNumber: 1, action: 'Blood glucose rises after a meal', detail: 'Beta cells of the islets detect the rise', triggerOrEnzyme: 'High glucose' },
-      { stepNumber: 2, action: 'Insulin is secreted', detail: 'Carried by the blood to liver, muscle and other cells', triggerOrEnzyme: 'Insulin' },
-      { stepNumber: 3, action: 'Cells take up glucose', detail: 'Liver and muscle store it as glycogen', triggerOrEnzyme: 'Insulin' },
-      { stepNumber: 4, action: 'Blood glucose falls', detail: 'Insulin secretion decreases (negative feedback)', triggerOrEnzyme: 'Negative feedback' },
-      { stepNumber: 5, action: 'Glucose falls too low', detail: 'Alpha cells are stimulated', triggerOrEnzyme: 'Low glucose' },
-      { stepNumber: 6, action: 'Glucagon converts liver glycogen to glucose', detail: 'Blood glucose returns to normal', triggerOrEnzyme: 'Glucagon' },
+      {
+        stepNumber: 1,
+        action: 'Blood glucose rises after a meal',
+        detail: 'Beta cells of the islets detect the rise',
+        triggerOrEnzyme: 'High glucose',
+      },
+      {
+        stepNumber: 2,
+        action: 'Insulin is secreted',
+        detail: 'Carried by the blood to liver, muscle and other cells',
+        triggerOrEnzyme: 'Insulin',
+      },
+      {
+        stepNumber: 3,
+        action: 'Cells take up glucose',
+        detail: 'Liver and muscle store it as glycogen',
+        triggerOrEnzyme: 'Insulin',
+      },
+      {
+        stepNumber: 4,
+        action: 'Blood glucose falls',
+        detail: 'Insulin secretion decreases (negative feedback)',
+        triggerOrEnzyme: 'Negative feedback',
+      },
+      {
+        stepNumber: 5,
+        action: 'Glucose falls too low',
+        detail: 'Alpha cells are stimulated',
+        triggerOrEnzyme: 'Low glucose',
+      },
+      {
+        stepNumber: 6,
+        action: 'Glucagon converts liver glycogen to glucose',
+        detail: 'Blood glucose returns to normal',
+        triggerOrEnzyme: 'Glucagon',
+      },
     ],
     visualInspectionMarkers: [
       'Phototropism diagram: look for more auxin dots on the shaded side and the stem curving toward the light.',
@@ -779,24 +1326,40 @@ NEGATIVE FEEDBACK
       'Calcium loop diagram: calcitonin lowers calcium; PTH raises it.',
     ],
     youtube3DQueries: [
-      { query: 'Auxin phototropism animation plant hormones', topicDescription: 'Shows auxin moving to the shaded side and the stem bending.', durationRecommendation: '2-4 mins' },
-      { query: 'Endocrine system hormones negative feedback animation', topicDescription: 'Overview of glands, hormones and feedback loops.', durationRecommendation: '3-6 mins' },
-      { query: 'Insulin and glucagon blood glucose regulation animation', topicDescription: 'Shows beta and alpha cell responses and liver glycogen.', durationRecommendation: '2-4 mins' },
+      {
+        query: 'Auxin phototropism animation plant hormones',
+        topicDescription: 'Shows auxin moving to the shaded side and the stem bending.',
+        durationRecommendation: '2-4 mins',
+      },
+      {
+        query: 'Endocrine system hormones negative feedback animation',
+        topicDescription: 'Overview of glands, hormones and feedback loops.',
+        durationRecommendation: '3-6 mins',
+      },
+      {
+        query: 'Insulin and glucagon blood glucose regulation animation',
+        topicDescription: 'Shows beta and alpha cell responses and liver glycogen.',
+        durationRecommendation: '2-4 mins',
+      },
     ],
     questions: [
       {
         id: 'hce_q1',
         type: 'SCIENTIFIC_TERM',
-        question: 'Write the scientific term: Clusters of endocrine cells in the pancreas that secrete insulin and glucagon.',
+        question:
+          'Write the scientific term: Clusters of endocrine cells in the pancreas that secrete insulin and glucagon.',
         officialAnswer: 'Islets of Langerhans (جزر لانجرهانز)',
         rationale: 'They form the endocrine part of the pancreas, a mixed gland.',
-        ministryExamTip: 'Do not confuse them with the exocrine acini that secrete digestive enzymes.',
+        ministryExamTip:
+          'Do not confuse them with the exocrine acini that secrete digestive enzymes.',
       },
       {
         id: 'hce_q2',
         type: 'GIVE_REASON',
-        question: 'Give reason: The posterior lobe of the pituitary is described as neurosecretory.',
-        officialAnswer: 'Because it does not make its own hormones; ADH and oxytocin are made by neurosecretory cells in the hypothalamus, travel down their axons and are stored in the posterior lobe until released into the blood.',
+        question:
+          'Give reason: The posterior lobe of the pituitary is described as neurosecretory.',
+        officialAnswer:
+          'Because it does not make its own hormones; ADH and oxytocin are made by neurosecretory cells in the hypothalamus, travel down their axons and are stored in the posterior lobe until released into the blood.',
         rationale: 'The posterior lobe is nervous tissue acting as a storage and release site.',
         ministryExamTip: 'State that the hormones are made in the hypothalamus.',
       },
@@ -804,23 +1367,28 @@ NEGATIVE FEEDBACK
         id: 'hce_q3',
         type: 'GIVE_REASON',
         question: 'Give reason: Iodized salt is recommended in the diet.',
-        officialAnswer: 'Because iodine is needed to make thyroxine; iodine deficiency causes enlargement of the thyroid gland (simple goiter).',
-        rationale: 'Low thyroxine removes feedback inhibition, so TSH stays high and the gland enlarges.',
+        officialAnswer:
+          'Because iodine is needed to make thyroxine; iodine deficiency causes enlargement of the thyroid gland (simple goiter).',
+        rationale:
+          'Low thyroxine removes feedback inhibition, so TSH stays high and the gland enlarges.',
         ministryExamTip: 'Link iodine to thyroxine and then to goiter.',
       },
       {
         id: 'hce_q4',
         type: 'WHAT_HAPPENS_IF',
         question: 'What happens if the parathyroid glands are removed?',
-        officialAnswer: 'Parathormone is no longer secreted, blood calcium falls, and the person suffers muscle spasms (tetany).',
+        officialAnswer:
+          'Parathormone is no longer secreted, blood calcium falls, and the person suffers muscle spasms (tetany).',
         rationale: 'PTH is the hormone that raises blood calcium.',
         ministryExamTip: 'Keywords: PTH absent, calcium falls, muscle spasm.',
       },
       {
         id: 'hce_q5',
         type: 'DIAGRAM_ANALYSIS',
-        question: 'A seedling is lit from the right only and bends to the right. Explain the bending using auxin.',
-        officialAnswer: 'Auxin moves from the lit side to the shaded (left) side of the tip; the higher auxin concentration on the shaded side makes those cells elongate more, so the stem bends toward the light (positive phototropism).',
+        question:
+          'A seedling is lit from the right only and bends to the right. Explain the bending using auxin.',
+        officialAnswer:
+          'Auxin moves from the lit side to the shaded (left) side of the tip; the higher auxin concentration on the shaded side makes those cells elongate more, so the stem bends toward the light (positive phototropism).',
         rationale: 'Auxin stimulates elongation of stem cells.',
         ministryExamTip: 'Mention the lateral movement of auxin and unequal elongation.',
       },
@@ -831,17 +1399,20 @@ NEGATIVE FEEDBACK
         options: ['Calcitonin', 'Parathormone', 'Insulin', 'Aldosterone'],
         correctOptionIndex: 1,
         officialAnswer: 'Parathormone',
-        rationale: 'PTH from the parathyroids releases calcium from bone; calcitonin does the opposite.',
+        rationale:
+          'PTH from the parathyroids releases calcium from bone; calcitonin does the opposite.',
         ministryExamTip: 'Calcitonin lowers; PTH raises.',
       },
       {
         id: 'hce_q7',
         type: 'MCQ',
-        question: 'A patient has extreme thirst and large urine volume, but urine tests show no glucose. The likely cause is:',
+        question:
+          'A patient has extreme thirst and large urine volume, but urine tests show no glucose. The likely cause is:',
         options: ['Insulin deficiency', 'ADH deficiency', 'Excess thyroxine', 'Excess cortisol'],
         correctOptionIndex: 1,
         officialAnswer: 'ADH deficiency (diabetes insipidus)',
-        rationale: 'Without ADH the kidney tubules reabsorb less water, giving large dilute urine without glucose.',
+        rationale:
+          'Without ADH the kidney tubules reabsorb less water, giving large dilute urine without glucose.',
         ministryExamTip: 'No glucose in the urine rules out diabetes mellitus.',
       },
       {
@@ -858,40 +1429,82 @@ NEGATIVE FEEDBACK
     examTraps: [
       {
         misconception: 'The posterior pituitary makes ADH and oxytocin.',
-        scientificTruth: 'They are made in the hypothalamus and only stored and released by the posterior lobe.',
+        scientificTruth:
+          'They are made in the hypothalamus and only stored and released by the posterior lobe.',
         examTrapWarning: 'Questions ask where a hormone is made versus released.',
         goldenRule: 'Made in the hypothalamus, released from the posterior pituitary.',
       },
       {
         misconception: 'Stems and roots respond to the same auxin concentration in the same way.',
-        scientificTruth: 'A concentration that stimulates stem elongation inhibits root elongation.',
+        scientificTruth:
+          'A concentration that stimulates stem elongation inhibits root elongation.',
         examTrapWarning: 'Questions compare the response of stems and roots.',
         goldenRule: 'Same auxin level: stem grows, root is inhibited.',
       },
       {
         misconception: 'All patients with excessive thirst and urination have diabetes mellitus.',
-        scientificTruth: 'Diabetes insipidus (ADH deficiency) gives the same symptoms but without glucose in the urine.',
+        scientificTruth:
+          'Diabetes insipidus (ADH deficiency) gives the same symptoms but without glucose in the urine.',
         examTrapWarning: 'Case questions state that the urine contains no glucose.',
         goldenRule: 'Glucose in urine: mellitus. No glucose: insipidus.',
       },
     ],
     flashcards: [
-      { id: 'hce_fc1', topicId: 'hormonal_coordination_endocrine', frontPrompt: 'Where are ADH and oxytocin made and where are they released?', backAnswer: 'Made in the hypothalamus, released from the posterior pituitary.', category: 'Physiology' },
-      { id: 'hce_fc2', topicId: 'hormonal_coordination_endocrine', frontPrompt: 'Effect of GH hypersecretion in childhood vs adults?', backAnswer: 'Childhood: gigantism. Adults: acromegaly.', category: 'Disorders' },
-      { id: 'hce_fc3', topicId: 'hormonal_coordination_endocrine', frontPrompt: 'Which hormone lowers blood calcium?', backAnswer: 'Calcitonin (PTH raises it).', category: 'Terminology' },
-      { id: 'hce_fc4', topicId: 'hormonal_coordination_endocrine', frontPrompt: 'Why does the stem bend toward light?', backAnswer: 'Auxin moves to the shaded side, which elongates more.', category: 'Mechanism' },
-      { id: 'hce_fc5', topicId: 'hormonal_coordination_endocrine', frontPrompt: 'Hormones of the adrenal medulla?', backAnswer: 'Adrenaline and noradrenaline (emergency response).', category: 'Terminology' },
-      { id: 'hce_fc6', topicId: 'hormonal_coordination_endocrine', frontPrompt: 'Thyroxine deficiency in children vs adults?', backAnswer: 'Children: cretinism. Adults: myxedema.', category: 'Disorders' },
+      {
+        id: 'hce_fc1',
+        topicId: 'hormonal_coordination_endocrine',
+        frontPrompt: 'Where are ADH and oxytocin made and where are they released?',
+        backAnswer: 'Made in the hypothalamus, released from the posterior pituitary.',
+        category: 'Physiology',
+      },
+      {
+        id: 'hce_fc2',
+        topicId: 'hormonal_coordination_endocrine',
+        frontPrompt: 'Effect of GH hypersecretion in childhood vs adults?',
+        backAnswer: 'Childhood: gigantism. Adults: acromegaly.',
+        category: 'Disorders',
+      },
+      {
+        id: 'hce_fc3',
+        topicId: 'hormonal_coordination_endocrine',
+        frontPrompt: 'Which hormone lowers blood calcium?',
+        backAnswer: 'Calcitonin (PTH raises it).',
+        category: 'Terminology',
+      },
+      {
+        id: 'hce_fc4',
+        topicId: 'hormonal_coordination_endocrine',
+        frontPrompt: 'Why does the stem bend toward light?',
+        backAnswer: 'Auxin moves to the shaded side, which elongates more.',
+        category: 'Mechanism',
+      },
+      {
+        id: 'hce_fc5',
+        topicId: 'hormonal_coordination_endocrine',
+        frontPrompt: 'Hormones of the adrenal medulla?',
+        backAnswer: 'Adrenaline and noradrenaline (emergency response).',
+        category: 'Terminology',
+      },
+      {
+        id: 'hce_fc6',
+        topicId: 'hormonal_coordination_endocrine',
+        frontPrompt: 'Thyroxine deficiency in children vs adults?',
+        backAnswer: 'Children: cretinism. Adults: myxedema.',
+        category: 'Disorders',
+      },
     ],
     examSimulationItem: {
       id: 'sim_hormonal_coordination_endocrine',
       questionType: 'GIVE_REASON',
-      prompt: 'Give reason: A patient with exophthalmic goiter loses weight and has a high body temperature and a fast heartbeat.',
+      prompt:
+        'Give reason: A patient with exophthalmic goiter loses weight and has a high body temperature and a fast heartbeat.',
       maxScore: 2,
       requiredKeywords: ['thyroxine', 'metabolic rate', 'oxidation'],
       partialCreditKeywords: ['hypersecretion', 'heat', 'energy', 'heart'],
-      modelAnswer: 'Because hypersecretion of thyroxine raises the basal metabolic rate and the oxidation of food, which releases extra heat (high temperature), consumes stored food (weight loss) and speeds the heart.',
-      remediationNotes: 'Revise the functions of thyroxine and the disorders of its hypo- and hypersecretion.',
+      modelAnswer:
+        'Because hypersecretion of thyroxine raises the basal metabolic rate and the oxidation of food, which releases extra heat (high temperature), consumes stored food (weight loss) and speeds the heart.',
+      remediationNotes:
+        'Revise the functions of thyroxine and the disorders of its hypo- and hypersecretion.',
     },
   },
 
@@ -922,15 +1535,49 @@ NEGATIVE FEEDBACK
 2. **DNA Polymerase**: Synthesizes new complementary strand strictly 5' -> 3'. Leading strand continuous; Lagging strand discontinuous (Okazaki fragments).
 3. **DNA Ligase**: Connects Okazaki fragments by forming phosphodiester bonds.`,
     keyTerms: [
-      { term: 'Deoxyribonuclease', definition: 'Enzyme that completely degrades DNA without hydrolyzing RNA or proteins.', arabicTerm: 'دي أوكسي ريبونيوكليز' },
-      { term: 'Antiparallel', definition: 'Arrangement where one DNA strand runs 5\' to 3\' and the other 3\' to 5\'.', arabicTerm: 'متعاكس الاتجاه' },
-      { term: 'Okazaki Fragments', definition: 'Short DNA fragments synthesized discontinuously on the lagging strand.', arabicTerm: 'قطع أوكازاكي' },
-      { term: 'DNA Ligase', definition: 'Enzyme that seals nicks in the sugar-phosphate backbone.', arabicTerm: 'إنزيم الربط' },
+      {
+        term: 'Deoxyribonuclease',
+        definition: 'Enzyme that completely degrades DNA without hydrolyzing RNA or proteins.',
+        arabicTerm: 'دي أوكسي ريبونيوكليز',
+      },
+      {
+        term: 'Antiparallel',
+        definition: "Arrangement where one DNA strand runs 5' to 3' and the other 3' to 5'.",
+        arabicTerm: 'متعاكس الاتجاه',
+      },
+      {
+        term: 'Okazaki Fragments',
+        definition: 'Short DNA fragments synthesized discontinuously on the lagging strand.',
+        arabicTerm: 'قطع أوكازاكي',
+      },
+      {
+        term: 'DNA Ligase',
+        definition: 'Enzyme that seals nicks in the sugar-phosphate backbone.',
+        arabicTerm: 'إنزيم الربط',
+      },
     ],
     formulas: [
-      { name: "Chargaff's Rule", formulaLatex: '%A = %T, %G = %C', description: 'In double-stranded DNA, purines equal pyrimidines.', variables: 'A, T, G, C', sampleCalculation: 'If %A = 20%, %T = 20%, %G = 30%, %C = 30%.' },
-      { name: 'DNA Turns Formula', formulaLatex: 'Turns = BasePairs / 10 = TotalNucleotides / 20', description: 'Complete turns in a DNA double helix.', variables: 'Turns', sampleCalculation: 'For 200 nucleotides: 200 / 20 = 10 turns.' },
-      { name: 'Hydrogen Bonds', formulaLatex: 'H = 2(A) + 3(G)', description: 'Total hydrogen bonds between complementary strands.', variables: 'A, G count', sampleCalculation: 'For 40 A and 60 G: 2(40) + 3(60) = 260 bonds.' },
+      {
+        name: "Chargaff's Rule",
+        formulaLatex: '%A = %T, %G = %C',
+        description: 'In double-stranded DNA, purines equal pyrimidines.',
+        variables: 'A, T, G, C',
+        sampleCalculation: 'If %A = 20%, %T = 20%, %G = 30%, %C = 30%.',
+      },
+      {
+        name: 'DNA Turns Formula',
+        formulaLatex: 'Turns = BasePairs / 10 = TotalNucleotides / 20',
+        description: 'Complete turns in a DNA double helix.',
+        variables: 'Turns',
+        sampleCalculation: 'For 200 nucleotides: 200 / 20 = 10 turns.',
+      },
+      {
+        name: 'Hydrogen Bonds',
+        formulaLatex: 'H = 2(A) + 3(G)',
+        description: 'Total hydrogen bonds between complementary strands.',
+        variables: 'A, G count',
+        sampleCalculation: 'For 40 A and 60 G: 2(40) + 3(60) = 260 bonds.',
+      },
     ],
     comparisonTables: [
       {
@@ -938,20 +1585,67 @@ NEGATIVE FEEDBACK
         columnA: 'DNA Polymerase',
         columnB: 'DNA Ligase',
         rows: [
-          { criteria: 'Catalytic Direction', valueA: 'Strictly 5\' to 3\'', valueB: 'Seals nicks on lagging strand' },
-          { criteria: 'Leading Strand Action', valueA: 'Continuous synthesis toward replication fork', valueB: 'Not required on leading strand' },
-          { criteria: 'Lagging Strand Action', valueA: 'Synthesizes Okazaki fragments discontinuously', valueB: 'Joins Okazaki fragments into continuous strand' },
-          { criteria: 'Role in DNA Repair', valueA: 'Adds correct complementary nucleotide into gap', valueB: 'Seals phosphodiester backbone' },
+          {
+            criteria: 'Catalytic Direction',
+            valueA: "Strictly 5' to 3'",
+            valueB: 'Seals nicks on lagging strand',
+          },
+          {
+            criteria: 'Leading Strand Action',
+            valueA: 'Continuous synthesis toward replication fork',
+            valueB: 'Not required on leading strand',
+          },
+          {
+            criteria: 'Lagging Strand Action',
+            valueA: 'Synthesizes Okazaki fragments discontinuously',
+            valueB: 'Joins Okazaki fragments into continuous strand',
+          },
+          {
+            criteria: 'Role in DNA Repair',
+            valueA: 'Adds correct complementary nucleotide into gap',
+            valueB: 'Seals phosphodiester backbone',
+          },
         ],
       },
     ],
     bloomProgression: [
-      { levelName: 'Remembering', levelNumber: 1, objective: 'Recall the 3 enzymes involved in DNA replication.', masteryPrompt: 'Name the enzymes that unwind, polymerize, and seal DNA.' },
-      { levelName: 'Understanding', levelNumber: 2, objective: 'Explain why replication is semi-conservative.', masteryPrompt: 'Why does each daughter molecule have one template and one new strand?' },
-      { levelName: 'Applying', levelNumber: 3, objective: 'Calculate base pairs and turns for a 400-nucleotide gene with 30% C.', masteryPrompt: 'If %C = 30% in 400 nucleotides, find number of Adenine bases and turns.' },
-      { levelName: 'Analyzing', levelNumber: 4, objective: 'Analyze why RNA viruses mutate faster than DNA organisms.', masteryPrompt: 'Why do single-stranded RNA viruses lack proofreading?' },
-      { levelName: 'Evaluating', levelNumber: 5, objective: 'Evaluate Avery vs Griffith experiments.', masteryPrompt: 'Why was Deoxyribonuclease essential to prove DNA is the transforming principle?' },
-      { levelName: 'Creating', levelNumber: 6, objective: 'Design an experimental probe using radioactive labeling.', masteryPrompt: 'How could you prove whether mitochondria replicate their own DNA?' },
+      {
+        levelName: 'Remembering',
+        levelNumber: 1,
+        objective: 'Recall the 3 enzymes involved in DNA replication.',
+        masteryPrompt: 'Name the enzymes that unwind, polymerize, and seal DNA.',
+      },
+      {
+        levelName: 'Understanding',
+        levelNumber: 2,
+        objective: 'Explain why replication is semi-conservative.',
+        masteryPrompt: 'Why does each daughter molecule have one template and one new strand?',
+      },
+      {
+        levelName: 'Applying',
+        levelNumber: 3,
+        objective: 'Calculate base pairs and turns for a 400-nucleotide gene with 30% C.',
+        masteryPrompt: 'If %C = 30% in 400 nucleotides, find number of Adenine bases and turns.',
+      },
+      {
+        levelName: 'Analyzing',
+        levelNumber: 4,
+        objective: 'Analyze why RNA viruses mutate faster than DNA organisms.',
+        masteryPrompt: 'Why do single-stranded RNA viruses lack proofreading?',
+      },
+      {
+        levelName: 'Evaluating',
+        levelNumber: 5,
+        objective: 'Evaluate Avery vs Griffith experiments.',
+        masteryPrompt:
+          'Why was Deoxyribonuclease essential to prove DNA is the transforming principle?',
+      },
+      {
+        levelName: 'Creating',
+        levelNumber: 6,
+        objective: 'Design an experimental probe using radioactive labeling.',
+        masteryPrompt: 'How could you prove whether mitochondria replicate their own DNA?',
+      },
     ],
     asciiSchematic: `============== DNA REPLICATION FORK =============
  3' ---------------------------------------------> 5' (Template)
@@ -963,73 +1657,142 @@ NEGATIVE FEEDBACK
           [Lagging]  /
           <--Frag2-- <--Frag1-- (Okazaki fragments joined by Ligase)
  3' ----------------/`,
-    schematicCaption: 'DNA Replication Fork: Helicase separates strands, Leading strand synthesized continuously, Lagging strand discontinuously in Okazaki fragments.',
+    schematicCaption:
+      'DNA Replication Fork: Helicase separates strands, Leading strand synthesized continuously, Lagging strand discontinuously in Okazaki fragments.',
     flowcharts: [
-      { stepNumber: 1, action: 'Helicase uncoils double helix', detail: 'Breaks hydrogen bonds at replication origin', triggerOrEnzyme: 'Helicase' },
-      { stepNumber: 2, action: 'SSB Proteins stabilize single strands', detail: 'Prevents premature re-annealing', triggerOrEnzyme: 'SSB Proteins' },
-      { stepNumber: 3, action: 'DNA Polymerase synthesizes Leading Strand', detail: 'Continuous 5\' to 3\' synthesis toward fork', triggerOrEnzyme: 'DNA Polymerase' },
-      { stepNumber: 4, action: 'DNA Polymerase synthesizes Lagging Strand', detail: 'Discontinuous synthesis forming Okazaki fragments', triggerOrEnzyme: 'DNA Polymerase' },
-      { stepNumber: 5, action: 'DNA Ligase seals fragments', detail: 'Creates phosphodiester bonds to complete strand', triggerOrEnzyme: 'DNA Ligase' },
+      {
+        stepNumber: 1,
+        action: 'Helicase uncoils double helix',
+        detail: 'Breaks hydrogen bonds at replication origin',
+        triggerOrEnzyme: 'Helicase',
+      },
+      {
+        stepNumber: 2,
+        action: 'SSB Proteins stabilize single strands',
+        detail: 'Prevents premature re-annealing',
+        triggerOrEnzyme: 'SSB Proteins',
+      },
+      {
+        stepNumber: 3,
+        action: 'DNA Polymerase synthesizes Leading Strand',
+        detail: "Continuous 5' to 3' synthesis toward fork",
+        triggerOrEnzyme: 'DNA Polymerase',
+      },
+      {
+        stepNumber: 4,
+        action: 'DNA Polymerase synthesizes Lagging Strand',
+        detail: 'Discontinuous synthesis forming Okazaki fragments',
+        triggerOrEnzyme: 'DNA Polymerase',
+      },
+      {
+        stepNumber: 5,
+        action: 'DNA Ligase seals fragments',
+        detail: 'Creates phosphodiester bonds to complete strand',
+        triggerOrEnzyme: 'DNA Ligase',
+      },
     ],
     visualInspectionMarkers: [
-      'Check strand polarity: 5\' end has free phosphate group; 3\' end has free OH hydroxyl group.',
+      "Check strand polarity: 5' end has free phosphate group; 3' end has free OH hydroxyl group.",
       'Verify base pairing: Purine (2 rings) pairs with Pyrimidine (1 ring) ensuring constant 2nm width.',
       'Inspect Okazaki arrows: Points away from replication fork for lagging strand.',
     ],
     youtube3DQueries: [
-      { query: '3D Animation DNA Replication Fork Okazaki Fragments', topicDescription: 'Shows leading and lagging strand polymerase actions in high definition.', durationRecommendation: '3-5 mins' },
-      { query: 'Hershey and Chase Experiment 3D Animation Bacteriophage', topicDescription: 'Visualizes viral injection of radioactive phosphorus vs sulfur.', durationRecommendation: '2-3 mins' },
+      {
+        query: '3D Animation DNA Replication Fork Okazaki Fragments',
+        topicDescription: 'Shows leading and lagging strand polymerase actions in high definition.',
+        durationRecommendation: '3-5 mins',
+      },
+      {
+        query: 'Hershey and Chase Experiment 3D Animation Bacteriophage',
+        topicDescription: 'Visualizes viral injection of radioactive phosphorus vs sulfur.',
+        durationRecommendation: '2-3 mins',
+      },
     ],
     questions: [
       {
         id: 'q_dna_1',
         type: 'SCIENTIFIC_TERM',
-        question: 'Write the scientific term: The enzyme that specifically degrades DNA completely and was used to conclusively confirm DNA as the transforming substance.',
+        question:
+          'Write the scientific term: The enzyme that specifically degrades DNA completely and was used to conclusively confirm DNA as the transforming substance.',
         officialAnswer: 'Deoxyribonuclease enzyme (إنزيم دي أوكسي ريبونيوكليز)',
-        rationale: "Avery's experiment was finalized using deoxyribonuclease, which eliminated transformation.",
+        rationale:
+          "Avery's experiment was finalized using deoxyribonuclease, which eliminated transformation.",
         ministryExamTip: "Do not write 'Ribonuclease' or just 'Nuclease'.",
       },
       {
         id: 'q_dna_2',
         type: 'GIVE_REASON',
-        question: 'Give reason: The two strands of the DNA double helix are antiparallel (one 5\'->3\' and the other 3\'->5\').',
-        officialAnswer: 'To ensure that the nitrogenous bases face inward correctly and form hydrogen bonds between complementary base pairs (A=T with 2 bonds and G≡C with 3 bonds).',
-        rationale: 'If parallel, the hydrogen bonding angles between purines and pyrimidines would not fit stably.',
-        ministryExamTip: 'Keywords: hydrogen bonds, bases face inwards, complementary base pairing.',
+        question:
+          "Give reason: The two strands of the DNA double helix are antiparallel (one 5'->3' and the other 3'->5').",
+        officialAnswer:
+          'To ensure that the nitrogenous bases face inward correctly and form hydrogen bonds between complementary base pairs (A=T with 2 bonds and G≡C with 3 bonds).',
+        rationale:
+          'If parallel, the hydrogen bonding angles between purines and pyrimidines would not fit stably.',
+        ministryExamTip:
+          'Keywords: hydrogen bonds, bases face inwards, complementary base pairing.',
       },
       {
         id: 'q_dna_3',
         type: 'MCQ',
-        question: 'A DNA sample of 600 nucleotides contains 120 Adenine bases. What is the number of complete turns and total hydrogen bonds?',
-        options: ['30 turns and 780 bonds', '60 turns and 600 bonds', '30 turns and 660 bonds', '20 turns and 800 bonds'],
+        question:
+          'A DNA sample of 600 nucleotides contains 120 Adenine bases. What is the number of complete turns and total hydrogen bonds?',
+        options: [
+          '30 turns and 780 bonds',
+          '60 turns and 600 bonds',
+          '30 turns and 660 bonds',
+          '20 turns and 800 bonds',
+        ],
         correctOptionIndex: 0,
         officialAnswer: '30 turns and 780 bonds',
-        rationale: 'Turns = 600 / 20 = 30. A = 120, so T = 120. Total A+T = 240. Remaining G+C = 600 - 240 = 360, so G = 180, C = 180. H-bonds = 2(120) + 3(180) = 240 + 540 = 780 bonds.',
+        rationale:
+          'Turns = 600 / 20 = 30. A = 120, so T = 120. Total A+T = 240. Remaining G+C = 600 - 240 = 360, so G = 180, C = 180. H-bonds = 2(120) + 3(180) = 240 + 540 = 780 bonds.',
         ministryExamTip: 'Divide total nucleotides by 20 for turns in double helix!',
       },
     ],
     examTraps: [
       {
         misconception: 'Calculating complete turns by dividing nucleotides by 10 instead of 20.',
-        scientificTruth: 'Each turn consists of 10 BASE PAIRS, which equals 20 nucleotides in double-stranded DNA.',
-        examTrapWarning: 'If the question says "single strand", 10 nucleotides per turn. If "double-stranded DNA", divide total nucleotides by 20!',
+        scientificTruth:
+          'Each turn consists of 10 BASE PAIRS, which equals 20 nucleotides in double-stranded DNA.',
+        examTrapWarning:
+          'If the question says "single strand", 10 nucleotides per turn. If "double-stranded DNA", divide total nucleotides by 20!',
         goldenRule: 'Turns = Base Pairs / 10 = Total Nucleotides / 20.',
       },
     ],
     flashcards: [
-      { id: 'fc_dna_1', topicId: 'dna_structure_replication', frontPrompt: 'What enzyme proved conclusively that DNA is the transforming factor?', backAnswer: 'Deoxyribonuclease enzyme.', category: 'Experiments' },
-      { id: 'fc_dna_2', topicId: 'dna_structure_replication', frontPrompt: 'How many hydrogen bonds connect Guanine and Cytosine?', backAnswer: '3 Hydrogen Bonds (A=T has 2).', category: 'Structure' },
-      { id: 'fc_dna_3', topicId: 'dna_structure_replication', frontPrompt: 'In which direction does DNA Polymerase synthesize new strands?', backAnswer: "Strictly in the 5' to 3' direction.", category: 'Replication' },
+      {
+        id: 'fc_dna_1',
+        topicId: 'dna_structure_replication',
+        frontPrompt: 'What enzyme proved conclusively that DNA is the transforming factor?',
+        backAnswer: 'Deoxyribonuclease enzyme.',
+        category: 'Experiments',
+      },
+      {
+        id: 'fc_dna_2',
+        topicId: 'dna_structure_replication',
+        frontPrompt: 'How many hydrogen bonds connect Guanine and Cytosine?',
+        backAnswer: '3 Hydrogen Bonds (A=T has 2).',
+        category: 'Structure',
+      },
+      {
+        id: 'fc_dna_3',
+        topicId: 'dna_structure_replication',
+        frontPrompt: 'In which direction does DNA Polymerase synthesize new strands?',
+        backAnswer: "Strictly in the 5' to 3' direction.",
+        category: 'Replication',
+      },
     ],
     examSimulationItem: {
       id: 'sim_dna',
       questionType: 'GIVE_REASON',
-      prompt: "Give Reason: The synthesis of the lagging strand during DNA replication occurs discontinuously.",
+      prompt:
+        'Give Reason: The synthesis of the lagging strand during DNA replication occurs discontinuously.',
       maxScore: 2.0,
-      requiredKeywords: ['dna polymerase', '5\' to 3\'', 'replication fork', 'okazaki', 'ligase'],
+      requiredKeywords: ['dna polymerase', "5' to 3'", 'replication fork', 'okazaki', 'ligase'],
       partialCreditKeywords: ['antiparallel', 'unwinding'],
-      modelAnswer: 'Because DNA Polymerase can only add nucleotides in the 5\' to 3\' direction. Since the lagging template strand runs 5\' to 3\' toward the fork, the newly synthesized strand must be built away from the replication fork in short segments called Okazaki fragments, which are subsequently sealed by DNA ligase.',
-      remediationNotes: 'Emphasize that DNA Polymerase is strictly unidirectional (5\' to 3\').',
+      modelAnswer:
+        "Because DNA Polymerase can only add nucleotides in the 5' to 3' direction. Since the lagging template strand runs 5' to 3' toward the fork, the newly synthesized strand must be built away from the replication fork in short segments called Okazaki fragments, which are subsequently sealed by DNA ligase.",
+      remediationNotes: "Emphasize that DNA Polymerase is strictly unidirectional (5' to 3').",
     },
   },
 
@@ -1061,9 +1824,24 @@ NEGATIVE FEEDBACK
 ### 3. Suppression of Immune Response
 - After pathogen eradication, **Suppressor T-cells (TS / CD8+)** secrete **Lymphokines**, inhibiting plasma B-cells and inducing apoptosis in excess TH and TC cells to restore immune homeostasis.`,
     keyTerms: [
-      { term: 'Perforin', definition: 'Specialized protein secreted by TC cells that creates pores in target infected cell membrane.', arabicTerm: 'بروتين البيرفورين' },
-      { term: 'Lymphokines', definition: 'Inhibitory chemical messengers secreted by TS cells to deactivate and terminate the immune response.', arabicTerm: 'الليمفوكاينات' },
-      { term: 'MHC', definition: 'Major Histocompatibility Complex; protein that binds antigen fragments for presentation.', arabicTerm: 'بروتين التوافق النسيجي' },
+      {
+        term: 'Perforin',
+        definition:
+          'Specialized protein secreted by TC cells that creates pores in target infected cell membrane.',
+        arabicTerm: 'بروتين البيرفورين',
+      },
+      {
+        term: 'Lymphokines',
+        definition:
+          'Inhibitory chemical messengers secreted by TS cells to deactivate and terminate the immune response.',
+        arabicTerm: 'الليمفوكاينات',
+      },
+      {
+        term: 'MHC',
+        definition:
+          'Major Histocompatibility Complex; protein that binds antigen fragments for presentation.',
+        arabicTerm: 'بروتين التوافق النسيجي',
+      },
     ],
     formulas: [],
     comparisonTables: [
@@ -1072,20 +1850,68 @@ NEGATIVE FEEDBACK
         columnA: 'Humoral Immunity (خلطية)',
         columnB: 'Cell-Mediated Immunity (خلوية)',
         rows: [
-          { criteria: 'Effector Cells', valueA: 'Plasma B-cells', valueB: 'Cytotoxic T-cells (TC) & NK cells' },
-          { criteria: 'Weapons Used', valueA: 'Antibodies (Immunoglobulins)', valueB: 'Perforin & Lymphotoxins' },
-          { criteria: 'Target Location', valueA: 'Extracellular pathogens in blood/lymph', valueB: 'Intracellular viral infections, cancer, transplanted tissues' },
-          { criteria: 'Cell Entry', valueA: 'Antibodies CANNOT penetrate cell membranes (too large)', valueB: 'TC cells directly engage and destroy altered host cells' },
+          {
+            criteria: 'Effector Cells',
+            valueA: 'Plasma B-cells',
+            valueB: 'Cytotoxic T-cells (TC) & NK cells',
+          },
+          {
+            criteria: 'Weapons Used',
+            valueA: 'Antibodies (Immunoglobulins)',
+            valueB: 'Perforin & Lymphotoxins',
+          },
+          {
+            criteria: 'Target Location',
+            valueA: 'Extracellular pathogens in blood/lymph',
+            valueB: 'Intracellular viral infections, cancer, transplanted tissues',
+          },
+          {
+            criteria: 'Cell Entry',
+            valueA: 'Antibodies CANNOT penetrate cell membranes (too large)',
+            valueB: 'TC cells directly engage and destroy altered host cells',
+          },
         ],
       },
     ],
     bloomProgression: [
-      { levelName: 'Remembering', levelNumber: 1, objective: 'Recall CD markers for TH, TC, and TS.', masteryPrompt: 'Identify which T-cells bear CD4 vs CD8.' },
-      { levelName: 'Understanding', levelNumber: 2, objective: 'Explain why antibodies cannot destroy intracellular viruses directly.', masteryPrompt: 'Why is humoral immunity ineffective against viruses hidden inside host cells?' },
-      { levelName: 'Applying', levelNumber: 3, objective: 'Predict immune response to organ transplantation rejection.', masteryPrompt: 'Which specific immune cells mediate kidney graft rejection?' },
-      { levelName: 'Analyzing', levelNumber: 4, objective: 'Analyze the mechanism of Suppressor T-cells.', masteryPrompt: 'How do lymphokines prevent autoimmune overreaction?' },
-      { levelName: 'Evaluating', levelNumber: 5, objective: 'Evaluate the efficacy of vaccines vs antivenom serums.', masteryPrompt: 'Differentiate between active immunity (vaccine) and passive immunity (serum).' },
-      { levelName: 'Creating', levelNumber: 6, objective: 'Formulate an immunotherapy targeting cancer markers.', masteryPrompt: 'How can monoclonal antibodies be conjugated to cytotoxic agents?' },
+      {
+        levelName: 'Remembering',
+        levelNumber: 1,
+        objective: 'Recall CD markers for TH, TC, and TS.',
+        masteryPrompt: 'Identify which T-cells bear CD4 vs CD8.',
+      },
+      {
+        levelName: 'Understanding',
+        levelNumber: 2,
+        objective: 'Explain why antibodies cannot destroy intracellular viruses directly.',
+        masteryPrompt:
+          'Why is humoral immunity ineffective against viruses hidden inside host cells?',
+      },
+      {
+        levelName: 'Applying',
+        levelNumber: 3,
+        objective: 'Predict immune response to organ transplantation rejection.',
+        masteryPrompt: 'Which specific immune cells mediate kidney graft rejection?',
+      },
+      {
+        levelName: 'Analyzing',
+        levelNumber: 4,
+        objective: 'Analyze the mechanism of Suppressor T-cells.',
+        masteryPrompt: 'How do lymphokines prevent autoimmune overreaction?',
+      },
+      {
+        levelName: 'Evaluating',
+        levelNumber: 5,
+        objective: 'Evaluate the efficacy of vaccines vs antivenom serums.',
+        masteryPrompt:
+          'Differentiate between active immunity (vaccine) and passive immunity (serum).',
+      },
+      {
+        levelName: 'Creating',
+        levelNumber: 6,
+        objective: 'Formulate an immunotherapy targeting cancer markers.',
+        masteryPrompt: 'How can monoclonal antibodies be conjugated to cytotoxic agents?',
+      },
     ],
     asciiSchematic: `============= ANTIBODY (Y-SHAPE) ARCHITECTURE ============
            [Antigen-Binding Site]    [Antigen-Binding Site]
@@ -1102,14 +1928,45 @@ NEGATIVE FEEDBACK
                          (Constant)
                             |    |
                             |    |`,
-    schematicCaption: 'Antibody Structure: 2 Heavy Chains + 2 Light Chains held by Disulfide bonds (S-S), with 2 identical Antigen-Binding sites.',
+    schematicCaption:
+      'Antibody Structure: 2 Heavy Chains + 2 Light Chains held by Disulfide bonds (S-S), with 2 identical Antigen-Binding sites.',
     flowcharts: [
-      { stepNumber: 1, action: 'Macrophage engulfs pathogen', detail: 'Digests antigen and couples with MHC protein', triggerOrEnzyme: 'Phagocytosis' },
-      { stepNumber: 2, action: 'TH Cell binds Antigen-MHC', detail: 'Receptor CD4 recognizes complex on macrophage', triggerOrEnzyme: 'CD4 Receptor' },
-      { stepNumber: 3, action: 'TH secretes Interleukins', detail: 'Activates B-cells and triggers clonal expansion', triggerOrEnzyme: 'Interleukins' },
-      { stepNumber: 4, action: 'B-cells differentiate', detail: 'Produce Plasma B-cells (Antibodies) and Memory cells', triggerOrEnzyme: 'Clonal Selection' },
-      { stepNumber: 5, action: 'TC destroys infected cells', detail: 'Secretes Perforin to pierce membrane and Lymphotoxins', triggerOrEnzyme: 'Perforin' },
-      { stepNumber: 6, action: 'TS stops immune response', detail: 'Secretes Lymphokines when pathogen is cleared', triggerOrEnzyme: 'Lymphokines' },
+      {
+        stepNumber: 1,
+        action: 'Macrophage engulfs pathogen',
+        detail: 'Digests antigen and couples with MHC protein',
+        triggerOrEnzyme: 'Phagocytosis',
+      },
+      {
+        stepNumber: 2,
+        action: 'TH Cell binds Antigen-MHC',
+        detail: 'Receptor CD4 recognizes complex on macrophage',
+        triggerOrEnzyme: 'CD4 Receptor',
+      },
+      {
+        stepNumber: 3,
+        action: 'TH secretes Interleukins',
+        detail: 'Activates B-cells and triggers clonal expansion',
+        triggerOrEnzyme: 'Interleukins',
+      },
+      {
+        stepNumber: 4,
+        action: 'B-cells differentiate',
+        detail: 'Produce Plasma B-cells (Antibodies) and Memory cells',
+        triggerOrEnzyme: 'Clonal Selection',
+      },
+      {
+        stepNumber: 5,
+        action: 'TC destroys infected cells',
+        detail: 'Secretes Perforin to pierce membrane and Lymphotoxins',
+        triggerOrEnzyme: 'Perforin',
+      },
+      {
+        stepNumber: 6,
+        action: 'TS stops immune response',
+        detail: 'Secretes Lymphokines when pathogen is cleared',
+        triggerOrEnzyme: 'Lymphokines',
+      },
     ],
     visualInspectionMarkers: [
       'Verify 4 polypeptide chains: 2 identical heavy chains and 2 identical light chains.',
@@ -1117,14 +1974,23 @@ NEGATIVE FEEDBACK
       'Identify Variable regions at tips forming 2 identical antigen-binding pockets.',
     ],
     youtube3DQueries: [
-      { query: '3D Animation Cell Mediated Immunity Cytotoxic T cell Perforin', topicDescription: 'Shows TC engagement and perforin pore formation.', durationRecommendation: '3-4 mins' },
-      { query: 'Humoral Immunity Antibody Production B Cell Plasma 3D', topicDescription: 'Visualizes macrophage antigen presentation and antibody secretion.', durationRecommendation: '3-5 mins' },
+      {
+        query: '3D Animation Cell Mediated Immunity Cytotoxic T cell Perforin',
+        topicDescription: 'Shows TC engagement and perforin pore formation.',
+        durationRecommendation: '3-4 mins',
+      },
+      {
+        query: 'Humoral Immunity Antibody Production B Cell Plasma 3D',
+        topicDescription: 'Visualizes macrophage antigen presentation and antibody secretion.',
+        durationRecommendation: '3-5 mins',
+      },
     ],
     questions: [
       {
         id: 'q_imm_1',
         type: 'SCIENTIFIC_TERM',
-        question: 'Write the scientific term: The chemical protein secreted by Cytotoxic T-cells that perforates the membrane of infected cells.',
+        question:
+          'Write the scientific term: The chemical protein secreted by Cytotoxic T-cells that perforates the membrane of infected cells.',
         officialAnswer: 'Perforin protein (بروتين البيرفورين / البروتين صانع الثقوب)',
         rationale: 'Secreted by activated TC cells to punch holes in the target membrane.',
         ministryExamTip: 'Do not confuse with Lymphotoxins which digest nuclear DNA.',
@@ -1132,32 +1998,58 @@ NEGATIVE FEEDBACK
       {
         id: 'q_imm_2',
         type: 'GIVE_REASON',
-        question: 'Give reason: Antibodies are ineffective in eradicating intracellular viruses like COVID-19 or Influenza.',
-        officialAnswer: 'Because antibodies are relatively large molecular protein structures that cannot penetrate the cell membrane to reach viruses multiplying inside host cells; destroying intracellular viruses requires cell-mediated immunity via Cytotoxic T-cells (TC) and NK cells.',
+        question:
+          'Give reason: Antibodies are ineffective in eradicating intracellular viruses like COVID-19 or Influenza.',
+        officialAnswer:
+          'Because antibodies are relatively large molecular protein structures that cannot penetrate the cell membrane to reach viruses multiplying inside host cells; destroying intracellular viruses requires cell-mediated immunity via Cytotoxic T-cells (TC) and NK cells.',
         rationale: 'Antibody size prevents cytoplasmic entry.',
-        ministryExamTip: 'Keywords: large molecular size, cannot penetrate cell membrane, requires TC / NK cells.',
+        ministryExamTip:
+          'Keywords: large molecular size, cannot penetrate cell membrane, requires TC / NK cells.',
       },
     ],
     examTraps: [
       {
-        misconception: 'Believing antibodies enter host cells to kill viruses inside the cytoplasm.',
-        scientificTruth: 'Antibodies are too large to cross the plasma membrane! Intracellular pathogens can ONLY be eliminated by Cell-Mediated Immunity (TC and NK cells).',
-        examTrapWarning: 'Whenever an exam question mentions "virus inside liver cell" or "intracellular pathogen", the answer is Cytotoxic T-cells / Perforin, NEVER Antibodies alone!',
+        misconception:
+          'Believing antibodies enter host cells to kill viruses inside the cytoplasm.',
+        scientificTruth:
+          'Antibodies are too large to cross the plasma membrane! Intracellular pathogens can ONLY be eliminated by Cell-Mediated Immunity (TC and NK cells).',
+        examTrapWarning:
+          'Whenever an exam question mentions "virus inside liver cell" or "intracellular pathogen", the answer is Cytotoxic T-cells / Perforin, NEVER Antibodies alone!',
         goldenRule: 'Extracellular = Humoral Antibodies; Intracellular = TC Cells & Perforin.',
       },
     ],
     flashcards: [
-      { id: 'fc_imm_1', topicId: 'immunity_humoral_cellular', frontPrompt: 'What surface receptor identifies T-Helper vs Cytotoxic T-cells?', backAnswer: 'TH has CD4; TC has CD8.', category: 'Cell Markers' },
-      { id: 'fc_imm_2', topicId: 'immunity_humoral_cellular', frontPrompt: 'What substance terminates the immune response after pathogen eradication?', backAnswer: 'Lymphokines secreted by Suppressor T-cells (TS).', category: 'Homeostasis' },
+      {
+        id: 'fc_imm_1',
+        topicId: 'immunity_humoral_cellular',
+        frontPrompt: 'What surface receptor identifies T-Helper vs Cytotoxic T-cells?',
+        backAnswer: 'TH has CD4; TC has CD8.',
+        category: 'Cell Markers',
+      },
+      {
+        id: 'fc_imm_2',
+        topicId: 'immunity_humoral_cellular',
+        frontPrompt: 'What substance terminates the immune response after pathogen eradication?',
+        backAnswer: 'Lymphokines secreted by Suppressor T-cells (TS).',
+        category: 'Homeostasis',
+      },
     ],
     examSimulationItem: {
       id: 'sim_immunity',
       questionType: 'GIVE_REASON',
-      prompt: 'Give Reason: Suppressor T-cells (TS) play an indispensable role in maintaining immunological tolerance and body safety.',
+      prompt:
+        'Give Reason: Suppressor T-cells (TS) play an indispensable role in maintaining immunological tolerance and body safety.',
       maxScore: 2.0,
-      requiredKeywords: ['suppressor t-cells', 'lymphokines', 'inhibit', 'plasma b-cells', 'homeostasis'],
+      requiredKeywords: [
+        'suppressor t-cells',
+        'lymphokines',
+        'inhibit',
+        'plasma b-cells',
+        'homeostasis',
+      ],
       partialCreditKeywords: ['stop', 'apoptosis'],
-      modelAnswer: 'Because Suppressor T-cells (TS) secrete chemical substances called lymphokines upon eradication of the pathogen. Lymphokines inhibit plasma B-cells from producing more antibodies and cause apoptosis of excess helper and cytotoxic T-cells, thus preventing autoimmune damage and returning the immune system to resting homeostasis.',
+      modelAnswer:
+        'Because Suppressor T-cells (TS) secrete chemical substances called lymphokines upon eradication of the pathogen. Lymphokines inhibit plasma B-cells from producing more antibodies and cause apoptosis of excess helper and cytotoxic T-cells, thus preventing autoimmune damage and returning the immune system to resting homeostasis.',
       remediationNotes: 'Mention lymphokines and the inhibition of plasma B-cells.',
     },
   },
@@ -1226,36 +2118,83 @@ NEGATIVE FEEDBACK
 - **Agriculture**: Transfer of nitrogen-fixing bacterial genes into cereal crops; engineering pest-resistant crops (e.g. Bt endotoxin gene).
 - **Human Genome Project (HGP)**: Mapping and sequencing all human genes (~20,000–25,000 genes) across the 23 chromosome pairs, mapping disease loci and enabling DNA fingerprinting in forensics.`,
     keyTerms: [
-      { term: 'Restriction Endonuclease', definition: 'Bacterial enzyme that recognizes specific palindromic DNA sequences and cleaves the sugar-phosphate backbone, producing sticky or blunt ends.', arabicTerm: 'إنزيم القصر / القطع' },
-      { term: 'Recognition Site', definition: 'A specific sequence of 4 to 7 base pairs on double-stranded DNA that reads identically in the 5\' to 3\' direction on both strands.', arabicTerm: 'موقع التعرف' },
-      { term: 'Sticky Ends', definition: 'Single-stranded protruding nucleotide overhangs generated by staggered cleavage of restriction enzymes that can pair with complementary fragments.', arabicTerm: 'الأطراف اللاصقة' },
-      { term: 'Reverse Transcriptase', definition: 'Viral enzyme isolated from retroviruses that synthesizes a single-stranded complementary DNA (cDNA) molecule from an mRNA template.', arabicTerm: 'إنزيم النسخ العكسي' },
-      { term: 'Plasmid', definition: 'Small, circular, double-stranded extrachromosomal DNA molecule found in bacteria and yeast, widely utilized as a gene cloning vector.', arabicTerm: 'البلازميد' },
-      { term: 'Taq Polymerase', definition: 'Heat-stable DNA polymerase enzyme extracted from thermophilic bacteria (Thermus aquaticus) that synthesizes DNA during PCR at high temperatures.', arabicTerm: 'إنزيم تاك بوليميريز' },
-      { term: 'DNA Hybridization', definition: 'The molecular process of heating and re-annealing single strands of DNA from two different origins to assess evolutionary relatedness or detect target genes.', arabicTerm: 'تهجين الحمض النووي' },
-      { term: 'DNA Ligase', definition: 'Enzyme that catalyzes the formation of covalent phosphodiester bonds between adjacent nucleotides to join DNA fragments permanently.', arabicTerm: 'إنزيم الربط' },
+      {
+        term: 'Restriction Endonuclease',
+        definition:
+          'Bacterial enzyme that recognizes specific palindromic DNA sequences and cleaves the sugar-phosphate backbone, producing sticky or blunt ends.',
+        arabicTerm: 'إنزيم القصر / القطع',
+      },
+      {
+        term: 'Recognition Site',
+        definition:
+          "A specific sequence of 4 to 7 base pairs on double-stranded DNA that reads identically in the 5' to 3' direction on both strands.",
+        arabicTerm: 'موقع التعرف',
+      },
+      {
+        term: 'Sticky Ends',
+        definition:
+          'Single-stranded protruding nucleotide overhangs generated by staggered cleavage of restriction enzymes that can pair with complementary fragments.',
+        arabicTerm: 'الأطراف اللاصقة',
+      },
+      {
+        term: 'Reverse Transcriptase',
+        definition:
+          'Viral enzyme isolated from retroviruses that synthesizes a single-stranded complementary DNA (cDNA) molecule from an mRNA template.',
+        arabicTerm: 'إنزيم النسخ العكسي',
+      },
+      {
+        term: 'Plasmid',
+        definition:
+          'Small, circular, double-stranded extrachromosomal DNA molecule found in bacteria and yeast, widely utilized as a gene cloning vector.',
+        arabicTerm: 'البلازميد',
+      },
+      {
+        term: 'Taq Polymerase',
+        definition:
+          'Heat-stable DNA polymerase enzyme extracted from thermophilic bacteria (Thermus aquaticus) that synthesizes DNA during PCR at high temperatures.',
+        arabicTerm: 'إنزيم تاك بوليميريز',
+      },
+      {
+        term: 'DNA Hybridization',
+        definition:
+          'The molecular process of heating and re-annealing single strands of DNA from two different origins to assess evolutionary relatedness or detect target genes.',
+        arabicTerm: 'تهجين الحمض النووي',
+      },
+      {
+        term: 'DNA Ligase',
+        definition:
+          'Enzyme that catalyzes the formation of covalent phosphodiester bonds between adjacent nucleotides to join DNA fragments permanently.',
+        arabicTerm: 'إنزيم الربط',
+      },
     ],
     formulas: [
       {
         name: 'Palindromic Recognition Symmetry Rule',
-        formulaLatex: '5\'-\\text{Sequence}-3\' \\equiv 3\'-\\text{Complementary Sequence}-5\'',
-        description: 'Recognition sequences for restriction endonucleases must read identically from the 5\' end to the 3\' end on both complementary antiparallel strands.',
+        formulaLatex: "5'-\\text{Sequence}-3' \\equiv 3'-\\text{Complementary Sequence}-5'",
+        description:
+          "Recognition sequences for restriction endonucleases must read identically from the 5' end to the 3' end on both complementary antiparallel strands.",
         variables: 'Length of recognition sequence = 4 to 7 base pairs',
-        sampleCalculation: 'EcoRI site: Top strand 5\'-GAATTC-3\' matches bottom strand 3\'-CTTAAG-5\' (which read 5\'->3\' is also GAATTC).',
+        sampleCalculation:
+          "EcoRI site: Top strand 5'-GAATTC-3' matches bottom strand 3'-CTTAAG-5' (which read 5'->3' is also GAATTC).",
       },
       {
         name: 'PCR Exponential Amplification Formula',
         formulaLatex: 'N = N_0 \\times 2^n',
-        description: 'Calculates the total number of synthesized DNA duplexes after n thermocycling rounds in a PCR thermal cycler.',
-        variables: 'N = Final DNA copy count; N0 = Initial target molecules; n = Number of PCR cycles',
-        sampleCalculation: 'Starting with N0 = 10 molecules after n = 20 cycles: N = 10 * 2^20 = 10 * 1,048,576 = 10,485,760 copies.',
+        description:
+          'Calculates the total number of synthesized DNA duplexes after n thermocycling rounds in a PCR thermal cycler.',
+        variables:
+          'N = Final DNA copy count; N0 = Initial target molecules; n = Number of PCR cycles',
+        sampleCalculation:
+          'Starting with N0 = 10 molecules after n = 20 cycles: N = 10 * 2^20 = 10 * 1,048,576 = 10,485,760 copies.',
       },
       {
         name: 'Hybrid Duplex Melting Temperature vs Homology',
         formulaLatex: 'T_m \\propto \\text{Degree of Complementary Base Pairing (Homology)}',
-        description: 'The thermal energy required to denature hybrid DNA duplexes is directly proportional to the evolutionary relatedness and base compatibility between two species.',
+        description:
+          'The thermal energy required to denature hybrid DNA duplexes is directly proportional to the evolutionary relatedness and base compatibility between two species.',
         variables: 'Tm = Melting temperature (°C); Higher Tm indicates closer evolutionary kinship',
-        sampleCalculation: 'Human-Chimpanzee hybrid DNA separates at a significantly higher Tm than Human-Frog hybrid DNA.',
+        sampleCalculation:
+          'Human-Chimpanzee hybrid DNA separates at a significantly higher Tm than Human-Frog hybrid DNA.',
       },
     ],
     comparisonTables: [
@@ -1264,10 +2203,26 @@ NEGATIVE FEEDBACK
         columnA: 'Restriction Endonucleases (إنزيمات القصر)',
         columnB: 'Modification Enzymes (الإنزيمات المعدلة)',
         rows: [
-          { criteria: 'Biological Function', valueA: 'Cleaves and destroys invading viral (bacteriophage) foreign DNA', valueB: 'Protects the host bacterial genome from self-destruction' },
-          { criteria: 'Biochemical Action', valueA: 'Hydrolyzes phosphodiester bonds at specific recognition sequences', valueB: 'Adds methyl groups (-CH3) to specific nucleotides within recognition sites' },
-          { criteria: 'Substrate Targeted', valueA: 'Unmethylated foreign DNA lacking protective methyl tags', valueB: 'Host bacterial genomic DNA at identical recognition sequences' },
-          { criteria: 'End Result', valueA: 'Viral DNA fragmented into harmless, non-functional pieces', valueB: 'Bacterial DNA becomes impervious to its own restriction enzymes' },
+          {
+            criteria: 'Biological Function',
+            valueA: 'Cleaves and destroys invading viral (bacteriophage) foreign DNA',
+            valueB: 'Protects the host bacterial genome from self-destruction',
+          },
+          {
+            criteria: 'Biochemical Action',
+            valueA: 'Hydrolyzes phosphodiester bonds at specific recognition sequences',
+            valueB: 'Adds methyl groups (-CH3) to specific nucleotides within recognition sites',
+          },
+          {
+            criteria: 'Substrate Targeted',
+            valueA: 'Unmethylated foreign DNA lacking protective methyl tags',
+            valueB: 'Host bacterial genomic DNA at identical recognition sequences',
+          },
+          {
+            criteria: 'End Result',
+            valueA: 'Viral DNA fragmented into harmless, non-functional pieces',
+            valueB: 'Bacterial DNA becomes impervious to its own restriction enzymes',
+          },
         ],
       },
       {
@@ -1275,10 +2230,26 @@ NEGATIVE FEEDBACK
         columnA: 'Biological Cloning via Plasmids (داخل الخلايا)',
         columnB: 'PCR Amplification in Thermal Cycler (في المختبر)',
         rows: [
-          { criteria: 'Operating System', valueA: 'Living host cells (E. coli or yeast cultures)', valueB: 'Automated cell-free thermal cycler machine' },
-          { criteria: 'Enzymes Required', valueA: 'Restriction endonucleases, DNA ligase, host DNA polymerase', valueB: 'Thermostable Taq Polymerase enzyme only' },
-          { criteria: 'Time Requirement', valueA: 'Days to weeks (bacterial growth, plating, colony selection)', valueB: 'A few hours (automated 25-35 cycles)' },
-          { criteria: 'Product Capacity', valueA: 'Can produce both cloned DNA and active translated proteins (e.g. Insulin)', valueB: 'Produces pure amplified DNA fragments only (no protein translation)' },
+          {
+            criteria: 'Operating System',
+            valueA: 'Living host cells (E. coli or yeast cultures)',
+            valueB: 'Automated cell-free thermal cycler machine',
+          },
+          {
+            criteria: 'Enzymes Required',
+            valueA: 'Restriction endonucleases, DNA ligase, host DNA polymerase',
+            valueB: 'Thermostable Taq Polymerase enzyme only',
+          },
+          {
+            criteria: 'Time Requirement',
+            valueA: 'Days to weeks (bacterial growth, plating, colony selection)',
+            valueB: 'A few hours (automated 25-35 cycles)',
+          },
+          {
+            criteria: 'Product Capacity',
+            valueA: 'Can produce both cloned DNA and active translated proteins (e.g. Insulin)',
+            valueB: 'Produces pure amplified DNA fragments only (no protein translation)',
+          },
         ],
       },
       {
@@ -1286,20 +2257,78 @@ NEGATIVE FEEDBACK
         columnA: 'Genomic DNA (الحمض النووي الجينومي)',
         columnB: 'Complementary DNA / cDNA (الحمض النووي التكاملي)',
         rows: [
-          { criteria: 'Source Material', valueA: 'Extracted directly from cell nucleus chromosomes', valueB: 'Synthesized from mature cytoplasmic mRNA via Reverse Transcriptase' },
-          { criteria: 'Intron Content', valueA: 'Contains non-coding intervening sequences (introns) between exons', valueB: 'Contains continuous coding sequences (exons only, zero introns)' },
-          { criteria: 'Bacterial Expression', valueA: 'Cannot be expressed in bacteria (bacteria lack splicing machinery)', valueB: 'Successfully transcribed and translated into human proteins in bacteria' },
-          { criteria: 'Tissue Specificity', valueA: 'Identical in every nucleated cell of the body', valueB: 'Specific to the tissue where target gene is actively expressed' },
+          {
+            criteria: 'Source Material',
+            valueA: 'Extracted directly from cell nucleus chromosomes',
+            valueB: 'Synthesized from mature cytoplasmic mRNA via Reverse Transcriptase',
+          },
+          {
+            criteria: 'Intron Content',
+            valueA: 'Contains non-coding intervening sequences (introns) between exons',
+            valueB: 'Contains continuous coding sequences (exons only, zero introns)',
+          },
+          {
+            criteria: 'Bacterial Expression',
+            valueA: 'Cannot be expressed in bacteria (bacteria lack splicing machinery)',
+            valueB: 'Successfully transcribed and translated into human proteins in bacteria',
+          },
+          {
+            criteria: 'Tissue Specificity',
+            valueA: 'Identical in every nucleated cell of the body',
+            valueB: 'Specific to the tissue where target gene is actively expressed',
+          },
         ],
       },
     ],
     bloomProgression: [
-      { levelName: 'Remembering', levelNumber: 1, objective: 'Recall the definition, natural origin, and number of discovered bacterial restriction endonucleases.', masteryPrompt: 'Where are restriction endonucleases naturally found, and what is their primary defensive function?' },
-      { levelName: 'Understanding', levelNumber: 2, objective: 'Explain why bacteria do not digest their own chromosomal DNA despite possessing restriction enzymes.', masteryPrompt: 'How do modification enzymes protect bacterial host DNA from cleavage by endogenous restriction endonucleases?' },
-      { levelName: 'Applying', levelNumber: 3, objective: 'Determine whether a given 6-nucleotide sequence constitutes a valid palindromic recognition site.', masteryPrompt: 'Evaluate whether the sequence 5\'-GAATTC-3\' is a palindromic restriction site by writing its complementary strand.' },
-      { levelName: 'Analyzing', levelNumber: 4, objective: 'Analyze why human insulin cannot be synthesized in bacteria using genomic DNA directly from the nucleus.', masteryPrompt: 'Why is mature mRNA from pancreatic beta cells required instead of genomic nuclear DNA to clone the human insulin gene in E. coli?' },
-      { levelName: 'Evaluating', levelNumber: 5, objective: 'Evaluate the biochemical necessity of Taq polymerase in PCR over human DNA polymerase.', masteryPrompt: 'What would occur in a PCR thermal cycler if human DNA polymerase was substituted for Taq polymerase at 94°C?' },
-      { levelName: 'Creating', levelNumber: 6, objective: 'Design a complete experimental protocol to clone and express a human clotting factor gene in bacterial cells.', masteryPrompt: 'Formulate the step-by-step molecular pipeline to isolate, ligate, transform, and harvest a recombinant human therapeutic protein.' },
+      {
+        levelName: 'Remembering',
+        levelNumber: 1,
+        objective:
+          'Recall the definition, natural origin, and number of discovered bacterial restriction endonucleases.',
+        masteryPrompt:
+          'Where are restriction endonucleases naturally found, and what is their primary defensive function?',
+      },
+      {
+        levelName: 'Understanding',
+        levelNumber: 2,
+        objective:
+          'Explain why bacteria do not digest their own chromosomal DNA despite possessing restriction enzymes.',
+        masteryPrompt:
+          'How do modification enzymes protect bacterial host DNA from cleavage by endogenous restriction endonucleases?',
+      },
+      {
+        levelName: 'Applying',
+        levelNumber: 3,
+        objective:
+          'Determine whether a given 6-nucleotide sequence constitutes a valid palindromic recognition site.',
+        masteryPrompt:
+          "Evaluate whether the sequence 5'-GAATTC-3' is a palindromic restriction site by writing its complementary strand.",
+      },
+      {
+        levelName: 'Analyzing',
+        levelNumber: 4,
+        objective:
+          'Analyze why human insulin cannot be synthesized in bacteria using genomic DNA directly from the nucleus.',
+        masteryPrompt:
+          'Why is mature mRNA from pancreatic beta cells required instead of genomic nuclear DNA to clone the human insulin gene in E. coli?',
+      },
+      {
+        levelName: 'Evaluating',
+        levelNumber: 5,
+        objective:
+          'Evaluate the biochemical necessity of Taq polymerase in PCR over human DNA polymerase.',
+        masteryPrompt:
+          'What would occur in a PCR thermal cycler if human DNA polymerase was substituted for Taq polymerase at 94°C?',
+      },
+      {
+        levelName: 'Creating',
+        levelNumber: 6,
+        objective:
+          'Design a complete experimental protocol to clone and express a human clotting factor gene in bacterial cells.',
+        masteryPrompt:
+          'Formulate the step-by-step molecular pipeline to isolate, ligate, transform, and harvest a recombinant human therapeutic protein.',
+      },
     ],
     asciiSchematic: `================= RECOMBINANT DNA CLONING PIPELINE =================
     Human Cell Nucleus                      Bacterial Cell
@@ -1335,94 +2364,198 @@ NEGATIVE FEEDBACK
     schematicCaption:
       'Recombinant DNA Construction: Digestion of target cDNA and plasmid vector with the identical restriction endonuclease yields complementary sticky ends annealed by DNA ligase.',
     flowcharts: [
-      { stepNumber: 1, action: 'mRNA isolation from target tissue', detail: 'Isolate mature spliced mRNA from beta-cells of islets of Langerhans', triggerOrEnzyme: 'Cellular differentiation' },
-      { stepNumber: 2, action: 'cDNA synthesis via Reverse Transcriptase', detail: 'Viral reverse transcriptase synthesizes single-stranded cDNA; DNA polymerase forms double-stranded cDNA', triggerOrEnzyme: 'Reverse Transcriptase' },
-      { stepNumber: 3, action: 'Vector & gene restriction cleavage', detail: 'Cut both human cDNA and bacterial plasmid with the same restriction enzyme to generate compatible sticky ends', triggerOrEnzyme: 'Restriction Endonuclease' },
-      { stepNumber: 4, action: 'Covalent ligation', detail: 'DNA ligase forms covalent phosphodiester bonds between plasmid and human gene sticky ends', triggerOrEnzyme: 'DNA Ligase' },
-      { stepNumber: 5, action: 'Bacterial transformation', detail: 'Introduce recombinant plasmid into permeable E. coli cells', triggerOrEnzyme: 'Heat shock / CaCl2' },
-      { stepNumber: 6, action: 'Clonal expression & harvesting', detail: 'Bacteria multiply by binary fission every 20 minutes, producing pure recombinant therapeutic protein', triggerOrEnzyme: 'Cellular division' },
+      {
+        stepNumber: 1,
+        action: 'mRNA isolation from target tissue',
+        detail: 'Isolate mature spliced mRNA from beta-cells of islets of Langerhans',
+        triggerOrEnzyme: 'Cellular differentiation',
+      },
+      {
+        stepNumber: 2,
+        action: 'cDNA synthesis via Reverse Transcriptase',
+        detail:
+          'Viral reverse transcriptase synthesizes single-stranded cDNA; DNA polymerase forms double-stranded cDNA',
+        triggerOrEnzyme: 'Reverse Transcriptase',
+      },
+      {
+        stepNumber: 3,
+        action: 'Vector & gene restriction cleavage',
+        detail:
+          'Cut both human cDNA and bacterial plasmid with the same restriction enzyme to generate compatible sticky ends',
+        triggerOrEnzyme: 'Restriction Endonuclease',
+      },
+      {
+        stepNumber: 4,
+        action: 'Covalent ligation',
+        detail:
+          'DNA ligase forms covalent phosphodiester bonds between plasmid and human gene sticky ends',
+        triggerOrEnzyme: 'DNA Ligase',
+      },
+      {
+        stepNumber: 5,
+        action: 'Bacterial transformation',
+        detail: 'Introduce recombinant plasmid into permeable E. coli cells',
+        triggerOrEnzyme: 'Heat shock / CaCl2',
+      },
+      {
+        stepNumber: 6,
+        action: 'Clonal expression & harvesting',
+        detail:
+          'Bacteria multiply by binary fission every 20 minutes, producing pure recombinant therapeutic protein',
+        triggerOrEnzyme: 'Cellular division',
+      },
     ],
     visualInspectionMarkers: [
-      'Recognition site diagrams: Check symmetry: 5\'->3\' on strand 1 must match 5\'->3\' on strand 2.',
+      "Recognition site diagrams: Check symmetry: 5'->3' on strand 1 must match 5'->3' on strand 2.",
       'Sticky ends: Must have 4-5 single-stranded unbonded nucleotide overhangs complementary to each other.',
       'PCR cycle graphs: Three distinct temperature plateaus: Denaturation (94°C), Annealing (55°C), Extension (72°C).',
       'DNA Hybridization curves: Steeper melting curve and higher Tm indicates closer evolutionary kinship.',
     ],
     youtube3DQueries: [
-      { query: 'Recombinant DNA technology 3D animation restriction enzymes plasmid', topicDescription: 'Visualizes restriction enzyme cleavage, sticky ends annealing, and plasmid transformation into bacteria.', durationRecommendation: '4-6 mins' },
-      { query: 'Polymerase Chain Reaction PCR 3D molecular animation Taq polymerase', topicDescription: 'Demonstrates thermal cycler denaturation, primer annealing, and Taq polymerase extension cycles.', durationRecommendation: '3-5 mins' },
+      {
+        query: 'Recombinant DNA technology 3D animation restriction enzymes plasmid',
+        topicDescription:
+          'Visualizes restriction enzyme cleavage, sticky ends annealing, and plasmid transformation into bacteria.',
+        durationRecommendation: '4-6 mins',
+      },
+      {
+        query: 'Polymerase Chain Reaction PCR 3D molecular animation Taq polymerase',
+        topicDescription:
+          'Demonstrates thermal cycler denaturation, primer annealing, and Taq polymerase extension cycles.',
+        durationRecommendation: '3-5 mins',
+      },
     ],
     questions: [
       {
         id: 'q_gene_1',
         type: 'SCIENTIFIC_TERM',
-        question: 'Write the scientific term: A viral enzyme isolated from retroviruses that uses a mature mRNA template to synthesize a complementary single strand of DNA.',
+        question:
+          'Write the scientific term: A viral enzyme isolated from retroviruses that uses a mature mRNA template to synthesize a complementary single strand of DNA.',
         officialAnswer: 'Reverse Transcriptase (إنزيم النسخ العكسي)',
-        rationale: 'Reverse transcriptase reverses the standard central dogma (RNA -> DNA), allowing intron-free cDNA synthesis from mature eukaryotic mRNA.',
+        rationale:
+          'Reverse transcriptase reverses the standard central dogma (RNA -> DNA), allowing intron-free cDNA synthesis from mature eukaryotic mRNA.',
         ministryExamTip: 'Must mention its viral origin (retroviruses) and mRNA substrate.',
       },
       {
         id: 'q_gene_2',
         type: 'GIVE_REASON',
-        question: 'Give reason: Bacterial restriction endonucleases do not digest the genomic DNA of the bacterium that produces them.',
-        officialAnswer: 'Because the bacterium produces modification enzymes that add protective methyl groups (-CH3) to specific nucleotides within the recognition sites on its own DNA, altering their structural profile and rendering them resistant to cleavage by its endogenous restriction endonucleases.',
-        rationale: 'Methylation at recognition sites masks the host DNA from restriction endonuclease catalytic cleavage.',
-        ministryExamTip: 'Keywords required: "Modification enzymes", "Methyl groups (-CH3)", "Recognition sites".',
+        question:
+          'Give reason: Bacterial restriction endonucleases do not digest the genomic DNA of the bacterium that produces them.',
+        officialAnswer:
+          'Because the bacterium produces modification enzymes that add protective methyl groups (-CH3) to specific nucleotides within the recognition sites on its own DNA, altering their structural profile and rendering them resistant to cleavage by its endogenous restriction endonucleases.',
+        rationale:
+          'Methylation at recognition sites masks the host DNA from restriction endonuclease catalytic cleavage.',
+        ministryExamTip:
+          'Keywords required: "Modification enzymes", "Methyl groups (-CH3)", "Recognition sites".',
       },
       {
         id: 'q_gene_3',
         type: 'WHAT_HAPPENS_IF',
-        question: 'What happens if: A mixture of DNA extracted from humans and chimpanzees is heated to 100°C and then allowed to cool slowly?',
-        officialAnswer: 'The hydrogen bonds break at 100°C separating the double helices into single strands. Upon slow cooling, complementary single strands from both species collide and re-anneal to form hybrid double-stranded DNA (DNA هجين). Because of high evolutionary relatedness and sequence homology, a large number of hybrid helices form with high melting temperature (Tm).',
-        rationale: 'DNA hybridization occurs between complementary sequences of different species; high homology forms stable hybrid duplexes.',
-        ministryExamTip: 'Mention both: 1) Strand separation at 100°C, and 2) Formation of hybrid DNA (DNA هجين) with high thermal stability.',
+        question:
+          'What happens if: A mixture of DNA extracted from humans and chimpanzees is heated to 100°C and then allowed to cool slowly?',
+        officialAnswer:
+          'The hydrogen bonds break at 100°C separating the double helices into single strands. Upon slow cooling, complementary single strands from both species collide and re-anneal to form hybrid double-stranded DNA (DNA هجين). Because of high evolutionary relatedness and sequence homology, a large number of hybrid helices form with high melting temperature (Tm).',
+        rationale:
+          'DNA hybridization occurs between complementary sequences of different species; high homology forms stable hybrid duplexes.',
+        ministryExamTip:
+          'Mention both: 1) Strand separation at 100°C, and 2) Formation of hybrid DNA (DNA هجين) with high thermal stability.',
       },
       {
         id: 'q_gene_4',
         type: 'MCQ',
-        question: 'Which of the following enzymes is isolated from a thermophilic bacterium living in hot springs and is indispensable for automated Polymerase Chain Reaction (PCR)?',
+        question:
+          'Which of the following enzymes is isolated from a thermophilic bacterium living in hot springs and is indispensable for automated Polymerase Chain Reaction (PCR)?',
         options: ['DNA Ligase', 'Taq Polymerase', 'Reverse Transcriptase', 'Deoxyribonuclease'],
         correctOptionIndex: 1,
         officialAnswer: 'Taq Polymerase',
-        rationale: 'Taq Polymerase is isolated from Thermus aquaticus and can withstand repeated denaturation cycles at temperatures exceeding 90°C without denaturation.',
-        ministryExamTip: 'Taq Polymerase operates in the thermal cycler; Reverse Transcriptase is for cDNA synthesis.',
+        rationale:
+          'Taq Polymerase is isolated from Thermus aquaticus and can withstand repeated denaturation cycles at temperatures exceeding 90°C without denaturation.',
+        ministryExamTip:
+          'Taq Polymerase operates in the thermal cycler; Reverse Transcriptase is for cDNA synthesis.',
       },
     ],
     examTraps: [
       {
-        misconception: 'Believing human genomic DNA from the nucleus can be directly inserted into bacteria to produce active insulin.',
-        scientificTruth: 'Human genomic DNA contains introns. Bacteria lack spliceosomes and cannot remove introns, resulting in non-functional junk protein. Therefore, cDNA synthesized from mature mRNA (exons only) must be used!',
-        examTrapWarning: 'If asked why mRNA from pancreatic cells is used rather than nuclear DNA: Bacteria cannot excise introns from pre-mRNA!',
-        goldenRule: 'Genomic DNA = Introns + Exons (fails in bacteria); cDNA = Exons only (succeeds in bacteria).',
+        misconception:
+          'Believing human genomic DNA from the nucleus can be directly inserted into bacteria to produce active insulin.',
+        scientificTruth:
+          'Human genomic DNA contains introns. Bacteria lack spliceosomes and cannot remove introns, resulting in non-functional junk protein. Therefore, cDNA synthesized from mature mRNA (exons only) must be used!',
+        examTrapWarning:
+          'If asked why mRNA from pancreatic cells is used rather than nuclear DNA: Bacteria cannot excise introns from pre-mRNA!',
+        goldenRule:
+          'Genomic DNA = Introns + Exons (fails in bacteria); cDNA = Exons only (succeeds in bacteria).',
       },
       {
-        misconception: 'Thinking restriction enzymes and modification enzymes cut at different sequences.',
-        scientificTruth: 'Both restriction endonucleases and modification enzymes recognize the EXACT same recognition sequence; modification enzymes methylate it, preventing restriction enzymes from cutting it.',
+        misconception:
+          'Thinking restriction enzymes and modification enzymes cut at different sequences.',
+        scientificTruth:
+          'Both restriction endonucleases and modification enzymes recognize the EXACT same recognition sequence; modification enzymes methylate it, preventing restriction enzymes from cutting it.',
         examTrapWarning: 'Modification enzymes do NOT cut DNA; they only add methyl groups (-CH3)!',
         goldenRule: 'Restriction enzymes cut; Modification enzymes methylate.',
       },
       {
         misconception: 'Confusing the function of Reverse Transcriptase with RNA Polymerase.',
-        scientificTruth: 'RNA Polymerase transcribes DNA into RNA; Reverse Transcriptase synthesizes DNA from an RNA template.',
+        scientificTruth:
+          'RNA Polymerase transcribes DNA into RNA; Reverse Transcriptase synthesizes DNA from an RNA template.',
         examTrapWarning: 'Transcription = DNA -> RNA; Reverse Transcription = RNA -> cDNA!',
         goldenRule: 'Reverse Transcriptase = RNA to DNA.',
       },
     ],
     flashcards: [
-      { id: 'fc_gene_1', topicId: 'genetic_engineering_recombinant', frontPrompt: 'What is the natural biological function of restriction endonucleases in bacteria?', backAnswer: 'To defend against bacteriophages by recognizing and cleaving invading foreign viral DNA.', category: 'Enzymology' },
-      { id: 'fc_gene_2', topicId: 'genetic_engineering_recombinant', frontPrompt: 'What structural feature characterizes a restriction enzyme recognition site?', backAnswer: 'A palindromic sequence of 4 to 7 base pairs that reads identically on both complementary strands in the 5\' to 3\' direction.', category: 'Molecular Biology' },
-      { id: 'fc_gene_3', topicId: 'genetic_engineering_recombinant', frontPrompt: 'Why must the target human gene and the plasmid vector be cut with the EXACT same restriction enzyme?', backAnswer: 'To produce complementary sticky ends that can anneal together via complementary base pairing.', category: 'Genetic Engineering' },
-      { id: 'fc_gene_4', topicId: 'genetic_engineering_recombinant', frontPrompt: 'Why is Taq polymerase used in PCR instead of normal human DNA polymerase?', backAnswer: 'Because Taq polymerase is exceptionally heat-stable and does not denature at the 94°C-95°C denaturation temperatures.', category: 'Biotechnology' },
+      {
+        id: 'fc_gene_1',
+        topicId: 'genetic_engineering_recombinant',
+        frontPrompt:
+          'What is the natural biological function of restriction endonucleases in bacteria?',
+        backAnswer:
+          'To defend against bacteriophages by recognizing and cleaving invading foreign viral DNA.',
+        category: 'Enzymology',
+      },
+      {
+        id: 'fc_gene_2',
+        topicId: 'genetic_engineering_recombinant',
+        frontPrompt: 'What structural feature characterizes a restriction enzyme recognition site?',
+        backAnswer:
+          "A palindromic sequence of 4 to 7 base pairs that reads identically on both complementary strands in the 5' to 3' direction.",
+        category: 'Molecular Biology',
+      },
+      {
+        id: 'fc_gene_3',
+        topicId: 'genetic_engineering_recombinant',
+        frontPrompt:
+          'Why must the target human gene and the plasmid vector be cut with the EXACT same restriction enzyme?',
+        backAnswer:
+          'To produce complementary sticky ends that can anneal together via complementary base pairing.',
+        category: 'Genetic Engineering',
+      },
+      {
+        id: 'fc_gene_4',
+        topicId: 'genetic_engineering_recombinant',
+        frontPrompt: 'Why is Taq polymerase used in PCR instead of normal human DNA polymerase?',
+        backAnswer:
+          'Because Taq polymerase is exceptionally heat-stable and does not denature at the 94°C-95°C denaturation temperatures.',
+        category: 'Biotechnology',
+      },
     ],
     examSimulationItem: {
       id: 'sim_recombinant_cloning',
       questionType: 'GIVE_REASON',
-      prompt: 'Give Reason: In genetic engineering, researchers synthesize the human insulin gene from mature mRNA rather than isolating it directly from the chromosomal DNA of the nucleus.',
+      prompt:
+        'Give Reason: In genetic engineering, researchers synthesize the human insulin gene from mature mRNA rather than isolating it directly from the chromosomal DNA of the nucleus.',
       maxScore: 2.0,
-      requiredKeywords: ['mrna', 'introns', 'exons', 'bacteria', 'splicing', 'reverse transcriptase'],
+      requiredKeywords: [
+        'mrna',
+        'introns',
+        'exons',
+        'bacteria',
+        'splicing',
+        'reverse transcriptase',
+      ],
       partialCreditKeywords: ['mature', 'protein', 'non-coding'],
-      modelAnswer: 'Because chromosomal nuclear DNA contains non-coding intervening sequences (introns) interspersed between expressed coding sequences (exons). Since bacterial host cells lack RNA splicing machinery (spliceosomes) to excise introns, inserting genomic DNA directly would result in an abnormal, non-functional protein. Mature mRNA has already undergone post-transcriptional splicing, containing only exons; using Reverse Transcriptase allows researchers to synthesize a complementary DNA (cDNA) copy that bacteria can faithfully translate into active human insulin.',
-      remediationNotes: 'Full marks require mentioning: 1) Presence of introns in genomic DNA, 2) Inability of bacteria to splice introns, and 3) Role of Reverse Transcriptase in making intron-free cDNA.',
+      modelAnswer:
+        'Because chromosomal nuclear DNA contains non-coding intervening sequences (introns) interspersed between expressed coding sequences (exons). Since bacterial host cells lack RNA splicing machinery (spliceosomes) to excise introns, inserting genomic DNA directly would result in an abnormal, non-functional protein. Mature mRNA has already undergone post-transcriptional splicing, containing only exons; using Reverse Transcriptase allows researchers to synthesize a complementary DNA (cDNA) copy that bacteria can faithfully translate into active human insulin.',
+      remediationNotes:
+        'Full marks require mentioning: 1) Presence of introns in genomic DNA, 2) Inability of bacteria to splice introns, and 3) Role of Reverse Transcriptase in making intron-free cDNA.',
     },
   },
 };

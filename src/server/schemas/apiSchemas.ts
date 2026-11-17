@@ -21,8 +21,16 @@ export const GradeExamItemSchema = z.object({
 });
 
 export const ExplainConceptSchema = z.object({
-  topicTitle: z.string().min(1).max(200).transform((val: string) => val.trim()),
-  question: z.string().min(3).max(1000).transform((val: string) => val.trim()),
+  topicTitle: z
+    .string()
+    .min(1)
+    .max(200)
+    .transform((val: string) => val.trim()),
+  question: z
+    .string()
+    .min(3)
+    .max(1000)
+    .transform((val: string) => val.trim()),
   mode: z.enum(['technical', 'eli5']).default('technical'),
 });
 

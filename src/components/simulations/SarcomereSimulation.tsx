@@ -16,13 +16,13 @@ export const SarcomereSimulation: React.FC = () => {
   const isCaSufficient = calciumLevel >= 25;
   const isAtpSufficient = atpLevel >= 20;
   const isCrampState = calciumLevel >= 40 && atpLevel < 15; // Sustained contracture with no ATP to detach
-  
+
   // Contraction degree is determined by Calcium (activation) and ATP (energy cycle)
   const contraction = isCrampState
     ? 90
     : isCaSufficient && isAtpSufficient
-    ? Math.min(100, Math.round((calciumLevel * 0.6 + atpLevel * 0.4)))
-    : Math.max(5, Math.round(calciumLevel * 0.2));
+      ? Math.min(100, Math.round(calciumLevel * 0.6 + atpLevel * 0.4))
+      : Math.max(5, Math.round(calciumLevel * 0.2));
 
   // Sarcomere biological measurements (µm)
   const sarcomereLengthUm = Number((2.6 - (contraction / 100) * 0.9).toFixed(2));
@@ -78,21 +78,25 @@ export const SarcomereSimulation: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900/90 border border-slate-800 p-4 rounded-2xl">
         <div className="flex flex-wrap items-center gap-2">
           {/* ATP Status Pill */}
-          <div className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition-all ${
-            atpLevel >= 20
-              ? 'bg-amber-500/15 border-amber-500/30 text-amber-300'
-              : 'bg-rose-500/20 border-rose-500/40 text-rose-300 animate-pulse'
-          }`}>
+          <div
+            className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition-all ${
+              atpLevel >= 20
+                ? 'bg-amber-500/15 border-amber-500/30 text-amber-300'
+                : 'bg-rose-500/20 border-rose-500/40 text-rose-300 animate-pulse'
+            }`}
+          >
             <Zap className="w-3.5 h-3.5 text-amber-400" />
             <span>ATP Supply: {atpLevel}%</span>
           </div>
 
           {/* Calcium Status Pill */}
-          <div className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition-all ${
-            calciumLevel >= 25
-              ? 'bg-teal-500/15 border-teal-500/30 text-teal-300'
-              : 'bg-slate-800 border-slate-700 text-slate-400'
-          }`}>
+          <div
+            className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition-all ${
+              calciumLevel >= 25
+                ? 'bg-teal-500/15 border-teal-500/30 text-teal-300'
+                : 'bg-slate-800 border-slate-700 text-slate-400'
+            }`}
+          >
             <div className="w-2 h-2 rounded-full bg-teal-400" />
             <span>Ca²⁺ Concentration: {calciumLevel}%</span>
           </div>
@@ -124,9 +128,7 @@ export const SarcomereSimulation: React.FC = () => {
             <Activity className="w-3.5 h-3.5 text-teal-400" />
             Sliding Filament Cycle (Huxley Model)
           </span>
-          <span className="text-teal-400 font-bold">
-            Sarcomere Length: {sarcomereLengthUm} µm
-          </span>
+          <span className="text-teal-400 font-bold">Sarcomere Length: {sarcomereLengthUm} µm</span>
         </div>
 
         <svg viewBox="0 0 600 240" className="w-full h-auto select-none">
@@ -143,8 +145,25 @@ export const SarcomereSimulation: React.FC = () => {
           </defs>
 
           {/* Central M-Line */}
-          <line x1="300" y1="20" x2="300" y2="220" stroke="#EC4899" strokeWidth="2" strokeDasharray="3 3" />
-          <text x="305" y="32" fill="#EC4899" fontSize="10" fontFamily="sans-serif" fontWeight="bold">M-Line</text>
+          <line
+            x1="300"
+            y1="20"
+            x2="300"
+            y2="220"
+            stroke="#EC4899"
+            strokeWidth="2"
+            strokeDasharray="3 3"
+          />
+          <text
+            x="305"
+            y="32"
+            fill="#EC4899"
+            fontSize="10"
+            fontFamily="sans-serif"
+            fontWeight="bold"
+          >
+            M-Line
+          </text>
 
           {/* Left Z-Line */}
           <motion.line
@@ -155,7 +174,9 @@ export const SarcomereSimulation: React.FC = () => {
             stroke="#F59E0B"
             strokeWidth="4"
           />
-          <text x={leftZ - 28} y="32" fill="#F59E0B" fontSize="11" fontWeight="bold">Z-Line</text>
+          <text x={leftZ - 28} y="32" fill="#F59E0B" fontSize="11" fontWeight="bold">
+            Z-Line
+          </text>
 
           {/* Right Z-Line */}
           <motion.line
@@ -166,7 +187,9 @@ export const SarcomereSimulation: React.FC = () => {
             stroke="#F59E0B"
             strokeWidth="4"
           />
-          <text x={rightZ + 8} y="32" fill="#F59E0B" fontSize="11" fontWeight="bold">Z-Line</text>
+          <text x={rightZ + 8} y="32" fill="#F59E0B" fontSize="11" fontWeight="bold">
+            Z-Line
+          </text>
 
           {/* Central Thick Myosin Filaments (Stationary, 140px Invariant) */}
           <rect x="230" y="105" width={aBandWidth} height="30" rx="4" fill="url(#myosinGrad)" />
@@ -232,7 +255,10 @@ export const SarcomereSimulation: React.FC = () => {
           })}
 
           {/* Left Actin Filaments attached to Left Z-line */}
-          <motion.g animate={{ x: leftZ }} transition={{ type: 'spring', stiffness: 220, damping: 25 }}>
+          <motion.g
+            animate={{ x: leftZ }}
+            transition={{ type: 'spring', stiffness: 220, damping: 25 }}
+          >
             <rect x="0" y="44" width="130" height="8" rx="2" fill="url(#actinGrad)" />
             <rect x="0" y="90" width="130" height="8" rx="2" fill="url(#actinGrad)" />
             <rect x="0" y="142" width="130" height="8" rx="2" fill="url(#actinGrad)" />
@@ -240,7 +266,10 @@ export const SarcomereSimulation: React.FC = () => {
           </motion.g>
 
           {/* Right Actin Filaments attached to Right Z-line */}
-          <motion.g animate={{ x: rightZ - 130 }} transition={{ type: 'spring', stiffness: 220, damping: 25 }}>
+          <motion.g
+            animate={{ x: rightZ - 130 }}
+            transition={{ type: 'spring', stiffness: 220, damping: 25 }}
+          >
             <rect x="0" y="44" width="130" height="8" rx="2" fill="url(#actinGrad)" />
             <rect x="0" y="90" width="130" height="8" rx="2" fill="url(#actinGrad)" />
             <rect x="0" y="142" width="130" height="8" rx="2" fill="url(#actinGrad)" />
@@ -249,13 +278,24 @@ export const SarcomereSimulation: React.FC = () => {
 
           {/* A-Band Invariant Overlay */}
           <line x1="230" y1="228" x2="370" y2="228" stroke="#818CF8" strokeWidth="2.5" />
-          <text x="278" y="238" fill="#A5B4FC" fontSize="10" fontWeight="bold">A-Band (Constant 140px)</text>
+          <text x="278" y="238" fill="#A5B4FC" fontSize="10" fontWeight="bold">
+            A-Band (Constant 140px)
+          </text>
 
           {/* H-Zone Indicator (Narrows and vanishes during full contraction) */}
           {hZoneWidth > 6 && (
             <g>
-              <line x1={300 - hZoneWidth / 2} y1="12" x2={300 + hZoneWidth / 2} y2="12" stroke="#38BDF8" strokeWidth="2.5" />
-              <text x={285} y="10" fill="#38BDF8" fontSize="10" fontWeight="bold">H-Zone</text>
+              <line
+                x1={300 - hZoneWidth / 2}
+                y1="12"
+                x2={300 + hZoneWidth / 2}
+                y2="12"
+                stroke="#38BDF8"
+                strokeWidth="2.5"
+              />
+              <text x={285} y="10" fill="#38BDF8" fontSize="10" fontWeight="bold">
+                H-Zone
+              </text>
             </g>
           )}
         </svg>
@@ -267,13 +307,17 @@ export const SarcomereSimulation: React.FC = () => {
             <span className="font-bold text-teal-300 font-mono">{contraction}%</span>
             <span className="text-slate-500">|</span>
             <span className="text-slate-400">H-Zone:</span>
-            <span className={`font-semibold ${hZoneWidth === 0 ? 'text-rose-400' : 'text-sky-300'}`}>
+            <span
+              className={`font-semibold ${hZoneWidth === 0 ? 'text-rose-400' : 'text-sky-300'}`}
+            >
               {hZoneWidth === 0 ? 'Disappeared (Full Contraction)' : `${hZoneWidth} px`}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-indigo-300">
             <span className="text-slate-400">Cross-Bridges:</span>
-            <span className={`font-semibold ${isCaSufficient ? 'text-teal-300' : 'text-slate-400'}`}>
+            <span
+              className={`font-semibold ${isCaSufficient ? 'text-teal-300' : 'text-slate-400'}`}
+            >
               {isCaSufficient ? 'Hooked (Active Sites Exposed)' : 'Detached (Tropomyosin Blocking)'}
             </span>
           </div>
@@ -340,9 +384,14 @@ export const SarcomereSimulation: React.FC = () => {
         >
           <AlertTriangle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
           <div className="text-xs text-rose-200 leading-relaxed">
-            <strong className="text-rose-100 font-bold text-sm block">Ministry Exam Trap: Muscular Cramp vs Fatigue</strong>
+            <strong className="text-rose-100 font-bold text-sm block">
+              Ministry Exam Trap: Muscular Cramp vs Fatigue
+            </strong>
             <p className="mt-1 text-slate-300">
-              When Calcium remains elevated while ATP is depleted, transverse cross-bridges cannot detach from actin filaments. This causes an involuntary sustained contracture (<strong className="text-rose-300">Muscle Cramp / شد عضلي</strong>) which may result in fiber rupture and internal hemorrhage if forcefully stretched.
+              When Calcium remains elevated while ATP is depleted, transverse cross-bridges cannot
+              detach from actin filaments. This causes an involuntary sustained contracture (
+              <strong className="text-rose-300">Muscle Cramp / شد عضلي</strong>) which may result in
+              fiber rupture and internal hemorrhage if forcefully stretched.
             </p>
           </div>
         </motion.div>

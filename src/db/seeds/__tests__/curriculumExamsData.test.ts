@@ -18,7 +18,7 @@ describe('Curriculum Exams Seed Data Integrity', () => {
       expect(q.id).toBeTruthy();
       expect(q.textArabic.length).toBeGreaterThan(10);
       expect(q.options.length).toBe(4);
-      
+
       const optionIds = q.options.map((o) => o.id);
       expect(optionIds).toContain(q.correctOptionId);
       expect(q.trapExplanationArabic).toBeTruthy();

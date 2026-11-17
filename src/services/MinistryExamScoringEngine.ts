@@ -45,18 +45,51 @@ export class MinistryExamScoringEngine {
     let trapsTriggeredCount = 0;
     let answeredQuestionsCount = 0;
 
-    const chapterStatsMap: Record<UnitChapterId, {
-      titleArabic: string;
-      totalMarks: number;
-      obtainedMarks: number;
-      questionCount: number;
-      correctCount: number;
-    }> = {
-      support_and_movement: { titleArabic: 'الدعامة والحركة', totalMarks: 0, obtainedMarks: 0, questionCount: 0, correctCount: 0 },
-      hormonal_coordination: { titleArabic: 'التنسيق الهرموني', totalMarks: 0, obtainedMarks: 0, questionCount: 0, correctCount: 0 },
-      reproduction: { titleArabic: 'التكاثر في الكائنات الحية', totalMarks: 0, obtainedMarks: 0, questionCount: 0, correctCount: 0 },
-      immunity: { titleArabic: 'المناعة في الكائنات الحية', totalMarks: 0, obtainedMarks: 0, questionCount: 0, correctCount: 0 },
-      molecular_biology_dna_rna: { titleArabic: 'البيولوجيا الجزيئية (DNA & RNA)', totalMarks: 0, obtainedMarks: 0, questionCount: 0, correctCount: 0 }
+    const chapterStatsMap: Record<
+      UnitChapterId,
+      {
+        titleArabic: string;
+        totalMarks: number;
+        obtainedMarks: number;
+        questionCount: number;
+        correctCount: number;
+      }
+    > = {
+      support_and_movement: {
+        titleArabic: 'الدعامة والحركة',
+        totalMarks: 0,
+        obtainedMarks: 0,
+        questionCount: 0,
+        correctCount: 0,
+      },
+      hormonal_coordination: {
+        titleArabic: 'التنسيق الهرموني',
+        totalMarks: 0,
+        obtainedMarks: 0,
+        questionCount: 0,
+        correctCount: 0,
+      },
+      reproduction: {
+        titleArabic: 'التكاثر في الكائنات الحية',
+        totalMarks: 0,
+        obtainedMarks: 0,
+        questionCount: 0,
+        correctCount: 0,
+      },
+      immunity: {
+        titleArabic: 'المناعة في الكائنات الحية',
+        totalMarks: 0,
+        obtainedMarks: 0,
+        questionCount: 0,
+        correctCount: 0,
+      },
+      molecular_biology_dna_rna: {
+        titleArabic: 'البيولوجيا الجزيئية (DNA & RNA)',
+        totalMarks: 0,
+        obtainedMarks: 0,
+        questionCount: 0,
+        correctCount: 0,
+      },
     };
 
     questions.forEach((q) => {
@@ -68,7 +101,7 @@ export class MinistryExamScoringEngine {
         totalMarks: 0,
         obtainedMarks: 0,
         questionCount: 0,
-        correctCount: 0
+        correctCount: 0,
       };
       chStat.totalMarks += qWeight;
       chStat.questionCount += 1;
@@ -97,26 +130,32 @@ export class MinistryExamScoringEngine {
 
     // Grade tier classification
     let gradeTierArabic = 'مقبول';
-    let gradeDescriptionArabic = 'مستوى يفي بالحد الأدنى من المتطلبات، يوصى بمراجعة المفاهيم الأساسية.';
+    let gradeDescriptionArabic =
+      'مستوى يفي بالحد الأدنى من المتطلبات، يوصى بمراجعة المفاهيم الأساسية.';
     if (percentage >= 90) {
       gradeTierArabic = 'ممتاز (مرتبة الشرف)';
-      gradeDescriptionArabic = 'أداء استثنائي متوافق تماماً مع أعلى مستويات كليات القمة والطب البشري.';
+      gradeDescriptionArabic =
+        'أداء استثنائي متوافق تماماً مع أعلى مستويات كليات القمة والطب البشري.';
     } else if (percentage >= 80) {
       gradeTierArabic = 'جيد جداً مرتفع';
-      gradeDescriptionArabic = 'فهم عميق لأغلب مفاهيم الأحياء مع حاجة بسيطة لضبط فخاخ الأسئلة ذات الدرجتين.';
+      gradeDescriptionArabic =
+        'فهم عميق لأغلب مفاهيم الأحياء مع حاجة بسيطة لضبط فخاخ الأسئلة ذات الدرجتين.';
     } else if (percentage >= 65) {
       gradeTierArabic = 'جيد';
-      gradeDescriptionArabic = 'استيعاب متوسط، هناك ثغرات في فصول التكاثر أو البيولوجيا الجزيئية تحتاج لتركيز.';
+      gradeDescriptionArabic =
+        'استيعاب متوسط، هناك ثغرات في فصول التكاثر أو البيولوجيا الجزيئية تحتاج لتركيز.';
     } else if (percentage < 50) {
       gradeTierArabic = 'دون المستوى المطلوب';
-      gradeDescriptionArabic = 'يتطلب إعادة دراسة شاملة للمفاهيم الأساسية وحل الأسئلة المباشرة وتدريبات النماذج.';
+      gradeDescriptionArabic =
+        'يتطلب إعادة دراسة شاملة للمفاهيم الأساسية وحل الأسئلة المباشرة وتدريبات النماذج.';
     }
 
     // Chapter breakdowns
     const chapterBreakdowns: ChapterEvaluation[] = Object.keys(chapterStatsMap).map((key) => {
       const chKey = key as UnitChapterId;
       const stat = chapterStatsMap[chKey];
-      const chPct = stat.totalMarks > 0 ? Math.round((stat.obtainedMarks / stat.totalMarks) * 1000) / 10 : 0;
+      const chPct =
+        stat.totalMarks > 0 ? Math.round((stat.obtainedMarks / stat.totalMarks) * 1000) / 10 : 0;
       let masteryTier: 'mastered' | 'proficient' | 'needs_revision' = 'needs_revision';
       if (chPct >= 85) masteryTier = 'mastered';
       else if (chPct >= 65) masteryTier = 'proficient';
@@ -129,7 +168,7 @@ export class MinistryExamScoringEngine {
         percentage: chPct,
         questionCount: stat.questionCount,
         correctCount: stat.correctCount,
-        masteryTier
+        masteryTier,
       };
     });
 
@@ -141,15 +180,23 @@ export class MinistryExamScoringEngine {
     // Build remediation actionable advice
     const remediationAdviceArabic: string[] = [];
     if (weakestChapter && weakestChapter.percentage < 70) {
-      remediationAdviceArabic.push(`فصل "${weakestChapter.chapterTitleArabic}" يحتاج إلى مراجعة مركزة، حيث حققت فيه نسبة ${weakestChapter.percentage}% فقط.`);
+      remediationAdviceArabic.push(
+        `فصل "${weakestChapter.chapterTitleArabic}" يحتاج إلى مراجعة مركزة، حيث حققت فيه نسبة ${weakestChapter.percentage}% فقط.`
+      );
     }
     if (trapsTriggeredCount > 3) {
-      remediationAdviceArabic.push(`وقعت في ${trapsTriggeredCount} من فخاخ الأسئلة الوزارية! اقرأ بعناية الكلمات المفتاحية مثل (مباشرة، سلفاً، غير القالب).`);
+      remediationAdviceArabic.push(
+        `وقعت في ${trapsTriggeredCount} من فخاخ الأسئلة الوزارية! اقرأ بعناية الكلمات المفتاحية مثل (مباشرة، سلفاً، غير القالب).`
+      );
     }
     if (elapsedSeconds > 160 * 60) {
-      remediationAdviceArabic.push('استغرقت وقتاً طويلاً نسبياً، تدرب على مهارات الحساب الذهني في مسائل DNA والقطعة العضلية لتوفير الوقت.');
+      remediationAdviceArabic.push(
+        'استغرقت وقتاً طويلاً نسبياً، تدرب على مهارات الحساب الذهني في مسائل DNA والقطعة العضلية لتوفير الوقت.'
+      );
     } else {
-      remediationAdviceArabic.push('معدل سرعتك في الإجابة متوازن وممتاز، مما يسمح بمراجعة البابل شيت مرتين قبل التسليم.');
+      remediationAdviceArabic.push(
+        'معدل سرعتك في الإجابة متوازن وممتاز، مما يسمح بمراجعة البابل شيت مرتين قبل التسليم.'
+      );
     }
 
     return {
@@ -167,7 +214,7 @@ export class MinistryExamScoringEngine {
       chapterBreakdowns,
       weakestChapter,
       strongestChapter,
-      remediationAdviceArabic
+      remediationAdviceArabic,
     };
   }
 

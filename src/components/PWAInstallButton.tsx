@@ -94,7 +94,8 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
                     2
                   </div>
                   <div>
-                    Scroll down and select <strong>Add to Home Screen</strong> (إضافة إلى الصفحة الرئيسية).
+                    Scroll down and select <strong>Add to Home Screen</strong> (إضافة إلى الصفحة
+                    الرئيسية).
                   </div>
                 </div>
 

@@ -9,7 +9,10 @@ interface MetacognitiveWidgetProps {
   hasAnswered: boolean;
 }
 
-export function evaluateMetacognition(confidence: number, isCorrect: boolean): MetacognitiveAnalysis {
+export function evaluateMetacognition(
+  confidence: number,
+  isCorrect: boolean
+): MetacognitiveAnalysis {
   let gapType: MetacognitiveGapType;
   let feedbackTitle = '';
   let actionableAdvice = '';
@@ -93,10 +96,10 @@ export const MetacognitiveWidget: React.FC<MetacognitiveWidgetProps> = ({
             analysis.gapType === 'CALIBRATED_MASTERY'
               ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200'
               : analysis.gapType === 'OVERCONFIDENCE_BIAS'
-              ? 'bg-red-950/30 border-red-500/30 text-rose-200'
-              : analysis.gapType === 'UNDERCONFIDENCE_DOUBT'
-              ? 'bg-cyan-950/30 border-cyan-500/30 text-cyan-200'
-              : 'bg-amber-950/30 border-amber-500/30 text-amber-200'
+                ? 'bg-red-950/30 border-red-500/30 text-rose-200'
+                : analysis.gapType === 'UNDERCONFIDENCE_DOUBT'
+                  ? 'bg-cyan-950/30 border-cyan-500/30 text-cyan-200'
+                  : 'bg-amber-950/30 border-amber-500/30 text-amber-200'
           }`}
         >
           <div className="flex items-center gap-2 font-bold mb-1">
@@ -111,9 +114,7 @@ export const MetacognitiveWidget: React.FC<MetacognitiveWidgetProps> = ({
             )}
             <span>{analysis.feedbackTitle}</span>
           </div>
-          <p className="text-[11px] leading-relaxed text-slate-300">
-            {analysis.actionableAdvice}
-          </p>
+          <p className="text-[11px] leading-relaxed text-slate-300">{analysis.actionableAdvice}</p>
         </div>
       ) : null}
     </div>

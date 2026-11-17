@@ -13,7 +13,7 @@ interface ExamSimulatorScreenProps {
 
 export const ExamSimulatorScreen: FC<ExamSimulatorScreenProps> = ({
   paperId,
-  onBackToSelector
+  onBackToSelector,
 }) => {
   const {
     paper,
@@ -34,7 +34,7 @@ export const ExamSimulatorScreen: FC<ExamSimulatorScreenProps> = ({
     handleToggleFlag,
     handleNavigate,
     handleTogglePause,
-    handleSubmitExam
+    handleSubmitExam,
   } = useExamSession(paperId);
 
   // Keyboard navigation shortcuts
@@ -50,17 +50,28 @@ export const ExamSimulatorScreen: FC<ExamSimulatorScreenProps> = ({
       }
       // Keys 1, 2, 3, 4 for options A, B, C, D
       if (currentQuestion) {
-        if (e.key === '1' || e.key === 'a' || e.key === 'A') handleSelectOption(currentQuestion.id, 'A');
-        if (e.key === '2' || e.key === 'b' || e.key === 'B') handleSelectOption(currentQuestion.id, 'B');
-        if (e.key === '3' || e.key === 'c' || e.key === 'C') handleSelectOption(currentQuestion.id, 'C');
-        if (e.key === '4' || e.key === 'd' || e.key === 'D') handleSelectOption(currentQuestion.id, 'D');
+        if (e.key === '1' || e.key === 'a' || e.key === 'A')
+          handleSelectOption(currentQuestion.id, 'A');
+        if (e.key === '2' || e.key === 'b' || e.key === 'B')
+          handleSelectOption(currentQuestion.id, 'B');
+        if (e.key === '3' || e.key === 'c' || e.key === 'C')
+          handleSelectOption(currentQuestion.id, 'C');
+        if (e.key === '4' || e.key === 'd' || e.key === 'D')
+          handleSelectOption(currentQuestion.id, 'D');
         if (e.key === 'f' || e.key === 'F') handleToggleFlag(currentQuestion.id);
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentIndex, questions.length, currentQuestion, handleNavigate, handleSelectOption, handleToggleFlag]);
+  }, [
+    currentIndex,
+    questions.length,
+    currentQuestion,
+    handleNavigate,
+    handleSelectOption,
+    handleToggleFlag,
+  ]);
 
   if (isLoading) {
     return (

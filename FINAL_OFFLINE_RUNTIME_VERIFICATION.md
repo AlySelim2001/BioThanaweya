@@ -2,13 +2,14 @@
 
 **Project**: Scholar Sidekick — BioThanaweya  
 **Verification Auditor**: Lead Mobile Systems Specialist & Offline Architecture Auditor  
-**Audit Timestamp**: 2026-11-01T13:12:00Z  
+**Audit Timestamp**: 2026-11-01T13:12:00Z
 
 ---
 
 ## 1. Zero-Network Curriculum Integrity
 
 ### 1.1 Local Embedded Data Layer
+
 An exhaustive source audit confirms that 100% of the Egyptian Thanawya Amma Biology curriculum is bundled directly into the compiled native binary. Zero network calls are required to browse, study, calculate, or practice:
 
 - **Unit 1: Structure & Function in Living Organisms**
@@ -30,6 +31,7 @@ An exhaustive source audit confirms that 100% of the Egyptian Thanawya Amma Biol
 ## 2. Local Database & Mathematical Engines
 
 ### 2.1 Room Database Architecture (`BioDatabase.kt`)
+
 - **Database Name**: `bio_thanaweya.db`
 - **Schema Version**: `3`
 - **Migration Strategy**: `fallbackToDestructiveMigration()`
@@ -41,6 +43,7 @@ An exhaustive source audit confirms that 100% of the Egyptian Thanawya Amma Biol
   5. `StudyNoteDao` / `StudyNoteEntity`: Offline student annotations, bookmarks, and highlights.
 
 ### 2.2 Pure Offline Mathematical Calculators
+
 - **`DnaChargaffCalculator.kt`**: Calculates Adenine, Thymine, Guanine, and Cytosine base pair percentages and bond counts entirely on-device without remote servers.
 - **`SarcomereCalculator.kt`**: Computes Z-line distance, A-band constant length, I-band contraction ratios, and H-zone disappearance locally.
 - **`CodonCalculator.kt`**: Local translation table for mRNA triplets to amino acid sequences.
@@ -52,6 +55,7 @@ An exhaustive source audit confirms that 100% of the Egyptian Thanawya Amma Biol
 ## 3. Network Fault Tolerance & Graceful AI Degradation
 
 In `app/src/main/java/com/example/data/repository/AiRepositoryImpl.kt`:
+
 ```kotlin
 override suspend fun generateExplanation(topic: String, style: String): Result<String> {
     return try {
@@ -65,7 +69,9 @@ override suspend fun generateExplanation(topic: String, style: String): Result<S
     }
 }
 ```
+
 When offline or network times out:
+
 1. `AiRepositoryImpl` returns a clean `Result.failure`.
 2. `Agent1EducatorUseCase` intercepts the failure and returns high-yield textbook definitions and analogies.
 3. `Agent2VisualArchitectUseCase` renders embedded ASCII schematics, vector diagrams, and inspection markers.

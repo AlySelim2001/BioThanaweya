@@ -9,9 +9,12 @@ import {
   RefreshCw,
   ShieldCheck,
   Target,
-  XCircle
+  XCircle,
 } from 'lucide-react';
-import { DetailedEvaluationResult, MinistryExamScoringEngine } from '../../services/MinistryExamScoringEngine';
+import {
+  DetailedEvaluationResult,
+  MinistryExamScoringEngine,
+} from '../../services/MinistryExamScoringEngine';
 import { ExamAnswerRecord, ExamQuestion, OfficialExamPaper } from '../../types/exam';
 import { MistakeReviewModal } from './MistakeReviewModal';
 
@@ -32,9 +35,11 @@ export const ExamResultAnalytics: FC<ExamResultAnalyticsProps> = ({
   evaluation,
   elapsedSeconds,
   onRetakeExam,
-  onBackToSelector
+  onBackToSelector,
 }) => {
-  const [selectedQuestionForReview, setSelectedQuestionForReview] = useState<ExamQuestion | null>(null);
+  const [selectedQuestionForReview, setSelectedQuestionForReview] = useState<ExamQuestion | null>(
+    null
+  );
   const [filterMode, setFilterMode] = useState<'all' | 'mistakes' | 'correct'>('all');
 
   const formattedTime = MinistryExamScoringEngine.formatTime(elapsedSeconds);
@@ -60,9 +65,7 @@ export const ExamResultAnalytics: FC<ExamResultAnalyticsProps> = ({
               <ShieldCheck className="w-4 h-4" />
               <span>بطاقة تقييم الامتحان الوزاري المعتمدة</span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-black text-white mb-2">
-              {paper.titleArabic}
-            </h1>
+            <h1 className="text-xl sm:text-2xl font-black text-white mb-2">{paper.titleArabic}</h1>
             <p className="text-xs sm:text-sm text-slate-300 max-w-lg leading-relaxed">
               {evaluation.gradeDescriptionArabic}
             </p>
@@ -78,23 +81,20 @@ export const ExamResultAnalytics: FC<ExamResultAnalyticsProps> = ({
               </span>
               <span className="flex items-center gap-1.5 bg-obsidian-900/80 px-3 py-1.5 rounded-xl border border-slate-800">
                 <Flame className="w-4 h-4 text-biotrap-500" />
-                فخاخ وقعت بها: <strong className="text-white">{evaluation.trapsTriggeredCount}</strong>
+                فخاخ وقعت بها:{' '}
+                <strong className="text-white">{evaluation.trapsTriggeredCount}</strong>
               </span>
             </div>
           </div>
 
           {/* Large Score Dial */}
           <div className="flex flex-col items-center justify-center p-6 rounded-2xl bg-obsidian-900/90 border border-slate-700/80 shadow-inner shrink-0 w-52">
-            <span className="text-xs font-extrabold text-slate-400 mb-1">
-              المجموع الوزاري
-            </span>
+            <span className="text-xs font-extrabold text-slate-400 mb-1">المجموع الوزاري</span>
             <div className="flex items-baseline gap-1 font-black">
               <span className="text-4xl sm:text-5xl font-mono text-transparent bg-clip-text bg-gradient-to-r from-bioteal to-bioemerald">
                 {evaluation.scoreObtained}
               </span>
-              <span className="text-lg text-slate-500 font-mono">
-                / {evaluation.maxScore}
-              </span>
+              <span className="text-lg text-slate-500 font-mono">/ {evaluation.maxScore}</span>
             </div>
             <span className="mt-2 text-xs font-bold px-3 py-1 rounded-full bg-bioemerald/20 text-bioemerald border border-bioemerald/30">
               {evaluation.gradeTierArabic}
@@ -133,8 +133,8 @@ export const ExamResultAnalytics: FC<ExamResultAnalyticsProps> = ({
                         isMastered
                           ? 'bg-bioemerald/20 text-bioemerald border-bioemerald/30'
                           : isMid
-                          ? 'bg-bioteal/20 text-bioteal border-bioteal/30'
-                          : 'bg-biotrap-500/20 text-biotrap-500 border-biotrap-500/30'
+                            ? 'bg-bioteal/20 text-bioteal border-bioteal/30'
+                            : 'bg-biotrap-500/20 text-biotrap-500 border-biotrap-500/30'
                       }`}
                     >
                       {ch.percentage}%
@@ -142,19 +142,19 @@ export const ExamResultAnalytics: FC<ExamResultAnalyticsProps> = ({
                   </div>
 
                   <div className="text-[11px] text-slate-400 flex items-center justify-between mb-2">
-                    <span>الدرجات المحققة: {ch.obtainedMarks} من {ch.totalMarks}</span>
-                    <span>الأسئلة الصحيحة: {ch.correctCount}/{ch.questionCount}</span>
+                    <span>
+                      الدرجات المحققة: {ch.obtainedMarks} من {ch.totalMarks}
+                    </span>
+                    <span>
+                      الأسئلة الصحيحة: {ch.correctCount}/{ch.questionCount}
+                    </span>
                   </div>
                 </div>
 
                 <div className="w-full h-2 bg-obsidian-950 rounded-full overflow-hidden border border-slate-800">
                   <div
                     className={`h-full rounded-full transition-all duration-500 ${
-                      isMastered
-                        ? 'bg-bioemerald'
-                        : isMid
-                        ? 'bg-bioteal'
-                        : 'bg-biotrap-500'
+                      isMastered ? 'bg-bioemerald' : isMid ? 'bg-bioteal' : 'bg-biotrap-500'
                     }`}
                     style={{ width: `${ch.percentage}%` }}
                   />
@@ -191,7 +191,9 @@ export const ExamResultAnalytics: FC<ExamResultAnalyticsProps> = ({
               <BookOpen className="w-5 h-5 text-bioteal" />
               <span>مراجعة الأسئلة وتفكيك الفخاخ</span>
             </h3>
-            <p className="text-xs text-slate-400">انقر على أي سؤال للاطلاع على الشرح الوزاري الكامل</p>
+            <p className="text-xs text-slate-400">
+              انقر على أي سؤال للاطلاع على الشرح الوزاري الكامل
+            </p>
           </div>
 
           {/* Filter options */}
@@ -245,9 +247,7 @@ export const ExamResultAnalytics: FC<ExamResultAnalyticsProps> = ({
                 }`}
               >
                 <div className="flex items-center justify-between gap-1 mb-1.5">
-                  <span className="text-xs font-bold text-slate-300">
-                    سؤال {q.questionNumber}
-                  </span>
+                  <span className="text-xs font-bold text-slate-300">سؤال {q.questionNumber}</span>
                   {isCorrect ? (
                     <CheckCircle className="w-4 h-4 text-bioemerald" />
                   ) : (

@@ -2,7 +2,7 @@
 
 **Project**: Scholar Sidekick — BioThanaweya  
 **Verification Auditor**: Principal Software Architect & AI Systems Specialist  
-**Audit Timestamp**: 2026-11-01T13:13:00Z  
+**Audit Timestamp**: 2026-11-01T13:13:00Z
 
 ---
 
@@ -37,6 +37,7 @@ The application implements a cooperative **5-Agent Intelligent Multi-Agent Syste
 ## 2. Granular Agent Inspection & Implementation Audit
 
 ### 2.1 Agent 1: Master Biology Educator (Al-Moallim Al-Akbar)
+
 - **Class**: `com.example.domain.usecase.Agent1EducatorUseCase`
 - **Primary Function**: Multi-tiered pedagogical explanations (ELI5, High-Yield Textbook, Real-World Biological Analogies, Biochemical Deep Dives).
 - **Online Implementation**: Calls `AiRepository.generateExplanation(topic, style)` powered by `gemini-3.5-flash-lite`.
@@ -44,6 +45,7 @@ The application implements a cooperative **5-Agent Intelligent Multi-Agent Syste
 - **Verification Status**: **VERIFIED**
 
 ### 2.2 Agent 2: Visual & Spatial Learning Architect
+
 - **Class**: `com.example.domain.usecase.Agent2VisualArchitectUseCase`
 - **Primary Function**: Spatial 3D biological models, anatomical dissections, flowcharts, and on-demand schematic diagrams.
 - **Online Implementation**: Calls `AiRepository.generateBiologicalDiagram(engineeredPrompt)` targeting `gemini-nano-banana-2.1`.
@@ -51,12 +53,14 @@ The application implements a cooperative **5-Agent Intelligent Multi-Agent Syste
 - **Verification Status**: **VERIFIED**
 
 ### 2.3 Agent 3: Assessment Specialist & Ministry Exam Simulator
+
 - **Class**: `com.example.domain.usecase.Agent3AssessmentUseCase`
 - **Primary Function**: Generates Ministry-format exam papers, multiple-choice questions, and warns students against deceptive distractors ("Exam Traps").
 - **Offline Fallback**: 100% locally resident question database and trap annotations across all 11 chapters.
 - **Verification Status**: **VERIFIED**
 
 ### 2.4 Agent 4: Official Ministry Examiner & FSRS Spaced Repetition Engine
+
 - **Class**: `com.example.domain.usecase.Agent4ExaminerUseCase`
 - **Primary Function**:
   1. Automated ministerial essay grading: Matches student answers against official Ministry rubrics using `MarkSchemeEngine.kt` and `ArabicTextNormalizer.kt` (normalizing alef forms, hamza, taa marbouta, and diacritics).
@@ -65,6 +69,7 @@ The application implements a cooperative **5-Agent Intelligent Multi-Agent Syste
 - **Verification Status**: **VERIFIED**
 
 ### 2.5 Agent 5: Empathetic Student Companion & Stress Coach
+
 - **Class**: `com.example.domain.usecase.Agent5EmpatheticCompanionUseCase`
 - **Primary Function**:
   1. Emotional state diagnosis: Detects student sentiment (`CONFUSED`, `OVERWHELMED`, `VICTORIOUS`, `CURIOUS`, `CONFIDENT`) based on score accuracy, response speed, and self-reported feedback.

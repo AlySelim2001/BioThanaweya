@@ -1,6 +1,7 @@
 # CI/CD VALIDATION REPORT — GITHUB ACTIONS & REPRODUCIBLE BUILDS
 
 ## 1. Pipeline Architecture
+
 - **Workflow File**: `.github/workflows/build.yaml`
 - **Triggers**: `push` on branches `[main, master]`, `pull_request` on `[main, master]`, and `workflow_dispatch` (manual trigger).
 - **Target Platform**: Ubuntu Latest (`ubuntu-latest`).
@@ -46,6 +47,7 @@
 ---
 
 ## 3. Workflow Hygiene & Cleanliness
+
 - Obsolete workflows (`build_apk.yml` and `build.yml`) have been removed from the repository.
 - There are zero conflicting or race-condition workflows.
 - Status badge in `README.md` points directly to the authoritative workflow:

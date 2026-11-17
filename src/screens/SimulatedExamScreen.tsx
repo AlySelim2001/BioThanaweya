@@ -20,10 +20,7 @@ interface SimulatedExamScreenProps {
   onXpEarned: (xp: number) => void;
 }
 
-export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({
-  onBack,
-  onXpEarned,
-}) => {
+export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack, onXpEarned }) => {
   const [questions] = useState<PracticeQuestion[]>(() => getSimulatedMinistryExamPool());
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -143,7 +140,10 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({
           modelAnswer: q.officialAnswer,
           remediationNotes: q.rationale,
         };
-        const res = MinistryExaminerEngine.gradeStudentAnswerLocally(syntheticExamItem, studentText);
+        const res = MinistryExaminerEngine.gradeStudentAnswerLocally(
+          syntheticExamItem,
+          studentText
+        );
         totalScore += res.scoreAwarded;
         submissions.push({
           questionId: q.id,
@@ -238,8 +238,8 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({
                 sub.scoreAwarded === sub.maxScore
                   ? 'bg-slate-900/80 border-emerald-500/30'
                   : sub.scoreAwarded > 0
-                  ? 'bg-slate-900/80 border-amber-500/30'
-                  : 'bg-slate-900/80 border-rose-500/30'
+                    ? 'bg-slate-900/80 border-amber-500/30'
+                    : 'bg-slate-900/80 border-rose-500/30'
               }`}
             >
               <div className="flex items-center justify-between text-xs">
@@ -323,8 +323,8 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({
                 isCurrent
                   ? 'bg-teal-500 text-slate-950 ring-2 ring-teal-400'
                   : isAnswered
-                  ? 'bg-teal-500/20 text-teal-300 border border-teal-500/40'
-                  : 'bg-slate-800 text-slate-400 hover:text-white'
+                    ? 'bg-teal-500/20 text-teal-300 border border-teal-500/40'
+                    : 'bg-slate-800 text-slate-400 hover:text-white'
               }`}
             >
               {idx + 1}
@@ -356,9 +356,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({
           </button>
         </div>
 
-        <p className="text-base font-bold text-white leading-relaxed">
-          {currentQ.question}
-        </p>
+        <p className="text-base font-bold text-white leading-relaxed">{currentQ.question}</p>
 
         {/* MCQ Mode */}
         {currentQ.type === 'MCQ' && currentQ.options && (
@@ -366,9 +364,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({
             {currentQ.options.map((opt, optIdx) => (
               <button
                 key={optIdx}
-                onClick={() =>
-                  setSelectedOptions((prev) => ({ ...prev, [currentIndex]: optIdx }))
-                }
+                onClick={() => setSelectedOptions((prev) => ({ ...prev, [currentIndex]: optIdx }))}
                 className={`w-full p-3.5 rounded-xl text-left text-xs font-semibold border transition flex items-center justify-between ${
                   selectedOptions[currentIndex] === optIdx
                     ? 'bg-teal-500/20 border-teal-500 text-white'
@@ -414,9 +410,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({
             <textarea
               rows={4}
               value={answers[currentIndex] || ''}
-              onChange={(e) =>
-                setAnswers((prev) => ({ ...prev, [currentIndex]: e.target.value }))
-              }
+              onChange={(e) => setAnswers((prev) => ({ ...prev, [currentIndex]: e.target.value }))}
               placeholder="State your answer with proper physiological causality and keywords..."
               className="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs leading-relaxed focus:outline-none focus:border-teal-400 resize-none"
             />

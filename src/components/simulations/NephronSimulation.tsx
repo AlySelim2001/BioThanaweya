@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Droplet, Sun, Activity, RotateCcw, AlertCircle, CheckCircle2, ShieldCheck, Zap } from 'lucide-react';
+import {
+  Droplet,
+  Sun,
+  Activity,
+  RotateCcw,
+  AlertCircle,
+  CheckCircle2,
+  ShieldCheck,
+  Zap,
+} from 'lucide-react';
 import { haptics } from '../../services/haptics';
 
 export const NephronSimulation: React.FC = () => {
@@ -12,7 +21,7 @@ export const NephronSimulation: React.FC = () => {
   // Biological parameters computed deterministically:
   // ADH presence directly dictates collecting duct aquaporin water channels permeability
   const effectiveOsmolarity = Math.round(290 + (100 - hydration) * 0.9);
-  
+
   // If ADH is absent (e.g. Diabetes Insipidus or suppressed by cold/alcohol),
   // collecting duct is impermeable to water -> massive volume of dilute filtrate
   const urineVolumeL = adhPresent
@@ -53,8 +62,12 @@ export const NephronSimulation: React.FC = () => {
                 : 'bg-slate-800 text-slate-400 border-slate-700'
             }`}
           >
-            <Zap className={`w-3.5 h-3.5 ${adhPresent ? 'text-amber-400 fill-amber-400' : 'text-slate-500'}`} />
-            <span>ADH Hormone (Vasopressin): {adhPresent ? 'PRESENT (Active)' : 'ABSENT (Suppressed)'}</span>
+            <Zap
+              className={`w-3.5 h-3.5 ${adhPresent ? 'text-amber-400 fill-amber-400' : 'text-slate-500'}`}
+            />
+            <span>
+              ADH Hormone (Vasopressin): {adhPresent ? 'PRESENT (Active)' : 'ABSENT (Suppressed)'}
+            </span>
           </button>
 
           <div className="px-3 py-1.5 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-300 text-xs font-mono font-semibold flex items-center gap-1.5">
@@ -93,23 +106,56 @@ export const NephronSimulation: React.FC = () => {
           </defs>
 
           {/* Medullary Interstitial Osmotic Gradient (300 at top to 1200 mOsm at hairpin bend) */}
-          <rect x="20" y="85" width="580" height="180" rx="8" fill="url(#medullaGrad)" stroke="#334155" strokeDasharray="3 3" />
-          <text x="30" y="75" fill="#64748B" fontSize="10" fontWeight="bold">Renal Cortex (300 mOsm/L)</text>
-          <text x="30" y="105" fill="#64748B" fontSize="10" fontWeight="bold">Outer Medulla (600 mOsm/L)</text>
-          <text x="30" y="240" fill="#64748B" fontSize="10" fontWeight="bold">Inner Medulla (1200 mOsm/L - Hyperosmotic)</text>
+          <rect
+            x="20"
+            y="85"
+            width="580"
+            height="180"
+            rx="8"
+            fill="url(#medullaGrad)"
+            stroke="#334155"
+            strokeDasharray="3 3"
+          />
+          <text x="30" y="75" fill="#64748B" fontSize="10" fontWeight="bold">
+            Renal Cortex (300 mOsm/L)
+          </text>
+          <text x="30" y="105" fill="#64748B" fontSize="10" fontWeight="bold">
+            Outer Medulla (600 mOsm/L)
+          </text>
+          <text x="30" y="240" fill="#64748B" fontSize="10" fontWeight="bold">
+            Inner Medulla (1200 mOsm/L - Hyperosmotic)
+          </text>
 
           {/* Bowman's Capsule & Glomerulus */}
           <circle cx="85" cy="45" r="16" fill="#BE123C" opacity="0.85" />
           <path d="M 68 35 C 68 62, 102 62, 102 35" fill="none" stroke="#F59E0B" strokeWidth="4" />
-          <text x="50" y="22" fill="#FDA4AF" fontSize="9" fontWeight="bold">Bowman's Capsule</text>
+          <text x="50" y="22" fill="#FDA4AF" fontSize="9" fontWeight="bold">
+            Bowman's Capsule
+          </text>
 
           {/* Proximal Convoluted Tubule */}
-          <path d="M 100 48 Q 120 35 140 48 T 175 48" fill="none" stroke="#14B8A6" strokeWidth="5" strokeLinecap="round" />
+          <path
+            d="M 100 48 Q 120 35 140 48 T 175 48"
+            fill="none"
+            stroke="#14B8A6"
+            strokeWidth="5"
+            strokeLinecap="round"
+          />
 
           {/* Descending Limb of Loop of Henle (Permeable to H2O, Impermeable to Solutes) */}
-          <path d="M 175 48 L 175 220" fill="none" stroke="#0EA5E9" strokeWidth="5" strokeLinecap="round" />
-          <text x="110" y="140" fill="#38BDF8" fontSize="9" fontWeight="bold">Descending Limb</text>
-          <text x="110" y="152" fill="#7DD3FC" fontSize="8">(Permeable to H₂O)</text>
+          <path
+            d="M 175 48 L 175 220"
+            fill="none"
+            stroke="#0EA5E9"
+            strokeWidth="5"
+            strokeLinecap="round"
+          />
+          <text x="110" y="140" fill="#38BDF8" fontSize="9" fontWeight="bold">
+            Descending Limb
+          </text>
+          <text x="110" y="152" fill="#7DD3FC" fontSize="8">
+            (Permeable to H₂O)
+          </text>
 
           {/* Osmotic Water Efflux from Descending Limb */}
           <g>
@@ -121,18 +167,40 @@ export const NephronSimulation: React.FC = () => {
               strokeWidth="2"
               strokeDasharray="2 2"
             />
-            <text x="125" y="115" fill="#38BDF8" fontSize="8" fontWeight="bold">H₂O</text>
-            <text x="125" y="165" fill="#38BDF8" fontSize="8" fontWeight="bold">H₂O</text>
+            <text x="125" y="115" fill="#38BDF8" fontSize="8" fontWeight="bold">
+              H₂O
+            </text>
+            <text x="125" y="165" fill="#38BDF8" fontSize="8" fontWeight="bold">
+              H₂O
+            </text>
           </g>
 
           {/* Hairpin Turn at 1200 mOsm/L */}
-          <path d="M 175 220 Q 210 255 245 220" fill="none" stroke="#0EA5E9" strokeWidth="5" strokeLinecap="round" />
-          <text x="185" y="248" fill="#FBBF24" fontSize="10" fontWeight="bold">1200 mOsm</text>
+          <path
+            d="M 175 220 Q 210 255 245 220"
+            fill="none"
+            stroke="#0EA5E9"
+            strokeWidth="5"
+            strokeLinecap="round"
+          />
+          <text x="185" y="248" fill="#FBBF24" fontSize="10" fontWeight="bold">
+            1200 mOsm
+          </text>
 
           {/* Ascending Limb of Loop of Henle (Impermeable to H2O, Active Transport of NaCl) */}
-          <path d="M 245 220 L 245 48" fill="none" stroke="#6366F1" strokeWidth="5" strokeLinecap="round" />
-          <text x="255" y="140" fill="#818CF8" fontSize="9" fontWeight="bold">Ascending Limb</text>
-          <text x="255" y="152" fill="#A5B4FC" fontSize="8">(Active NaCl Efflux)</text>
+          <path
+            d="M 245 220 L 245 48"
+            fill="none"
+            stroke="#6366F1"
+            strokeWidth="5"
+            strokeLinecap="round"
+          />
+          <text x="255" y="140" fill="#818CF8" fontSize="9" fontWeight="bold">
+            Ascending Limb
+          </text>
+          <text x="255" y="152" fill="#A5B4FC" fontSize="8">
+            (Active NaCl Efflux)
+          </text>
 
           {/* Solute (NaCl) active pumping out of Ascending Limb into Medulla */}
           <motion.path
@@ -143,21 +211,37 @@ export const NephronSimulation: React.FC = () => {
             strokeWidth="2"
             strokeDasharray="2 2"
           />
-          <text x="285" y="123" fill="#A5B4FC" fontSize="8" fontWeight="bold">NaCl</text>
-          <text x="285" y="173" fill="#A5B4FC" fontSize="8" fontWeight="bold">NaCl</text>
+          <text x="285" y="123" fill="#A5B4FC" fontSize="8" fontWeight="bold">
+            NaCl
+          </text>
+          <text x="285" y="173" fill="#A5B4FC" fontSize="8" fontWeight="bold">
+            NaCl
+          </text>
 
           {/* Distal Convoluted Tubule */}
-          <path d="M 245 48 Q 280 35 320 48 T 370 48" fill="none" stroke="#14B8A6" strokeWidth="5" strokeLinecap="round" />
+          <path
+            d="M 245 48 Q 280 35 320 48 T 370 48"
+            fill="none"
+            stroke="#14B8A6"
+            strokeWidth="5"
+            strokeLinecap="round"
+          />
 
           {/* Collecting Duct (Major Site of ADH Water Reabsorption) */}
           <path
             d="M 370 48 L 450 48 L 450 250"
             fill="none"
-            stroke={adhPresent ? "#F59E0B" : "#64748B"}
+            stroke={adhPresent ? '#F59E0B' : '#64748B'}
             strokeWidth="7"
             strokeLinecap="round"
           />
-          <text x="460" y="100" fill={adhPresent ? "#FCD34D" : "#94A3B8"} fontSize="11" fontWeight="bold">
+          <text
+            x="460"
+            y="100"
+            fill={adhPresent ? '#FCD34D' : '#94A3B8'}
+            fontSize="11"
+            fontWeight="bold"
+          >
             Collecting Duct (القناة الجامعة)
           </text>
           <text x="460" y="115" fill="#CBD5E1" fontSize="8">
@@ -172,11 +256,15 @@ export const NephronSimulation: React.FC = () => {
             >
               <line x1="450" y1="140" x2="495" y2="140" stroke="#38BDF8" strokeWidth="2.5" />
               <polygon points="495,136 502,140 495,144" fill="#38BDF8" />
-              <text x="508" y="144" fill="#7DD3FC" fontSize="9" fontWeight="bold">H₂O back to blood</text>
+              <text x="508" y="144" fill="#7DD3FC" fontSize="9" fontWeight="bold">
+                H₂O back to blood
+              </text>
 
               <line x1="450" y1="180" x2="495" y2="180" stroke="#38BDF8" strokeWidth="2.5" />
               <polygon points="495,176 502,180 495,184" fill="#38BDF8" />
-              <text x="508" y="184" fill="#7DD3FC" fontSize="9" fontWeight="bold">H₂O reabsorbed</text>
+              <text x="508" y="184" fill="#7DD3FC" fontSize="9" fontWeight="bold">
+                H₂O reabsorbed
+              </text>
             </motion.g>
           )}
 
@@ -196,22 +284,29 @@ export const NephronSimulation: React.FC = () => {
 
           <div className="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
             <span className="text-slate-400 block text-[10px]">ADH Hormonal State</span>
-            <span className={`font-bold font-mono ${adhPresent ? 'text-amber-300' : 'text-slate-400'}`}>
+            <span
+              className={`font-bold font-mono ${adhPresent ? 'text-amber-300' : 'text-slate-400'}`}
+            >
               {adhPresent ? 'Active Reabsorption' : 'Zero Reabsorption'}
             </span>
           </div>
 
           <div className="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
             <span className="text-slate-400 block text-[10px]">Filtrate Excretion Rate</span>
-            <span className={`font-bold font-mono ${urineVolumeL > 5 ? 'text-rose-400' : 'text-sky-300'}`}>
+            <span
+              className={`font-bold font-mono ${urineVolumeL > 5 ? 'text-rose-400' : 'text-sky-300'}`}
+            >
               {urineVolumeL} Liters / Day
             </span>
           </div>
 
           <div className="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
             <span className="text-slate-400 block text-[10px]">Urine Osmotic Tonicity</span>
-            <span className={`font-bold font-mono ${urineConcentrationOsm > 800 ? 'text-amber-400' : 'text-emerald-400'}`}>
-              {urineConcentrationOsm} mOsm/L {urineConcentrationOsm > 800 ? '(Hypertonic)' : '(Hypotonic)'}
+            <span
+              className={`font-bold font-mono ${urineConcentrationOsm > 800 ? 'text-amber-400' : 'text-emerald-400'}`}
+            >
+              {urineConcentrationOsm} mOsm/L{' '}
+              {urineConcentrationOsm > 800 ? '(Hypertonic)' : '(Hypotonic)'}
             </span>
           </div>
         </div>
@@ -249,7 +344,9 @@ export const NephronSimulation: React.FC = () => {
             <span>Counter-Current Multiplication Principle</span>
           </div>
           <p className="text-[11px] text-slate-300 leading-relaxed">
-            Descending limb is <strong className="text-teal-200">permeable to water</strong>, while the ascending limb actively pumps <strong className="text-indigo-200">NaCl</strong> out without water, creating a hyperosmotic medullary gradient (up to 1200 mOsm/L).
+            Descending limb is <strong className="text-teal-200">permeable to water</strong>, while
+            the ascending limb actively pumps <strong className="text-indigo-200">NaCl</strong> out
+            without water, creating a hyperosmotic medullary gradient (up to 1200 mOsm/L).
           </p>
         </div>
 
@@ -259,7 +356,11 @@ export const NephronSimulation: React.FC = () => {
             <span>ADH (Vasopressin) Regulation Law</span>
           </div>
           <p className="text-[11px] text-slate-300 leading-relaxed">
-            When ADH is present, collecting duct aquaporins open ➔ Water is reabsorbed back into peritubular capillaries ➔ <strong className="text-emerald-300">Blood pressure rises</strong>, <strong className="text-rose-300">Urine volume drops</strong>, and <strong className="text-amber-300">Urine concentration skyrockets</strong>!
+            When ADH is present, collecting duct aquaporins open ➔ Water is reabsorbed back into
+            peritubular capillaries ➔{' '}
+            <strong className="text-emerald-300">Blood pressure rises</strong>,{' '}
+            <strong className="text-rose-300">Urine volume drops</strong>, and{' '}
+            <strong className="text-amber-300">Urine concentration skyrockets</strong>!
           </p>
         </div>
       </div>

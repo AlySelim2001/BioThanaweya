@@ -111,7 +111,11 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
   };
 
   const handleRestoreSnapshot = async (snapshotId: string) => {
-    if (!confirm('Are you sure you want to restore this snapshot? Current unsaved changes will be superseded.')) {
+    if (
+      !confirm(
+        'Are you sure you want to restore this snapshot? Current unsaved changes will be superseded.'
+      )
+    ) {
       return;
     }
     const success = await BackupService.restoreSnapshot(snapshotId);
@@ -165,8 +169,8 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
                     syncState === 'synced'
                       ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
                       : syncState === 'saving'
-                      ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'
-                      : 'bg-rose-500/10 text-rose-400 border-rose-500/30'
+                        ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'
+                        : 'bg-rose-500/10 text-rose-400 border-rose-500/30'
                   }`}
                 >
                   <span
@@ -174,11 +178,15 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
                       syncState === 'synced'
                         ? 'bg-emerald-400'
                         : syncState === 'saving'
-                        ? 'bg-amber-400 animate-pulse'
-                        : 'bg-rose-400'
+                          ? 'bg-amber-400 animate-pulse'
+                          : 'bg-rose-400'
                     }`}
                   />
-                  {syncState === 'synced' ? 'IndexedDB Synced' : syncState === 'saving' ? 'Persisting...' : 'Sync Error'}
+                  {syncState === 'synced'
+                    ? 'IndexedDB Synced'
+                    : syncState === 'saving'
+                      ? 'Persisting...'
+                      : 'Sync Error'}
                 </span>
               </div>
               <p className="text-xs text-slate-400">
@@ -240,12 +248,15 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
                 <div className="font-bold">{importNotice.message}</div>
                 {importNotice.counts && (
                   <div className="text-[11px] text-emerald-300/80">
-                    Restored: {importNotice.counts.cards} flashcards, {importNotice.counts.masteries} topics,{' '}
-                    {importNotice.counts.exams} exam reports.
+                    Restored: {importNotice.counts.cards} flashcards,{' '}
+                    {importNotice.counts.masteries} topics, {importNotice.counts.exams} exam
+                    reports.
                   </div>
                 )}
                 {importNotice.errorDetails && (
-                  <div className="text-[11px] font-mono text-rose-300/80">{importNotice.errorDetails}</div>
+                  <div className="text-[11px] font-mono text-rose-300/80">
+                    {importNotice.errorDetails}
+                  </div>
                 )}
               </div>
             </div>
@@ -284,13 +295,17 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
                     <div className="text-base font-extrabold text-white">
                       {metrics?.counts.cards ?? '—'}
                     </div>
-                    <div className="text-[10px] text-slate-400 uppercase tracking-wider">FSRS Cards</div>
+                    <div className="text-[10px] text-slate-400 uppercase tracking-wider">
+                      FSRS Cards
+                    </div>
                   </div>
                   <div className="p-2 rounded-lg bg-slate-950/60 border border-slate-800">
                     <div className="text-base font-extrabold text-teal-400">
                       {metrics?.counts.masteries ?? '—'}
                     </div>
-                    <div className="text-[10px] text-slate-400 uppercase tracking-wider">Topics</div>
+                    <div className="text-[10px] text-slate-400 uppercase tracking-wider">
+                      Topics
+                    </div>
                   </div>
                   <div className="p-2 rounded-lg bg-slate-950/60 border border-slate-800">
                     <div className="text-base font-extrabold text-cyan-400">
@@ -302,7 +317,9 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
                     <div className="text-base font-extrabold text-indigo-400">
                       {metrics?.counts.backups ?? '—'}
                     </div>
-                    <div className="text-[10px] text-slate-400 uppercase tracking-wider">Snapshots</div>
+                    <div className="text-[10px] text-slate-400 uppercase tracking-wider">
+                      Snapshots
+                    </div>
                   </div>
                 </div>
               </div>
@@ -317,7 +334,8 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
                       <span>Export JSON Vault</span>
                     </div>
                     <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">
-                      Save a portable, typed snapshot of all FSRS intervals, topic mastery, and exam reviews directly to your device.
+                      Save a portable, typed snapshot of all FSRS intervals, topic mastery, and exam
+                      reviews directly to your device.
                     </p>
                   </div>
                   <button
@@ -325,7 +343,11 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
                     disabled={isExporting}
                     className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold text-xs transition disabled:opacity-50"
                   >
-                    {isExporting ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+                    {isExporting ? (
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <Download className="w-3.5 h-3.5" />
+                    )}
                     <span>{isExporting ? 'Generating...' : 'Download JSON Backup'}</span>
                   </button>
                 </div>
@@ -338,7 +360,8 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
                       <span>Restore JSON Vault</span>
                     </div>
                     <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">
-                      Import a previously exported BioThanaweya backup. Automatically creates a safety snapshot before overwriting.
+                      Import a previously exported BioThanaweya backup. Automatically creates a
+                      safety snapshot before overwriting.
                     </p>
                   </div>
                   <div>
@@ -354,7 +377,11 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
                       disabled={isImporting}
                       className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-teal-600 hover:bg-teal-500 text-slate-950 font-bold text-xs transition disabled:opacity-50"
                     >
-                      {isImporting ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Upload className="w-3.5 h-3.5" />}
+                      {isImporting ? (
+                        <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                      ) : (
+                        <Upload className="w-3.5 h-3.5" />
+                      )}
                       <span>{isImporting ? 'Validating...' : 'Select JSON File'}</span>
                     </button>
                   </div>
@@ -403,12 +430,15 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
             <div className="space-y-3">
               <div className="flex items-center justify-between text-xs text-slate-400 pb-1">
                 <span>Automatic rolling snapshots created during key study milestones:</span>
-                <span className="font-mono text-[11px] text-teal-400">{snapshots.length} / 5 stored</span>
+                <span className="font-mono text-[11px] text-teal-400">
+                  {snapshots.length} / 5 stored
+                </span>
               </div>
 
               {snapshots.length === 0 ? (
                 <div className="p-8 text-center rounded-xl bg-slate-900/50 border border-slate-800 text-xs text-slate-500">
-                  No automated snapshots recorded yet. Complete an exam or review cards to trigger auto-snapshots.
+                  No automated snapshots recorded yet. Complete an exam or review cards to trigger
+                  auto-snapshots.
                 </div>
               ) : (
                 snapshots.map((snap) => (

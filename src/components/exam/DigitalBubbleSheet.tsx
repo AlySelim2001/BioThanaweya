@@ -15,7 +15,7 @@ export const DigitalBubbleSheet: FC<DigitalBubbleSheetProps> = ({
   answers,
   currentIndex,
   onSelectIndex,
-  className = ''
+  className = '',
 }) => {
   const [filterMode, setFilterMode] = useState<'all' | 'unanswered' | 'flagged'>('all');
 
@@ -31,7 +31,9 @@ export const DigitalBubbleSheet: FC<DigitalBubbleSheetProps> = ({
   });
 
   return (
-    <div className={`rounded-2xl bg-obsidian-800/90 border border-slate-700/80 p-4 shadow-xl flex flex-col h-full ${className}`}>
+    <div
+      className={`rounded-2xl bg-obsidian-800/90 border border-slate-700/80 p-4 shadow-xl flex flex-col h-full ${className}`}
+    >
       {/* Header and Filter Tabs */}
       <div className="flex items-center justify-between gap-2 mb-3 pb-3 border-b border-slate-700/60">
         <div>
@@ -95,7 +97,7 @@ export const DigitalBubbleSheet: FC<DigitalBubbleSheetProps> = ({
               A: 'أ',
               B: 'ب',
               C: 'ج',
-              D: 'د'
+              D: 'د',
             };
 
             return (
@@ -106,8 +108,8 @@ export const DigitalBubbleSheet: FC<DigitalBubbleSheetProps> = ({
                   isCurrent
                     ? 'bg-bioteal/20 border-bioteal text-bioteal ring-2 ring-bioteal/40 shadow-lg shadow-bioteal/10'
                     : isAnswered
-                    ? 'bg-bioemerald/15 border-bioemerald/40 text-bioemerald hover:bg-bioemerald/25'
-                    : 'bg-obsidian-900 border-slate-700/80 text-slate-400 hover:border-slate-500 hover:text-slate-200'
+                      ? 'bg-bioemerald/15 border-bioemerald/40 text-bioemerald hover:bg-bioemerald/25'
+                      : 'bg-obsidian-900 border-slate-700/80 text-slate-400 hover:border-slate-500 hover:text-slate-200'
                 }`}
               >
                 {/* Flag indicator corner */}
@@ -118,9 +120,7 @@ export const DigitalBubbleSheet: FC<DigitalBubbleSheetProps> = ({
                 )}
 
                 {/* Question Number */}
-                <span className="text-xs font-bold leading-none">
-                  {q.questionNumber}
-                </span>
+                <span className="text-xs font-bold leading-none">{q.questionNumber}</span>
 
                 {/* Chosen Option Bubble */}
                 <div className="mt-1 flex items-center justify-center">
@@ -135,7 +135,7 @@ export const DigitalBubbleSheet: FC<DigitalBubbleSheetProps> = ({
 
                 {/* 2-marks badge dot */}
                 {q.marks === 2 && (
-                  <span 
+                  <span
                     title="سؤال ذو درجتين"
                     className="absolute bottom-1 right-1 w-1.5 h-1.5 rounded-full bg-biotrap-500"
                   />

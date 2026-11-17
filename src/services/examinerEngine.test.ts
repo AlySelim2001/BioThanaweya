@@ -6,13 +6,15 @@ describe('MinistryExaminerEngine Local Heuristics & Scoring', () => {
   const sampleExamItem: MinistryExamItem = {
     id: 'test_sarcomere_sim',
     questionType: 'GIVE_REASON',
-    prompt: 'Give Reason: The absence of ATP in a skeletal muscle fiber leads to sustained muscle spasm.',
+    prompt:
+      'Give Reason: The absence of ATP in a skeletal muscle fiber leads to sustained muscle spasm.',
     maxScore: 2.0,
     requiredKeywords: ['atp', 'cross bridges', 'detach', 'actin', 'spasm'],
     partialCreditKeywords: ['myosin', 'relaxation', 'tear'],
     modelAnswer:
       'Because ATP is necessary for the detachment of myosin cross-bridges from actin filaments. In the absence of ATP, cross-bridges remain locked to actin, preventing relaxation and causing sustained muscle spasm.',
-    remediationNotes: 'You must explicitly explain that ATP is required to BREAK the cross-bridge bond, not just for contraction.',
+    remediationNotes:
+      'You must explicitly explain that ATP is required to BREAK the cross-bridge bond, not just for contraction.',
   };
 
   it('rejects answers shorter than 5 characters with 0 score and NEEDS_REVISION status', () => {
@@ -57,34 +59,78 @@ describe('MinistryExaminerEngine Local Heuristics & Scoring', () => {
 
   it('resolves biological synonyms accurately in isKeywordPresent', () => {
     // Calcium synonyms
-    expect(MinistryExaminerEngine.isKeywordPresent('influx of Ca2+ ions into knob', 'calcium')).toBe(true);
+    expect(
+      MinistryExaminerEngine.isKeywordPresent('influx of Ca2+ ions into knob', 'calcium')
+    ).toBe(true);
     expect(MinistryExaminerEngine.isKeywordPresent('elevated Ca++ in blood', 'calcium')).toBe(true);
-    expect(MinistryExaminerEngine.isKeywordPresent('presence of ca ions in sarcoplasm', 'calcium')).toBe(true);
+    expect(
+      MinistryExaminerEngine.isKeywordPresent('presence of ca ions in sarcoplasm', 'calcium')
+    ).toBe(true);
 
     // Acetylcholine synonyms
-    expect(MinistryExaminerEngine.isKeywordPresent('release of ACh neurotransmitter', 'acetylcholine')).toBe(true);
-    expect(MinistryExaminerEngine.isKeywordPresent('diffusion of acetyl-choline', 'acetylcholine')).toBe(true);
+    expect(
+      MinistryExaminerEngine.isKeywordPresent('release of ACh neurotransmitter', 'acetylcholine')
+    ).toBe(true);
+    expect(
+      MinistryExaminerEngine.isKeywordPresent('diffusion of acetyl-choline', 'acetylcholine')
+    ).toBe(true);
 
     // Cholinesterase synonyms
-    expect(MinistryExaminerEngine.isKeywordPresent('hydrolysis by AChE at the synapse', 'cholinesterase')).toBe(true);
-    expect(MinistryExaminerEngine.isKeywordPresent('degradation by acetylcholinesterase', 'cholinesterase')).toBe(true);
+    expect(
+      MinistryExaminerEngine.isKeywordPresent('hydrolysis by AChE at the synapse', 'cholinesterase')
+    ).toBe(true);
+    expect(
+      MinistryExaminerEngine.isKeywordPresent(
+        'degradation by acetylcholinesterase',
+        'cholinesterase'
+      )
+    ).toBe(true);
 
     // ATP synonym
-    expect(MinistryExaminerEngine.isKeywordPresent('hydrolysis of adenosine triphosphate', 'atp')).toBe(true);
+    expect(
+      MinistryExaminerEngine.isKeywordPresent('hydrolysis of adenosine triphosphate', 'atp')
+    ).toBe(true);
 
     // Cross-bridge synonym (transverse hooks)
-    expect(MinistryExaminerEngine.isKeywordPresent('formation of transverse hooks pulling actin', 'cross bridges')).toBe(true);
+    expect(
+      MinistryExaminerEngine.isKeywordPresent(
+        'formation of transverse hooks pulling actin',
+        'cross bridges'
+      )
+    ).toBe(true);
 
     // T-Helper & Cytotoxic markers
-    expect(MinistryExaminerEngine.isKeywordPresent('activation of TH cells with CD4 receptors', 't helper')).toBe(true);
-    expect(MinistryExaminerEngine.isKeywordPresent('lysis of cancer cells by CD8+ TC lymphocytes', 'cytotoxic')).toBe(true);
+    expect(
+      MinistryExaminerEngine.isKeywordPresent(
+        'activation of TH cells with CD4 receptors',
+        't helper'
+      )
+    ).toBe(true);
+    expect(
+      MinistryExaminerEngine.isKeywordPresent(
+        'lysis of cancer cells by CD8+ TC lymphocytes',
+        'cytotoxic'
+      )
+    ).toBe(true);
 
     // Repolarization / resting potential
-    expect(MinistryExaminerEngine.isKeywordPresent('restoration of resting potential across sarcolemma', 'repolarization')).toBe(true);
+    expect(
+      MinistryExaminerEngine.isKeywordPresent(
+        'restoration of resting potential across sarcolemma',
+        'repolarization'
+      )
+    ).toBe(true);
 
     // DNA replication enzymes
-    expect(MinistryExaminerEngine.isKeywordPresent('the enzyme that unzips the double helix', 'helicase')).toBe(true);
-    expect(MinistryExaminerEngine.isKeywordPresent('synthesis of fragments on the lagging strand', 'okazaki')).toBe(true);
+    expect(
+      MinistryExaminerEngine.isKeywordPresent('the enzyme that unzips the double helix', 'helicase')
+    ).toBe(true);
+    expect(
+      MinistryExaminerEngine.isKeywordPresent(
+        'synthesis of fragments on the lagging strand',
+        'okazaki'
+      )
+    ).toBe(true);
   });
 
   it('appends remediation guidance to feedback when remediationNotes are provided', () => {
@@ -105,7 +151,8 @@ describe('MinistryExaminerEngine Offline Resilience & Fallback', () => {
     maxScore: 2.0,
     requiredKeywords: ['cutin', 'impermeable', 'transpiration', 'turgor'],
     partialCreditKeywords: ['water loss'],
-    modelAnswer: 'Cutin is an impermeable substance preventing transpiration, indirectly sustaining turgor.',
+    modelAnswer:
+      'Cutin is an impermeable substance preventing transpiration, indirectly sustaining turgor.',
     remediationNotes: 'Highlight both structural and physiological aspects.',
   };
 
@@ -117,8 +164,12 @@ describe('MinistryExaminerEngine Offline Resilience & Fallback', () => {
     // Mock global fetch rejection (e.g. offline device)
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('Network unreachable')));
 
-    const studentAnswer = 'Cutin is impermeable to water, reducing transpiration and keeping turgor pressure.';
-    const result = await MinistryExaminerEngine.gradeWithAIOrFallback(sampleExamItem, studentAnswer);
+    const studentAnswer =
+      'Cutin is impermeable to water, reducing transpiration and keeping turgor pressure.';
+    const result = await MinistryExaminerEngine.gradeWithAIOrFallback(
+      sampleExamItem,
+      studentAnswer
+    );
 
     expect(result).toBeDefined();
     expect(result.gradeStatus).toBe('FULL_MARK');
@@ -134,7 +185,8 @@ describe('MinistryExaminerEngine Offline Resilience & Fallback', () => {
       scoreAwarded: 1.8,
       detectedKeywords: ['cutin', 'transpiration', 'turgor'],
       missingKeywords: ['impermeable'],
-      examinerFeedback: 'AI Ministry Examiner: Strong reasoning, slight penalty for omitting impermeability.',
+      examinerFeedback:
+        'AI Ministry Examiner: Strong reasoning, slight penalty for omitting impermeability.',
       gradeStatus: 'PARTIAL_CREDIT',
       remediationAdvice: 'Mention impermeability.',
     };
@@ -148,7 +200,10 @@ describe('MinistryExaminerEngine Offline Resilience & Fallback', () => {
     );
 
     const studentAnswer = 'Cutin stops transpiration and protects turgor.';
-    const result = await MinistryExaminerEngine.gradeWithAIOrFallback(sampleExamItem, studentAnswer);
+    const result = await MinistryExaminerEngine.gradeWithAIOrFallback(
+      sampleExamItem,
+      studentAnswer
+    );
 
     expect(result.scoreAwarded).toBe(1.8);
     expect(result.gradeStatus).toBe('PARTIAL_CREDIT');

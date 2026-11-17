@@ -55,7 +55,12 @@ describe('FSRS deterministic scheduling', () => {
     [3, 2],
     [4, 2],
   ] as const)('transitions a learning card for rating %i to state %i', (rating, expectedState) => {
-    const learningCard: FSRSCard = { ...createNewCard(), state: 1, reps: 2, lastReview: fixedNow.getTime() - dayMs };
+    const learningCard: FSRSCard = {
+      ...createNewCard(),
+      state: 1,
+      reps: 2,
+      lastReview: fixedNow.getTime() - dayMs,
+    };
     const result = scheduler.schedule(learningCard, rating, fixedNow);
 
     expect(result.card.state).toBe(expectedState);
@@ -91,22 +96,25 @@ describe('FSRS deterministic scheduling', () => {
     [2, 2],
     [3, 2],
     [4, 2],
-  ] as const)('transitions a relearning card for rating %i to state %i', (rating, expectedState) => {
-    const relearningCard: FSRSCard = {
-      ...createNewCard(),
-      state: 3,
-      reps: 4,
-      lapses: 1,
-      stability: 1.5,
-      difficulty: 8,
-      lastReview: fixedNow.getTime() - dayMs,
-    };
-    const result = scheduler.schedule(relearningCard, rating, fixedNow);
+  ] as const)(
+    'transitions a relearning card for rating %i to state %i',
+    (rating, expectedState) => {
+      const relearningCard: FSRSCard = {
+        ...createNewCard(),
+        state: 3,
+        reps: 4,
+        lapses: 1,
+        stability: 1.5,
+        difficulty: 8,
+        lastReview: fixedNow.getTime() - dayMs,
+      };
+      const result = scheduler.schedule(relearningCard, rating, fixedNow);
 
-    expect(result.card.state).toBe(expectedState);
-    expect(result.card.reps).toBe(5);
-    expect(result.card.lapses).toBe(1);
-  });
+      expect(result.card.state).toBe(expectedState);
+      expect(result.card.reps).toBe(5);
+      expect(result.card.lapses).toBe(1);
+    }
+  );
 
   it('produces deterministic, finite stability for every rating', () => {
     const card: FSRSCard = {
@@ -126,7 +134,7 @@ describe('FSRS deterministic scheduling', () => {
       expect(Number.isFinite(first[rating].card.stability)).toBe(true);
       expect(first[rating].card.stability).toBeGreaterThan(0);
       expect(first[rating].card.due).toBe(
-        fixedNow.getTime() + first[rating].card.scheduledDays * dayMs,
+        fixedNow.getTime() + first[rating].card.scheduledDays * dayMs
       );
     }
 
@@ -136,7 +144,7 @@ describe('FSRS deterministic scheduling', () => {
 
   it('uses configured initial stability values for the four ratings', () => {
     const stabilityByRating = ([1, 2, 3, 4] as const).map(
-      (rating) => scheduler.schedule(createNewCard(), rating, fixedNow).card.stability,
+      (rating) => scheduler.schedule(createNewCard(), rating, fixedNow).card.stability
     );
 
     expect(stabilityByRating).toEqual([0.40255, 1.18385, 3.173, 15.69105]);
@@ -177,7 +185,7 @@ describe('FSRS deterministic scheduling', () => {
     expect(repeated[3].card.elapsedDays).toBe(4);
     expect(scheduler.currentRetrievability(reviewCard, fixedNow)).toBeCloseTo(
       Math.pow(1 + (19 * 4) / (9 * 10), -0.5),
-      14,
+      14
     );
   });
 });

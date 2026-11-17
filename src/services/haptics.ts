@@ -61,15 +61,24 @@ class HapticFeedbackService {
    * Internal safe vibration trigger.
    * Priority: Native Android JavaScript Bridge -> Web Vibration API
    */
-  private vibrate(pattern: number | number[], intensity: 'light' | 'medium' | 'heavy' | 'success' | 'error' = 'light'): boolean {
+  private vibrate(
+    pattern: number | number[],
+    intensity: 'light' | 'medium' | 'heavy' | 'success' | 'error' = 'light'
+  ): boolean {
     if (!this.enabled) {
       return false;
     }
 
     // Check for Native Android Bridge first
-    if (typeof window !== 'undefined' && (window as unknown as { BioThanaweyaNative?: { triggerHaptic: (i: string) => void } }).BioThanaweyaNative) {
+    if (
+      typeof window !== 'undefined' &&
+      (window as unknown as { BioThanaweyaNative?: { triggerHaptic: (i: string) => void } })
+        .BioThanaweyaNative
+    ) {
       try {
-        (window as unknown as { BioThanaweyaNative: { triggerHaptic: (i: string) => void } }).BioThanaweyaNative.triggerHaptic(intensity);
+        (
+          window as unknown as { BioThanaweyaNative: { triggerHaptic: (i: string) => void } }
+        ).BioThanaweyaNative.triggerHaptic(intensity);
         return true;
       } catch {
         // Fall back to Web Vibration API

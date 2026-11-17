@@ -7,11 +7,7 @@ interface NavbarProps {
   onNavigateHome: () => void;
 }
 
-export const Navbar: FC<NavbarProps> = ({
-  currentView,
-  paperTitle,
-  onNavigateHome
-}) => {
+export const Navbar: FC<NavbarProps> = ({ currentView, paperTitle, onNavigateHome }) => {
   const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
 
   useEffect(() => {
@@ -31,7 +27,7 @@ export const Navbar: FC<NavbarProps> = ({
     <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-obsidian-900/90 border-b border-slate-800/80 px-4 py-3 transition-all">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
         {/* Brand & Logo */}
-        <div 
+        <div
           onClick={onNavigateHome}
           className="flex items-center gap-3 cursor-pointer group select-none"
         >
@@ -57,19 +53,17 @@ export const Navbar: FC<NavbarProps> = ({
         {currentView !== 'selector' && paperTitle && (
           <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-obsidian-800/80 border border-slate-700/60 max-w-md truncate">
             <BookOpen className="w-4 h-4 text-bioteal shrink-0" />
-            <span className="text-xs font-semibold text-slate-200 truncate">
-              {paperTitle}
-            </span>
+            <span className="text-xs font-semibold text-slate-200 truncate">{paperTitle}</span>
           </div>
         )}
 
         {/* Offline Badge & Status */}
         <div className="flex items-center gap-2.5">
-          <div 
+          <div
             title={isOnline ? 'متصل بالشبكة (يتم العمل محلياً)' : 'وضع عدم الاتصال نشط 100%'}
             className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold border transition-colors ${
-              isOnline 
-                ? 'bg-bioemerald/10 border-bioemerald/30 text-bioemerald' 
+              isOnline
+                ? 'bg-bioemerald/10 border-bioemerald/30 text-bioemerald'
                 : 'bg-biotrap-500/10 border-biotrap-500/30 text-biotrap-500'
             }`}
           >

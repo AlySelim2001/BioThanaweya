@@ -29,7 +29,7 @@ export const ExamHeader: FC<ExamHeaderProps> = ({
   answeredCount,
   flaggedCount,
   onTogglePause,
-  onSubmitExam
+  onSubmitExam,
 }) => {
   const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
 
@@ -37,13 +37,13 @@ export const ExamHeader: FC<ExamHeaderProps> = ({
   const isUrgent = remainingSeconds < 900; // less than 15 minutes
   const isCritical = remainingSeconds < 300; // less than 5 minutes
 
-  const completionPercent = totalQuestions > 0 ? Math.round((answeredCount / totalQuestions) * 100) : 0;
+  const completionPercent =
+    totalQuestions > 0 ? Math.round((answeredCount / totalQuestions) * 100) : 0;
 
   return (
     <>
       <div className="sticky top-[57px] z-30 w-full bg-obsidian-800/95 backdrop-blur-md border-b border-slate-700/80 px-4 py-2.5 shadow-md">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
-          
           {/* Question Counter & Marks badge */}
           <div className="flex items-center gap-2" title={paperTitle}>
             <div className="px-3 py-1 rounded-xl bg-obsidian-900 border border-slate-700 flex items-center gap-1.5">
@@ -53,11 +53,13 @@ export const ExamHeader: FC<ExamHeaderProps> = ({
               <span className="text-xs font-semibold text-slate-300">{totalQuestions}</span>
             </div>
 
-            <span className={`text-[11px] font-extrabold px-2.5 py-1 rounded-lg border ${
-              currentMarks === 2
-                ? 'bg-biotrap-500/20 text-biotrap-500 border-biotrap-500/40'
-                : 'bg-slate-700/50 text-slate-300 border-slate-600'
-            }`}>
+            <span
+              className={`text-[11px] font-extrabold px-2.5 py-1 rounded-lg border ${
+                currentMarks === 2
+                  ? 'bg-biotrap-500/20 text-biotrap-500 border-biotrap-500/40'
+                  : 'bg-slate-700/50 text-slate-300 border-slate-600'
+              }`}
+            >
               {currentMarks === 2 ? 'درجتان (وزن مضاعف)' : 'درجة واحدة'}
             </span>
           </div>
@@ -65,7 +67,7 @@ export const ExamHeader: FC<ExamHeaderProps> = ({
           {/* Real-time Timer & Pacing Widget */}
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Pacing pill */}
-            <div 
+            <div
               title={pacing.adviceArabic}
               className={`hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold border ${pacing.colorClass}`}
             >
@@ -73,13 +75,15 @@ export const ExamHeader: FC<ExamHeaderProps> = ({
             </div>
 
             {/* Timer countdown */}
-            <div className={`flex items-center gap-2 px-3.5 py-1 rounded-xl font-mono text-sm sm:text-base font-extrabold border transition-all ${
-              isCritical
-                ? 'bg-red-500/20 border-red-500 text-red-400 animate-pulse'
-                : isUrgent
-                ? 'bg-biotrap-500/20 border-biotrap-500 text-biotrap-500'
-                : 'bg-obsidian-900 border-bioteal/40 text-bioteal'
-            }`}>
+            <div
+              className={`flex items-center gap-2 px-3.5 py-1 rounded-xl font-mono text-sm sm:text-base font-extrabold border transition-all ${
+                isCritical
+                  ? 'bg-red-500/20 border-red-500 text-red-400 animate-pulse'
+                  : isUrgent
+                    ? 'bg-biotrap-500/20 border-biotrap-500 text-biotrap-500'
+                    : 'bg-obsidian-900 border-bioteal/40 text-bioteal'
+              }`}
+            >
               <Clock className="w-4 h-4" />
               <span>{formattedRemainingTime}</span>
             </div>
@@ -90,7 +94,11 @@ export const ExamHeader: FC<ExamHeaderProps> = ({
               title={isPaused ? 'استئناف الامتحان' : 'إيقاف مؤقت'}
               className="p-1.5 rounded-lg bg-obsidian-900 hover:bg-obsidian-700 border border-slate-700 text-slate-300 hover:text-white transition-colors"
             >
-              {isPaused ? <Play className="w-4 h-4 text-bioemerald" /> : <Pause className="w-4 h-4" />}
+              {isPaused ? (
+                <Play className="w-4 h-4 text-bioemerald" />
+              ) : (
+                <Pause className="w-4 h-4" />
+              )}
             </button>
 
             {/* Submit Button */}
@@ -107,13 +115,16 @@ export const ExamHeader: FC<ExamHeaderProps> = ({
         {/* Global Progress Bar */}
         <div className="max-w-7xl mx-auto mt-2 flex items-center gap-3">
           <div className="flex-1 h-1.5 bg-obsidian-900 rounded-full overflow-hidden border border-slate-800">
-            <div 
+            <div
               className="h-full bg-gradient-to-r from-bioteal via-bioemerald to-cyan-400 transition-all duration-300 rounded-full"
               style={{ width: `${completionPercent}%` }}
             />
           </div>
           <div className="text-[11px] font-bold text-slate-400 flex items-center gap-2 shrink-0">
-            <span>تمت الإجابة: <strong className="text-slate-200">{answeredCount}</strong>/{totalQuestions}</span>
+            <span>
+              تمت الإجابة: <strong className="text-slate-200">{answeredCount}</strong>/
+              {totalQuestions}
+            </span>
             {flaggedCount > 0 && (
               <span className="flex items-center gap-1 text-biotrap-500">
                 <Flag className="w-3 h-3 fill-biotrap-500" />
@@ -132,9 +143,7 @@ export const ExamHeader: FC<ExamHeaderProps> = ({
               <AlertCircle className="w-6 h-6" />
             </div>
 
-            <h3 className="text-lg font-extrabold text-white mb-2">
-              تأكيد تسليم ورقة الإجابة
-            </h3>
+            <h3 className="text-lg font-extrabold text-white mb-2">تأكيد تسليم ورقة الإجابة</h3>
 
             <p className="text-sm text-slate-300 leading-relaxed mb-4">
               هل أنت متأكد من رغبتك في إنهاء الامتحان ورصد الدرجة الوزارية الرسمية؟
@@ -143,7 +152,9 @@ export const ExamHeader: FC<ExamHeaderProps> = ({
             <div className="bg-obsidian-900 p-3.5 rounded-xl border border-slate-800 mb-5 space-y-2 text-xs">
               <div className="flex justify-between items-center text-slate-300">
                 <span>الأسئلة المجاب عنها:</span>
-                <span className="font-bold text-bioteal">{answeredCount} من {totalQuestions}</span>
+                <span className="font-bold text-bioteal">
+                  {answeredCount} من {totalQuestions}
+                </span>
               </div>
               <div className="flex justify-between items-center text-slate-300">
                 <span>الأسئلة المتبقية دون إجابة:</span>

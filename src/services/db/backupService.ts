@@ -170,7 +170,9 @@ export const BackupService = {
         dbEngine.putMany('cards', data.cards),
         dbEngine.putMany('masteries', data.masteries),
         dbEngine.putMany('exams', data.exams),
-        data.profile ? dbEngine.put('profile', { id: 'current', profile: data.profile }) : Promise.resolve(),
+        data.profile
+          ? dbEngine.put('profile', { id: 'current', profile: data.profile })
+          : Promise.resolve(),
       ]);
 
       return {
@@ -229,7 +231,9 @@ export const BackupService = {
       // Clean up excess snapshots maintaining rolling limit
       const allSnapshots = await dbEngine.getAll<BackupSnapshot>('backups');
       if (allSnapshots.length > MAX_ROLLING_SNAPSHOTS) {
-        allSnapshots.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+        allSnapshots.sort(
+          (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+        );
         const toDelete = allSnapshots.slice(0, allSnapshots.length - MAX_ROLLING_SNAPSHOTS);
         for (const item of toDelete) {
           await dbEngine.delete('backups', item.snapshotId);
@@ -248,7 +252,9 @@ export const BackupService = {
   async getSnapshots(): Promise<BackupSnapshot[]> {
     try {
       const snapshots = await dbEngine.getAll<BackupSnapshot>('backups');
-      return snapshots.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+      return snapshots.sort(
+        (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+      );
     } catch {
       return [];
     }

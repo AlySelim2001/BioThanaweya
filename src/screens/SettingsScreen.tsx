@@ -48,7 +48,11 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
   };
 
   const handleReset = async () => {
-    if (confirm('Are you sure you want to reset your local IndexedDB storage, FSRS cards, and exam history?')) {
+    if (
+      confirm(
+        'Are you sure you want to reset your local IndexedDB storage, FSRS cards, and exam history?'
+      )
+    ) {
       await StorageService.resetAll();
       window.location.reload();
     }
@@ -89,7 +93,8 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           <span>Agent 7: Study Chunk (Pomodoro Duration)</span>
         </div>
         <p className="text-xs text-slate-400 leading-relaxed">
-          Intervals of focused biological deep dive before taking a 5-minute memory consolidation break.
+          Intervals of focused biological deep dive before taking a 5-minute memory consolidation
+          break.
         </p>
 
         <div className="flex items-center gap-3 pt-2">
@@ -121,7 +126,8 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           </span>
         </div>
         <p className="text-xs text-slate-400 leading-relaxed">
-          Provides subtle mechanical tick pulses (10ms) during screen transitions, modal dialog activations, and achievement awards on touch devices.
+          Provides subtle mechanical tick pulses (10ms) during screen transitions, modal dialog
+          activations, and achievement awards on touch devices.
         </p>
 
         <div className="flex items-center gap-3 pt-2">
@@ -155,12 +161,23 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           <span>Official Egyptian Ministry Standards</span>
         </div>
         <p className="text-xs text-slate-300 leading-relaxed">
-          BioThanaweya is designed specifically for students in Egyptian Thanaweya Amma (Languages Schools / التجريبية والمتميزة واللغات الخاصة), strictly following the Ministry of Education biology curriculum:
+          BioThanaweya is designed specifically for students in Egyptian Thanaweya Amma (Languages
+          Schools / التجريبية والمتميزة واللغات الخاصة), strictly following the Ministry of
+          Education biology curriculum:
         </p>
         <ul className="text-xs text-slate-400 space-y-1 list-disc list-inside">
-          <li>Unit 1: Structure and Function in Living Organisms (Support & Movement, Hormones, Reproduction, Immunity).</li>
-          <li>Unit 2: Molecular Biology (DNA structure & replication, RNA, Genetic Code, and Genetic Engineering).</li>
-          <li>Mark schemes enforce mandatory deductions for omitted ions (Ca²⁺), neurotransmitters (ACh), enzymes (cholinesterase, ligase), and structural landmarks.</li>
+          <li>
+            Unit 1: Structure and Function in Living Organisms (Support & Movement, Hormones,
+            Reproduction, Immunity).
+          </li>
+          <li>
+            Unit 2: Molecular Biology (DNA structure & replication, RNA, Genetic Code, and Genetic
+            Engineering).
+          </li>
+          <li>
+            Mark schemes enforce mandatory deductions for omitted ions (Ca²⁺), neurotransmitters
+            (ACh), enzymes (cholinesterase, ligase), and structural landmarks.
+          </li>
         </ul>
       </div>
 
@@ -176,7 +193,9 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           </span>
         </div>
         <p className="text-xs text-slate-300 leading-relaxed">
-          Your learning history, FSRS memory weights, topic masteries, and exam results are safely stored in your browser's private IndexedDB database. You can export complete JSON backups or restore previous snapshots at any time.
+          Your learning history, FSRS memory weights, topic masteries, and exam results are safely
+          stored in your browser's private IndexedDB database. You can export complete JSON backups
+          or restore previous snapshots at any time.
         </p>
         <div className="flex flex-wrap items-center gap-3 pt-1">
           {onOpenStorageModal && (

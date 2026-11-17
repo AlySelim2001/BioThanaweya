@@ -93,9 +93,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
                 {pack.unit === 'UNIT_1' ? 'Unit 1' : 'Unit 2'}
               </span>
             </div>
-            <h1 className="text-xl md:text-2xl font-black text-white mt-1">
-              {pack.topicTitle}
-            </h1>
+            <h1 className="text-xl md:text-2xl font-black text-white mt-1">{pack.topicTitle}</h1>
           </div>
         </div>
 

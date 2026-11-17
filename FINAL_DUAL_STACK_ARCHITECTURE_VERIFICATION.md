@@ -2,7 +2,7 @@
 
 **Project**: Scholar Sidekick — BioThanaweya  
 **Verification Auditor**: Principal Software Architect & Lead Mobile Systems Specialist  
-**Audit Timestamp**: 2026-11-01T13:11:00Z  
+**Audit Timestamp**: 2026-11-01T13:11:00Z
 
 ---
 
@@ -30,6 +30,7 @@ The **BioThanaweya** repository implements an intentional **Dual-Stack Mobile Ar
 ## 2. Source-of-Truth Analysis & Boundary Isolation
 
 ### 2.1 Native Android Pipeline (Host AI Studio Container)
+
 - **Root Configuration**: `settings.gradle.kts` explicitly declares:
   ```kotlin
   rootProject.name = "BioThanaweya"
@@ -39,11 +40,13 @@ The **BioThanaweya** repository implements an intentional **Dual-Stack Mobile Ar
 - **Primary Runtime**: Serves as the primary production-grade engine running on Android SDK 36 with native Jetpack Compose UI, Room persistence, and Firebase AI Logic.
 
 ### 2.2 Flutter Pipeline (Secondary / GitHub Actions CI/CD)
+
 - **Manifest**: Located in `/app/applet/pubspec.yaml` with root code in `/app/applet/lib/`.
 - **Platform Host Wrapper**: Located in `/app/applet/android/` with independent `android/settings.gradle` and `android/build.gradle`.
 - **CI/CD Orchestration**: `.github/workflows/build.yaml` dynamically detects `pubspec.yaml` using dynamic root discovery and builds `flutter build apk --release`.
 
 ### 2.3 Collision Avoidance & Interoperability
+
 1. **Gradle Build Independence**: Root Gradle strictly ignores `android/` because `include(":android")` is omitted from `settings.gradle.kts`. This prevents Gradle from attempting to evaluate Flutter's Gradle scripts during the native Android build.
 2. **Namespace Segregation**:
    - Native App: Namespace `com.example`, Application ID `com.aistudio.biothanaweya.xmptqr`.
@@ -57,19 +60,19 @@ The **BioThanaweya** repository implements an intentional **Dual-Stack Mobile Ar
 
 ## 3. Dual-Stack Parity Matrix
 
-| Feature / Domain | Native Jetpack Compose (`app/`) | Flutter (`lib/`) | Status |
-| :--- | :--- | :--- | :--- |
-| **Unit 1 (Chapters 1–7)** | 100% Implemented (Local Packs) | 100% Implemented (`curriculum_data.dart`) | Aligned |
-| **Unit 2 (Chapters 8–11)**| 100% Implemented (Molecular Bio) | 100% Implemented (`curriculum_data.dart`) | Aligned |
-| **FSRS / SM-2 Engine** | Full FSRS (Kotlin) + Stability | Full SM-2 Algorithm (`sm2_engine.dart`) | Aligned |
-| **Official Examiner Engine**| `MarkSchemeEngine` + Normalizer | `rubric_grader.dart` + Keywords | Aligned |
-| **Empathetic Companion** | `EmpatheticCompanionEngine` + TTS | Audio / Emotional Support Engine | Aligned |
-| **Local Persistence** | Room DB v3 + DAOs | SharedPreferences + Local Storage | Aligned |
-| **AI Cloud Integration** | Firebase AI Logic (Gemini Flash) | Gemini API Client (`gemini_service.dart`)| Aligned |
+| Feature / Domain             | Native Jetpack Compose (`app/`)   | Flutter (`lib/`)                          | Status  |
+| :--------------------------- | :-------------------------------- | :---------------------------------------- | :------ |
+| **Unit 1 (Chapters 1–7)**    | 100% Implemented (Local Packs)    | 100% Implemented (`curriculum_data.dart`) | Aligned |
+| **Unit 2 (Chapters 8–11)**   | 100% Implemented (Molecular Bio)  | 100% Implemented (`curriculum_data.dart`) | Aligned |
+| **FSRS / SM-2 Engine**       | Full FSRS (Kotlin) + Stability    | Full SM-2 Algorithm (`sm2_engine.dart`)   | Aligned |
+| **Official Examiner Engine** | `MarkSchemeEngine` + Normalizer   | `rubric_grader.dart` + Keywords           | Aligned |
+| **Empathetic Companion**     | `EmpatheticCompanionEngine` + TTS | Audio / Emotional Support Engine          | Aligned |
+| **Local Persistence**        | Room DB v3 + DAOs                 | SharedPreferences + Local Storage         | Aligned |
+| **AI Cloud Integration**     | Firebase AI Logic (Gemini Flash)  | Gemini API Client (`gemini_service.dart`) | Aligned |
 
 ---
 
 ## 4. Gate R4 Verification Verdict
 
-- **Gate R4 Status**: **PASS**  
+- **Gate R4 Status**: **PASS**
 - **Audit Findings**: The dual-stack architecture is completely decoupled, structurally coherent, and non-conflicting. The native Android stack executes cleanly within the AI Studio container, while the Flutter pipeline remains intact for GitHub Actions CI/CD.
