@@ -45,3 +45,10 @@ coverage
 .gradle
 .kotlin
 node_modules/
+
+# Android Build & Export Outputs inside project
+android/app/src/main/assets/public/
+android/app/build/
+android/.gradle/
+repomix-output.xml
+repomix-output.md
