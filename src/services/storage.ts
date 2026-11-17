@@ -368,10 +368,3 @@ export const StorageService = {
     }
   },
 };
-
-// Immediate background initialization on client load
-if (typeof window !== 'undefined') {
-  StorageService.init().catch((err) => {
-    console.warn('[StorageService] Initial bootstrap notice:', err);
-  });
-}

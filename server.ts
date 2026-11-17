@@ -112,8 +112,8 @@ app.get('/api/health', (_req: Request, res: Response): void => {
       maxThresholdMb: process.env.MEMORY_LIMIT_MB
         ? parseInt(process.env.MEMORY_LIMIT_MB, 10)
         : config.isProduction
-        ? 128
-        : 512,
+          ? 128
+          : 512,
       isProtected: true,
     },
     aiConfigured: AiExaminerService.isConfigured(),
@@ -190,7 +190,7 @@ async function bootstrapServer(): Promise<void> {
 
   // Optimize socket pooling for mobile battery & memory conservation
   server.keepAliveTimeout = 5000; // Close idle keep-alive sockets after 5 seconds
-  server.headersTimeout = 6000;   // Prevent slowloris attacks on mobile radios
+  server.headersTimeout = 6000; // Prevent slowloris attacks on mobile radios
   server.maxHeadersCount = 50;
 
   server.on('error', (err: NodeJS.ErrnoException) => {
@@ -204,9 +204,17 @@ async function bootstrapServer(): Promise<void> {
     });
 
     if (err.code === 'EADDRINUSE') {
-      logger.error('port_conflict_detected', err, `Port ${config.port} is already in use by an existing process. Run "npm run clean" or execute "fuser -k ${config.port}/tcp" to free the port.`);
+      logger.error(
+        'port_conflict_detected',
+        err,
+        `Port ${config.port} is already in use by an existing process. Run "npm run clean" or execute "fuser -k ${config.port}/tcp" to free the port.`
+      );
     } else if (err.code === 'EACCES') {
-      logger.error('port_permission_denied', err, `Insufficient permissions to bind to port ${config.port}. Ensure user has socket bind authorization.`);
+      logger.error(
+        'port_permission_denied',
+        err,
+        `Insufficient permissions to bind to port ${config.port}. Ensure user has socket bind authorization.`
+      );
     }
 
     process.exit(1);

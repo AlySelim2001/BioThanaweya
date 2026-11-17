@@ -23,6 +23,7 @@ permissions:
   contents: write
   actions: read
   packages: write
+  pull-requests: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -41,6 +42,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
+          cache: 'maven'
 
       - name: 💙 Setup Flutter SDK Environment
         uses: subosito/flutter-action@v2
@@ -48,6 +50,7 @@ jobs:
           flutter-version: '3.29.0'
           channel: 'stable'
           cache: true
+          cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
           cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
 
       - name: 📦 Retrieve Flutter Dependencies
@@ -72,6 +75,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
+          cache: 'maven'
 
       - name: 🤖 Setup Android SDK
        uses: android-actions/setup-android@v3
@@ -91,6 +95,7 @@ jobs:
           flutter-version: '3.29.0'
           channel: 'stable'
           cache: true
+          cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
 
       - name: 📦 Fetch Packages
         run: flutter pub get

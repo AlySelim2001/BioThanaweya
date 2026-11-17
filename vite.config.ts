@@ -3,6 +3,10 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
+// Matches the React core packages only, so `lucide-react` and other
+// React-aware add-ons land in their own chunks instead of vendor-react.
+const REACT_CORE_PATTERN = /[\\/]node_modules[\\/](?:react|react-dom|scheduler)[\\/]/;
+
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
@@ -23,7 +27,9 @@ export default defineConfig({
         server.httpServer?.on('listening', () => {
           const address = server.httpServer?.address();
           if (address && typeof address === 'object') {
-            console.log(`[vite-diagnostic] Dev server successfully bound to http://${address.address}:${address.port} (family: ${address.family})`);
+            console.log(
+              `[vite-diagnostic] Dev server successfully bound to http://${address.address}:${address.port} (family: ${address.family})`
+            );
           }
         });
         server.httpServer?.on('error', (err: NodeJS.ErrnoException) => {
@@ -35,7 +41,9 @@ export default defineConfig({
             stack: err.stack,
           });
           if (err.code === 'EADDRINUSE') {
-            console.error('[vite-diagnostic-error] CRITICAL: Port 3000 is already in use by another process. Run "npm run clean" or "fuser -k 3000/tcp" to release the port.');
+            console.error(
+              '[vite-diagnostic-error] CRITICAL: Port 3000 is already in use by another process. Run "npm run clean" or "fuser -k 3000/tcp" to release the port.'
+            );
           }
         });
       },
@@ -47,7 +55,8 @@ export default defineConfig({
         id: '/',
         name: 'BioThanaweya Biology',
         short_name: 'BioThanaweya',
-        description: 'Elite Egyptian Thanaweya Amma (Languages) Biology learning ecosystem and exam simulator.',
+        description:
+          'Elite Egyptian Thanaweya Amma (Languages) Biology learning ecosystem and exam simulator.',
         theme_color: '#0B132B',
         background_color: '#0B132B',
         display: 'standalone',
@@ -90,21 +99,19 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'vendor-react';
-            }
-            if (id.includes('framer-motion')) {
-              return 'vendor-motion';
-            }
-            if (id.includes('lucide-react')) {
-              return 'vendor-icons';
-            }
-            if (id.includes('canvas-confetti') || id.includes('zod') || id.includes('idb')) {
-              return 'vendor-utils';
-            }
-            return 'vendor-core';
+          if (!id.includes('node_modules')) return undefined;
+          if (REACT_CORE_PATTERN.test(id)) return 'vendor-react';
+          if (id.includes('framer-motion')) return 'vendor-motion';
+          if (id.includes('lucide-react')) return 'vendor-icons';
+          if (
+            id.includes('canvas-confetti') ||
+            id.includes('zod') ||
+            id.includes('dexie') ||
+            id.includes('@google/genai')
+          ) {
+            return 'vendor-utils';
           }
+          return 'vendor-core';
         },
       },
     },

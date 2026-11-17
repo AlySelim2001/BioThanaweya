@@ -24,6 +24,10 @@ export class FSRS {
     0.11,
     0.29605,
     2.2698, // retrieval factors
+    0.2315, // w15: hard penalty
+    2.9898, // w16: easy bonus
+    0.51655, // w17 (FSRS-5, reserved for same-day reviews)
+    0.6621, // w18 (FSRS-5, reserved for same-day reviews)
   ];
 
   constructor(requestRetention = 0.9, maximumInterval = 36500) {
