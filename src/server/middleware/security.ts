@@ -58,7 +58,7 @@ export function createRateLimiter(options: { maxRequests: number; windowMs: numb
 
 // RFC 7807 Centralized Error Handler Middleware
 export function globalErrorHandler(
-  err: any,
+  err: unknown,
   _req: Request,
   res: Response,
   _next: NextFunction
@@ -68,7 +68,7 @@ export function globalErrorHandler(
       type: 'https://tools.ietf.org/html/rfc7231#section-6.5.1',
       title: 'Bad Request - Validation Error',
       status: 400,
-      errors: (err.issues || (err as any).errors || []).map((e: any) => ({
+      errors: (err.issues || []).map((e) => ({
         path: Array.isArray(e.path) ? e.path.join('.') : String(e.path),
         message: e.message,
       })),
@@ -76,13 +76,17 @@ export function globalErrorHandler(
     return;
   }
 
-  const statusCode = err.status || err.statusCode || 500;
+  const statusCode = (err as { statusCode?: number; status?: number }).statusCode || (err as { statusCode?: number; status?: number }).status || 500;
   const isProd = process.env.NODE_ENV === 'production';
+
+  // Safely extract title and detail
+  const title = (err as { name?: string }).name || 'Internal Server Error';
+  const detail = isProd ? 'An unexpected system error occurred.' : (err as Error).message || 'Unknown error';
 
   res.status(statusCode).json({
     type: 'https://tools.ietf.org/html/rfc7231#section-6.6.1',
-    title: err.name || 'Internal Server Error',
+    title,
     status: statusCode,
-    detail: isProd ? 'An unexpected system error occurred.' : err.message || 'Unknown error',
+    detail,
   });
 }

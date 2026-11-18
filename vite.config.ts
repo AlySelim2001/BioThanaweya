@@ -7,8 +7,15 @@ import { VitePWA } from 'vite-plugin-pwa';
 // React-aware add-ons land in their own chunks instead of vendor-react.
 const REACT_CORE_PATTERN = /[\\/]node_modules[\\/](?:react|react-dom|scheduler)[\\/]/;
 
+// The Android shell (android/app/src/main/java/.../MainActivity.kt) serves this
+// bundle through WebViewAssetLoader from
+// https://appassets.androidplatform.net/assets/public/, so every emitted asset
+// URL must be relative. Browser/PWA deployments keep the root-absolute base.
+const isCapacitorBuild = process.env.CAPACITOR_BUILD === 'true';
+
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: isCapacitorBuild ? './' : '/',
   server: {
     host: '0.0.0.0',
     port: 3000,
@@ -49,6 +56,9 @@ export default defineConfig({
       },
     },
     VitePWA({
+      // The native container bundles its own assets for offline use, and its
+      // virtual origin cannot serve a root-scoped service worker.
+      disable: isCapacitorBuild,
       registerType: 'autoUpdate',
       includeAssets: ['icon.svg', 'apple-touch-icon.png'],
       manifest: {

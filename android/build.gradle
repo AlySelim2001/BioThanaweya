@@ -1,13 +1,6 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.3.2'
-    }
-}
-
-tasks.register('clean', Delete) {
-    delete rootProject.buildDir
+// Top-level build file: plugin versions are declared here once and applied by modules.
+plugins {
+    id 'com.android.application' version '8.1.1' apply false
+    id 'com.android.library' version '8.1.1' apply false
+    id 'org.jetbrains.kotlin.android' version '1.9.22' apply false
 }

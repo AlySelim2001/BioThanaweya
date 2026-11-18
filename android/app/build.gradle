@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -61,24 +62,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-}
-
-def repositoryRoot = rootProject.projectDir.parentFile
-def webDistDirectory = new File(repositoryRoot, 'dist')
-def webAssetsDirectory = file('src/main/assets/public')
-
-tasks.register('syncWebAssets', Sync) {
-    from(webDistDirectory)
-    into(webAssetsDirectory)
-    doFirst {
-        if (!webDistDirectory.isDirectory() || !new File(webDistDirectory, 'index.html').isFile()) {
-            throw new GradleException("Missing production web bundle at ${webDistDirectory}. Run 'npm run build' before building Android.")
-        }
-    }
-}
-
-tasks.named('preBuild').configure {
-    dependsOn tasks.named('syncWebAssets')
 }
 
 dependencies {

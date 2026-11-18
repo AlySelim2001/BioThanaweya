@@ -1,0 +1,9 @@
+{
+	"appId": "com.aistudio.biothanaweya.exam",
+	"appName": "BioThanaweya",
+	"webDir": "dist",
+	"bundledWebRuntime": false,
+	"server": {
+		"androidScheme": "https"
+	}
+}

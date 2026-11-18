@@ -1,0 +1,174 @@
+name: CI - Web Build & Android APK
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '22'
+  JAVA_VERSION: '17'
+  ANDROID_API_LEVEL: '34'
+  ANDROID_BUILD_TOOLS: '34.0.0'
+
+jobs:
+  web:
+    name: Web - typecheck, tests & bundle
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Typecheck (tsc --noEmit)
+        run: npm run lint
+
+      - name: Unit tests (vitest)
+        run: npm test
+
+      # CAPACITOR_BUILD switches Vite to a relative base so the bundle works
+      # from the WebView's virtual origin (appassets.androidplatform.net).
+      - name: Build production bundle
+        run: npm run build
+        env:
+          CAPACITOR_BUILD: 'true'
+
+      - name: Upload web bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-dist
+          path: dist/
+          retention-days: 7
+
+  android:
+    name: Android - debug APK
+    needs: web
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Setup Java 17 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+
+      # setup-android@v3 takes no inputs; it provisions cmdline-tools and the
+      # SDK env vars. Individual packages are installed with sdkmanager below.
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK packages
+        run: |
+          yes | sdkmanager --licenses > /dev/null
+          sdkmanager --install \
+            "platforms;android-${ANDROID_API_LEVEL}" \
+            "build-tools;${ANDROID_BUILD_TOOLS}" \
+            "platform-tools"
+
+      - name: Point Gradle at the SDK
+        run: echo "sdk.dir=${ANDROID_SDK_ROOT}" > android/local.properties
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Download web bundle
+        uses: actions/download-artifact@v4
+        with:
+          name: web-dist
+          path: dist/
+
+      # The Capacitor 8 CLI requires Node >= 22 and resolves its binary from the
+      # local install. Calling it directly avoids `npx` falling back to the npm
+      # registry ("could not determine executable to run") when the install is bad.
+      - name: Sync Capacitor Android
+        run: |
+          if [ ! -x node_modules/.bin/cap ]; then
+            echo "::error::Capacitor CLI missing at node_modules/.bin/cap - dependency install did not complete."
+            exit 1
+          fi
+          node --version
+          node_modules/.bin/cap sync android
+
+      - name: Build debug APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: Verify and checksum APK
+        run: |
+          APK="android/app/build/outputs/apk/debug/app-debug.apk"
+          if [ ! -f "$APK" ]; then
+            echo "::error::Expected debug APK at $APK was not produced."
+            exit 1
+          fi
+          mkdir -p output-binaries
+          cp "$APK" output-binaries/BioThanaweya-debug.apk
+          (cd output-binaries && sha256sum BioThanaweya-debug.apk > SHA256SUMS.txt)
+          ls -lh output-binaries
+          cat output-binaries/SHA256SUMS.txt
+          {
+            echo "### Android debug APK"
+            echo '```'
+            cat output-binaries/SHA256SUMS.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: BioThanaweya-debug-apk
+          path: output-binaries/
+          retention-days: 30
+
+  release:
+    name: Publish release assets
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: android
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download APK artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: BioThanaweya-debug-apk
+          path: release-assets
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release-assets/*
+          generate_release_notes: true
+          draft: false
+          prerelease: false

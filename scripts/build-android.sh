@@ -10,7 +10,8 @@ command -v npm >/dev/null 2>&1 || { echo 'Error: npm is required to build the we
 command -v java >/dev/null 2>&1 || { echo 'Error: Java 17 is required for the Android build.' >&2; exit 1; }
 
 cd "$ROOT_DIR"
-npm run build
+# Relative asset URLs are required for the WebView virtual origin.
+CAPACITOR_BUILD=true npm run build
 
 if [[ -x "${ANDROID_DIR}/gradlew" ]]; then
     GRADLE_WRAPPER="${ANDROID_DIR}/gradlew"

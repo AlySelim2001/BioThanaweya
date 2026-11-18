@@ -83,8 +83,9 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
       recognition.onend = () => setIsListening(false);
       recognition.onerror = () => setIsListening(false);
 
-      recognition.onresult = (event: any) => {
-        const transcript = event.results[0][0].transcript;
+      recognition.onresult = (event: unknown) => {
+        const results = event as { results: { [index: number]: { [index: number]: { transcript: string } } } };
+        const transcript = results.results[0][0].transcript;
         setAnswers((prev) => ({
           ...prev,
           [currentIndex]: prev[currentIndex] ? `${prev[currentIndex]} ${transcript}` : transcript,

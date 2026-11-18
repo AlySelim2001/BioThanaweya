@@ -65,8 +65,9 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
       recognition.onend = () => setIsListening(false);
       recognition.onerror = () => setIsListening(false);
 
-      recognition.onresult = (event: any) => {
-        const transcript = event.results[0][0].transcript;
+      recognition.onresult = (event: unknown) => {
+        const results = event as { results: { length: number; [index: number]: { 0: { 0: { transcript: string } } } } };
+        const transcript = (results as any).results[0][0].transcript;
         setStudentAnswer((prev) => (prev ? `${prev} ${transcript}` : transcript));
       };
 

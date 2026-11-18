@@ -38,8 +38,12 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
     try {
       setSarcomereError('');
       setSarcomereResult(SarcomereCalculator.calculateFromSarcomeres(num));
-    } catch (err: any) {
-      setSarcomereError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setSarcomereError(err.message);
+      } else {
+        setSarcomereError(String(err));
+      }
       setSarcomereResult(null);
     }
   };
@@ -79,8 +83,12 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
     try {
       setChargaffError('');
       setChargaffResult(DnaCalculator.calculateFromBasePercent(base, p, tot));
-    } catch (err: any) {
-      setChargaffError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setChargaffError(err.message);
+      } else {
+        setChargaffError(String(err));
+      }
       setChargaffResult(null);
     }
   };
@@ -116,8 +124,12 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
     try {
       setCodonError('');
       setCodonResult(CodonCalculator.calculateFromNucleotides(nt, incStart));
-    } catch (err: any) {
-      setCodonError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setCodonError(err.message);
+      } else {
+        setCodonError(String(err));
+      }
       setCodonResult(null);
     }
   };

@@ -22,7 +22,7 @@ TARGET_DIR="android/app/src/main/assets/public"
 
 # Step 1: Compile fresh production web bundle
 echo -e "\n${YELLOW}[1/3] Building production bundle (npm run build)...${NC}"
-npm run build
+CAPACITOR_BUILD=true npm run build
 echo -e "${GREEN}✓ Production bundle compiled cleanly in dist/.${NC}"
 
 # Step 2: Wipe previous assets in Android container
