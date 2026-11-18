@@ -29,6 +29,10 @@
   <em>Direct download of the latest successful Android APK build artifact (debug) from GitHub Actions.</em>
 </p>
 
+<p align="center">
+  🌐 <strong>Live Landing Page:</strong> <a href="https://alyselim2001.github.io/BioThanaweya/">https://alyselim2001.github.io/BioThanaweya/</a>
+</p>
+
 ---
 
 ## 📖 Table of Contents / فهرس المحتويات

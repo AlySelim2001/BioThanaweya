@@ -1,90 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <script>
-      // Environment Constraint: HMR is disabled in cloud proxy & iframe.
-      // Intercept Vite HMR WebSocket connection attempts cleanly without throwing "WebSocket closed without opened".
-      (function() {
-        if (typeof window !== 'undefined' && window.WebSocket) {
-          var RealWebSocket = window.WebSocket;
-          window.WebSocket = function(url, protocols) {
-            // Check if this is a Vite HMR WebSocket connection attempt
-            if (typeof url === 'string' && (url.includes('token=') || protocols === 'vite-hmr' || (Array.isArray(protocols) && protocols.includes('vite-hmr')))) {
-              var dummy = {
-                readyState: 3, // CLOSED
-                addEventListener: function(type, listener) {
-                  // If listening for close, defer call
-                  if (type === 'close') {
-                    // Do not trigger premature reject
-                  }
-                },
-                removeEventListener: function() {},
-                send: function() {},
-                close: function() {}
-              };
-              return dummy;
-            }
-            return new RealWebSocket(url, protocols);
-          };
-          window.WebSocket.prototype = RealWebSocket.prototype;
-          window.WebSocket.CONNECTING = 0;
-          window.WebSocket.OPEN = 1;
-          window.WebSocket.CLOSING = 2;
-          window.WebSocket.CLOSED = 3;
-        }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>BioThanaweya • Egyptian Biology Ecosystem</title>
+  <meta name="description" content="Elite Egyptian Thanaweya Amma Biology learning platform and Ministry exam simulator. Download the Android APK and explore the biological learning ecosystem." />
+  <meta name="theme-color" content="#0B132B" />
+  <link rel="icon" type="image/svg+xml" href="public/icon.svg" />
+  <style>
+    :root {
+      --bg: #0B132B;
+      --bg-soft: #111a3a;
+      --card: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #e6eaf5;
+      --muted: #a9b3d6;
+      --accent: #2dd4bf;
+      --accent-2: #38bdf8;
+      --danger: #f87171;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Inter", "Cairo", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(1200px 600px at 50% -10%, #1a2a5e 0%, var(--bg) 60%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      width: 100%;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    header {
+      padding: 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.2px;
+    }
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(45, 212, 191, 0.12);
+      border: 1px solid rgba(45, 212, 191, 0.35);
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .hero {
+      padding: 48px 0 32px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 3.6rem);
+      margin: 0 0 12px;
+      font-weight: 900;
+      background: linear-gradient(120deg, #ffffff 0%, var(--accent) 45%, var(--accent-2) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero p {
+      max-width: 720px;
+      margin: 0 auto 28px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .cta-wrap {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: 18px 0 12px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 26px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 1.05rem;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: #06101f;
+      box-shadow: 0 14px 40px rgba(45, 212, 191, 0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 18px 48px rgba(45, 212, 191, 0.45); }
+    .btn-ghost {
+      background: var(--card);
+      color: var(--text);
+      border-color: var(--border);
+    }
+    .btn-ghost:hover { transform: translateY(-2px); background: rgba(255,255,255,0.1); }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin: 36px 0;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+    }
+    .card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+    .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin: 10px 0 30px;
+    }
+    .meta span {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+    }
+    footer {
+      margin-top: 48px;
+      padding: 28px 0 40px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .dev {
+      display: inline-block;
+      text-align: left;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 22px;
+      margin: 16px auto 0;
+    }
+    .dev .row { margin: 4px 0; }
+    .dev .label { color: var(--muted); font-size: 0.85rem; }
+    .dev .value { font-weight: 700; }
+    .note {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: 14px;
+    }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <span style="font-size:1.6rem;">🧬</span>
+        <span>BioThanaweya</span>
+      </div>
+      <span class="brand-badge">Android APK • v1.0</span>
+    </header>
 
-        window.addEventListener('error', function (event) {
-          if (
-            event.message &&
-            (event.message.includes('WebSocket closed without opened') ||
-             event.message.includes('failed to connect to websocket'))
-          ) {
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            return true;
-          }
-        }, true);
-        window.addEventListener('unhandledrejection', function (event) {
-          if (
-            event.reason &&
-            ((event.reason.message && event.reason.message.includes('WebSocket closed without opened')) ||
-             String(event.reason).includes('WebSocket closed without opened'))
-          ) {
-            event.preventDefault();
-            event.stopImmediatePropagation();
-          }
-        }, true);
+    <section class="hero">
+      <h1>BioThanaweya</h1>
+      <p>
+        Elite Egyptian Thanaweya Amma Biology learning platform and Ministry exam simulator.
+        Master Unit 1 &amp; Unit 2 with AI-guided scaffolding, visual schematics, and
+        authentic Ministry mark schemes — fully optimized for mobile and offline study.
+      </p>
+      <div class="cta-wrap">
+        <a class="btn btn-primary" href="https://github.com/AlySelim2001/BioThanaweya/releases/download/v1.0.0/app-debug.apk">
+          📥 Download BioThanaweya APK (v1.0)
+        </a>
+        <a class="btn btn-ghost" href="https://github.com/AlySelim2001/BioThanaweya">
+          View Repository
+        </a>
+      </div>
+      <div class="meta">
+        <span>📱 Android</span>
+        <span>🧬 Biology Syllabus</span>
+        <span>🇪🇬 Thanaweya Amma</span>
+        <span>⚡ Offline-Ready</span>
+      </div>
+    </section>
 
-        // Also intercept console.error for WebSocket connection logs from @vite/client
-        var originalConsoleError = console.error;
-        console.error = function() {
-          var args = Array.prototype.slice.call(arguments);
-          if (args.length > 0 && typeof args[0] === 'string' && (args[0].includes('[vite] failed to connect to websocket') || args[0].includes('WebSocket closed without opened'))) {
-            return;
-          }
-          return originalConsoleError.apply(console, arguments);
-        };
-      })();
-    </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <title>BioThanaweya • Egyptian Biology Ecosystem</title>
-    <meta name="description" content="Elite Egyptian Thanaweya Amma Biology multi-agent AI learning system featuring ELI5, deep technical breakdowns, visual schematics, exam traps, and official Ministry examiner grading." />
-    <meta property="og:title" content="BioThanaweya • Egyptian Biology Ecosystem" />
-    <meta property="og:description" content="Elite Egyptian Thanaweya Amma Biology multi-agent AI learning system featuring ELI5, deep technical breakdowns, visual schematics, exam traps, and official Ministry examiner grading." />
-    <meta name="theme-color" content="#0B132B" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="BioThanaweya" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  </head>
-  <body class="bg-[#0B132B] text-slate-100 min-h-screen selection:bg-teal-500 selection:text-white font-sans antialiased overflow-x-hidden">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <section class="features">
+      <div class="card">
+        <h3>7-Agent AI Learning</h3>
+        <p>Pedagogical scaffolding with ELI5 analogies, visual schematics, and exam traps.</p>
+      </div>
+      <div class="card">
+        <h3>Ministry Mark Schemes</h3>
+        <p>Authentic grading with keyword deduction and official answer models.</p>
+      </div>
+      <div class="card">
+        <h3>FSRS Spaced Repetition</h3>
+        <p>Modern scheduling for long-term retention of biological concepts.</p>
+      </div>
+      <div class="card">
+        <h3>Offline PWA</h3>
+        <p>100% offline capability with local IndexedDB storage and backups.</p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="dev">
+        <div class="row"><span class="label">Developer</span></div>
+        <div class="row"><span class="value">Alyselim</span></div>
+        <div class="row"><span class="label">Phone / Contact</span></div>
+        <div class="row"><span class="value">📱 +201119886662</span></div>
+      </div>
+      <p class="note">
+        For support, feature requests, or collaboration inquiries, reach out via the contact above
+        or open an issue on GitHub.
+      </p>
+    </footer>
+  </div>
+</body>
 </html>
