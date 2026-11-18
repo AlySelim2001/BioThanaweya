@@ -82,10 +82,12 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ env.JAVA_VERSION }}
 
-      # setup-android@v3 takes no inputs; it provisions cmdline-tools and the
-      # SDK env vars. Individual packages are installed with sdkmanager below.
+      # `tools` is no longer published; only request platform-tools here and
+      # install the rest via sdkmanager below.
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools'
 
       - name: Install Android SDK packages
         run: |
