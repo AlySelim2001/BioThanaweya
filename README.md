@@ -10,12 +10,23 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/ci.yml"><img src="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/ci.yml/badge.svg" alt="CI Pipeline" /></a>
+  <a href="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/android-apk-build.yml"><img src="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/android-apk-build.yml/badge.svg" alt="CI/CD Build Passing" /></a>
+  <a href="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/android-apk-build.yml"><img src="https://img.shields.io/badge/APK-Build%20Passing-brightgreen.svg" alt="APK Build Passing" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-teal.svg" alt="License: MIT" /></a>
   <a href="https://nodejs.org"><img src="https://img.shields.io/badge/Node.js-22%20LTS-green.svg" alt="Node.js 22 LTS" /></a>
   <a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-5.7%20Strict-blue.svg" alt="TypeScript Strict" /></a>
   <a href="https://web.dev/progressive-web-apps/"><img src="https://img.shields.io/badge/PWA-100%25%20Offline-orange.svg" alt="PWA 100% Offline" /></a>
   <a href="https://termux.dev"><img src="https://img.shields.io/badge/Platform-Termux%20%7C%20Android%20%7C%20Linux-purple.svg" alt="Platform: Termux / Android" /></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/android-apk-build.yml">
+    <img src="https://img.shields.io/badge/%F0%9F%93%A5%20Download%20BioThanaweya%20APK%20(v1.0)-Android%20APK-blue?style=for-the-badge&logo=android" alt="📥 Download BioThanaweya APK (v1.0)" />
+  </a>
+</p>
+
+<p align="center">
+  <em>Direct download of the latest successful Android APK build artifact (debug) from GitHub Actions.</em>
 </p>
 
 ---
@@ -26,6 +37,7 @@
 - [🌟 7-Agent AI Learning Framework](#-7-agent-ai-learning-framework)
 - [🏛️ Repository Architecture & Directory Structure](#️-repository-architecture--directory-structure)
 - [📱 Termux & Mobile Android Setup (دليل تشغيل تيرمكس)](#-termux--mobile-android-setup)
+- [📥 Download Android APK (تحميل تطبيق الأندرويد)](#-download-android-apk-تحميل-تطبيق-الأندرويد)
 - [📲 PWA Offline Installation (التثبيت على الهاتف)](#-pwa-offline-installation)
 - [💾 Local Storage & JSON Vault (قاعدة البيانات وإدارة البيانات)](#-local-storage--json-vault)
 - [🔬 Interactive Formula Lab (معمل حل مسائل الأحياء)](#-interactive-formula-lab)
@@ -128,6 +140,22 @@ AlySelim2001/BioThanaweya
 
 ---
 
+## 📥 Download Android APK (تحميل تطبيق الأندرويد)
+
+Get the latest Android build directly from the CI/CD pipeline:
+
+<p align="center">
+  <a href="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/android-apk-build.yml">
+    <img src="https://img.shields.io/badge/%F0%9F%93%A5%20Download%20BioThanaweya%20APK%20(v1.0)-Latest%20Build-blue?style=for-the-badge&logo=github" alt="📥 Download BioThanaweya APK (v1.0)" />
+  </a>
+</p>
+
+- **Artifact:** `BioThanaweya-debug-apk` (uploaded by the `android` job, retained 30 days).
+- **Source:** [GitHub Actions – Android APK Build](https://github.com/AlySelim2001/BioThanaweya/actions/workflows/android-apk-build.yml)
+- **Architecture:** Flutter / Capacitor / Android hybrid (React + Vite web bundle wrapped via Capacitor 8).
+
+---
+
 ## 📱 Termux & Mobile Android Setup
 
 تطبيق BioThanaweya مُحسّن تماماً للعمل داخل بيئة **Termux** على هواتف أندرويد ذات الإمكانيات المحدودة مع حماية الذاكرة العشوائية تحت سقف 128MB RAM:
@@ -210,3 +238,12 @@ BioThanaweya operates as a true Progressive Web App with 100% offline capability
 
 Distributed under the **MIT License**. See [LICENSE](LICENSE) for details.  
 100% Free and Open Source Software (FOSS). Developed with pride for Egyptian Thanaweya Amma students. 🇪🇬🧬
+
+---
+
+## 👨‍💻 Developer & Support
+
+- **Developer:** Alyselim
+- **Phone / Contact:** 📱 +201119886662
+
+> For support, feature requests, or collaboration inquiries, please reach out via the contact above or open an issue on GitHub.
