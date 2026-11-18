@@ -6,6 +6,7 @@
 
 <p align="center">
   <strong>Elite Egyptian Thanaweya Amma Biology Learning Platform & Ministry Exam Simulator</strong><br>
+  <em>Next-Gen 3D Biology &amp; Automation Ecosystem with direct APK distribution.</em><br>
   <em>منظومة متقدمة لمراجعة واختبار مادة الأحياء لطلاب مدارس اللغات وفق أحدث معايير ونماذج إجابة وزارة التربية والتعليم المصرية</em>
 </p>
 

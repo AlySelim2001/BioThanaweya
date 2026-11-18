@@ -3,232 +3,451 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>BioThanaweya • Egyptian Biology Ecosystem</title>
-  <meta name="description" content="Elite Egyptian Thanaweya Amma Biology learning platform and Ministry exam simulator. Download the Android APK and explore the biological learning ecosystem." />
-  <meta name="theme-color" content="#0B132B" />
+  <title>BioThanaweya • Bio-OS 3D Biology & Automation Ecosystem</title>
+  <meta name="description" content="BioThanaweya: next-gen 3D biology and automation ecosystem for Egyptian Thanaweya Amma students. Download the Android APK." />
+  <meta name="theme-color" content="#050816" />
   <link rel="icon" type="image/svg+xml" href="public/icon.svg" />
   <style>
-    :root {
-      --bg: #0B132B;
-      --bg-soft: #111a3a;
-      --card: rgba(255, 255, 255, 0.06);
-      --border: rgba(255, 255, 255, 0.12);
-      --text: #e6eaf5;
-      --muted: #a9b3d6;
-      --accent: #2dd4bf;
-      --accent-2: #38bdf8;
-      --danger: #f87171;
+    @layer reset, base, theme, components, utilities;
+
+    @layer reset {
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      img, svg { display: block; max-inline-size: 100%; block-size: auto; }
+      button { font: inherit; color: inherit; }
     }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; }
-    body {
-      font-family: "Inter", "Cairo", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: radial-gradient(1200px 600px at 50% -10%, #1a2a5e 0%, var(--bg) 60%);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
+
+    @layer base {
+      :root {
+        --bg-0: #050816;
+        --bg-1: #0a1024;
+        --bg-2: #0f1a3a;
+        --neon-cyan: #22f0ff;
+        --neon-violet: #b36bff;
+        --neon-lime: #7cffb2;
+        --neon-amber: #ffc857;
+        --text: #e9f1ff;
+        --muted: #9fb0d8;
+        --glass: rgba(255, 255, 255, 0.06);
+        --glass-strong: rgba(255, 255, 255, 0.10);
+        --border: rgba(120, 180, 255, 0.22);
+        --border-hot: rgba(34, 240, 255, 0.45);
+        --shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+        --radius: 18px;
+        --radius-sm: 12px;
+      }
+      body {
+        font-family: "Inter", "Cairo", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(1200px 700px at 15% -10%, rgba(34, 240, 255, 0.18) 0%, transparent 60%),
+          radial-gradient(900px 600px at 85% 10%, rgba(179, 107, 255, 0.16) 0%, transparent 60%),
+          radial-gradient(800px 500px at 50% 110%, rgba(124, 255, 178, 0.10) 0%, transparent 60%),
+          linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 45%, var(--bg-2) 100%);
+        min-block-size: 100dvh;
+        overflow-x: hidden;
+        line-height: 1.55;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(34, 240, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(34, 240, 255, 0.05) 1px, transparent 1px);
+        background-size: 46px 46px;
+        mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+        pointer-events: none;
+        z-index: 0;
+      }
     }
-    .container {
-      width: 100%;
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 20px;
+
+    @layer components {
+      .container {
+        inline-size: min(1180px, 100%);
+        margin-inline: auto;
+        padding-inline: 20px;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Top HUD bar */
+      .hud {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        padding-block: 22px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: 0.4px;
+      }
+      .brand-mark {
+        inline-size: 40px;
+        block-size: 40px;
+        border-radius: 12px;
+        background: conic-gradient(from 180deg, var(--neon-cyan), var(--neon-violet), var(--neon-lime), var(--neon-cyan));
+        box-shadow: 0 0 24px rgba(34, 240, 255, 0.45);
+        display: grid;
+        place-items: center;
+        font-size: 1.2rem;
+      }
+      .hud-badges {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .badge {
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        background: var(--glass);
+        border: 1px solid var(--border);
+        backdrop-filter: blur(10px);
+      }
+      .badge.hot { border-color: var(--border-hot); color: var(--neon-cyan); box-shadow: 0 0 18px rgba(34,240,255,0.25); }
+
+      /* Hero */
+      .hero {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 36px;
+        align-items: center;
+        padding-block: 40px 28px;
+      }
+      @media (max-width: 900px) {
+        .hero { grid-template-columns: 1fr; }
+      }
+      .hero h1 {
+        margin: 0 0 14px;
+        font-size: clamp(2.2rem, 5.6vw, 4rem);
+        line-height: 1.05;
+        font-weight: 900;
+        letter-spacing: -0.5px;
+        background: linear-gradient(120deg, #ffffff 0%, var(--neon-cyan) 40%, var(--neon-violet) 75%, var(--neon-lime) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .hero .lede {
+        color: var(--muted);
+        font-size: 1.08rem;
+        max-inline-size: 62ch;
+        margin: 0 0 26px;
+      }
+      .status-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 0 0 26px;
+      }
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: var(--glass-strong);
+        border: 1px solid var(--border);
+        font-size: 0.82rem;
+        font-weight: 600;
+      }
+      .dot {
+        inline-size: 8px;
+        block-size: 8px;
+        border-radius: 50%;
+        background: var(--neon-lime);
+        box-shadow: 0 0 10px var(--neon-lime);
+        animation: pulse 1.6s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.6); opacity: 0.6; }
+      }
+
+      /* CTA */
+      .cta-wrap {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 16px 26px;
+        border-radius: 14px;
+        font-weight: 800;
+        font-size: 1.02rem;
+        text-decoration: none;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-violet) 55%, var(--neon-lime) 100%);
+        color: #041018;
+        box-shadow: 0 0 0 1px rgba(34,240,255,0.35), 0 18px 46px rgba(34, 240, 255, 0.35);
+      }
+      .btn-primary::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%);
+        transform: translateX(-100%);
+        animation: sweep 3.2s ease-in-out infinite;
+      }
+      @keyframes sweep {
+        0% { transform: translateX(-120%); }
+        60%, 100% { transform: translateX(120%); }
+      }
+      .btn-primary:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 0 0 1px rgba(34,240,255,0.5), 0 24px 60px rgba(34,240,255,0.45); }
+      .btn-ghost {
+        background: var(--glass);
+        color: var(--text);
+        border-color: var(--border);
+        backdrop-filter: blur(10px);
+      }
+      .btn-ghost:hover { transform: translateY(-2px); background: rgba(255,255,255,0.1); }
+
+      /* 3D preview panel */
+      .preview {
+        position: relative;
+        min-block-size: 420px;
+        border-radius: 24px;
+        background: linear-gradient(160deg, rgba(34,240,255,0.08), rgba(179,107,255,0.08));
+        border: 1px solid var(--border);
+        backdrop-filter: blur(14px);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        display: grid;
+        place-items: center;
+        isolation: isolate;
+      }
+      .preview::before {
+        content: "";
+        position: absolute;
+        inset: -40%;
+        background: conic-gradient(from 0deg, transparent 0deg, rgba(34,240,255,0.18) 60deg, transparent 120deg, rgba(179,107,255,0.18) 240deg, transparent 300deg);
+        animation: spin 12s linear infinite;
+        z-index: -1;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      .helix {
+        position: relative;
+        inline-size: 220px;
+        block-size: 300px;
+        transform-style: preserve-3d;
+        animation: rotateY 9s linear infinite;
+      }
+      @keyframes rotateY { to { transform: rotateY(360deg); } }
+      .helix .strand {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 2px solid rgba(34,240,255,0.5);
+        box-shadow: 0 0 18px rgba(34,240,255,0.35), inset 0 0 18px rgba(179,107,255,0.2);
+      }
+      .helix .strand:nth-child(2) { transform: rotateY(60deg); border-color: rgba(179,107,255,0.5); }
+      .helix .strand:nth-child(3) { transform: rotateY(120deg); border-color: rgba(124,255,178,0.5); }
+      .helix .node {
+        position: absolute;
+        inline-size: 10px;
+        block-size: 10px;
+        border-radius: 50%;
+        background: var(--neon-cyan);
+        box-shadow: 0 0 12px var(--neon-cyan);
+      }
+      .telemetry {
+        position: absolute;
+        inset-block-end: 16px;
+        inset-inline: 16px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .tel {
+        background: rgba(5,8,22,0.55);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px 12px;
+        backdrop-filter: blur(8px);
+      }
+      .tel .k { font-size: 0.72rem; color: var(--muted); }
+      .tel .v { font-size: 1.05rem; font-weight: 800; color: var(--neon-cyan); }
+
+      /* Sections */
+      .section-title {
+        margin: 0 0 14px;
+        font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+        font-weight: 900;
+      }
+      .section-sub {
+        color: var(--muted);
+        max-inline-size: 70ch;
+        margin: 0 0 26px;
+      }
+      .grid3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+      }
+      .card {
+        background: var(--glass);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        backdrop-filter: blur(12px);
+        transition: transform 0.18s ease, border-color 0.18s ease;
+      }
+      .card:hover { transform: translateY(-4px); border-color: var(--border-hot); }
+      .card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+      .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+      .card .icon { font-size: 1.6rem; margin-block-end: 10px; }
+
+      /* Workflow */
+      .workflow {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-block: 18px;
+      }
+      @media (max-width: 760px) { .workflow { grid-template-columns: 1fr 1fr; } }
+      .wf-node {
+        background: var(--glass-strong);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 14px;
+        text-align: center;
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+      .wf-node small { display: block; color: var(--muted); font-weight: 500; font-size: 0.78rem; margin-top: 4px; }
+      .wf-arrow { display: grid; place-items: center; color: var(--neon-cyan); font-size: 1.4rem; }
+
+      /* Footer */
+      footer {
+        margin-block-start: 56px;
+        padding-block: 32px 44px;
+        border-block-start: 1px solid var(--border);
+        text-align: center;
+      }
+      .dev-panel {
+        display: inline-block;
+        text-align: left;
+        background: var(--glass);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 20px 26px;
+        margin-block: 18px;
+        backdrop-filter: blur(12px);
+      }
+      .dev-panel .row { margin: 6px 0; }
+      .dev-panel .label { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.6px; }
+      .dev-panel .value { font-weight: 800; font-size: 1.05rem; }
+      .note { color: var(--muted); font-size: 0.85rem; margin-block-start: 12px; }
     }
-    header {
-      padding: 28px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
+
+    @layer utilities {
+      .center { text-align: center; }
+      .muted { color: var(--muted); }
     }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      font-size: 1.1rem;
-      letter-spacing: 0.2px;
-    }
-    .brand-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: rgba(45, 212, 191, 0.12);
-      border: 1px solid rgba(45, 212, 191, 0.35);
-      color: var(--accent);
-      font-size: 0.85rem;
-      font-weight: 700;
-    }
-    .hero {
-      padding: 48px 0 32px;
-      text-align: center;
-    }
-    .hero h1 {
-      font-size: clamp(2.2rem, 6vw, 3.6rem);
-      margin: 0 0 12px;
-      font-weight: 900;
-      background: linear-gradient(120deg, #ffffff 0%, var(--accent) 45%, var(--accent-2) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .hero p {
-      max-width: 720px;
-      margin: 0 auto 28px;
-      color: var(--muted);
-      font-size: 1.05rem;
-    }
-    .cta-wrap {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin: 18px 0 12px;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 16px 26px;
-      border-radius: 14px;
-      font-weight: 800;
-      font-size: 1.05rem;
-      text-decoration: none;
-      border: 1px solid transparent;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-      cursor: pointer;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-      color: #06101f;
-      box-shadow: 0 14px 40px rgba(45, 212, 191, 0.35);
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 18px 48px rgba(45, 212, 191, 0.45); }
-    .btn-ghost {
-      background: var(--card);
-      color: var(--text);
-      border-color: var(--border);
-    }
-    .btn-ghost:hover { transform: translateY(-2px); background: rgba(255,255,255,0.1); }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-      margin: 36px 0;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      backdrop-filter: blur(8px);
-    }
-    .card h3 { margin: 0 0 8px; font-size: 1.05rem; }
-    .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin: 10px 0 30px;
-    }
-    .meta span {
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
-    }
-    footer {
-      margin-top: 48px;
-      padding: 28px 0 40px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-    }
-    .dev {
-      display: inline-block;
-      text-align: left;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px 22px;
-      margin: 16px auto 0;
-    }
-    .dev .row { margin: 4px 0; }
-    .dev .label { color: var(--muted); font-size: 0.85rem; }
-    .dev .value { font-weight: 700; }
-    .note {
-      color: var(--muted);
-      font-size: 0.85rem;
-      margin-top: 14px;
-    }
-    a { color: var(--accent); }
   </style>
 </head>
 <body>
   <div class="container">
-    <header>
+    <header class="hud">
       <div class="brand">
-        <span style="font-size:1.6rem;">🧬</span>
+        <span class="brand-mark">🧬</span>
         <span>BioThanaweya</span>
       </div>
-      <span class="brand-badge">Android APK • v1.0</span>
+      <div class="hud-badges">
+        <span class="badge hot">BIO-OS v1.0</span>
+        <span class="badge">3D Biology Engine</span>
+        <span class="badge">Automation Ready</span>
+      </div>
     </header>
 
     <section class="hero">
-      <h1>BioThanaweya</h1>
-      <p>
-        Elite Egyptian Thanaweya Amma Biology learning platform and Ministry exam simulator.
-        Master Unit 1 &amp; Unit 2 with AI-guided scaffolding, visual schematics, and
-        authentic Ministry mark schemes — fully optimized for mobile and offline study.
-      </p>
-      <div class="cta-wrap">
-        <a class="btn btn-primary" href="https://github.com/AlySelim2001/BioThanaweya/releases/download/v1.0.0/app-debug.apk">
-          📥 Download BioThanaweya APK (v1.0)
-        </a>
-        <a class="btn btn-ghost" href="https://github.com/AlySelim2001/BioThanaweya">
-          View Repository
-        </a>
+      <div>
+        <div class="status-row">
+          <span class="status-pill"><span class="dot"></span> System Online</span>
+          <span class="status-pill">Thanaweya Amma • Languages</span>
+          <span class="status-pill">Offline-First PWA</span>
+        </div>
+        <h1>BioThanaweya — The Next-Gen 3D Biology &amp; Automation Ecosystem</h1>
+        <p class="lede">
+          A futuristic learning operating system for Egyptian Thanaweya Amma Biology:
+          immersive 3D molecular visualization, AI-driven Ministry exam grading,
+          FSRS spaced repetition, and n8n-grade automation workflows — all optimized
+          for low-resource mobile devices.
+        </p>
+        <div class="cta-wrap">
+          <a class="btn btn-primary" href="https://github.com/AlySelim2001/BioThanaweya/releases/download/v1.0.0/app-debug.apk">
+            📥 Download BioThanaweya APK (v1.0)
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/AlySelim2001/BioThanaweya">
+            Explore Repository
+          </a>
+        </div>
       </div>
-      <div class="meta">
-        <span>📱 Android</span>
-        <span>🧬 Biology Syllabus</span>
-        <span>🇪🇬 Thanaweya Amma</span>
-        <span>⚡ Offline-Ready</span>
+
+      <div class="preview" aria-label="3D biology preview">
+        <div class="helix">
+          <div class="strand"></div>
+          <div class="strand"></div>
+          <div class="strand"></div>
+        </div>
+        <div class="telemetry">
+          <div class="tel"><div class="k">DNA Helix</div><div class="v">3D Active</div></div>
+          <div class="tel"><div class="k">Exam Engine</div><div class="v">Online</div></div>
+          <div class="tel"><div class="k">Memory</div><div class="v">&lt;128MB</div></div>
+        </div>
       </div>
     </section>
 
-    <section class="features">
-      <div class="card">
-        <h3>7-Agent AI Learning</h3>
-        <p>Pedagogical scaffolding with ELI5 analogies, visual schematics, and exam traps.</p>
+    <section>
+      <h2 class="section-title">Automation Workflow Architecture</h2>
+      <p class="section-sub">Modular pipeline from curriculum ingestion to AI grading and student telemetry, inspired by production automation platforms.</p>
+      <div class="workflow">
+        <div class="wf-node">Curriculum Ingestion<small>Ministry syllabus</small></div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-node">AI Examiner<small>Mark schemes</small></div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-node">FSRS Scheduler<small>Spaced review</small></div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-node">Student Telemetry<small>Progress &amp; XP</small></div>
       </div>
-      <div class="card">
-        <h3>Ministry Mark Schemes</h3>
-        <p>Authentic grading with keyword deduction and official answer models.</p>
-      </div>
-      <div class="card">
-        <h3>FSRS Spaced Repetition</h3>
-        <p>Modern scheduling for long-term retention of biological concepts.</p>
-      </div>
-      <div class="card">
-        <h3>Offline PWA</h3>
-        <p>100% offline capability with local IndexedDB storage and backups.</p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Core Capabilities</h2>
+      <p class="section-sub">Engineered for Egyptian Thanaweya Amma students — precision, speed, and resilience on mobile hardware.</p>
+      <div class="grid3">
+        <div class="card"><div class="icon">🧬</div><h3>3D Molecular Models</h3><p>Interactive biological structures and sarcomere landmarks with real-time validation.</p></div>
+        <div class="card"><div class="icon">🤖</div><h3>7-Agent AI Tutor</h3><p>Pedagogical scaffolding with ELI5 analogies, exam traps, and deep technical breakdowns.</p></div>
+        <div class="card"><div class="icon">📊</div><h3>Ministry Grading</h3><p>Authentic keyword deduction and model answer evaluation for exam practice.</p></div>
+        <div class="card"><div class="icon">🔁</div><h3>FSRS v4.5/v5</h3><p>Modern spaced repetition scheduling for durable long-term retention.</p></div>
+        <div class="card"><div class="icon">💾</div><h3>Offline-First PWA</h3><p>IndexedDB storage, auto-snapshots, and 1-click JSON backup/restore.</p></div>
+        <div class="card"><div class="icon">📱</div><h3>Low-Resource Ready</h3><p>Memory-guarded server and Termux-optimized runtime under 128MB RAM.</p></div>
       </div>
     </section>
 
     <footer>
-      <div class="dev">
-        <div class="row"><span class="label">Developer</span></div>
-        <div class="row"><span class="value">Alyselim</span></div>
-        <div class="row"><span class="label">Phone / Contact</span></div>
-        <div class="row"><span class="value">📱 +201119886662</span></div>
+      <div class="dev-panel">
+        <div class="row"><div class="label">Developer</div><div class="value">Alyselim</div></div>
+        <div class="row"><div class="label">Phone / Contact</div><div class="value">📱 +201119886662</div></div>
       </div>
       <p class="note">
         For support, feature requests, or collaboration inquiries, reach out via the contact above
