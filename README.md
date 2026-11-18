@@ -20,7 +20,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/android-apk-build.yml">
+  <a href="https://github.com/AlySelim2001/BioThanaweya/releases/latest/download/BioThanaweya-debug.apk">
     <img src="https://img.shields.io/badge/%F0%9F%93%A5%20Download%20BioThanaweya%20APK%20(v1.0)-Android%20APK-blue?style=for-the-badge&logo=android" alt="📥 Download BioThanaweya APK (v1.0)" />
   </a>
 </p>
@@ -145,7 +145,7 @@ AlySelim2001/BioThanaweya
 Get the latest Android build directly from the CI/CD pipeline:
 
 <p align="center">
-  <a href="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/android-apk-build.yml">
+  <a href="https://github.com/AlySelim2001/BioThanaweya/releases/latest/download/BioThanaweya-debug.apk">
     <img src="https://img.shields.io/badge/%F0%9F%93%A5%20Download%20BioThanaweya%20APK%20(v1.0)-Latest%20Build-blue?style=for-the-badge&logo=github" alt="📥 Download BioThanaweya APK (v1.0)" />
   </a>
 </p>
