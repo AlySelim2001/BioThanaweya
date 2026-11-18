@@ -65,7 +65,7 @@ export class FSRS {
     }
 
     const nextDiff = this.nextDifficulty(card, rating);
-    const nextStab = this.nextStability(card, rating);
+    const nextStab = this.nextStability(card, rating, now);
     const nextIntervalDays = this.nextInterval(nextStab);
 
     const nextDue = now.getTime() + nextIntervalDays * 24 * 60 * 60 * 1000;
@@ -107,12 +107,12 @@ export class FSRS {
     }
   }
 
-  private nextStability(card: FSRSCard, rating: FSRSRating): number {
+  private nextStability(card: FSRSCard, rating: FSRSRating, now: Date = new Date()): number {
     if (card.state === 0 /* NEW */) {
       const s0 = this.w[rating - 1];
       return Math.max(0.1, s0);
     } else {
-      const retrievability = this.currentRetrievability(card);
+      const retrievability = this.currentRetrievability(card, now);
       if (rating === 1 /* AGAIN */) {
         const sMin = Math.min(
           card.stability,
