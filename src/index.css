@@ -94,7 +94,17 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: var(--shadow-soft), 0 0 0 1px var(--accent-emerald-border);
-  border-radius: var(--radius);
+}
+.glass-panel{
+  background: var(--glass-medium);
+  border: 1px solid var(--accent-cyan-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-soft), 0 0 0 1px var(--accent-cyan-border);
+  border-radius: var(--radius);}
+.glass-panel-hot{
+  border-color: var(--accent-cyan-border);
+  box-shadow: var(--shadow-soft), 0 0 0 1px var(--accent-cyan-border), 0 20px 54px rgba(34, 240, 255, 0.28);
 }
 
 /* Background grid pattern for depth - subtle teal accents */
