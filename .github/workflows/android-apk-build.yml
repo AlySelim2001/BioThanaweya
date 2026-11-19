@@ -135,8 +135,10 @@ jobs:
             exit 1
           fi
           mkdir -p output-binaries
-          cp "$APK" output-binaries/BioThanaweya-debug.apk
-          (cd output-binaries && sha256sum BioThanaweya-debug.apk > SHA256SUMS.txt)
+          # The asset name must match the download URLs documented in README.md and
+          # landing.html: <repo>/releases/download/<tag>/app-debug.apk
+          cp "$APK" output-binaries/app-debug.apk
+          (cd output-binaries && sha256sum app-debug.apk > SHA256SUMS.txt)
           ls -lh output-binaries
           cat output-binaries/SHA256SUMS.txt
           {
