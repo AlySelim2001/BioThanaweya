@@ -320,6 +320,49 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
         </div>
       </div>
 
+      {/* 4. Bio-Fabrication / Automation HUD */}
+      <div className="glass-panel glass-panel-hot rounded-3xl p-6 md:p-7 relative overflow-hidden hud-grid">
+        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none" />
+        <div className="relative z-10 space-y-4">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-cyan-400" />
+            <h2 className="text-lg md:text-xl font-bold text-white tracking-tight">
+              {language === 'ar' ? 'لوحة Bio-Fabrication / الأتمتة' : 'Bio-Fabrication / Automation HUD'}
+            </h2>
+          </div>
+          <p className="text-xs text-slate-400">
+            {language === 'ar'
+              ? 'مراقبة 3D Biology وحالة الأتمتة (n8n) وFSRS وذاكرة النظام.'
+              : '3D Biology, automation (n8n) status, FSRS engine, and system memory telemetry.'}
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              { label: language === 'ar' ? '3D Biology' : '3D Biology', value: 'ACTIVE', color: 'text-cyan-300' },
+              { label: language === 'ar' ? 'الأتمتة' : 'Automation', value: 'READY', color: 'text-emerald-300' },
+              { label: language === 'ar' ? 'FSRS' : 'FSRS Engine', value: 'v4.5', color: 'text-violet-300' },
+              { label: language === 'ar' ? 'الذاكرة' : 'Memory', value: '<128MB', color: 'text-amber-300' },
+            ].map((s) => (
+              <div
+                key={s.label}
+                className="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-3 text-center"
+              >
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                  {s.label}
+                </div>
+                <div className={`text-sm font-black ${s.color} mt-1`}>{s.value}</div>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-wrap items-center gap-3 pt-2 text-[11px] text-slate-400">
+            <span>
+              {language === 'ar' ? 'المطور:' : 'Developer:'}{' '}
+              <span className="text-slate-200 font-bold">Alyselim</span>
+            </span>
+            <span>📱 +201119886662</span>
+          </div>
+        </div>
+      </div>
+
       {/* 4. Gamification & Wellbeing Banner */}
       <GamificationBanner profile={profile} />
     </div>

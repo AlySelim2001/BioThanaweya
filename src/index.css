@@ -30,3 +30,23 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #64ffda;
 }
+
+
+/* Glassmorphic HUD utilities */
+.glass-panel {
+  background: linear-gradient(160deg, rgba(34,240,255,0.06), rgba(179,107,255,0.06));
+  border: 1px solid rgba(120,180,255,0.22);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+}
+.glass-panel-hot {
+  border-color: rgba(34,240,255,0.45);
+  box-shadow: 0 0 0 1px rgba(34,240,255,0.35), 0 18px 46px rgba(34,240,255,0.25);
+}
+.hud-grid {
+  background-image:
+    linear-gradient(rgba(34,240,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,240,255,0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}

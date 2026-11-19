@@ -11,21 +11,21 @@
         android:translateY="21.6">
         <!-- Brand Background Circle -->
         <path
-            android:fillColor="#14B8A6"
+            android:fillColor="#0F1A3A"
             android:pathData="M54,12 C77.196,12 96,30.804 96,54 C96,77.196 77.196,96 54,96 C30.804,96 12,77.196 12,54 C12,30.804 30.804,12 54,12 Z" />
         <!-- DNA Strand Double Helix representation -->
         <path
-            android:strokeColor="#FFFFFF"
+            android:strokeColor="#22F0FF"
             android:strokeWidth="4"
             android:strokeLineCap="round"
             android:pathData="M34,36 C42,42 46,48 54,54 C62,60 66,66 74,72" />
         <path
-            android:strokeColor="#0B132B"
+            android:strokeColor="#7CFFB2"
             android:strokeWidth="4"
             android:strokeLineCap="round"
             android:pathData="M74,36 C66,42 62,48 54,54 C46,60 42,66 34,72" />
         <path
-            android:strokeColor="#0B132B"
+            android:strokeColor="#B36BFF"
             android:strokeWidth="3"
             android:strokeLineCap="round"
             android:pathData="M38,40 L70,40 M42,47 L66,47 M42,61 L66,61 M38,68 L70,68" />
