@@ -11,6 +11,11 @@ export default {
           700: '#1E3A5F',
           600: '#233554',
         },
+        glass: {
+          DEFAULT: 'var(--glass-medium)',
+          light: 'var(--glass-light)',
+          strong: 'var(--glass-strong)',
+        },
         bioteal: {
           DEFAULT: '#64FFDA',
           400: '#64FFDA',

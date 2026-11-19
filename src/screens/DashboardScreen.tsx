@@ -53,19 +53,19 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
   const getChapterIcon = (iconName: string) => {
     switch (iconName) {
       case 'Activity':
-        return <Activity className="w-5 h-5 text-teal-400" />;
+        return <Activity className="w-5 h-5 text-accent-cyan" />;
       case 'Droplet':
-        return <Droplet className="w-5 h-5 text-cyan-400" />;
+        return <Droplet className="w-5 h-5 text-accent-cyan" />;
       case 'Repeat':
-        return <Repeat className="w-5 h-5 text-emerald-400" />;
+        return <Repeat className="w-5 h-5 text-accent-emerald" />;
       case 'Shield':
-        return <Shield className="w-5 h-5 text-blue-400" />;
+        return <Shield className="w-5 h-5 text-slate-300" />;
       case 'Dna':
-        return <Dna className="w-5 h-5 text-purple-400" />;
+        return <Dna className="w-5 h-5 text-slate-300" />;
       case 'FlaskConical':
         return <FlaskConical className="w-5 h-5 text-amber-400" />;
       default:
-        return <Sparkles className="w-5 h-5 text-teal-400" />;
+        return <Sparkles className="w-5 h-5 text-accent-cyan" />;
     }
   };
 
@@ -75,10 +75,10 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
       dir={isRtl ? 'rtl' : 'ltr'}
     >
       {/* 1. Hero Bento Card */}
-      <div className="relative rounded-3xl bg-gradient-to-br from-[#071329] via-[#0E2045] to-[#123060] border border-cyan-500/20 p-6 md:p-8 shadow-2xl shadow-cyan-950/30 overflow-hidden">
-        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
+      <div className="relative rounded-3xl bg-gradient-to-br from-via to- with bg-gradient-to-br from-bg-primary via-bg-secondary to-bg-tertiary behind glass pattern border border-accent-cyan-border p-6 md:p-8 shadow-2xl shadow-cyan-950/30 overflow-hidden">
+        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 rounded-full bg-glass-dim blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/15 border border-teal-500/30 text-teal-300 text-xs font-bold tracking-wide">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-card border border-accent-cyan-border text-accent-cyan text-xs font-bold tracking-wide">
             <Sparkles
               className="w-3.5 h-3.5 text-teal-400 animate-spin"
               style={{ animationDuration: '6s' }}
@@ -97,7 +97,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <button
               onClick={() => onNavigateToPractice('sarcomere_contraction')}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-teal-400 hover:bg-teal-300 text-slate-950 font-black text-sm shadow-lg shadow-teal-500/25 transition active:scale-95"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl btn-glass hover:text-white transition active:scale-95"
             >
               <Zap className="w-4 h-4 fill-slate-950" />
               <span>{t('practiceItemsBtn')}</span>
@@ -113,7 +113,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
 
             <button
               onClick={onNavigateToFormulaLab}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 font-bold text-sm transition active:scale-95"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl glass-emerald-card border border-accent-emerald-border text-accent-emerald font-bold text-sm transition active:scale-95 transition active:scale-95"
             >
               <Calculator className="w-4 h-4 text-amber-400" />
               <span>{t('bioLabBtn')}</span>
@@ -121,7 +121,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
 
             <button
               onClick={onOpenTextbookModal}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 font-bold text-sm transition active:scale-95"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl glass-emerald-card border border-accent-emerald-border text-accent-emerald font-bold text-sm transition active:scale-95"
             >
               <BookOpen className="w-4 h-4 text-emerald-400" />
               <span>{t('textbookBtn')}</span>
@@ -131,11 +131,11 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
       </div>
 
       {/* 2. Simulated Ministry Exam Hero Card */}
-      <div className="rounded-3xl border border-rose-500/40 bg-gradient-to-r from-rose-950/20 via-slate-900 to-red-950/20 p-6 md:p-7 shadow-xl shadow-rose-950/10 relative overflow-hidden">
+      <div className="rounded-3xl border border-rose-500/40 bg-gradient-to-r from-via to- with rose gradient p-6 md:p-7 shadow-xl shadow-rose-950/10 relative overflow-hidden">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-2.5 max-w-2xl">
             <div className="flex items-center gap-3">
-              <div className="p-2.5 rounded-2xl bg-rose-500/20 text-rose-400 border border-rose-500/30 shadow-inner">
+              <div className="p-2.5 rounded-2xl glass-card with rose tint text-rose-400 border border-rose-500/30 shadow-inner">
                 <Clock className="w-5 h-5 animate-pulse" />
               </div>
               <div>
@@ -170,12 +170,12 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
           </div>
 
           {/* Unit Filter Tabs */}
-          <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-slate-900/90 border border-slate-800 text-xs font-bold self-start sm:self-auto">
+          <div className="flex items-center gap-1.5 p-1 rounded-2xl glass-card border border-accent-cyan-border text-xs font-bold self-start sm:self-auto">
             <button
               onClick={() => setSelectedUnit('ALL')}
               className={`px-3 py-1.5 rounded-xl transition ${
                 selectedUnit === 'ALL'
-                  ? 'bg-teal-500 text-slate-950 font-black shadow-sm'
+                  ? 'glass-card shadow-sm'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -185,7 +185,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
               onClick={() => setSelectedUnit('UNIT_1')}
               className={`px-3 py-1.5 rounded-xl transition ${
                 selectedUnit === 'UNIT_1'
-                  ? 'bg-teal-500 text-slate-950 font-black shadow-sm'
+                  ? 'glass-card shadow-sm'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -195,7 +195,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
               onClick={() => setSelectedUnit('UNIT_2')}
               className={`px-3 py-1.5 rounded-xl transition ${
                 selectedUnit === 'UNIT_2'
-                  ? 'bg-teal-500 text-slate-950 font-black shadow-sm'
+                  ? 'glass-card shadow-sm'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -214,7 +214,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
             return (
               <div
                 key={topic.id}
-                className="group relative rounded-3xl bg-slate-900/80 hover:bg-slate-900 border border-slate-800/80 hover:border-teal-500/40 p-5 md:p-6 transition-all duration-200 shadow-xl hover:shadow-teal-500/5 flex flex-col justify-between gap-5"
+                className="group relative rounded-3xl glass-card hover:bg-slate-900 border border-accent-cyan-border hover:border-accent-cyan-border p-5 md:p-6 transition-all duration-200 shadow-xl hover:shadow-teal-500/5 flex flex-col justify-between gap-5"
               >
                 <div className="space-y-3.5">
                   {/* Top Bar: Chapter + High-Yield badge */}
@@ -239,7 +239,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                     </div>
 
                     {topic.highYieldFlag && (
-                      <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                      <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full glass-emerald-card text-amber-300 border border-amber-500/30">
                         {t('highYieldBadge')}
                       </span>
                     )}
@@ -267,7 +267,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                     {/* Practice Questions */}
                     <button
                       onClick={() => onNavigateToPractice(topic.id)}
-                      className="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-teal-500/15 hover:bg-teal-500/25 text-teal-300 border border-teal-500/30 transition active:scale-95"
+                      className="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl glass-card hover:glass-card text-teal-300 border border-teal-500/30 transition active:scale-95"
                     >
                       <Zap className="w-3.5 h-3.5 text-teal-400" />
                       <span>{t('btnSolve')}</span>
@@ -276,7 +276,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                     {/* FSRS Flashcards */}
                     <button
                       onClick={() => onNavigateToFsrs(topic.id)}
-                      className="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 transition active:scale-95"
+                      className="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl glass-card border border-accent-cyan-border text-accent-cyan transition active:scale-95"
                     >
                       <Layers className="w-3.5 h-3.5 text-cyan-400" />
                       <span>{t('btnCards')}</span>
@@ -322,7 +322,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
 
       {/* 4. Bio-Fabrication / Automation HUD */}
       <div className="glass-panel glass-panel-hot rounded-3xl p-6 md:p-7 relative overflow-hidden hud-grid">
-        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 rounded-full bg-glass-dim blur-3xl pointer-events-none" />
         <div className="relative z-10 space-y-4">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-cyan-400" />
@@ -344,7 +344,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
             ].map((s) => (
               <div
                 key={s.label}
-                className="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-3 text-center"
+                className="rounded-2xl glass-card border border-slate-700/60 p-3 text-center"
               >
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                   {s.label}

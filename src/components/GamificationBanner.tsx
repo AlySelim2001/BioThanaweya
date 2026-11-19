@@ -11,11 +11,11 @@ export const GamificationBanner: React.FC<GamificationBannerProps> = ({ profile 
   const xpProgress = Math.min(100, Math.round((profile.totalXp % nextLevelXp) / 10));
 
   return (
-    <div className="rounded-2xl border border-amber-500/20 bg-gradient-to-r from-amber-950/30 via-slate-900 to-indigo-950/30 p-5 shadow-lg">
+    <div className="rounded-2xl border border-amber-500/20 glass-card p-5 shadow-lg">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         {/* Streak and Level Stats */}
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300">
+          <div className="flex items-center gap-2.5 px-3 py-2 rounded-xl glass-emerald-card border border-accent-emerald-border text-accent-emerald">
             <Flame className="w-6 h-6 text-amber-400 fill-amber-400 animate-bounce" />
             <div>
               <div className="text-sm font-extrabold">{profile.streakDays} Day Streak!</div>
@@ -23,7 +23,7 @@ export const GamificationBanner: React.FC<GamificationBannerProps> = ({ profile 
             </div>
           </div>
 
-          <div className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-teal-500/10 border border-teal-500/30 text-teal-300">
+          <div className="flex items-center gap-2.5 px-3 py-2 rounded-xl glass-card border border-accent-cyan-border text-accent-cyan">
             <Award className="w-6 h-6 text-teal-400" />
             <div>
               <div className="text-sm font-extrabold">{profile.totalXp} XP</div>
@@ -31,7 +31,7 @@ export const GamificationBanner: React.FC<GamificationBannerProps> = ({ profile 
             </div>
           </div>
 
-          <div className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-300">
+          <div className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl glass-card border border-accent-teal-border text-accent-teal">
             <HeartPulse className="w-5 h-5 text-indigo-400" />
             <div>
               <div className="text-xs font-bold">Anxiety: {profile.examAnxietyScore}%</div>
@@ -57,7 +57,7 @@ export const GamificationBanner: React.FC<GamificationBannerProps> = ({ profile 
         <span className="text-[11px] font-bold text-slate-400 shrink-0">Progress to Level 3:</span>
         <div className="flex-1 h-2 rounded-full bg-slate-800 overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-teal-400 to-cyan-400 rounded-full transition-all duration-500"
+            className="h-full bg-gradient-to-r from-text-accent-cyan to-text-accent-emerald rounded-full transition-all duration-500"
             style={{ width: `${xpProgress}%` }}
           />
         </div>

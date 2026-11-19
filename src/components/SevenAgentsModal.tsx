@@ -23,7 +23,7 @@ export const SevenAgentsModal: React.FC<SevenAgentsModalProps> = ({ isOpen, onCl
     {
       num: 1,
       icon: BookOpen,
-      color: 'from-teal-500 to-emerald-500',
+      color: 'from-accent-teal to-accent-emerald',
       title: 'Master Biology Educator',
       titleArabic: 'معلم الأحياء المرجعي',
       desc: "Delivers dual-layer cognitive scaffolding: deep English physiological mechanics alongside relatable Egyptian Arabic ELI5 analogies, with Bloom's taxonomy progression.",
@@ -31,7 +31,7 @@ export const SevenAgentsModal: React.FC<SevenAgentsModalProps> = ({ isOpen, onCl
     {
       num: 2,
       icon: Eye,
-      color: 'from-cyan-500 to-blue-500',
+      color: 'from-accent-cyan to-accent-teal',
       title: 'Visual Learning Architect',
       titleArabic: 'مهندس الإدراك البصري',
       desc: 'Builds strictly monospace LTR structural ASCII schematics, visual inspection markers for diagram identification in exams, and curated 3D animation queries.',
@@ -39,7 +39,7 @@ export const SevenAgentsModal: React.FC<SevenAgentsModalProps> = ({ isOpen, onCl
     {
       num: 3,
       icon: Target,
-      color: 'from-amber-500 to-orange-500',
+      color: 'from-accent-emerald to-orange-500',
       title: 'Assessment Specialist',
       titleArabic: 'خبير التقييم والفخاخ الوزارية',
       desc: 'Curates authentic Thanaweya questions (Scientific Term, Give Reason, What Happens If, MCQ) and unmasks Ministry Exam Traps and golden rules.',
@@ -47,7 +47,7 @@ export const SevenAgentsModal: React.FC<SevenAgentsModalProps> = ({ isOpen, onCl
     {
       num: 4,
       icon: CheckCircle2,
-      color: 'from-purple-500 to-pink-500',
+      color: 'from-slate-600 to-slate-500',
       title: 'Ministry Examiner & FSRS Engine',
       titleArabic: 'المصحح الوزاري وخوارزمية التكرار',
       desc: 'Performs keyword-based mark scheme grading, calculates mark deductions for missing terms, and schedules card reviews via the FSRS v4.5/v5 algorithm.',
@@ -55,7 +55,7 @@ export const SevenAgentsModal: React.FC<SevenAgentsModalProps> = ({ isOpen, onCl
     {
       num: 5,
       icon: Compass,
-      color: 'from-blue-500 to-indigo-500',
+      color: 'from-accent-cyan to-accent-teal',
       title: 'Metacognitive Evaluator',
       titleArabic: 'مقيم الوعي الذاتي المعرفي',
       desc: 'Analyzes student confidence against answer accuracy to detect overconfidence bias (Dunning-Kruger) and imposter syndrome doubt.',
@@ -63,7 +63,7 @@ export const SevenAgentsModal: React.FC<SevenAgentsModalProps> = ({ isOpen, onCl
     {
       num: 6,
       icon: Flask,
-      color: 'from-emerald-500 to-teal-600',
+      color: 'from-accent-emerald to-accent-teal',
       title: 'Problem-Based Learning Agent',
       titleArabic: 'وكيل المشروعات والمحاكاة المعملية',
       desc: 'Assigns real-world clinical toxicology and biotechnology missions with clear evaluation rubrics and scientific investigations.',
@@ -80,12 +80,12 @@ export const SevenAgentsModal: React.FC<SevenAgentsModalProps> = ({ isOpen, onCl
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-3xl max-h-[90vh] bg-[#0E1A35] border border-slate-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+      <div className="relative w-full max-w-3xl max-h-[90vh] bg-secondary border border-slate-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-slate-800 bg-[#0B132B]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center">
-              <Bot className="w-6 h-6 text-teal-400" />
+            <div className="w-10 h-10 rounded-xl glass-card border border-accent-cyan-border flex items-center justify-center">
+              <Bot className="w-6 h-6 text-accent-cyan" />
             </div>
             <div>
               <h2 className="text-lg font-bold text-white flex items-center gap-2">
@@ -118,7 +118,7 @@ export const SevenAgentsModal: React.FC<SevenAgentsModalProps> = ({ isOpen, onCl
               return (
                 <div
                   key={agent.num}
-                  className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-slate-700 transition flex flex-col justify-between"
+                  className="p-3.5 rounded-xl glass-card border border-accent-cyan-border hover:border-accent-cyan-border transition flex flex-col justify-between"
                 >
                   <div className="flex items-start gap-3">
                     <div
@@ -131,7 +131,7 @@ export const SevenAgentsModal: React.FC<SevenAgentsModalProps> = ({ isOpen, onCl
                         <span className="text-xs font-black text-slate-400">#{agent.num}</span>
                         <h3 className="text-sm font-bold text-slate-100">{agent.title}</h3>
                       </div>
-                      <p className="text-xs text-teal-400 font-arabic font-semibold">
+                      <p className="text-xs text-accent-emerald font-arabic font-semibold">
                         {agent.titleArabic}
                       </p>
                     </div>
@@ -147,7 +147,7 @@ export const SevenAgentsModal: React.FC<SevenAgentsModalProps> = ({ isOpen, onCl
         <div className="p-4 border-t border-slate-800 bg-[#0B132B] flex justify-end">
           <button
             onClick={onClose}
-            className="px-5 py-2 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs transition"
+            className="px-5 py-2 rounded-xl btn-glass hover:text-white transition"
           >
             Close Overview
           </button>

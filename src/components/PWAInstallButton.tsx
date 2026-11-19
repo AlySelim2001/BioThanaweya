@@ -31,9 +31,9 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
         <button
           onClick={install}
           title="Install BioThanaweya to Home Screen (Offline PWA)"
-          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-teal-500/15 border border-teal-500/30 text-teal-300 hover:bg-teal-500/25 transition text-xs font-bold ${className}`}
+          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg glass-card border border-accent-cyan-border text-accent-cyan hover:bg-glass-dim transition text-xs font-bold ${className}`}
         >
-          <DownloadCloud className="w-3.5 h-3.5 text-teal-400" />
+          <DownloadCloud className="w-3.5 h-3.5 text-accent-cyan" />
           <span className="hidden sm:inline">Install App</span>
         </button>
       );
@@ -42,7 +42,7 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
     return (
       <button
         onClick={install}
-        className={`flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-extrabold text-xs transition shadow-lg shadow-teal-500/20 ${className}`}
+        className={`flex items-center justify-center gap-2 px-4 py-2 rounded-xl btn-glass hover:text-slate-950 font-extrabold text-xs transition shadow-lg ${className}`}
       >
         <Smartphone className="w-4 h-4" />
         <span>Install to Android Home Screen (Offline)</span>
@@ -57,7 +57,7 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
         <button
           onClick={() => setShowIOSGuide(true)}
           title="Install on iPhone / iPad"
-          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-500/20 transition text-xs font-bold ${className}`}
+          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg glass-card border border-accent-cyan-border text-accent-cyan hover:bg-cyan-500/20 transition text-xs font-bold ${className}`}
         >
           <Smartphone className="w-3.5 h-3.5 text-cyan-400" />
           <span className="hidden sm:inline">Install iOS</span>
@@ -65,7 +65,7 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
 
         {showIOSGuide && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in">
-            <div className="w-full max-w-sm rounded-2xl bg-[#0E1A35] border border-cyan-500/30 p-6 shadow-2xl space-y-4">
+            <div className="w-full max-w-sm rounded-2xl bg-secondary border border-cyan-500/30 p-6 shadow-2xl space-y-4">
               <div className="flex items-center justify-between pb-2 border-b border-slate-800">
                 <div className="flex items-center gap-2 text-cyan-300 font-bold text-sm">
                   <Smartphone className="w-4 h-4 text-cyan-400" />

@@ -112,15 +112,15 @@ export const MinistryTextbookModal: React.FC<MinistryTextbookModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 glass-card backdrop-blur-xl animate-in fade-in duration-200">
       <div
-        className="relative w-full max-w-3xl max-h-[90vh] flex flex-col rounded-3xl bg-slate-900 border border-teal-500/30 shadow-2xl shadow-teal-500/10 overflow-hidden"
+        className="relative w-full max-w-3xl max-h-[90vh] rounded-3xl glass-card border border-accent-cyan-border shadow-2xl"
         dir={isRtl ? 'rtl' : 'ltr'}
       >
         {/* Glow Header */}
-        <div className="relative px-6 py-5 border-b border-slate-800 bg-gradient-to-r from-teal-950/40 via-slate-900 to-cyan-950/40 flex items-center justify-between">
+        <div className="relative px-6 py-5 border-b border-accent-cyan-border bg-secondary flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-2xl bg-teal-500/20 border border-teal-500/30 flex items-center justify-center text-teal-300 shadow-inner">
+            <div className="w-11 h-11 rounded-2xl glass-card border border-accent-cyan-border text-accent-cyan shadow-inner">
               <BookOpen className="w-6 h-6" />
             </div>
             <div>
@@ -149,7 +149,7 @@ export const MinistryTextbookModal: React.FC<MinistryTextbookModalProps> = ({
         {/* Content Body */}
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
           {/* Offline Architecture Callout */}
-          <div className="rounded-2xl bg-cyan-950/30 border border-cyan-500/30 p-4 flex items-start gap-3">
+          <div className="rounded-2xl glass-emerald-card border border-accent-emerald-border p-4 flex items-start gap-3">
             <Sparkles className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
             <div className="text-xs text-cyan-200/90 leading-relaxed">
               <p className="font-semibold text-cyan-100 mb-1">{t('offlineTip')}</p>
@@ -166,7 +166,7 @@ export const MinistryTextbookModal: React.FC<MinistryTextbookModalProps> = ({
             {MINISTRY_RESOURCES.map((item) => (
               <div
                 key={item.id}
-                className="group relative rounded-2xl bg-slate-950/60 hover:bg-slate-800/50 border border-slate-800 hover:border-teal-500/40 p-4 transition duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                className="group relative rounded-2xl glass-card hover:bg-slate-800/50 border border-accent-cyan-border hover:border-accent-cyan-border p-4 transition duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
               >
                 <div className="flex items-start gap-3.5">
                   <div className="w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center text-teal-400 group-hover:scale-105 transition shrink-0 mt-0.5">
@@ -178,7 +178,7 @@ export const MinistryTextbookModal: React.FC<MinistryTextbookModalProps> = ({
                         {language === 'ar' ? item.titleAr : item.titleEn}
                       </h3>
                       {item.highYieldTag && (
-                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full glass-emerald-card text-accent-emerald border border-accent-emerald-border">
                           {language === 'ar' ? 'الأهم للامتحان' : 'High-Yield'}
                         </span>
                       )}
@@ -204,7 +204,7 @@ export const MinistryTextbookModal: React.FC<MinistryTextbookModalProps> = ({
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-teal-500/20 hover:bg-teal-500 text-teal-300 hover:text-slate-950 border border-teal-500/40 font-bold text-xs shadow-md transition shrink-0 self-stretch sm:self-center"
+                  className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl glass-card hover:text-teal-300 border border-accent-cyan-border text-accent-cyan shrink-0 self-stretch sm:self-center"
                 >
                   <Download className="w-4 h-4" />
                   <span>{language === 'ar' ? 'تحميل مباشر PDF' : 'Direct Download'}</span>
@@ -224,7 +224,7 @@ export const MinistryTextbookModal: React.FC<MinistryTextbookModalProps> = ({
           </span>
           <button
             onClick={onClose}
-            className="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition"
+            className="px-5 py-2 rounded-xl glass-card hover:text-slate-200 transition"
           >
             {t('closeBtn')}
           </button>
