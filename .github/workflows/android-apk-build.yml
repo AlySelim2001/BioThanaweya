@@ -103,16 +103,29 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
 
+      # Download the just-produced web bundle from the web job.
       - name: Download web bundle
         uses: actions/download-artifact@v4
         with:
           name: web-dist
           path: dist/
 
+      # Verify the web bundle contains the updated Glassmorphic CSS rules.
+      - name: Verify Glassmorphic CSS in bundle
+        run: |
+          if ! grep -q '\.glass-card' dist/assets/index-*.css 2>/dev/null; then
+            echo "::error::Glassmorphic CSS rules (.glass-card) not found in web bundle dist/assets/"
+            exit 1
+          fi
+          echo "✓ Glassmorphic CSS rules confirmed in web bundle"
+
       # The Capacitor 8 CLI requires Node >= 22 and resolves its binary from the
       # local install. Calling it directly avoids `npx` falling back to the npm
       # registry ("could not determine executable to run") when the install is bad.
+      # CAPACITOR_BUILD must be set so Vite outputs relative paths for WebView origin.
       - name: Sync Capacitor Android
+        env:
+          CAPACITOR_BUILD: 'true'
         run: |
           if [ ! -x node_modules/.bin/cap ]; then
             echo "::error::Capacitor CLI missing at node_modules/.bin/cap - dependency install did not complete."
@@ -120,6 +133,16 @@ jobs:
           fi
           node --version
           node_modules/.bin/cap sync android
+
+      # Verify ic_launcher assets are present in the Android project.
+      - name: Verify ic_launcher assets
+        run: |
+          IC_FILES=$(find android/app/src/main -name 'ic_launcher*' -type f 2>/dev/null | wc -l)
+          if [ "$IC_FILES" -lt 3 ]; then
+            echo "::error::Expected at least 3 ic_launcher files, found $IC_FILES"
+            exit 1
+          fi
+          echo "✓ ic_launcher assets verified ($IC_FILES files found)"
 
       - name: Build debug APK
         working-directory: android
