@@ -13,7 +13,39 @@
  * Bilingual Arabic/English scientific terms are preserved throughout.
  */
 
-import { default_w, type FSRSCard, type FSRSRating, type SchedulingInfo, type FSRSItemReviewLog } from 'ts-fsrs';
+import { default_w } from 'ts-fsrs';
+
+/**
+ * Type definitions compatible with ts-fsrs for FSRS card and scheduling.
+ * These mirror the ts-fsrs types but are defined locally for full offline resilience.
+ */
+export type FSRSCard = {
+  cardId: string;
+  due: number;
+  stability: number;
+  difficulty: number;
+  elapsedDays: number;
+  scheduledDays: number;
+  reps: number;
+  lapses: number;
+  state: 0 | 1 | 2 | 3; // NEW | LEARNING | REVIEW | RELEARNING
+  lastReview?: number;
+};
+
+export type FSRSRating = 1 | 2 | 3 | 4; // Again | Hard | Good | Easy
+
+export type SchedulingInfo = {
+  card: FSRSCard;
+  reviewLog: FSRSItemReviewLog;
+};
+
+export type FSRSItemReviewLog = {
+  rating: FSRSRating;
+  scheduledDays: number;
+  elapsedDays: number;
+  review: number;
+  state: number;
+};
 
 // Pure TypeScript fallback implementation (identical to original port of FSRS.kt)
 // Used when ts-fsrs is unavailable or during edge-case failures
