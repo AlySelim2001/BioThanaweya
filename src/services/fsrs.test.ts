@@ -18,7 +18,7 @@ describe('FSRS Engine', () => {
     scheduledDays: 1,
     reps: 0,
     lapses: 0,
-    state: 0 /* NEW */,
+    state: 0,
   };
 
   it('generates 4 valid scheduling outcomes for repeat evaluation', () => {
