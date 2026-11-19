@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   ArrowLeft,
   BookOpen,
@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { getMasterStudyPack } from '../services/curriculumRepository';
 import { AsciiSchematicBox } from '../components/AsciiSchematicBox';
+import { useFreeLLMAPI } from '../services/freellmapi';
 import { MasterStudyPack } from '../types';
 
 interface TopicDetailScreenProps {
@@ -30,6 +31,29 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
   const [activeTab, setActiveTab] = useState<'educator' | 'visuals' | 'pbl'>('educator');
   const [explanationMode, setExplanationMode] = useState<'technical' | 'eli5'>('technical');
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const aiTutor = useFreeLLMAPI();
+  const [aiAnswer, setAiAnswer] = useState<string | null>(null);
+  const [aiLoading, setAiLoading] = useState(false);
+
+  const handleAskTutor = useCallback(async () => {
+    setAiLoading(true);
+    try {
+      const result = await aiTutor.generateExplanation(
+        pack.topicTitle,
+        `Explain ${pack.topicTitle} (${pack.chapterTitle}) for the Egyptian Thanaweya Amma biology syllabus.`,
+        explanationMode === 'eli5' ? 'eli5' : 'technical'
+      );
+      setAiAnswer(result.text);
+    } catch {
+      setAiAnswer(
+        explanationMode === 'eli5'
+          ? pack.arabicEli5 || pack.eli5Analogy
+          : pack.deepTechnicalBreakdown
+      );
+    } finally {
+      setAiLoading(false);
+    }
+  }, [aiTutor, pack, explanationMode]);
 
   useEffect(() => {
     setPack(getMasterStudyPack(topicId));
@@ -232,6 +256,37 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
               </div>
             </div>
           )}
+
+          {/* FreeLLMAPI AI Tutor (offline-first deterministic fallback) */}
+          <div className="rounded-2xl border border-cyan-500/30 bg-cyan-950/20 p-5 space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-2 text-cyan-300 font-bold text-sm">
+                <Zap className="w-4 h-4" />
+                AI Tutor (FreeLLMAPI — {aiTutor.isOffline ? 'offline mode' : aiTutor.provider})
+              </div>
+              <button
+                onClick={handleAskTutor}
+                disabled={aiLoading}
+                className="px-4 py-2 rounded-xl text-xs font-bold bg-cyan-600 hover:bg-cyan-500 text-white transition disabled:opacity-60"
+              >
+                {aiLoading ? 'Thinking…' : 'Ask a follow-up question'}
+              </button>
+            </div>
+            {aiAnswer && (
+              <p
+                dir={explanationMode === 'eli5' ? 'rtl' : 'ltr'}
+                className="text-sm text-slate-100 leading-relaxed whitespace-pre-line"
+              >
+                {aiAnswer}
+              </p>
+            )}
+            {!aiAnswer && (
+              <p className="text-xs text-slate-400">
+                Works fully offline: the tutor answers from the built-in curriculum fallback
+                and upgrades to a live model when an API endpoint is configured.
+              </p>
+            )}
+          </div>
 
           {/* Key Terminology */}
           {pack.keyTerms.length > 0 && (
