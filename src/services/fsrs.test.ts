@@ -4,8 +4,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { FSRS } from './fsrs';
-import { FSRSCard } from '../types';
+import { FSRS, type FSRSCard } from './fsrs';
 
 describe('FSRS Engine', () => {
   const fsrs = new FSRS();
