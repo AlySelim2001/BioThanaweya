@@ -23,7 +23,7 @@ describe('FSRS Engine', () => {
   };
 
   it('generates 4 valid scheduling outcomes for repeat evaluation', () => {
-    const outcomes = fsrs.repeat(newCard);
+    const outcomes = fsrs.repeat(newCard, 3);
 
     expect(outcomes[1]).toBeDefined(); // Again
     expect(outcomes[2]).toBeDefined(); // Hard
