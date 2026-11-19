@@ -151,11 +151,11 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-[#0D1527] border border-teal-500/30 rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl shadow-teal-950/50 overflow-hidden">
+      <div className="bg-[#0D1527] border border-accent-cyan-border rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col glass-card shadow-soft shadow-glow overflow-hidden">
         {/* Header */}
         <div className="p-5 border-b border-slate-800 flex items-center justify-between bg-gradient-to-r from-[#0D1527] to-[#12203F]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400">
+            <div className="w-10 h-10 rounded-xl glass-card border border-accent-cyan-border text-accent-cyan">
               <Database className="w-5 h-5" />
             </div>
             <div>
@@ -169,7 +169,7 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
                       ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
                       : syncState === 'saving'
                         ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'
-                        : 'bg-rose-500/10 text-rose-400 border-rose-500/30'
+                        : 'glass-card text-accent-cyan border border-accent-cyan-border'
                   }`}
                 >
                   <span
@@ -234,8 +234,8 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
             <div
               className={`p-3.5 rounded-xl border flex items-start gap-3 text-xs animate-in fade-in ${
                 importNotice.success
-                  ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-200'
-                  : 'bg-rose-950/40 border-rose-500/40 text-rose-200'
+                  ? 'glass-card border border-accent-emerald-border text-accent-emerald'
+                  : 'glass-card border border-accent-cyan-border text-accent-cyan'
               }`}
             >
               {importNotice.success ? (
@@ -374,7 +374,7 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
                     <button
                       onClick={() => fileInputRef.current?.click()}
                       disabled={isImporting}
-                      className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-teal-600 hover:bg-teal-500 text-slate-950 font-bold text-xs transition disabled:opacity-50"
+                      className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg glass-card hover:bg-accent-cyan-border text-slate-950 font-bold text-xs transition disabled:opacity-50"
                     >
                       {isImporting ? (
                         <RefreshCw className="w-3.5 h-3.5 animate-spin" />
@@ -402,7 +402,7 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
                   <div className="flex items-center gap-2">
                     <button
                       onClick={handleFactoryReset}
-                      className="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs transition"
+                      className="px-3 py-1.5 rounded-lg glass-card hover:bg-accent-emerald text-white font-bold text-xs transition"
                     >
                       Confirm Reset
                     </button>
@@ -462,7 +462,7 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
                     </div>
                     <button
                       onClick={() => handleRestoreSnapshot(snap.snapshotId)}
-                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-teal-500/15 hover:bg-teal-500/25 border border-teal-500/30 text-teal-300 text-xs font-semibold transition"
+                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg glass-card hover:bg-accent-cyan-border border border-accent-cyan-border text-accent-cyan text-xs font-semibold transition"
                     >
                       <RotateCcw className="w-3 h-3" />
                       Restore

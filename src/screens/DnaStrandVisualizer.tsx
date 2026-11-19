@@ -119,7 +119,7 @@ export const DnaStrandVisualizer: React.FC = () => {
             
             <button
               onClick={() => simulateStep(1)}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 text-xs font-bold transition-all shadow-lg shadow-amber-500/20"
+              className="px-4 py-2 rounded-xl from-accent-emerald to-accent-emerald hover:from-accent-emerald-border hover:to-accent-emerald-border text-slate-950 text-xs font-bold transition-all shadow-lg shadow-amber-500/20"
               disabled={currentStep >= 1}
             >
               Step 1: Helicase Unwinding
@@ -135,7 +135,7 @@ export const DnaStrandVisualizer: React.FC = () => {
             
             <button
               onClick={() => simulateStep(3)}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400 text-slate-950 text-xs font-bold transition-all shadow-lg shadow-teal-500/20"
+              className="px-4 py-2 rounded-xl from-accent-cyan to-accent-emerald hover:from-accent-cyan-border hover:to-accent-emerald-border text-slate-950 text-xs font-bold transition-all shadow-lg shadow-teal-500/20"
               disabled={currentStep >= 3}
             >
               Step 3: Leading Strand Synthesis

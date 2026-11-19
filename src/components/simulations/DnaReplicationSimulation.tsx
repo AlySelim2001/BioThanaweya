@@ -105,7 +105,7 @@ export const DnaReplicationSimulation: React.FC = () => {
         <div className="flex items-center gap-2">
           <button
             onClick={handleAdvanceStep}
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400 text-slate-950 text-xs font-bold flex items-center gap-1.5 transition-all shadow-lg shadow-teal-500/20"
+            className="px-4 py-2 rounded-xl from-accent-cyan to-accent-emerald hover:from-accent-cyan-border hover:to-accent-emerald-border text-slate-950 text-xs font-bold flex items-center gap-1.5 transition-all shadow-lg shadow-teal-500/20"
           >
             <span>{step === 5 ? 'Reset Simulation' : 'Next Step'}</span>
             <ArrowRight className="w-3.5 h-3.5" />

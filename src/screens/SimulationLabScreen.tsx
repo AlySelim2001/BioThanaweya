@@ -74,20 +74,20 @@ export const SimulationLabScreen: React.FC = () => {
               onClick={() => handleTabChange(sim.id)}
               className={`p-3.5 rounded-2xl border text-left transition-all relative overflow-hidden flex flex-col justify-between ${
                 isActive
-                  ? 'bg-slate-800/90 border-teal-500/60 shadow-lg shadow-teal-500/10'
+                  ? 'glass-card border border-accent-cyan-border shadow-soft shadow-glow'
                   : 'bg-slate-900/60 border-slate-800/80 hover:bg-slate-800/40 hover:border-slate-700'
               }`}
             >
               {isActive && (
                 <motion.div
                   layoutId="activeSimTabIndicator"
-                  className="absolute inset-0 border-2 border-teal-500/50 rounded-2xl pointer-events-none"
+                  className="absolute inset-0 border-2  border border-accent-cyan-border rounded-2xl pointer-events-none"
                   transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                 />
               )}
               <div className="flex items-start justify-between">
                 <div
-                  className={`p-2 rounded-xl ${isActive ? 'bg-teal-500/20 text-teal-300' : 'bg-slate-800 text-slate-400'}`}
+                  className={`p-2 rounded-xl ${isActive ? 'glass-card text-accent-cyan' : 'bg-slate-800 text-slate-400'}`}
                 >
                   <Icon className="w-5 h-5" />
                 </div>

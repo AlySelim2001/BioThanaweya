@@ -81,7 +81,7 @@ export const SarcomereSimulation: React.FC = () => {
           <div
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition-all ${
               atpLevel >= 20
-                ? 'bg-amber-500/15 border-amber-500/30 text-amber-300'
+                ? 'glass-card border border-accent-emerald-border text-accent-emerald'
                 : 'bg-rose-500/20 border-rose-500/40 text-rose-300 animate-pulse'
             }`}
           >
@@ -93,11 +93,11 @@ export const SarcomereSimulation: React.FC = () => {
           <div
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition-all ${
               calciumLevel >= 25
-                ? 'bg-teal-500/15 border-teal-500/30 text-teal-300'
+                ? 'glass-card border border-accent-cyan-border text-accent-cyan'
                 : 'bg-slate-800 border-slate-700 text-slate-400'
             }`}
           >
-            <div className="w-2 h-2 rounded-full bg-teal-400" />
+            <div className="w-2 h-2 rounded-full bg-accent-cyan" />
             <span>Ca²⁺ Concentration: {calciumLevel}%</span>
           </div>
         </div>
@@ -106,7 +106,7 @@ export const SarcomereSimulation: React.FC = () => {
           <button
             onClick={triggerPowerStroke}
             disabled={isPowerStroking || !isAtpSufficient}
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400 text-slate-950 text-xs font-bold flex items-center gap-1.5 transition-all shadow-lg shadow-teal-500/20 disabled:opacity-40"
+            className="px-4 py-2 rounded-xl bg-gradient-to-r from-accent-cyan to-accent-emerald hover:from-accent-cyan-border hover:to-accent-emerald-border text-slate-950 text-xs font-bold flex items-center gap-1.5 transition-all shadow-lg shadow-teal-500/20 disabled:opacity-40"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
             <span>Power Stroke Pulse</span>
@@ -122,7 +122,7 @@ export const SarcomereSimulation: React.FC = () => {
       </div>
 
       {/* Interactive SVG Sarcomere Canvas */}
-      <div className="relative w-full bg-slate-950 border border-slate-800/80 rounded-2xl p-4 overflow-hidden shadow-2xl">
+      <div className="relative w-full glass-card border border-slate-700/60 rounded-2xl p-4 overflow-hidden shadow-soft shadow-glow">
         <div className="flex justify-between items-center text-xs text-slate-400 mb-2 font-mono">
           <span className="flex items-center gap-1.5">
             <Activity className="w-3.5 h-3.5 text-teal-400" />
@@ -354,7 +354,7 @@ export const SarcomereSimulation: React.FC = () => {
         <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl space-y-2">
           <div className="flex justify-between text-xs">
             <span className="text-slate-300 font-medium flex items-center gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-teal-400" />
+              <div className="w-2.5 h-2.5 rounded-full bg-accent-cyan" />
               Calcium [Ca²⁺] Concentration
             </span>
             <span className="font-mono text-teal-400 font-bold">{calciumLevel}%</span>
@@ -380,7 +380,7 @@ export const SarcomereSimulation: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 5 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-rose-500/10 border border-rose-500/30 p-4 rounded-2xl flex items-start gap-3"
+          className="glass-card border border-accent-cyan-border p-4 rounded-2xl flex items-start gap-3"
         >
           <AlertTriangle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
           <div className="text-xs text-rose-200 leading-relaxed">

@@ -72,17 +72,17 @@ export const Navbar: React.FC<NavbarProps> = ({
           onClick={() => onNavigate('dashboard')}
           className="flex items-center gap-3 cursor-pointer group shrink-0"
         >
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-teal-500 via-emerald-400 to-cyan-300 p-0.5 shadow-md shadow-teal-500/20 group-hover:shadow-teal-500/40 transition">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-accent-cyan via-accent-emerald to-accent-cyan-border p-0.5 shadow-soft shadow-glow transition">
             <div className="w-full h-full bg-[#0B132B] rounded-[14px] flex items-center justify-center">
-              <Activity className="w-5 h-5 text-teal-400 group-hover:scale-110 transition" />
+              <Activity className="w-5 h-5 text-accent-cyan group-hover:scale-110 transition" />
             </div>
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-extrabold text-base sm:text-lg tracking-tight bg-gradient-to-r from-teal-200 via-cyan-100 to-white bg-clip-text text-transparent">
+              <span className="font-extrabold text-base sm:text-lg tracking-tight bg-gradient-to-r from-accent-cyan via-accent-emerald to-white bg-clip-text text-transparent">
                 {language === 'ar' ? 'تعلم مع علي' : 'BioThanaweya'}
               </span>
-              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-teal-500/15 text-teal-300 border border-teal-500/30">
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full glass-card text-accent-cyan border border-accent-cyan-border">
                 {language === 'ar' ? 'أحياء ثانوية عامة' : 'Languages Track'}
               </span>
             </div>
@@ -98,7 +98,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => onNavigate('dashboard')}
             className={`px-3 py-1.5 rounded-xl transition ${
               currentScreen === 'dashboard'
-                ? 'bg-slate-800 text-teal-300 font-extrabold shadow-sm'
+                ? 'bg-slate-800 text-accent-cyan font-extrabold shadow-sm'
                 : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
             }`}
           >
@@ -108,11 +108,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => onNavigate('simulations')}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition ${
               currentScreen === 'simulations'
-                ? 'bg-slate-800 text-teal-300 font-extrabold shadow-sm'
+                ? 'bg-slate-800 text-accent-cyan font-extrabold shadow-sm'
                 : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
             }`}
           >
-            <Activity className="w-3.5 h-3.5 text-teal-400" />
+            <Activity className="w-3.5 h-3.5 text-accent-cyan" />
             {t('simLab')}
           </button>
           <button
@@ -141,11 +141,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => onNavigate('simulated_exam')}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition ${
               currentScreen === 'simulated_exam'
-                ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 font-extrabold'
-                : 'text-rose-400 hover:bg-rose-500/10'
+                ? 'glass-card text-accent-cyan border border-accent-cyan-border font-extrabold'
+                : 'text-accent-cyan border border-accent-cyan-border hover:glass-card'
             }`}
           >
-            <Timer className="w-3.5 h-3.5 text-rose-400 animate-pulse" />
+            <Timer className="w-3.5 h-3.5 text-accent-cyan animate-pulse" />
             {t('ministryExam')}
           </button>
         </nav>
@@ -155,12 +155,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Prominent Ministry Textbook Download Button */}
           <button
             onClick={onOpenTextbookModal}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-teal-500/20 via-emerald-500/20 to-teal-500/10 hover:from-teal-500/30 hover:to-emerald-500/20 text-teal-300 border border-teal-500/40 text-xs font-bold shadow-md shadow-teal-500/10 transition active:scale-95"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl glass-card border border-accent-cyan-border hover:from-accent-cyan-border hover:to-accent-emerald-border text-accent-cyan border border-accent-cyan-border text-xs font-bold shadow-md shadow-accent-cyan-border transition active:scale-95"
             title={t('textbookBtn')}
           >
-            <BookOpen className="w-4 h-4 text-teal-400" />
+            <BookOpen className="w-4 h-4 text-accent-cyan" />
             <span className="hidden sm:inline font-extrabold">{t('textbookBtn')}</span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded bg-teal-400 text-slate-950 font-black">
+            <span className="text-[10px] px-1.5 py-0.2 rounded bg-accent-cyan text-slate-950 font-black">
               PDF
             </span>
           </button>
@@ -168,7 +168,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Bilingual Language Switcher (Ar / En) */}
           <button
             onClick={toggleLanguage}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 border border-slate-700 text-xs font-bold transition active:scale-95"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl glass-card border border-accent-cyan-border hover:bg-slate-700 text-slate-200 hover:text-white text-xs font-bold transition active:scale-95"
             title="Switch Language / تغيير اللغة"
           >
             <Globe2 className="w-3.5 h-3.5 text-cyan-400" />
@@ -185,8 +185,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div
             className={`hidden md:flex items-center gap-1 px-2 py-1 rounded-xl text-[11px] font-bold border ${
               isOnline
-                ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20'
-                : 'bg-amber-500/15 text-amber-300 border-amber-500/30'
+                ? 'glass-card text-accent-emerald border border-accent-emerald-border'
+                : 'glass-card text-accent-emerald border border-accent-emerald-border'
             }`}
             title={isOnline ? 'Network Connected' : 'Offline Mode (Local-First IndexedDB Active)'}
           >
@@ -201,7 +201,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* 7 Agents Ecosystem Button */}
           <button
             onClick={onOpenAgentsModal}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-bold transition active:scale-95"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl glass-card border border-accent-cyan-border hover:bg-accent-cyan-border text-accent-cyan text-xs font-bold transition active:scale-95"
             title="7-Agent AI Ecosystem Status"
           >
             <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
@@ -214,10 +214,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={onOpenStorageModal}
             className={`p-2 rounded-xl border transition ${
               syncState === 'error'
-                ? 'bg-rose-500/20 border-rose-500/40 text-rose-300'
+                ? 'glass-card border border-accent-cyan-border text-accent-cyan'
                 : syncState === 'saving'
-                  ? 'bg-amber-500/20 border-amber-500/40 text-amber-300 animate-pulse'
-                  : 'bg-slate-800/80 hover:bg-slate-700 border-slate-700 text-slate-300 hover:text-white'
+                  ? 'glass-card border border-accent-emerald-border text-accent-emerald animate-pulse'
+                  : 'glass-card border border-accent-cyan-border hover:bg-accent-cyan-border text-accent-cyan'
             }`}
             title="Offline Storage & Backup Vault"
           >

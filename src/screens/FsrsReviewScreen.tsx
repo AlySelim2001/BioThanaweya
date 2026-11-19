@@ -114,7 +114,7 @@ export const FsrsReviewScreen: React.FC<FsrsReviewScreenProps> = ({
         </div>
         <button
           onClick={onBack}
-          className="px-6 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-sm transition"
+          className="px-6 py-2.5 rounded-xl glass-card hover:bg-accent-cyan-border text-slate-950 font-bold text-sm transition"
         >
           Return to Dashboard
         </button>
@@ -208,7 +208,7 @@ export const FsrsReviewScreen: React.FC<FsrsReviewScreenProps> = ({
         <div className="grid grid-cols-4 gap-2.5">
           <button
             onClick={() => handleRate(1)}
-            className="flex flex-col items-center justify-center py-2.5 px-1 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-300 text-xs font-bold transition"
+            className="flex flex-col items-center justify-center py-2.5 px-1 rounded-xl glass-card border border-accent-cyan-border hover:bg-accent-emerald text-accent-emerald text-xs font-bold transition"
           >
             <span className="text-sm font-black">Again</span>
             <span className="text-[10px] text-rose-300/80">Forgot</span>
@@ -216,7 +216,7 @@ export const FsrsReviewScreen: React.FC<FsrsReviewScreenProps> = ({
 
           <button
             onClick={() => handleRate(2)}
-            className="flex flex-col items-center justify-center py-2.5 px-1 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-xs font-bold transition"
+            className="flex flex-col items-center justify-center py-2.5 px-1 rounded-xl glass-card border border-accent-emerald-border hover:bg-accent-emerald text-amber-300 text-xs font-bold transition"
           >
             <span className="text-sm font-black">Hard</span>
             <span className="text-[10px] text-amber-300/80">Struggled</span>

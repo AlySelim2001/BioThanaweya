@@ -202,7 +202,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 animate-in fade-in duration-300">
         <div className="rounded-3xl border border-teal-500/30 bg-gradient-to-br from-[#071329] to-[#0E2045] p-8 text-center space-y-4 shadow-2xl">
-          <div className="w-16 h-16 rounded-2xl bg-teal-500/20 text-teal-400 border border-teal-500/40 mx-auto flex items-center justify-center">
+          <div className="w-16 h-16 rounded-2xl glass-card text-accent-cyan border border-accent-cyan-border mx-auto flex items-center justify-center">
             <Award className="w-8 h-8" />
           </div>
 
@@ -222,7 +222,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
           <div className="flex justify-center gap-4 pt-2">
             <button
               onClick={onBack}
-              className="px-6 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs transition"
+              className="px-6 py-2.5 rounded-xl glass-card hover:bg-accent-cyan-border text-slate-950 font-bold text-xs transition"
             >
               Back to Dashboard
             </button>
@@ -239,7 +239,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
                 sub.scoreAwarded === sub.maxScore
                   ? 'bg-slate-900/80 border-emerald-500/30'
                   : sub.scoreAwarded > 0
-                    ? 'bg-slate-900/80 border-amber-500/30'
+                    ? 'glass-card border border-accent-emerald-border'
                     : 'bg-slate-900/80 border-rose-500/30'
               }`}
             >
@@ -259,7 +259,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
                 <p className="text-slate-200">{sub.studentAnswer}</p>
               </div>
 
-              <div className="p-3 rounded-xl bg-teal-950/30 border border-teal-500/20 text-xs space-y-1">
+              <div className="p-3 rounded-xl glass-card border border-accent-cyan-border text-xs space-y-1">
                 <span className="text-teal-400 font-semibold">Official Model Answer:</span>
                 <p className="text-slate-200">{sub.modelAnswer}</p>
               </div>
@@ -300,7 +300,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
         <div
           className={`flex items-center gap-2 px-3 py-1.5 rounded-xl font-mono text-sm font-black border ${
             timeLeft < 300
-              ? 'bg-rose-500/20 text-rose-400 border-rose-500/40 animate-pulse'
+              ? 'text-accent-cyan border border-accent-cyan-border hover:bg-accent-emerald text-accent-emerald animate-pulse'
               : 'bg-slate-800 text-teal-300 border-slate-700'
           }`}
         >
@@ -322,9 +322,9 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
               onClick={() => setCurrentIndex(idx)}
               className={`w-8 h-8 rounded-lg text-xs font-bold shrink-0 transition flex items-center justify-center relative ${
                 isCurrent
-                  ? 'bg-teal-500 text-slate-950 ring-2 ring-teal-400'
+                  ? 'glass-card text-slate-950 ring-2 ring-accent-cyan-border'
                   : isAnswered
-                    ? 'bg-teal-500/20 text-teal-300 border border-teal-500/40'
+                    ? 'glass-card text-accent-cyan border border-accent-cyan-border'
                     : 'bg-slate-800 text-slate-400 hover:text-white'
               }`}
             >
@@ -340,7 +340,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
       {/* Active Question Box */}
       <div className="rounded-2xl border border-slate-800 bg-[#0E1A35]/90 p-6 space-y-4 shadow-xl">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-teal-500/15 text-teal-300 border border-teal-500/30">
+          <span className="text-xs font-bold px-2.5 py-1 rounded-lg glass-card text-accent-cyan border border-accent-cyan-border">
             {currentQ.type.replace(/_/g, ' ')}
           </span>
 
@@ -348,7 +348,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
             onClick={() => setFlagged((prev) => ({ ...prev, [currentIndex]: !prev[currentIndex] }))}
             className={`flex items-center gap-1 text-xs px-2.5 py-1 rounded-lg border transition ${
               flagged[currentIndex]
-                ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                ? 'glass-card text-accent-emerald border border-accent-emerald-border'
                 : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-white'
             }`}
           >
@@ -368,7 +368,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
                 onClick={() => setSelectedOptions((prev) => ({ ...prev, [currentIndex]: optIdx }))}
                 className={`w-full p-3.5 rounded-xl text-left text-xs font-semibold border transition flex items-center justify-between ${
                   selectedOptions[currentIndex] === optIdx
-                    ? 'bg-teal-500/20 border-teal-500 text-white'
+                    ? 'glass-card border border-accent-cyan-border text-white'
                     : 'bg-slate-900/80 border-slate-800 text-slate-300 hover:bg-slate-800'
                 }`}
               >

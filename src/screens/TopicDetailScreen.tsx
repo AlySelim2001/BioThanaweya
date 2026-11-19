@@ -86,7 +86,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
           </button>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-teal-500/15 text-teal-300 border border-teal-500/30">
+              <span className="text-xs font-bold px-2 py-0.5 rounded-full glass-card border border-accent-cyan-border text-accent-cyan">
                 {pack.chapterTitle}
               </span>
               <span className="text-xs text-slate-400 font-mono">
@@ -100,7 +100,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
         <div className="flex items-center gap-3">
           <button
             onClick={() => onNavigateToPractice(pack.topicId)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs shadow-md transition"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl glass-card hover:bg-accent-cyan-border text-slate-950 font-bold text-xs shadow-md transition"
           >
             <Zap className="w-4 h-4" />
             Practice Questions ({pack.questions.length})
@@ -184,7 +184,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
               onClick={handleToggleSpeech}
               className={`w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
                 isSpeaking
-                  ? 'bg-rose-500 hover:bg-rose-400 text-white animate-pulse'
+                  ? 'text-accent-cyan border border-accent-cyan-border hover:bg-accent-emerald text-white animate-pulse'
                   : 'bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30'
               }`}
             >
@@ -340,7 +340,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
 
           {/* Diagram Inspection Markers */}
           {pack.visualInspectionMarkers.length > 0 && (
-            <div className="rounded-2xl border border-amber-500/30 bg-amber-950/20 p-5 space-y-3">
+            <div className="rounded-2xl border border border-accent-emerald-border glass-card p-5 space-y-3">
               <h3 className="text-sm font-bold text-amber-300 flex items-center gap-2">
                 <Eye className="w-4 h-4 text-amber-400" />
                 Diagram Inspection Markers for Ministry Exam

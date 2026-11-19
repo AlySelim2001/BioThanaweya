@@ -58,7 +58,7 @@ export const NephronSimulation: React.FC = () => {
             onClick={toggleAdh}
             className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 border transition-all ${
               adhPresent
-                ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-lg shadow-amber-500/10'
+                ? 'glass-card text-accent-emerald border border-accent-emerald-border'
                 : 'bg-slate-800 text-slate-400 border-slate-700'
             }`}
           >
@@ -70,7 +70,7 @@ export const NephronSimulation: React.FC = () => {
             </span>
           </button>
 
-          <div className="px-3 py-1.5 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-300 text-xs font-mono font-semibold flex items-center gap-1.5">
+          <div className="px-3 py-1.5 rounded-xl glass-card border border-accent-cyan-border text-accent-cyan text-xs font-mono font-semibold flex items-center gap-1.5">
             <Activity className="w-3.5 h-3.5" />
             <span>Blood Osmolarity: {effectiveOsmolarity} mOsm/L</span>
           </div>

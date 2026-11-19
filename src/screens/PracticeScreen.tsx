@@ -195,7 +195,7 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
       {/* Question Card */}
       <div className="rounded-2xl border border-slate-800 bg-[#0E1A35]/90 p-6 space-y-4 shadow-xl">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-teal-500/15 text-teal-300 border border-teal-500/30">
+          <span className="text-xs font-bold px-2.5 py-1 rounded-lg glass-card text-accent-cyan border border-accent-cyan-border">
             {currentQ.type.replace(/_/g, ' ')}
           </span>
           <span className="text-xs font-mono text-slate-400">2 Marks</span>
@@ -212,7 +212,7 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
                 onClick={() => setSelectedOption(optIdx)}
                 className={`w-full p-3.5 rounded-xl text-left text-xs font-semibold border transition flex items-center justify-between ${
                   selectedOption === optIdx
-                    ? 'bg-teal-500/20 border-teal-500 text-white'
+                    ? 'glass-card border border-accent-cyan-border text-white'
                     : 'bg-slate-900/80 border-slate-800 text-slate-300 hover:bg-slate-800'
                 }`}
               >
@@ -235,7 +235,7 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
                 onClick={handleToggleVoice}
                 className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold transition ${
                   isListening
-                    ? 'bg-rose-500 text-white animate-pulse'
+                    ? 'text-accent-cyan border border-accent-cyan-border text-white animate-pulse'
                     : 'bg-slate-800 hover:bg-slate-700 text-teal-300'
                 }`}
               >
@@ -280,7 +280,7 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
                 ? selectedOption === null
                 : studentAnswer.trim().length === 0)
             }
-            className="w-full py-3 rounded-xl bg-teal-500 hover:bg-teal-400 disabled:opacity-40 text-slate-950 font-bold text-xs shadow-lg transition flex items-center justify-center gap-2"
+            className="w-full py-3 rounded-xl glass-card hover:bg-accent-cyan-border disabled:opacity-40 text-slate-950 font-bold text-xs shadow-lg transition flex items-center justify-center gap-2"
           >
             <Award className="w-4 h-4" />
             {isGrading ? 'Grading Answer with Mark Scheme...' : 'Submit to Ministry Examiner'}
@@ -295,8 +295,8 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
             result.gradeStatus === 'FULL_MARK'
               ? 'bg-emerald-950/20 border-emerald-500/40'
               : result.gradeStatus === 'PARTIAL_CREDIT'
-                ? 'bg-amber-950/20 border-amber-500/40'
-                : 'bg-rose-950/20 border-rose-500/40'
+                ? 'glass-card border border-accent-emerald-border'
+                : 'glass-card border border-accent-cyan-border'
           }`}
         >
           <div className="flex items-center justify-between pb-3 border-b border-slate-800">
@@ -325,7 +325,7 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
           </div>
 
           {result.missingKeywords.length > 0 && (
-            <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-300 space-y-1">
+            <div className="p-3 rounded-xl glass-card border border-accent-cyan-border text-xs text-accent-cyan space-y-1">
               <span className="font-bold flex items-center gap-1.5">
                 <AlertTriangle className="w-3.5 h-3.5" />
                 Ministry Penalty Deduction Warning:
@@ -352,7 +352,7 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
             {currentIndex + 1 < questions.length && (
               <button
                 onClick={handleNext}
-                className="px-5 py-2 rounded-xl text-xs font-bold bg-teal-500 text-slate-950 hover:bg-teal-400 transition"
+                className="px-5 py-2 rounded-xl text-xs font-bold glass-card text-slate-950 hover:bg-accent-cyan-border transition"
               >
                 Next Item
               </button>

@@ -161,7 +161,7 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
           onClick={() => setSelectedTab('sarcomere')}
           className={`flex items-center gap-2 flex-1 justify-center py-2.5 rounded-lg text-xs font-bold transition ${
             selectedTab === 'sarcomere'
-              ? 'bg-teal-500 text-slate-950 shadow-sm'
+              ? 'glass-card text-slate-950 shadow-sm'
               : 'text-slate-400 hover:text-white'
           }`}
         >
@@ -220,7 +220,7 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
             </div>
 
             {sarcomereError && (
-              <div className="flex items-center gap-2 text-xs text-rose-400 bg-rose-500/10 p-3 rounded-xl border border-rose-500/20">
+              <div className="glass-card border border-accent-cyan-border text-xs text-accent-cyan p-3 rounded-xl">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{sarcomereError}</span>
               </div>
@@ -230,7 +230,7 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
           {sarcomereResult && (
             <div className="space-y-4">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3.5">
-                <div className="p-4 rounded-xl bg-slate-900 border border-teal-500/30 space-y-1">
+                <div className="p-4 rounded-xl glass-card border border-accent-cyan-border space-y-1">
                   <div className="text-[11px] font-bold text-slate-400 font-arabic">
                     خطوط Z (Z-lines)
                   </div>
@@ -276,7 +276,7 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-slate-900 border border-amber-500/30 space-y-1">
+                <div className="p-4 rounded-xl bg-slate-900 border border border-accent-emerald-border space-y-1">
                   <div className="text-[11px] font-bold text-slate-400 font-arabic">
                     شبه المضيئة H (في الانبساط)
                   </div>
@@ -380,7 +380,7 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
             </div>
 
             {chargaffError && (
-              <div className="flex items-center gap-2 text-xs text-rose-400 bg-rose-500/10 p-3 rounded-xl border border-rose-500/20">
+              <div className="glass-card border border-accent-cyan-border text-xs text-accent-cyan p-3 rounded-xl">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{chargaffError}</span>
               </div>
@@ -390,7 +390,7 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
           {chargaffResult && (
             <div className="space-y-4">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
-                <div className="p-4 rounded-xl bg-slate-900 border border-teal-500/30 space-y-1">
+                <div className="p-4 rounded-xl glass-card border border-accent-cyan-border space-y-1">
                   <div className="text-[11px] font-bold text-slate-400">Adenine (%A)</div>
                   <div className="text-2xl font-mono font-black text-teal-400">
                     {chargaffResult.adeninePercent.toFixed(1)}%
@@ -398,7 +398,7 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                   <div className="text-[10px] text-teal-300/70 font-mono">= % Thymine</div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-slate-900 border border-teal-500/30 space-y-1">
+                <div className="p-4 rounded-xl glass-card border border-accent-cyan-border space-y-1">
                   <div className="text-[11px] font-bold text-slate-400">Thymine (%T)</div>
                   <div className="text-2xl font-mono font-black text-teal-400">
                     {chargaffResult.thyminePercent.toFixed(1)}%
@@ -434,7 +434,7 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                   <div className="text-[10px] text-cyan-300/70 font-mono">Total / 2</div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-slate-900 border border-amber-500/30 space-y-1">
+                <div className="p-4 rounded-xl bg-slate-900 border border border-accent-emerald-border space-y-1">
                   <div className="text-[11px] font-bold text-slate-400">
                     Complete Turns (اللفات التامة)
                   </div>
@@ -517,7 +517,7 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
             </div>
 
             {codonError && (
-              <div className="flex items-center gap-2 text-xs text-rose-400 bg-rose-500/10 p-3 rounded-xl border border-rose-500/20">
+              <div className="glass-card border border-accent-cyan-border text-xs text-accent-cyan p-3 rounded-xl">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{codonError}</span>
               </div>
@@ -527,7 +527,7 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
           {codonResult && (
             <div className="space-y-4">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3.5">
-                <div className="p-4 rounded-xl bg-slate-900 border border-teal-500/30 space-y-1">
+                <div className="p-4 rounded-xl glass-card border border-accent-cyan-border space-y-1">
                   <div className="text-[11px] font-bold text-slate-400 font-arabic">
                     كودونات mRNA
                   </div>
@@ -569,7 +569,7 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-slate-900 border border-amber-500/30 space-y-1">
+                <div className="p-4 rounded-xl bg-slate-900 border border border-accent-emerald-border space-y-1">
                   <div className="text-[11px] font-bold text-slate-400 font-arabic">
                     جزيئات tRNA المشاركة
                   </div>
