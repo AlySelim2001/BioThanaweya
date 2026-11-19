@@ -4,6 +4,27 @@ All notable changes to the **BioThanaweya** project will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.4] - 2026-11-19
+
+### Fixed
+
+- **Launcher icons were silently dropped from the APK**: the density folders were named
+  `mipmap-48dpi`, `mipmap-72dpi`, `mipmap-96dpi`, `mipmap-144dpi` and `mipmap-192dpi`.
+  Those are not valid Android resource qualifiers, so aapt2 ignored them and only the
+  `mipmap-anydpi-v26` adaptive XMLs ended up in the package. Renamed to the standard
+  `mipmap-mdpi/hdpi/xhdpi/xxhdpi/xxxhdpi` and regenerated square `ic_launcher.png`
+  plus `ic_launcher_round.png` at every density.
+- `mipmap-anydpi-v26/ic_launcher_round.xml` pointed at the nonexistent
+  `@drawable/ic_launcher_round`; it now references `@drawable/ic_launcher_foreground`.
+- `FreeLLMAPIConfig.provider` is now optional and the AI client uses
+  `AbortSignal.timeout()` instead of the non-standard `RequestInit.timeout`,
+  so `tsc --noEmit` passes again.
+- Fallback explanation tables are typed as indexed maps, removing implicit-`any` errors.
+
+### Changed
+
+- Updated versionCode/versionName to 114 / "1.1.4" and `package.json` to 1.1.4.
+
 ## [1.1.3] - 2026-11-19
 
 ### Changed

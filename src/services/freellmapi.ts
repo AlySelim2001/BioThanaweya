@@ -19,7 +19,7 @@ import { config } from '../server/config/env';
 export type FreeLLMAPIProvider = 'openai' | 'anthropic' | 'gemini' | 'local' | 'freellmapi';
 
 export interface FreeLLMAPIConfig {
-  provider: FreeLLMAPIProvider;
+  provider?: FreeLLMAPIProvider;
   apiKey?: string;
   baseUrl?: string;
   model?: string;
@@ -94,7 +94,7 @@ export class FreeLLMAPIService {
    * This ensures 100% offline capability without any external API dependence
    */
   private generateBiologyFallback(topic: string, mode: 'eli5' | 'technical'): string {
-    const ar = {
+    const ar: Record<'eli5' | 'technical', Record<string, string>> = {
       eli5: {
         dna: 'DNA هيBlueprint الحياة. كل خلية في جسمك تحمل كود DNA طوله 2 متر مطوَّر في نواة الخلية. think of it as a huge book of instructions that fits inside a tiny cell! المبدأ نفسه: الحمض النووي هو كتاب تعليمات ضخم (2 متر) يوضع داخل خلية صغيرة جداً..',
         protein: 'البروتينات هي العمال في جسمك. DNA ترسل الرسالة للريبوسوم الذي يصنع البروتينات مثل العصابات في العضلة. تماماً كطلب pizza: الطلب يصنع عند الحاجة!',
@@ -115,7 +115,7 @@ export class FreeLLMAPIService {
     }
 
     // English fallback
-    const enFallback = {
+    const enFallback: Record<'eli5' | 'technical', Record<string, string>> = {
       eli5: {
         dna: 'DNA is the instruction manual for life. Every cell in your body contains about 2 meters of DNA tightly packed into the nucleus. Think of it as a huge book of instructions that fits inside a tiny cell!',
         protein: 'Proteins are the workers in your body. DNA sends a message to the ribosome which makes proteins like the muscle fibers. It\'s like ordering a pizza: the order is placed when needed!',
@@ -214,7 +214,7 @@ export class FreeLLMAPIService {
             ],
             temperature: 0.7,
           }),
-          timeout: this.config.timeoutMs,
+          signal: AbortSignal.timeout(this.config.timeoutMs || 30000),
         });
 
         if (!response.ok) {
@@ -266,7 +266,7 @@ export class FreeLLMAPIService {
               { role: 'user', content: question },
             ],
           }),
-          timeout: this.config.timeoutMs,
+          signal: AbortSignal.timeout(this.config.timeoutMs || 30000),
         });
 
         if (!response.ok) {
@@ -299,7 +299,7 @@ export class FreeLLMAPIService {
             ],
             temperature: 0.7,
           }),
-          timeout: this.config.timeoutMs,
+          signal: AbortSignal.timeout(this.config.timeoutMs || 30000),
         });
 
         if (!response.ok) {
@@ -483,7 +483,7 @@ export class FreeLLMAPIService {
             max_tokens: 1024,
             messages: [{ role: 'user', content: prompt }],
           }),
-          timeout: 30000,
+          signal: AbortSignal.timeout(30000),
         });
 
         if (!response.ok) throw new Error('Anthropic grading failed');
@@ -512,7 +512,7 @@ export class FreeLLMAPIService {
             messages: [{ role: 'user', content: prompt }],
             temperature: 0,
           }),
-          timeout: 30000,
+          signal: AbortSignal.timeout(30000),
         });
 
         if (!response.ok) throw new Error('OpenAI grading failed');
