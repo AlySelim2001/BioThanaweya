@@ -3,6 +3,40 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Glassmorphic Dark Theme Variables */
+    --bg-primary: #0B132B;
+    --bg-secondary: #0f1a3a;
+    --bg-tertiary: #1a284a;
+    --fg-primary: #e9f1ff;
+    --fg-muted: #9fb0d8;
+
+    /* Glass panels - translucent with subtle tint */
+    --glass-light: rgba(255, 255, 255, 0.04);
+    --glass-medium: rgba(255, 255, 255, 0.06);
+    --glass-strong: rgba(255, 255, 255, 0.08);
+
+    /* Accent colors - cyan/emerald palette */
+    --accent-cyan: #22f0ff;
+    --accent-cyan-dim: rgba(34, 240, 255, 0.15);
+    --accent-cyan-border: rgba(34, 240, 255, 0.25);
+    --accent-emerald: #7cffb2;
+    --accent-emerald-dim: rgba(124, 255, 178, 0.12);
+    --accent-emerald-border: rgba(124, 255, 178, 0.30);
+
+    /* Borders and shadows */
+    --border-subtle: rgba(120, 180, 255, 0.18);
+    --border-bright: rgba(34, 240, 255, 0.35);
+    --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.45);
+    --shadow-glow: 0 0 30px rgba(34, 240, 255, 0.15);
+
+    /* Radius and typography */
+    --radius: 16px;
+    --radius-sm: 12px;
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.25s ease;
+  }
+
   html {
     font-family:
       'Cairo',
@@ -19,34 +53,108 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #070f1e;
+  background: var(--bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e3a5f;
+  background: var(--accent-cyan-border);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #64ffda;
+  background: var(--accent-cyan);
 }
 
-
-/* Glassmorphic HUD utilities */
-.glass-panel {
-  background: linear-gradient(160deg, rgba(34,240,255,0.06), rgba(179,107,255,0.06));
-  border: 1px solid rgba(120,180,255,0.22);
+/* Glassmorphic base styles - translucent cards, cyan/emerald borders, rounded buttons */
+.glass-card {
+  background: var(--glass-medium);
+  border: 1px solid var(--accent-cyan-border);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  box-shadow: var(--shadow-soft);
+  border-radius: var(--radius);
 }
-.glass-panel-hot {
-  border-color: rgba(34,240,255,0.45);
-  box-shadow: 0 0 0 1px rgba(34,240,255,0.35), 0 18px 46px rgba(34,240,255,0.25);
+
+.glass-card-hot {
+  border-color: var(--accent-cyan-border);
+  box-shadow: var(--shadow-soft), 0 0 0 1px var(--border-bright), 0 18px 46px rgba(34, 240, 255, 0.25);
 }
-.hud-grid {
-  background-image:
-    linear-gradient(rgba(34,240,255,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34,240,255,0.05) 1px, transparent 1px);
-  background-size: 24px 24px;
+
+.glass-emerald-card {
+  background: var(--glass-medium);
+  border: 1px solid var(--accent-emerald-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-soft);
+  border-radius: var(--radius);
+}
+
+/* Background grid pattern for depth */
+.body-bg {
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(34, 240, 255, 0.08) 0%, transparent 60%),
+    radial-gradient(900px 600px at 85% 10%, rgba(179, 107, 255, 0.07) 0%, transparent 60%),
+    radial-gradient(800px 500px at 50% 110%, rgba(124, 255, 178, 0.05) 0%, transparent 60%),
+    var(--bg-primary);
+}
+
+/* Button base styles using CSS variables */
+.btn-glass {
+  background: var(--glass-medium);
+  border: 1px solid var(--accent-cyan-border);
+  color: var(--fg-primary);
+  padding: 14px 28px;
+  border-radius: var(--radius);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  backdrop-filter: blur(12px);
+}
+
+.btn-glass:hover {
+  border-color: var(--accent-cyan);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+.btn-emerald {
+  background: var(--glass-medium);
+  border: 1px solid var(--accent-emerald-border);
+  color: var(--fg-primary);
+  padding: 14px 28px;
+  border-radius: var(--radius);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  backdrop-filter: blur(12px);
+}
+
+.btn-emerald:hover {
+  border-color: var(--accent-emerald);
+  box-shadow: 0 0 24px rgba(124, 255, 178, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Focus states using CSS variables */
+*:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
+}
+
+/* Custom scrollbar using variables */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent-cyan-border);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-cyan);
 }
