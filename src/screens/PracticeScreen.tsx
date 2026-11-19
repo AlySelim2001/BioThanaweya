@@ -159,7 +159,7 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
         <div className="flex items-center gap-3">
           <button
             onClick={onBack}
-            className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-300 hover:text-white transition"
+            className="p-2 rounded-xl glass-card border border-accent-cyan-border hover:bg-accent-cyan text-slate-300 hover:text-white transition"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
@@ -257,7 +257,7 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
               value={studentAnswer}
               onChange={(e) => setStudentAnswer(e.target.value)}
               placeholder="Type your biological explanation using exact ions, enzymes, and mechanisms..."
-              className="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs leading-relaxed focus:outline-none focus:border-teal-400 resize-none"
+              className="w-full p-4 rounded-xl glass-card border border-accent-cyan-border text-white text-xs leading-relaxed focus:outline-none focus:border-accent-cyan resize-none"
             />
           </div>
         )}

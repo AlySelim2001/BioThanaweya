@@ -15,10 +15,10 @@ import { useDnaReplication } from '../hooks/useDnaReplication';
 import { NitrogenousBase } from '../types/dna.types';
 
 const ERROR_BOUNDARY_FALLBACK = () => (
-  <div className="p-6 bg-slate-900/90 border border-slate-800 rounded-2xl text-center">
+  <div className="p-6 glass-card border border-accent-cyan-border rounded-2xl text-center">
     <ShieldAlert className="w-12 h-12 mx-auto text-rose-400 mb-3" />
-    <h3 className="text-slate-300">DNA Simulation</h3>
-    <p className="text-slate-400">Loading DNA replication visualization...</p>
+    <h3 className="text-slate-100">DNA Simulation</h3>
+    <p className="text-slate-300">Loading DNA replication visualization...</p>
   </div>
 );
 
@@ -99,19 +99,19 @@ export const DnaStrandVisualizer: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Error Boundary Wrapper */}
-      <div className="bg-slate-950/90 border border-slate-800/80 rounded-2xl p-6">
+      <div className="glass-card border border-accent-cyan-border rounded-2xl p-6">
         <ERROR_BOUNDARY_FALLBACK />
       </div>
 
       {/* Simulation Controls */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl">
+        <div className="glass-card border border-accent-cyan-border rounded-2xl p-4">
           <h4 className="text-sm font-bold text-teal-300 mb-3">DNA Simulation Controls</h4>
           
           <div className="space-y-3">
             <button
               onClick={() => simulateStep(0)}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-slate-500 to-gray-400 text-slate-950 text-xs font-bold transition-all"
+              className="px-4 py-2 rounded-xl glass-card border border-accent-cyan-border hover:bg-accent-cyan text-slate-950 text-xs font-bold transition-all"
               disabled={currentStep === 0}
             >
               Reset to Step 0: Quiescent Parent DNA
@@ -119,7 +119,7 @@ export const DnaStrandVisualizer: React.FC = () => {
             
             <button
               onClick={() => simulateStep(1)}
-              className="px-4 py-2 rounded-xl from-accent-emerald to-accent-emerald hover:from-accent-emerald-border hover:to-accent-emerald-border text-slate-950 text-xs font-bold transition-all shadow-lg shadow-amber-500/20"
+              className="px-4 py-2 rounded-xl glass-card border border-accent-emerald-border hover:bg-accent-emerald text-slate-950 text-xs font-bold transition-all shadow-lg shadow-emerald-500/20"
               disabled={currentStep >= 1}
             >
               Step 1: Helicase Unwinding
@@ -127,7 +127,7 @@ export const DnaStrandVisualizer: React.FC = () => {
             
             <button
               onClick={() => simulateStep(2)}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-400 hover:to-red-400 text-slate-950 text-xs font-bold transition-all shadow-lg shadow-pink-500/20"
+              className="px-4 py-2 rounded-xl glass-card border border-teal-500/30 hover:bg-teal-500/25 border border-teal-500/30 text-slate-950 text-xs font-bold transition-all shadow-lg shadow-teal-500/20"
               disabled={currentStep >= 2}
             >
               Step 2: RNA Primer Synthesis
@@ -135,7 +135,7 @@ export const DnaStrandVisualizer: React.FC = () => {
             
             <button
               onClick={() => simulateStep(3)}
-              className="px-4 py-2 rounded-xl from-accent-cyan to-accent-emerald hover:from-accent-cyan-border hover:to-accent-emerald-border text-slate-950 text-xs font-bold transition-all shadow-lg shadow-teal-500/20"
+              className="px-4 py-2 rounded-xl glass-card border border-accent-cyan-border hover:bg-accent-cyan-border text-slate-950 text-xs font-bold transition-all shadow-lg shadow-teal-500/20"
               disabled={currentStep >= 3}
             >
               Step 3: Leading Strand Synthesis
@@ -143,7 +143,7 @@ export const DnaStrandVisualizer: React.FC = () => {
             
             <button
               onClick={() => simulateStep(4)}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-400 hover:to-violet-400 text-slate-950 text-xs font-bold transition-all shadow-lg shadow-indigo-500/20"
+              className="px-4 py-2 rounded-xl glass-card border border-indigo-500/30 hover:bg-indigo-500/25 border border-indigo-500/30 text-slate-950 text-xs font-bold transition-all shadow-lg shadow-indigo-500/20"
               disabled={currentStep >= 4}
             >
               Step 4: Lagging Strand Okazaki Fragments
@@ -151,7 +151,7 @@ export const DnaStrandVisualizer: React.FC = () => {
             
             <button
               onClick={() => simulateStep(5)}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-fuchsia-500 hover:from-purple-400 hover:to-fuchsia-400 text-slate-950 text-xs font-bold transition-all shadow-lg shadow-purple-500/20"
+              className="px-4 py-2 rounded-xl glass-card border border-purple-500/30 hover:bg-purple-500/25 border border-purple-500/30 text-slate-950 text-xs font-bold transition-all shadow-lg shadow-purple-500/20"
               disabled={currentStep >= 5}
             >
               Step 5: DNA Ligase Sealing

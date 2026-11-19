@@ -1,0 +1,1 @@
+40bae385b4b1c12bfbdc09fa19fafa3cf2ceda5d4b4a213f17dd3f8668108cbd  app-debug.apk

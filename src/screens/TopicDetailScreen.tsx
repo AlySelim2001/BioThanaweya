@@ -80,7 +80,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
-            className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-300 hover:text-white transition"
+            className="p-2 rounded-xl glass-card border border-accent-cyan-border hover:bg-accent-cyan text-slate-300 hover:text-white transition"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
@@ -109,7 +109,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
       </div>
 
       {/* Official Textbook Page Citation */}
-      <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-slate-300">
+      <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass-card border border-accent-cyan-border text-xs text-slate-300">
         <Bookmark className="w-4 h-4 text-teal-400 shrink-0" />
         <span className="font-semibold text-slate-200">Official Ministry Textbook Reference:</span>
         <span className="text-teal-300 font-mono">{pack.textbookPageReference}</span>

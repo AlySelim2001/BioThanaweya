@@ -214,7 +214,7 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                 min="1"
                 value={sarcomereInput}
                 onChange={(e) => handleSarcomereChange(e.target.value)}
-                className="w-full px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono text-sm focus:outline-none focus:border-teal-400"
+                className="w-full px-4 py-2 rounded-xl glass-card border border-accent-cyan-border text-white font-mono text-sm focus:outline-none focus:border-accent-cyan"
                 placeholder="e.g. 5"
               />
             </div>
@@ -359,7 +359,7 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                     max="49.9"
                     value={dnaPercent}
                     onChange={(e) => handleChargaffChange(dnaBase, e.target.value, dnaTotal)}
-                    className="w-full px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono text-sm focus:outline-none focus:border-purple-400"
+                    className="w-full px-4 py-2 rounded-xl glass-card border border-accent-cyan-border text-white font-mono text-sm focus:outline-none focus-border-accent-cyan"
                     placeholder="e.g. 20"
                   />
                 </div>
@@ -372,7 +372,7 @@ export const FormulaLabScreen: React.FC<FormulaLabScreenProps> = ({ onBack }) =>
                     step="20"
                     value={dnaTotal}
                     onChange={(e) => handleChargaffChange(dnaBase, dnaPercent, e.target.value)}
-                    className="w-full px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono text-sm focus:outline-none focus:border-purple-400"
+                    className="w-full px-4 py-2 rounded-xl glass-card border border-accent-cyan-border text-white font-mono text-sm focus:outline-none focus-border-accent-cyan"
                     placeholder="e.g. 1000"
                   />
                 </div>

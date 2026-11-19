@@ -108,7 +108,7 @@ export const FsrsReviewScreen: React.FC<FsrsReviewScreenProps> = ({
             review intervals for long-term Thanaweya exam retention.
           </p>
         </div>
-        <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400">
+        <div className="p-4 rounded-xl glass-card border border-accent-cyan-border text-xs text-slate-400">
           Reviewed: <strong className="text-teal-400">{reviewedCount} flashcards</strong> • Earned:{' '}
           <strong className="text-amber-400">+{reviewedCount * 15} XP</strong>
         </div>
@@ -133,7 +133,7 @@ export const FsrsReviewScreen: React.FC<FsrsReviewScreenProps> = ({
         <div className="flex items-center gap-3">
           <button
             onClick={onBack}
-            className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-300 hover:text-white transition"
+            className="p-2 rounded-xl glass-card border border-accent-cyan-border hover:bg-accent-cyan text-slate-300 hover:text-white transition"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
@@ -224,7 +224,7 @@ export const FsrsReviewScreen: React.FC<FsrsReviewScreenProps> = ({
 
           <button
             onClick={() => handleRate(3)}
-            className="flex flex-col items-center justify-center py-2.5 px-1 rounded-xl bg-teal-500/15 hover:bg-teal-500/25 border border-teal-500/30 text-teal-300 text-xs font-bold transition"
+            className="flex flex-col items-center justify-center py-2.5 px-1 rounded-xl glass-card border border-teal-500/30 hover:bg-teal-500/25 border border-teal-500/30 text-teal-300 text-xs font-bold transition"
           >
             <span className="text-sm font-black">Good</span>
             <span className="text-[10px] text-teal-300/80">Recalled</span>
