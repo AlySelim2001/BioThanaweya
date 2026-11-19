@@ -125,7 +125,7 @@ export class FSRS {
         );
 
     const updatedCard: FSRSCard = { ...card, elapsedDays };
-    let nextState: number = 0;
+    let nextState: 0 | 1 | 2 | 3 = 0;
 
     // State transition logic
     if (card.state === 0 /* NEW */) {
@@ -185,7 +185,7 @@ export class FSRS {
           );
 
     const updatedCard: FSRSCard = { ...card, elapsedDays };
-    let nextState: number = 0;
+    let nextState: 0 | 1 | 2 | 3 = 0;
 
     if (card.state === 0 /* NEW */) {
       nextState = rating === 1 ? 1 /* LEARNING */ : 2; /* REVIEW */
