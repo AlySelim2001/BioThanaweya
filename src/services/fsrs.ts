@@ -314,9 +314,5 @@ export class FSRS {
 /**
  * Default FSRS instance with standard parameters
  */
-export const defaultFsrs = new FSRS();
-
-/**
- * Type exports from ts-fsrs for compatibility
- */
-export type { FSRSCard, FSRSRating, FSRSItemReviewLog, SchedulingInfo };
+export const defaultFsrs = new FSRS();// Types are defined locally in this module for offline resilience
+// Previously re-exported from ts-fsrs for compatibility
