@@ -543,7 +543,7 @@ export const freeLLMAPI = new FreeLLMAPIService();
 export type UseFreeLLMAPIReturn = {
   provider: FreeLLMAPIProvider;
   isOffline: boolean;
-  generateExplanation: (topic: string, mode?: 'eli5' | 'technical') => Promise<{ success: boolean; text: string; fromFallback: boolean }>;
+  generateExplanation: (topic: string, question: string, mode: 'eli5' | 'technical') => Promise<{ success: boolean; text: string; fromFallback: boolean }>;
   gradeExamAnswer: (questionPrompt: string, studentAnswer: string, modelAnswer: string, requiredKeywords?: string[]) => Promise<{ success: boolean; gradeStatus: string; score: number; feedback: string }>;
 };
 
