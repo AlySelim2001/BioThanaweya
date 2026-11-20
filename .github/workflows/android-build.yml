@@ -104,16 +104,17 @@ jobs:
           path: ~/.gradle/wrapper
           key: gradle-wrapper
       - run: chmod +x android/gradlew && export ANDROID_SDK_ROOT='/opt/android/sdk' && export ANDROID_BUILD_TOOLS='36.0.0'
-      - run: export ANDROID_SDK_ROOT='/opt/android/sdk' && export ANDROID_BUILD_TOOLS='36.0.0' && export ANDROID_NDK_ROOT='/opt/android/ndk' && cd android && ./gradlew assembleDebug --no-daemon --stacktrace -Porg.gradle.jvmargs='--max-old-space-size=512'
+      - run: export ANDROID_SDK_ROOT='/opt/android/sdk' && export ANDROID_BUILD_TOOLS='36.0.0' && export ANDROID_NDK_ROOT='/opt/android/ndk' && cd android && ./gradlew assembleRelease --no-daemon --stacktrace -Porg.gradle.jvmargs='--max-old-space-size=512'
       - run: |
-          DEBUG_APK=$(find android/app/build/outputs/apk/debug -name '*.apk' -print -quit 2>/dev/null)
-          if [ -z "$DEBUG_APK" ]; then echo "Debug APK not found"; exit 1; fi
-          echo "Debug APK: $DEBUG_APK"
-          echo "APK_PATH=$DEBUG_APK" >> $GITHUB_ENV
+          RELEASE_APK=$(find android/app/build/outputs/apk/release -name '*.apk' -print -quit 2>/dev/null)
+          if [ -z "$RELEASE_APK" ]; then echo "Release APK not found"; exit 1; fi
+          echo "Release APK: $RELEASE_APK"
+          echo "RELEASE_APK_PATH=$RELEASE_APK" >> $GITHUB_ENV
+      - run: chmod +x $RELEASE_APK && apksigner sign --ks $KEYSTORE_PATH --ks-key-alias $KEY_ALIAS --ks-pass pass:$KEY_PASSWORD --key-pass pass:$KEY_PASSWORD --out $RELEASE_APK $RELEASE_APK 2>&1 || echo "Signing exit code: $?"
       - uses: actions/upload-artifact@v4
         with:
-          name: debug-apk
-          path: android/app/build/outputs/apk/debug/*.apk
+          name: release-apk
+          path: android/app/build/outputs/apk/release/*.apk
           retention-days: 30
 
   apk-verification:
