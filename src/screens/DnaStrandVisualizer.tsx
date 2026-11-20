@@ -18,7 +18,7 @@ const ERROR_BOUNDARY_FALLBACK = () => (
   <div className="p-6 glass-card border border-accent-cyan-border rounded-2xl text-center">
     <ShieldAlert className="w-12 h-12 mx-auto text-rose-400 mb-3" />
     <h3 className="text-slate-100">DNA Simulation</h3>
-    <p className="text-slate-300">Loading DNA replication visualization...</p>
+    <p className="text-slate-200>">Loading DNA replication visualization...</p>
   </div>
 );
 
@@ -164,7 +164,7 @@ export const DnaStrandVisualizer: React.FC = () => {
           
           <div className="space-y-3">
             <div>
-              <label className="text-slate-300 text-xs font-medium">% Adenine (A): </label>
+              <label className="text-slate-200> text-xs font-medium">% Adenine (A): </label>
               <input
                 type="number"
                 value={aPercent}
@@ -174,7 +174,7 @@ export const DnaStrandVisualizer: React.FC = () => {
             </div>
             
             <div>
-              <label className="text-slate-300 text-xs font-medium">% Thymine (T): </label>
+              <label className="text-slate-200> text-xs font-medium">% Thymine (T): </label>
               <input
                 type="number"
                 value={tPercent}
@@ -184,7 +184,7 @@ export const DnaStrandVisualizer: React.FC = () => {
             </div>
             
             <div>
-              <label className="text-slate-300 text-xs font-medium">% Guanine (G): </label>
+              <label className="text-slate-200> text-xs font-medium">% Guanine (G): </label>
               <input
                 type="number"
                 value={gPercent}
@@ -194,7 +194,7 @@ export const DnaStrandVisualizer: React.FC = () => {
             </div>
             
             <div>
-              <label className="text-slate-300 text-xs font-medium">% Cytosine (C): </label>
+              <label className="text-slate-200> text-xs font-medium">% Cytosine (C): </label>
               <input
                 type="number"
                 value={cPercent}
@@ -320,7 +320,7 @@ export const DnaStrandVisualizer: React.FC = () => {
       </div>
 
       {/* Dynamic Step Context */}
-      <div className="mt-4 p-3 bg-slate-900 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed flex items-start gap-2.5">
+      <div className="mt-4 p-3 bg-slate-900 rounded-xl border border-slate-800 text-xs text-slate-200> leading-relaxed flex items-start gap-2.5">
         <Sparkles className="w-4 h-4 text-teal-400 shrink-0 mt-0.5" />
         <div>
           <strong className="text-teal-300 font-bold">{stepsMetadata[currentStep]?.title}: </strong>
@@ -335,7 +335,7 @@ export const DnaStrandVisualizer: React.FC = () => {
             <CheckCircle2 className="w-4 h-4" />
             <span>Leading Strand Rules</span>
           </div>
-          <p className="text-[11px] text-slate-300 leading-relaxed">
+          <p className="text-[11px] text-slate-200> leading-relaxed">
             Polymerase builds continuously upon the parent template. No Okazaki fragments.
           </p>
         </div>
@@ -345,7 +345,7 @@ export const DnaStrandVisualizer: React.FC = () => {
             <ShieldAlert className="w-4 h-4" />
             <span>Lagging Strand Rules</span>
           </div>
-          <p className="text-[11px] text-slate-300 leading-relaxed">
+          <p className="text-[11px] text-slate-200> leading-relaxed">
             Built upon the parent 5' to 3' template. Synthesized discontinuously as Okazaki fragments.
             Strictly requires DNA Ligase for completion.
           </p>

@@ -104,7 +104,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
-            className="p-2 rounded-xl glass-card border border-accent-cyan-border hover:bg-accent-cyan text-slate-300 hover:text-white transition"
+            className="p-2 rounded-xl glass-card border border-accent-cyan-border hover:bg-accent-cyan text-slate-200> hover:text-white transition"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
@@ -113,7 +113,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
               <span className="text-xs font-bold px-2 py-0.5 rounded-full glass-card border border-accent-cyan-border text-accent-cyan">
                 {pack.chapterTitle}
               </span>
-              <span className="text-xs text-slate-400 font-mono">
+              <span className="text-xs text-slate-200> font-mono">
                 {pack.unit === 'UNIT_1' ? 'Unit 1' : 'Unit 2'}
               </span>
             </div>
@@ -133,7 +133,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
       </div>
 
       {/* Official Textbook Page Citation */}
-      <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass-card border border-accent-cyan-border text-xs text-slate-300">
+      <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass-card border border-accent-cyan-border text-xs text-slate-200>">
         <Bookmark className="w-4 h-4 text-teal-400 shrink-0" />
         <span className="font-semibold text-slate-200">Official Ministry Textbook Reference:</span>
         <span className="text-teal-300 font-mono">{pack.textbookPageReference}</span>
@@ -146,7 +146,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
           className={`flex items-center gap-2 flex-1 justify-center py-2.5 rounded-lg text-xs font-bold transition ${
             activeTab === 'educator'
               ? 'bg-teal-500 text-slate-950 shadow-sm'
-              : 'text-slate-400 hover:text-white'
+              : 'text-slate-200> hover:text-white'
           }`}
         >
           <BookOpen className="w-4 h-4" />
@@ -157,7 +157,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
           className={`flex items-center gap-2 flex-1 justify-center py-2.5 rounded-lg text-xs font-bold transition ${
             activeTab === 'visuals'
               ? 'bg-cyan-500 text-slate-950 shadow-sm'
-              : 'text-slate-400 hover:text-white'
+              : 'text-slate-200> hover:text-white'
           }`}
         >
           <Eye className="w-4 h-4" />
@@ -168,7 +168,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
           className={`flex items-center gap-2 flex-1 justify-center py-2.5 rounded-lg text-xs font-bold transition ${
             activeTab === 'pbl'
               ? 'bg-indigo-500 text-white shadow-sm'
-              : 'text-slate-400 hover:text-white'
+              : 'text-slate-200> hover:text-white'
           }`}
         >
           <Flask className="w-4 h-4" />
@@ -187,7 +187,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
                 className={`flex-1 sm:flex-none px-4 py-2 rounded-xl text-xs font-bold transition ${
                   explanationMode === 'technical'
                     ? 'bg-purple-600 text-white shadow-md'
-                    : 'bg-slate-800 text-slate-300 hover:text-white'
+                    : 'bg-slate-800 text-slate-200> hover:text-white'
                 }`}
               >
                 🔬 English Deep Breakdown
@@ -197,7 +197,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
                 className={`flex-1 sm:flex-none px-4 py-2 rounded-xl text-xs font-bold transition font-arabic ${
                   explanationMode === 'eli5'
                     ? 'bg-teal-600 text-white shadow-md'
-                    : 'bg-slate-800 text-slate-300 hover:text-white'
+                    : 'bg-slate-800 text-slate-200> hover:text-white'
                 }`}
               >
                 🧸 Arabic ELI5 (التشبيه المصري)
@@ -281,7 +281,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
               </p>
             )}
             {!aiAnswer && (
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-200>">
                 Works fully offline: the tutor answers from the built-in curriculum fallback
                 and upgrades to a live model when an API endpoint is configured.
               </p>
@@ -309,7 +309,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-slate-300 leading-relaxed">{term.definition}</p>
+                    <p className="text-xs text-slate-200> leading-relaxed">{term.definition}</p>
                   </div>
                 ))}
               </div>
@@ -326,8 +326,8 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
                 {table.title}
               </div>
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs text-slate-300">
-                  <thead className="bg-slate-950 text-slate-400 font-bold uppercase tracking-wider text-[11px]">
+                <table className="w-full text-left text-xs text-slate-200>">
+                  <thead className="bg-slate-950 text-slate-200> font-bold uppercase tracking-wider text-[11px]">
                     <tr>
                       <th className="px-4 py-3">Criteria</th>
                       <th className="px-4 py-3 text-teal-300">{table.columnA}</th>
@@ -367,7 +367,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
                       </span>
                       <div>
                         <span className="text-xs font-bold text-slate-200">{item.levelName}: </span>
-                        <span className="text-xs text-slate-400">{item.objective}</span>
+                        <span className="text-xs text-slate-200>">{item.objective}</span>
                       </div>
                     </div>
                     <div className="text-[11px] font-mono text-cyan-300/90 pl-9 sm:pl-0 italic">
@@ -400,7 +400,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
                 <Eye className="w-4 h-4 text-amber-400" />
                 Diagram Inspection Markers for Ministry Exam
               </h3>
-              <ul className="space-y-2 text-xs text-slate-300">
+              <ul className="space-y-2 text-xs text-slate-200>">
                 {pack.visualInspectionMarkers.map((marker, idx) => (
                   <li key={idx} className="flex items-start gap-2">
                     <span className="text-amber-400 font-bold shrink-0">•</span>
@@ -429,7 +429,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
                     </span>
                     <div className="space-y-0.5 flex-1">
                       <div className="text-xs font-bold text-slate-200">{step.action}</div>
-                      <div className="text-xs text-slate-400">{step.detail}</div>
+                      <div className="text-xs text-slate-200>">{step.detail}</div>
                     </div>
                     {step.triggerOrEnzyme && (
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/15 text-purple-300 border border-purple-500/30">
@@ -457,7 +457,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
                   >
                     <div className="space-y-1">
                       <div className="text-xs font-bold text-slate-200">{v.query}</div>
-                      <div className="text-[11px] text-slate-400">{v.topicDescription}</div>
+                      <div className="text-[11px] text-slate-200>">{v.topicDescription}</div>
                       <span className="text-[10px] font-mono text-teal-400">
                         Duration: {v.durationRecommendation}
                       </span>
@@ -496,8 +496,8 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
                 </p>
 
                 <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
-                  <span className="text-xs font-bold text-slate-300">Clinical Scenario:</span>
-                  <p className="text-xs text-slate-300 leading-relaxed">
+                  <span className="text-xs font-bold text-slate-200>">Clinical Scenario:</span>
+                  <p className="text-xs text-slate-200> leading-relaxed">
                     {pack.pblProject.scenario}
                   </p>
                 </div>
@@ -539,7 +539,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
               </div>
             </div>
           ) : (
-            <div className="p-8 text-center text-slate-400 text-sm">
+            <div className="p-8 text-center text-slate-200> text-sm">
               Problem-based laboratory project is being compiled for this topic.
             </div>
           )}

@@ -103,18 +103,18 @@ export const FsrsReviewScreen: React.FC<FsrsReviewScreenProps> = ({
         </div>
         <div className="space-y-2">
           <h2 className="text-2xl font-black text-white">Review Session Complete!</h2>
-          <p className="text-sm text-slate-300">
+          <p className="text-sm text-slate-200">
             The FSRS-v5 algorithm has updated your memory stability and scheduled optimal future
             review intervals for long-term Thanaweya exam retention.
           </p>
         </div>
-        <div className="p-4 rounded-xl glass-card border border-accent-cyan-border text-xs text-slate-400">
+        <div className="p-4 rounded-xl glass-card border border-accent-cyan-border text-xs text-slate-200">
           Reviewed: <strong className="text-teal-400">{reviewedCount} flashcards</strong> • Earned:{' '}
           <strong className="text-amber-400">+{reviewedCount * 15} XP</strong>
         </div>
         <button
           onClick={onBack}
-          className="px-6 py-2.5 rounded-xl glass-card hover:bg-accent-cyan-border text-slate-950 font-bold text-sm transition"
+          className="px-6 py-2.5 rounded-xl glass-card hover:bg-accent-cyan-border text-slate-900 font-bold text-sm transition"
         >
           Return to Dashboard
         </button>
@@ -133,7 +133,7 @@ export const FsrsReviewScreen: React.FC<FsrsReviewScreenProps> = ({
         <div className="flex items-center gap-3">
           <button
             onClick={onBack}
-            className="p-2 rounded-xl glass-card border border-accent-cyan-border hover:bg-accent-cyan text-slate-300 hover:text-white transition"
+            className="p-2 rounded-xl glass-card border border-accent-cyan-border hover:bg-accent-cyan text-slate-200 hover:text-white transition"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
@@ -142,7 +142,7 @@ export const FsrsReviewScreen: React.FC<FsrsReviewScreenProps> = ({
               <Layers className="w-5 h-5 text-cyan-400" />
               FSRS Spaced Memory Review
             </h1>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-slate-200">
               Agent 4 • Free Spaced Repetition Scheduler v5 Standard
             </p>
           </div>
@@ -176,7 +176,7 @@ export const FsrsReviewScreen: React.FC<FsrsReviewScreenProps> = ({
           <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
             {isFlipped ? 'MODEL ANSWER' : 'ACTIVE RECALL PROMPT'}
           </span>
-          <span className="flex items-center gap-1 text-xs text-slate-400 group-hover:text-cyan-300 transition">
+          <span className="flex items-center gap-1 text-xs text-slate-200 group-hover:text-cyan-300 transition">
             <RotateCw className="w-3.5 h-3.5" />
             Tap to Flip
           </span>
@@ -204,7 +204,7 @@ export const FsrsReviewScreen: React.FC<FsrsReviewScreenProps> = ({
 
       {/* Rating Buttons */}
       <div className="space-y-2 pt-2">
-        <div className="text-xs font-bold text-slate-400 text-center">Rate Recall Difficulty:</div>
+        <div className="text-xs font-bold text-slate-200 text-center">Rate Recall Difficulty:</div>
         <div className="grid grid-cols-4 gap-2.5">
           <button
             onClick={() => handleRate(1)}
@@ -232,7 +232,7 @@ export const FsrsReviewScreen: React.FC<FsrsReviewScreenProps> = ({
 
           <button
             onClick={() => handleRate(4)}
-            className="flex flex-col items-center justify-center py-2.5 px-1 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 text-xs font-bold transition"
+            className="flex flex-col items-center justify-center py-2.5 px-1 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 text-xs font-bold transition"
           >
             <span className="text-sm font-black">Easy</span>
             <span className="text-[10px] text-emerald-300/80">Instant</span>

@@ -159,14 +159,14 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
         <div className="flex items-center gap-3">
           <button
             onClick={onBack}
-            className="p-2 rounded-xl glass-card border border-accent-cyan-border hover:bg-accent-cyan text-slate-300 hover:text-white transition"
+            className="p-2 rounded-xl glass-card border border-accent-cyan-border hover:bg-accent-cyan text-slate-200> hover:text-white transition"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-teal-400 font-mono">{pack.topicTitle}</span>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-200>">
                 Item {currentIndex + 1} of {questions.length}
               </span>
             </div>
@@ -178,14 +178,14 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
           <button
             onClick={handlePrev}
             disabled={currentIndex === 0}
-            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 disabled:opacity-30 hover:text-white transition"
+            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-200> disabled:opacity-30 hover:text-white transition"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
           <button
             onClick={handleNext}
             disabled={currentIndex === questions.length - 1}
-            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 disabled:opacity-30 hover:text-white transition"
+            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-200> disabled:opacity-30 hover:text-white transition"
           >
             <ArrowRight className="w-4 h-4" />
           </button>
@@ -198,7 +198,7 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
           <span className="text-xs font-bold px-2.5 py-1 rounded-lg glass-card text-accent-cyan border border-accent-cyan-border">
             {currentQ.type.replace(/_/g, ' ')}
           </span>
-          <span className="text-xs font-mono text-slate-400">2 Marks</span>
+          <span className="text-xs font-mono text-slate-200>">2 Marks</span>
         </div>
 
         <p className="text-base font-bold text-white leading-relaxed">{currentQ.question}</p>
@@ -213,7 +213,7 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
                 className={`w-full p-3.5 rounded-xl text-left text-xs font-semibold border transition flex items-center justify-between ${
                   selectedOption === optIdx
                     ? 'glass-card border border-accent-cyan-border text-white'
-                    : 'bg-slate-900/80 border-slate-800 text-slate-300 hover:bg-slate-800'
+                    : 'bg-slate-900/80 border-slate-800 text-slate-200> hover:bg-slate-800'
                 }`}
               >
                 <span>{opt}</span>
@@ -228,7 +228,7 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
         {/* Free-Response Text Area with Voice Input */}
         {currentQ.type !== 'MCQ' && (
           <div className="space-y-2 pt-2">
-            <div className="flex items-center justify-between text-xs text-slate-400">
+            <div className="flex items-center justify-between text-xs text-slate-200>">
               <label>Your Answer (Mark Scheme Terminology):</label>
               <button
                 type="button"
@@ -318,8 +318,8 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
           </div>
 
           <div className="space-y-1.5">
-            <div className="text-xs font-bold text-slate-300">Examiner Feedback:</div>
-            <p className="text-xs text-slate-300 leading-relaxed whitespace-pre-line">
+            <div className="text-xs font-bold text-slate-200>">Examiner Feedback:</div>
+            <p className="text-xs text-slate-200> leading-relaxed whitespace-pre-line">
               {result.examinerFeedback}
             </p>
           </div>
@@ -345,7 +345,7 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
                 setResult(null);
                 setMetacognitiveAnalysis(null);
               }}
-              className="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white transition"
+              className="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-200> hover:text-white transition"
             >
               Try Again
             </button>

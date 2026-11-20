@@ -10,6 +10,8 @@ export default {
           800: '#112240',
           700: '#1E3A5F',
           600: '#233554',
+          50: '#F1F5F9',
+          100: '#E2E8F0',
         },
         glass: {
           DEFAULT: 'var(--glass-medium)',
@@ -21,17 +23,23 @@ export default {
           400: '#64FFDA',
           500: '#00F5D4',
           600: '#00B4D8',
+          100: '#CCFCF5',
+          200: '#99F6E0',
         },
         bioemerald: {
           DEFAULT: '#10B981',
           500: '#10B981',
           600: '#059669',
+          100: '#CCFDF5',
+          200: '#99F6E0',
         },
         biotrap: {
           DEFAULT: '#F59E0B',
           500: '#F59E0B',
           600: '#D97706',
           danger: '#EF4444',
+          100: '#FEF3C7',
+          200: '#FDE68A',
         },
       },
       fontFamily: {

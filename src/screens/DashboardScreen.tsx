@@ -59,9 +59,9 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
       case 'Repeat':
         return <Repeat className="w-5 h-5 text-accent-emerald" />;
       case 'Shield':
-        return <Shield className="w-5 h-5 text-slate-300" />;
+        return <Shield className="w-5 h-5 text-slate-200>" />;
       case 'Dna':
-        return <Dna className="w-5 h-5 text-slate-300" />;
+        return <Dna className="w-5 h-5 text-slate-200>" />;
       case 'FlaskConical':
         return <FlaskConical className="w-5 h-5 text-accent-emerald" />;
       default:
@@ -90,7 +90,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
             {t('heroTitle')}
           </h1>
 
-          <p className="text-sm md:text-base text-slate-300 leading-relaxed font-normal">
+          <p className="text-sm md:text-base text-slate-200> leading-relaxed font-normal">
             {t('heroSubtitle')}
           </p>
 
@@ -143,7 +143,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                 <p className="text-xs text-accent-cyan/80 font-medium">{t('examHeroSpecs')}</p>
               </div>
             </div>
-            <p className="text-xs md:text-sm text-slate-300 leading-relaxed">{t('examHeroDesc')}</p>
+            <p className="text-xs md:text-sm text-slate-200> leading-relaxed">{t('examHeroDesc')}</p>
           </div>
 
           <button
@@ -166,7 +166,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                 {t('curriculumBentoTitle')}
               </h2>
             </div>
-            <p className="text-xs text-slate-400 mt-1">{t('curriculumBentoSub')}</p>
+            <p className="text-xs text-slate-200> mt-1">{t('curriculumBentoSub')}</p>
           </div>
 
           {/* Unit Filter Tabs */}
@@ -176,7 +176,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
               className={`px-3 py-1.5 rounded-xl transition ${
                 selectedUnit === 'ALL'
                   ? 'glass-card shadow-sm'
-                  : 'text-slate-400 hover:text-white'
+                  : 'text-slate-200> hover:text-white'
               }`}
             >
               {t('allFilter')}
@@ -186,7 +186,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
               className={`px-3 py-1.5 rounded-xl transition ${
                 selectedUnit === 'UNIT_1'
                   ? 'glass-card shadow-sm'
-                  : 'text-slate-400 hover:text-white'
+                  : 'text-slate-200> hover:text-white'
               }`}
             >
               {language === 'ar' ? 'الوحدة 1' : 'Unit 1'}
@@ -196,7 +196,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
               className={`px-3 py-1.5 rounded-xl transition ${
                 selectedUnit === 'UNIT_2'
                   ? 'glass-card shadow-sm'
-                  : 'text-slate-400 hover:text-white'
+                  : 'text-slate-200> hover:text-white'
               }`}
             >
               {language === 'ar' ? 'الوحدة 2' : 'Unit 2'}
@@ -227,7 +227,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                           <Sparkles className="w-4 h-4 text-accent-cyan" />
                         )}
                       </div>
-                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                      <span className="text-[11px] font-bold text-slate-200> uppercase tracking-wider">
                         {topic.unit === 'UNIT_1'
                           ? language === 'ar'
                             ? 'الوحدة الأولى'
@@ -250,13 +250,13 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                     <h3 className="font-extrabold text-base text-slate-100 group-hover:text-accent-cyan transition line-clamp-2">
                       {language === 'ar' ? topic.arabicTitle : topic.title}
                     </h3>
-                    <p className="text-xs text-slate-400 font-medium line-clamp-1">
+                    <p className="text-xs text-slate-200> font-medium line-clamp-1">
                       {language === 'ar' ? topic.title : topic.arabicTitle}
                     </p>
                   </div>
 
                   {/* Topic Summary */}
-                  <p className="text-xs text-slate-300 leading-relaxed line-clamp-2">
+                  <p className="text-xs text-slate-200> leading-relaxed line-clamp-2">
                     {topic.summary}
                   </p>
                 </div>
@@ -302,13 +302,13 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                   </div>
 
                   {/* FSRS Retention Indicator Footer */}
-                  <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1">
+                  <div className="flex items-center justify-between text-[11px] text-slate-200> pt-1">
                     <span className="flex items-center gap-1">
                       <Flame className="w-3 h-3 text-accent-emerald" />
                       {language === 'ar' ? 'الاستقرار التكراري:' : 'FSRS Stability:'}
                     </span>
                     <span
-                      className={`font-bold ${isMastered ? 'text-accent-emerald' : 'text-slate-400'}`}
+                      className={`font-bold ${isMastered ? 'text-accent-emerald' : 'text-slate-200>'}`}
                     >
                       {mastery ? `${mastery.stability.toFixed(1)}d` : '3.0d'}
                     </span>
@@ -330,7 +330,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
               {language === 'ar' ? 'لوحة Bio-Fabrication / الأتمتة' : 'Bio-Fabrication / Automation HUD'}
             </h2>
           </div>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-slate-200>">
             {language === 'ar'
               ? 'مراقبة 3D Biology وحالة الأتمتة (n8n) وFSRS وذاكرة النظام.'
               : '3D Biology, automation (n8n) status, FSRS engine, and system memory telemetry.'}
@@ -345,14 +345,14 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
               <div
                 key={s.label}className="rounded-2xl glass-card border border-slate-700/60 p-3 text-center"
                 >
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                <div className="text-[10px] font-bold text-slate-200> uppercase tracking-wider">
                   {s.label}
                 </div>
                 <div className={`text-sm font-black ${s.color} mt-1`}>{s.value}</div>
               </div>
             ))}
           </div>
-          <div className="flex flex-wrap items-center gap-3 pt-2 text-[11px] text-slate-400">
+          <div className="flex flex-wrap items-center gap-3 pt-2 text-[11px] text-slate-200>">
             <span>
               {language === 'ar' ? 'المطور:' : 'Developer:'}{' '}
               <span className="text-slate-200 font-bold">Alyselim</span>

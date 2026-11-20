@@ -63,7 +63,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
       <div className="flex items-center gap-3 pb-4 border-b border-slate-800">
         <button
           onClick={onBack}
-          className="p-2 rounded-xl glass-card border border-accent-cyan-border hover:bg-accent-cyan text-slate-300 hover:text-white transition"
+          className="p-2 rounded-xl glass-card border border-accent-cyan-border hover:bg-accent-cyan text-slate-200> hover:text-white transition"
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
@@ -72,7 +72,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             <Settings className="w-5 h-5 text-teal-400" />
             Application Settings & Curriculum Guide
           </h1>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-slate-200>">
             Customize your learning parameters, Pomodoro intervals, and study preferences.
           </p>
         </div>
@@ -91,7 +91,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           <Clock className="w-4 h-4 text-teal-400" />
           <span>Agent 7: Study Chunk (Pomodoro Duration)</span>
         </div>
-        <p className="text-xs text-slate-400 leading-relaxed">
+        <p className="text-xs text-slate-200> leading-relaxed">
           Intervals of focused biological deep dive before taking a 5-minute memory consolidation
           break.
         </p>
@@ -104,7 +104,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
               className={`px-4 py-2 rounded-xl text-xs font-bold border transition ${
                 chunkMinutes === mins
                   ? 'bg-teal-500 text-slate-950 border-teal-400 font-black'
-                  : 'bg-slate-900 text-slate-300 border-slate-700 hover:bg-slate-800'
+                  : 'bg-slate-900 text-slate-200> border-slate-700 hover:bg-slate-800'
               }`}
             >
               {mins} Minutes
@@ -120,11 +120,11 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             <Vibrate className="w-4 h-4 text-teal-400" />
             <span>Tactile Haptic Feedback (Mobile Vibration API)</span>
           </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-200> border border-slate-700">
             {haptics.isSupported() ? 'Supported' : 'Not Supported in Browser'}
           </span>
         </div>
-        <p className="text-xs text-slate-400 leading-relaxed">
+        <p className="text-xs text-slate-200> leading-relaxed">
           Provides subtle mechanical tick pulses (10ms) during screen transitions, modal dialog
           activations, and achievement awards on touch devices.
         </p>
@@ -135,7 +135,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             className={`px-4 py-2 rounded-xl text-xs font-bold border transition ${
               hapticsEnabled
                 ? 'bg-teal-500 text-slate-950 border-teal-400 font-black'
-                : 'bg-slate-900 text-slate-300 border-slate-700 hover:bg-slate-800'
+                : 'bg-slate-900 text-slate-200> border-slate-700 hover:bg-slate-800'
             }`}
           >
             Haptics Enabled
@@ -145,7 +145,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             className={`px-4 py-2 rounded-xl text-xs font-bold border transition ${
               !hapticsEnabled
                 ? 'bg-slate-700 text-white border-slate-600 font-bold'
-                : 'bg-slate-900 text-slate-400 border-slate-800 hover:bg-slate-800'
+                : 'bg-slate-900 text-slate-200> border-slate-800 hover:bg-slate-800'
             }`}
           >
             Muted (Off)
@@ -159,12 +159,12 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           <BookOpen className="w-4 h-4 text-cyan-400" />
           <span>Official Egyptian Ministry Standards</span>
         </div>
-        <p className="text-xs text-slate-300 leading-relaxed">
+        <p className="text-xs text-slate-200> leading-relaxed">
           BioThanaweya is designed specifically for students in Egyptian Thanaweya Amma (Languages
           Schools / التجريبية والمتميزة واللغات الخاصة), strictly following the Ministry of
           Education biology curriculum:
         </p>
-        <ul className="text-xs text-slate-400 space-y-1 list-disc list-inside">
+        <ul className="text-xs text-slate-200> space-y-1 list-disc list-inside">
           <li>
             Unit 1: Structure and Function in Living Organisms (Support & Movement, Hormones,
             Reproduction, Immunity).
@@ -191,7 +191,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             FOSS Engine
           </span>
         </div>
-        <p className="text-xs text-slate-300 leading-relaxed">
+        <p className="text-xs text-slate-200> leading-relaxed">
           Your learning history, FSRS memory weights, topic masteries, and exam results are safely
           stored in your browser's private IndexedDB database. You can export complete JSON backups
           or restore previous snapshots at any time.

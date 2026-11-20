@@ -213,7 +213,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
             <h1 className="text-3xl font-black text-white mt-2">
               Grade: {examReport.letterGrade} ({examReport.percentage}%)
             </h1>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-xs text-slate-200> mt-1">
               Total Score: {examReport.totalScore} / {examReport.maxScore} Marks • Time Spent:{' '}
               {formatTime(examReport.timeSpentSeconds)}
             </p>
@@ -244,7 +244,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
               }`}
             >
               <div className="flex items-center justify-between text-xs">
-                <span className="font-bold text-slate-300">
+                <span className="font-bold text-slate-200>">
                   Item #{idx + 1} ({sub.question.type})
                 </span>
                 <span className="font-mono font-bold text-white px-2 py-0.5 rounded bg-slate-800">
@@ -255,7 +255,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
               <p className="text-xs font-bold text-white">{sub.question.question}</p>
 
               <div className="p-3 rounded-xl bg-slate-950 text-xs space-y-1">
-                <span className="text-slate-400 font-semibold">Your Answer:</span>
+                <span className="text-slate-200> font-semibold">Your Answer:</span>
                 <p className="text-slate-200">{sub.studentAnswer}</p>
               </div>
 
@@ -264,7 +264,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
                 <p className="text-slate-200">{sub.modelAnswer}</p>
               </div>
 
-              <p className="text-xs text-slate-400 whitespace-pre-line leading-relaxed">
+              <p className="text-xs text-slate-200> whitespace-pre-line leading-relaxed">
                 {sub.feedback}
               </p>
             </div>
@@ -284,13 +284,13 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
         <div className="flex items-center gap-3">
           <button
             onClick={onBack}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white transition"
+            className="p-1.5 rounded-lg text-slate-200> hover:text-white transition"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
             <h1 className="text-sm font-bold text-white">Egyptian Ministry Biology Simulation</h1>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-slate-200>">
               Answered: {answeredCount} / {questions.length} Items
             </p>
           </div>
@@ -325,7 +325,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
                   ? 'glass-card text-slate-950 ring-2 ring-accent-cyan-border'
                   : isAnswered
                     ? 'glass-card text-accent-cyan border border-accent-cyan-border'
-                    : 'bg-slate-800 text-slate-400 hover:text-white'
+                    : 'bg-slate-800 text-slate-200> hover:text-white'
               }`}
             >
               {idx + 1}
@@ -349,7 +349,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
             className={`flex items-center gap-1 text-xs px-2.5 py-1 rounded-lg border transition ${
               flagged[currentIndex]
                 ? 'glass-card text-accent-emerald border border-accent-emerald-border'
-                : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-white'
+                : 'bg-slate-800 text-slate-200> border-slate-700 hover:text-white'
             }`}
           >
             <Flag className="w-3.5 h-3.5" />
@@ -369,7 +369,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
                 className={`w-full p-3.5 rounded-xl text-left text-xs font-semibold border transition flex items-center justify-between ${
                   selectedOptions[currentIndex] === optIdx
                     ? 'glass-card border border-accent-cyan-border text-white'
-                    : 'bg-slate-900/80 border-slate-800 text-slate-300 hover:bg-slate-800'
+                    : 'bg-slate-900/80 border-slate-800 text-slate-200> hover:bg-slate-800'
                 }`}
               >
                 <span>{opt}</span>
@@ -384,7 +384,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
         {/* Free-Response with Voice Input */}
         {currentQ.type !== 'MCQ' && (
           <div className="space-y-2 pt-2">
-            <div className="flex items-center justify-between text-xs text-slate-400">
+            <div className="flex items-center justify-between text-xs text-slate-200>">
               <label>Your Examination Answer:</label>
               <button
                 type="button"
@@ -423,7 +423,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
           <button
             onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
             disabled={currentIndex === 0}
-            className="flex items-center gap-1 px-4 py-2 rounded-xl bg-slate-800 text-slate-300 disabled:opacity-40 text-xs font-bold hover:text-white transition"
+            className="flex items-center gap-1 px-4 py-2 rounded-xl bg-slate-800 text-slate-200> disabled:opacity-40 text-xs font-bold hover:text-white transition"
           >
             <ChevronLeft className="w-4 h-4" />
             Previous
