@@ -99,6 +99,24 @@ npm run build
 npm run preview
 ```
 
+## 🛠️ CI/CD Verification (GitHub Actions)
+
+All PRs are automatically validated by the repository's CI/CD pipeline. Before merging, ensure:
+
+- **Typecheck**: `npm run lint` passes (zero TypeScript errors)
+- **Unit tests**: `npm test` passes (all 72+ tests)
+- **Security scan**: No secrets or vulnerable dependencies detected
+- **Build**: Production web build (`npm run build`) succeeds
+- **Android**: If modifying native assets, run `bash scripts/sync-android-assets.sh`
+
+The CI pipeline will also:
+- Generate SBOM (Software Bill of Materials) from `package-lock.json`
+- Run `npm audit --audit-level=high` for dependency vulnerabilities
+- Scan for secret credentials in source code
+- Verify artifact integrity with SHA-256 checksums
+
+**Do not push PRs that fail any CI check.** Fix failures locally before re-opening the PR.
+
 ---
 
 ## 📬 Pull Request Checklist

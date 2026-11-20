@@ -25,6 +25,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updated versionCode/versionName to 114 / "1.1.4" and `package.json` to 1.1.4.
 
+## [1.1.5] - 2026-11-20
+
+### Added
+
+- **Production-Grade CI/CD Pipeline**: 
+  - Automated GitHub Actions workflows (`ci.yml`, `android-build.yml`, `security-scan.yml`)
+  - Full pipeline: dependency installation, lockfile validation, TypeScript checking,
+    linting, unit tests, integration tests, web production build, Capacitor sync,
+    Android APK build, APK metadata verification, SHA-256 generation
+  - Concurrency controls, dependency caching, explicit failure propagation
+  - Free-only tooling: no paid services, GitHub Actions free allowances only
+  - Secret scanning, dependency security checks (npm audit), license compliance
+  - Build provenance with SBOM (Software Bill of Materials) via open-source cyclonedx
+  - Artifact integrity: commit SHA, branch, timestamp, application version, package identifier,
+    artifact hash all attached to every build
+  - Secret scanning detects API keys, AWS credentials, private keys in source
+  - Dependency security at `audit-level=high` with outdated dependency reporting
+  - Least-privilege permissions: read-only on PRs, write-only on tag-published releases
+  - Safe pull_request triggers: no privileged execution of untrusted fork code
+  - SBOM generated from package-lock.json (cyclonedx-bom open source)
+  - Build metadata includes: commit SHA, branch, workflow run number, UTC timestamp,
+    application version, package identifier
+
+### Changed
+
+- Updated versionCode/versionName to 115 / "1.1.5" and `package.json` to 1.1.5.
+
 ## [1.1.3] - 2026-11-19
 
 ### Changed

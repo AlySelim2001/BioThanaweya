@@ -11,13 +11,25 @@
 </p>
 
 <p align="center">
+  <!-- CI/CD Pipeline Badge -->
+  <a href="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/ci.yml">
+    <img src="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/ci.yml/badge.svg" alt="CI/CD Pipeline" />
+  </a>
+  <!-- Android APK Build Badge -->
+  <a href="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/android-build.yml">
+    <img src="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/android-build.yml/badge.svg" alt="Android APK Build" />
+  </a>
+  <!-- Security Scan Badge -->
+  <a href="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/security-scan.yml">
+    <img src="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/security-scan.yml/badge.svg" alt="Security Scan" />
+  </a>
   <a href="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/android-apk-build.yml"><img src="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/android-apk-build.yml/badge.svg" alt="CI/CD Build Passing" /></a>
   <a href="https://github.com/AlySelim2001/BioThanaweya/actions/workflows/android-apk-build.yml"><img src="https://img.shields.io/badge/APK-Build%20Passing-brightgreen.svg" alt="APK Build Passing" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-teal.svg" alt="License: MIT" /></a>
   <a href="https://nodejs.org"><img src="https://img.shields.io/badge/Node.js-22%20LTS-green.svg" alt="Node.js 22 LTS" /></a>
   <a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-5.7%20Strict-blue.svg" alt="TypeScript Strict" /></a>
   <a href="https://web.dev/progressive-web-apps/"><img src="https://img.shields.io/badge/PWA-100%25%20Offline-orange.svg" alt="PWA 100% Offline" /></a>
-  <a href="https://termux.dev"><img src="https://img.shields.io/badge/Platform-Termux%20%7C%20Android%20%7C%20Linux-purple.svg" alt="Platform: Termux / Android" /></a>
+  <a href="https://termux.dev"><img src="https://img.shields.io/badge/Platform-Termux%20|%20Android|%20Linux-purple.svg" alt="Platform: Termux / Android" /></a>
 </p>
 
 <p align="center">

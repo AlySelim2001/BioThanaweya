@@ -240,6 +240,12 @@ export interface WellbeingProfile {
   totalXp: number;
   earnedBadges: StudentBadge[];
   examAnxietyScore: number; // 0-100
+  weaknessDiagnostics: {
+    topicPerformance: {},
+    studyPattern: 'mixed',
+    recommendedFocus: [],
+    lastAnalyzed: '2026-01-01T00:00:00Z',
+  };
   studyChunkMinutes: number;
   motivationalQuote: string;
 }

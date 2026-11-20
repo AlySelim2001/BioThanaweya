@@ -63,6 +63,12 @@ describe('offline-first web storage persistence', () => {
       totalXp: 1240,
       earnedBadges: [],
       examAnxietyScore: 18,
+      weaknessDiagnostics: {
+        topicPerformance: {},
+        studyPattern: 'mixed',
+        recommendedFocus: [],
+        lastAnalyzed: '2026-01-01T00:00:00Z',
+      },
       studyChunkMinutes: 25,
       motivationalQuote: 'Keep learning.',
     };
@@ -110,6 +116,12 @@ describe('offline-first web storage persistence', () => {
       totalXp: 300,
       earnedBadges: [],
       examAnxietyScore: 25,
+      weaknessDiagnostics: {
+        topicPerformance: {},
+        studyPattern: 'mixed',
+        recommendedFocus: [],
+        lastAnalyzed: '2026-01-01T00:00:00Z',
+      },
       studyChunkMinutes: 30,
       motivationalQuote: 'Progress saved locally.',
     };
@@ -151,6 +163,12 @@ describe('offline-first web storage persistence', () => {
       totalXp: 1,
       earnedBadges: [],
       examAnxietyScore: 0,
+      weaknessDiagnostics: {
+        topicPerformance: {},
+        studyPattern: 'mixed',
+        recommendedFocus: [],
+        lastAnalyzed: '2026-01-01T00:00:00Z',
+      },
       studyChunkMinutes: 25,
       motivationalQuote: 'Test fixture.',
     });

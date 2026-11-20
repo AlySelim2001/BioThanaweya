@@ -60,6 +60,12 @@ export const INITIAL_PROFILE: WellbeingProfile = {
   studyChunkMinutes: 25,
   motivationalQuote:
     'التميز عادة، وليس فعلًا عابرًا. استمر في التركيز على الآليات والروابط الجزيئية!',
+  weaknessDiagnostics: {
+    topicPerformance: {},
+    studyPattern: 'mixed',
+    recommendedFocus: [],
+    lastAnalyzed: '2026-01-01T00:00:00Z',
+  },
 };
 
 // In-Memory Cache
@@ -348,6 +354,12 @@ export const StorageService = {
       totalXp: profile.totalXp ?? 0,
       earnedBadges: profile.earnedBadges ?? [],
       examAnxietyScore: profile.examAnxietyScore ?? 0,
+      weaknessDiagnostics: profile.weaknessDiagnostics ?? {
+        topicPerformance: {},
+        studyPattern: 'mixed',
+        recommendedFocus: [],
+        lastAnalyzed: new Date().toISOString(),
+      },
       studyChunkMinutes: profile.studyChunkMinutes ?? 25,
       motivationalQuote: profile.motivationalQuote ?? '',
     };

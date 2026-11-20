@@ -18,6 +18,18 @@ import { config } from '../server/config/env';
  */
 export type FreeLLMAPIProvider = 'openai' | 'anthropic' | 'gemini' | 'local' | 'freellmapi';
 
+/** Error categories for structured failure handling */
+export type ErrorCategory = 'network' | 'auth' | 'rate_limit' | 'invalid_response' | 'timeout' | 'cancelled' | 'unknown';
+
+/** Structured error information for AI provider failures */
+export interface FreeLLMAPIError extends Error {
+  category: ErrorCategory;
+  retryable: boolean;
+  provider: FreeLLMAPIProvider;
+  name: string;
+  originalError?: unknown;
+}
+
 export interface FreeLLMAPIConfig {
   provider?: FreeLLMAPIProvider;
   apiKey?: string;
@@ -63,6 +75,8 @@ export class FreeLLMAPIService {
    */
   setProvider(provider: FreeLLMAPIProvider, config: FreeLLMAPIConfig = {}): void {
     this.provider = provider;
+    // Update config provider to keep config in sync
+    this.config.provider = provider;
     // Reset fallback chain starting from the selected provider
     const providerIndex = this.fallbackChain.indexOf(provider);
     this.currentIndex = providerIndex >= 0 ? providerIndex : 0;
@@ -161,23 +175,20 @@ export class FreeLLMAPIService {
     // Try providers in fallback chain
     for (let i = this.currentIndex; i < this.fallbackChain.length; i++) {
       const provider = this.fallbackChain[i];
-      try {
-        const result = await this.tryProviderExplain(provider, topic, question, mode);
-        if (result.success) {
-          // Update current index to this provider for next time
-          this.currentIndex = i;
-          return {
-            success: true,
-            text: result.text,
-            fromFallback: false,
-          };
-        }
-      } catch (error) {
-        console.warn(`FreeLLMAPI provider ${provider} failed, trying next:`, error);
-        // Continue to next provider
-        this.currentIndex = i + 1;
-        continue;
+      const result = await this.tryProviderExplain(provider, topic, question, mode);
+      if (result.success) {
+        // Update current index to this provider for next time
+        this.currentIndex = i;
+        return {
+          success: true,
+          text: result.text,
+          fromFallback: false,
+        };
       }
+      // Provider failed with structured error - log and continue to next
+      console.warn(`FreeLLMAPI provider ${provider} failed:`, result.error);
+      this.currentIndex = i + 1;
+      continue;
     }
 
     // All providers failed - use deterministic fallback
@@ -193,12 +204,12 @@ export class FreeLLMAPIService {
     topic: string,
     question: string,
     mode: 'eli5' | 'technical'
-  ): Promise<{ success: boolean; text: string }> {
+  ): Promise<{ success: boolean; text: string; error?: FreeLLMAPIError }> {
     switch (provider) {
       case 'local': {
         // Try local self-hosted router at configured base URL
         if (!this.config.baseUrl) {
-          throw new Error('No base URL configured for local provider');
+          return { success: false, text: '', error: { category: 'invalid_response', retryable: false, provider, name: 'NoBaseURL', message: 'No base URL configured for local provider' } };
         }
         const response = await fetch(`${this.config.baseUrl}/v1/chat/completions`, {
           method: 'POST',
@@ -219,20 +230,46 @@ export class FreeLLMAPIService {
 
         if (!response.ok) {
           const errText = await response.text();
-          throw new Error(`Local provider failed: ${response.status} - ${errText}`);
+          const status = response.status;
+          // Categorize error by HTTP status code
+          let category: ErrorCategory = 'network';
+          if (status === 401 || status === 403) category = 'auth';
+          else if (status === 429) category = 'rate_limit';
+          else if (status >= 500) category = 'invalid_response';
+          return {
+            success: false,
+            text: '',
+            error: {
+              category,
+              retryable: category === 'rate_limit' || category === 'network',
+              provider,
+              name: 'ProviderError',
+              message: `Local provider failed: ${status} - ${errText}`,
+            },
+          };
         }
 
         const data = await response.json();
+        const content = data.choices?.[0]?.message?.content || 'No response from local AI';
         return {
           success: true,
-          text: data.choices?.[0]?.message?.content || 'No response from local AI',
+          text: content,
         };
       }
 
       case 'gemini': {
-        // Use existing Gemini integration as fallback
         if (!config.geminiApiKey) {
-          throw new Error('No GEMINI_API_KEY configured');
+          return {
+            success: false,
+            text: '',
+            error: {
+              category: 'auth',
+              retryable: false,
+              provider,
+              name: 'NoAPIKey',
+              message: 'No GEMINI_API_KEY configured',
+            },
+          };
         }
         // Reuse the existing AiExaminerService pattern
         const { GoogleGenAI } = await import('@google/genai');
@@ -242,15 +279,38 @@ export class FreeLLMAPIService {
           contents: question,
         });
         const response = await model;
+        if (!response || !response.text) {
+          return {
+            success: false,
+            text: '',
+            error: {
+              category: 'invalid_response',
+              retryable: false,
+              provider,
+              name: 'NoResponse',
+              message: 'No response from Gemini',
+            },
+          };
+        }
         return {
           success: true,
-          text: response.text || 'No response from Gemini',
+          text: response.text,
         };
       }
 
       case 'anthropic': {
         if (!this.config.apiKey) {
-          throw new Error('No Anthropic API key configured');
+          return {
+            success: false,
+            text: '',
+            error: {
+              category: 'auth',
+              retryable: false,
+              provider,
+              name: 'NoAPIKey',
+              message: 'No Anthropic API key configured',
+            },
+          };
         }
         const response = await fetch('https://api.anthropic.com/v1/messages', {
           method: 'POST',
@@ -271,7 +331,22 @@ export class FreeLLMAPIService {
 
         if (!response.ok) {
           const errText = await response.text();
-          throw new Error(`Anthropic provider failed: ${response.status} - ${errText}`);
+          const status = response.status;
+          let category: ErrorCategory = 'network';
+          if (status === 401 || status === 403) category = 'auth';
+          else if (status === 429) category = 'rate_limit';
+          else if (status >= 500) category = 'invalid_response';
+          return {
+            success: false,
+            text: '',
+            error: {
+              category,
+              retryable: category === 'rate_limit' || category === 'network',
+              provider,
+              name: 'ProviderError',
+              message: `Anthropic provider failed: ${status} - ${errText}`,
+            },
+          };
         }
 
         const data = await response.json();
@@ -283,7 +358,17 @@ export class FreeLLMAPIService {
 
       case 'openai': {
         if (!this.config.apiKey) {
-          throw new Error('No OpenAI API key configured');
+          return {
+            success: false,
+            text: '',
+            error: {
+              category: 'auth',
+              retryable: false,
+              provider,
+              name: 'NoAPIKey',
+              message: 'No OpenAI API key configured',
+            },
+          };
         }
         const response = await fetch('https://api.openai.com/v1/chat/completions', {
           method: 'POST',
@@ -304,7 +389,22 @@ export class FreeLLMAPIService {
 
         if (!response.ok) {
           const errText = await response.text();
-          throw new Error(`OpenAI provider failed: ${response.status} - ${errText}`);
+          const status = response.status;
+          let category: ErrorCategory = 'network';
+          if (status === 401 || status === 403) category = 'auth';
+          else if (status === 429) category = 'rate_limit';
+          else if (status >= 500) category = 'invalid_response';
+          return {
+            success: false,
+            text: '',
+            error: {
+              category,
+              retryable: category === 'rate_limit' || category === 'network',
+              provider,
+              name: 'ProviderError',
+              message: `OpenAI provider failed: ${status} - ${errText}`,
+            },
+          };
         }
 
         const data = await response.json();
@@ -315,7 +415,17 @@ export class FreeLLMAPIService {
       }
 
       default:
-        throw new Error(`Unknown provider: ${provider}`);
+        return {
+          success: false,
+          text: '',
+          error: {
+            category: 'unknown',
+            retryable: false,
+            provider,
+            name: 'UnknownProvider',
+            message: `Unknown provider: ${provider}`,
+          },
+        };
     }
   }
 
@@ -357,6 +467,12 @@ export class FreeLLMAPIService {
 
       if (detected.length > 0) {
         feedback += ` Detected keywords: ${detected.join(', ')}`;
+      }
+
+      // Add penalty warning for missing keywords (Egyptian Ministry standard)
+      const missingKeywords = requiredKeywords.filter(kw => !detected.some(d => d.toLowerCase() === kw.toLowerCase()));
+      if (missingKeywords.length > 0) {
+        feedback += `\n\nPenalty Warning: Egyptian Ministry examiners would deduct marks for missing: ${missingKeywords.join(', ')}.`;
       }
 
       return {

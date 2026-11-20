@@ -1,0 +1,69 @@
+# Dependabot configuration for BioThanaweya
+# Automatic dependency updates with safety constraints
+
+version: 2
+updates:
+  # Enable version updates for npm dependencies
+  npm:
+    # Check for updates daily
+    schedule:
+      interval: daily
+
+    # Allow GitHub to create PRs for version updates
+    # Exclude major version bumps without explicit approval
+    open-pull-requests-limit: 5
+
+    # Cherry-pick updated dependencies to target current major
+    # Allow minor and patch updates automatically
+    # Block major updates without review
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+
+    # Enable versioning updates for dependencies
+    directory-root: "/"
+
+    # Ignore dependency updates for specific packages that need manual review
+    # These are monitored but not auto-updated
+    ignore:
+      - dependency_name: "@google/genai"
+        update_types: ["version"]
+        # Skip auto-update for AI SDK - requires compatibility review
+        # (manual PR required when new version released)
+      - dependency_name: "vite"
+        update_types: ["major"]
+        # Block major version bumps for Vite - could break Capacitor/PWA config
+      - dependency_name: "react"
+        update_types: ["major"]
+        # Block major React version bumps - significant API changes
+
+  # Enable dependency updates for GitHub Actions
+  # (GitHub Actions dependencies are managed by the platform)
+  github-actions:
+    # Enable security updates for GitHub Actions
+    schedule:
+      interval: weekly
+
+    # No need for open-pr-limit since these are internal actions
+    # Only allow security-related updates
+    allow: security-updates
+
+# Advisory notifications - alert on new vulnerabilities
+# These are separate from auto-merge PRs
+notifications:
+  # Enable Dependabot alerts for all dependency vulnerabilities
+  # Alerts will be sent to the repository security tab
+  # and can be configured to send to specific users/teams
+  do_not_send: []
+  # Alternative: uncomment to enable email notifications
+  # do_not_send: ['security']
+
+# Review existing dependabot PRs before merging
+# This ensures compatibility before updates go through
+# merge:
+#   # Enable auto-merge for non-major updates
+#   auto: {}
+#   # Require manual review for major version updates
+#   # reviewers:
+#   #   - team-name
+#   #   - username

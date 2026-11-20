@@ -1,0 +1,71 @@
+name: Security Scan
+
+on:
+  push:
+    branches: [main, release/fixes-v1.1.8]
+  schedule:
+    - cron: '0 2 * * 0'
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  id-token: write
+  actions: read
+
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dependency-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm,node_modules
+          key: runner-os-audit-${{ hashFiles('package-lock.json') }}
+          restore-keys: runner-os-audit-
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: bash scripts/security-audit.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dependency-audit-report
+          path: audit-report.json
+          retention-days: 30
+  secret-detection:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash scripts/security-scan.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: secrets-scan-report
+          path: secrets-report.json
+          retention-days: 30
+  supply-chain:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm,node_modules
+          key: runner-os-supplychain-${{ hashFiles('package-lock.json') }}
+          restore-keys: runner-os-supplychain-
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: bash scripts/security-supplychain.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: supply-chain-report
+          retention-days: 30
+  security-failure-probe:
+    runs-on: ubuntu-latest
+    steps:
+      - run: bash scripts/security-failure-probe.sh

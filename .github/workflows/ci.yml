@@ -1,0 +1,166 @@
+name: CI
+
+on:
+  push:
+    branches: [main, release/fixes-v1.1.8]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: ${{ github/workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  id-token: write
+  actions: read
+
+env:
+  NODE_VERSION: '22'
+  NODE_OPTIONS: '--max-old-space-size=512'
+  CI: 'true'
+
+jobs:
+  deps:
+    name: Dependency Installation & Lockfile Validation
+    runs-on: ubuntu-latest
+    outputs:
+      lockfile-changed: ${{ steps.check-lockfile.outputs.changed }}
+    steps:
+      - if: ${{ always() && github.event_name == 'pull_request' }}
+        run: echo "CI run in progress for this PR — exiting"
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm,node_modules
+          key: runner-os-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: runner-os-node-
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+        timeout-minutes: 10
+      - run: bash scripts/ci-check-lockfile.sh
+        id: check-lockfile
+      - if: steps.check-lockfile.outputs.changed == 'true'
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add package-lock.json
+          git commit -m "chore(deps): update lockfile after install" || true
+          git push
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm,node_modules
+          key: runner-os-ts-${{ hashFiles('tsconfig.json') }}-${{ hashFiles('src/**/*.ts') }}
+          restore-keys: runner-os-ts-
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npx tsc --noEmit
+        timeout-minutes: 10
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm,node_modules
+          key: runner-os-lint-${{ hashFiles('package.json') }}-${{ hashFiles('src/**/*.ts') }}
+          restore-keys: runner-os-lint-
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm run lint
+        timeout-minutes: 10
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm,node_modules,coverage/
+          key: runner-os-test-${{ hashFiles('package.json') }}-${{ hashFiles('src/**/*.{ts,tsx}') }}
+          restore-keys: runner-os-test-
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm test -- --reporter=verbose
+        timeout-minutes: 15
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vitest-results
+          path: coverage/
+          retention-days: 5
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm,node_modules
+          key: runner-os-integration-${{ hashFiles('package.json') }}-${{ hashFiles('src/test/**') }}
+          restore-keys: runner-os-integration-
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npx vitest run --reporter=verbose 2>&1 | tail -20 || echo "No integration tests tagged; skipping"
+        timeout-minutes: 10
+      - run: |
+          if npx vitest run --reporter=verbose 2>&1 | grep -q 'FAIL'; then
+            echo "Integration tests failed"
+            exit 1
+          else
+            echo "Integration tests passed or none found"
+          fi
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm,node_modules
+          key: runner-os-audit-${{ hashFiles('package-lock.json') }}
+          restore-keys: runner-os-audit-
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: bash scripts/security-audit.sh
+      - run: |
+          grep -q '"glob"' package.json && echo "glob override present" || echo "No glob override"
+          grep -q '"minimatch"' package.json && echo "minimatch override present" || echo "No minimatch override"
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm,node_modules
+          key: runner-os-provenance-${{ hashFiles('package.json', 'package-lock.json') }}
+          restore-keys: runner-os-provenance-
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: |
+          BUILD_SHA=$(git rev-parse HEAD)
+          BUILD_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          BUILD_NUM=${{ github.run_number }}
+          BUILD_TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          BUILD_VERSION=$(node -p "require('./package.json').version")
+          BUILD_PACKAGE_ID=$(node -p "require('./package.json').name")
+          echo "{\"commit\":\"$BUILD_SHA\",\"branch\":\"$BUILD_BRANCH\",\"run_number\":$BUILD_NUM,\"timestamp\":\"$BUILD_TIMESTAMP\",\"version\":\"$BUILD_VERSION\",\"package_id\":\"$BUILD_PACKAGE_ID\",\"tool\":\"github-actions\",\"freebuff\":\"biothanaweya-p12\"}" > build-manifest.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-manifest
+          path: build-manifest.json
+          retention-days: 30
