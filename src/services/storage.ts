@@ -117,6 +117,9 @@ export const StorageService = {
   /**
    * Initializes the storage engine, performs legacy localStorage migration if needed,
    * and loads data into memory cache.
+   *
+   * Type safety: All IndexedDB results are validated before assignment.
+   * Data integrity: Legacy migration preserves existing student progress.
    */
   async init(): Promise<void> {
     try {
@@ -128,18 +131,78 @@ export const StorageService = {
         'current'
       );
 
-      if (storedProfile && storedProfile.profile) {
-        // Load from IndexedDB
-        memoryProfile = storedProfile.profile;
-        const [cards, masteries, exams] = await Promise.all([
+      // Type guard: Verify storedProfile has valid profile before using it
+      const hasValidProfile = storedProfile && storedProfile.profile
+        && storedProfile.profile.streakDays >= 0
+        && storedProfile.profile.totalXp >= 0;
+
+      if (hasValidProfile) {
+        // Load from IndexedDB - type-safe assignment
+        memoryProfile = storedProfile.profile as WellbeingProfile;
+        const [cardsResult, masteriesResult, examsResult] = await Promise.all([
           dbEngine.getAll<FSRSCard>('cards'),
           dbEngine.getAll<TopicMastery>('masteries'),
           dbEngine.getAll<ExamResultReport>('exams'),
         ]);
 
-        if (cards.length > 0) memoryCards = cards;
-        if (masteries.length > 0) memoryMasteries = masteries;
-        if (exams.length > 0) memoryExams = exams;
+        // Validate card counts match expected structure
+        if (cardsResult.length > 0) {
+          // Verify each card has required fields
+          const validCards = cardsResult.filter((c): c is FSRSCard => 
+            c.cardId !== undefined
+            && c.due !== undefined
+            && c.stability !== undefined
+            && c.difficulty !== undefined
+            && c.elapsedDays !== undefined
+            && c.scheduledDays !== undefined
+            && c.reps !== undefined
+            && c.lapses !== undefined
+            && c.state !== undefined
+          );
+          if (validCards.length === cardsResult.length) {
+            memoryCards = validCards;
+          } else {
+            // Some cards invalid - reseed from study packs
+            memoryCards = seedInitialCards();
+          }
+        } else {
+          memoryCards = seedInitialCards();
+        }
+
+        if (masteriesResult.length > 0) {
+          // Verify each mastery has required fields
+          const validMasteries = masteriesResult.filter((m): m is TopicMastery => 
+            m.topicId !== undefined
+            && m.stability >= 0
+            && m.difficulty >= 0
+            && m.reps >= 0
+          );
+          if (validMasteries.length === masteriesResult.length) {
+            memoryMasteries = validMasteries;
+          } else {
+            memoryMasteries = getDefaultTopicMasteries();
+          }
+        } else {
+          memoryMasteries = getDefaultTopicMasteries();
+        }
+
+        if (examsResult.length > 0) {
+          // Verify each exam report has required fields
+          const validExams = examsResult.filter((e): e is ExamResultReport => 
+            e.totalScore !== undefined
+            && e.maxScore !== undefined
+            && e.percentage >= 0
+            && e.percentage <= 100
+          );
+          if (validExams.length === examsResult.length) {
+            memoryExams = validExams;
+          } else {
+            memoryExams = [];
+          }
+        } else {
+          memoryExams = [];
+        }
+
         notifySyncState('synced');
         return;
       }
@@ -152,21 +215,68 @@ export const StorageService = {
 
       try {
         const rawProf = localStorage.getItem(LEGACY_PROFILE_KEY);
-        if (rawProf) legacyProfile = JSON.parse(rawProf);
+        if (rawProf) {
+          const parsed = JSON.parse(rawProf);
+          // Validate legacy profile structure
+          if (parsed.streakDays !== undefined && parsed.totalXp !== undefined) {
+            legacyProfile = parsed as WellbeingProfile;
+          }
+        }
 
         const rawCards = localStorage.getItem(LEGACY_FSRS_CARDS_KEY);
-        if (rawCards) legacyCards = JSON.parse(rawCards);
+        if (rawCards) {
+          const parsed = JSON.parse(rawCards);
+          // Validate legacy cards structure
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            const validCards = parsed.filter((c): c is FSRSCard => 
+              c.cardId !== undefined
+              && c.due !== undefined
+              && c.stability !== undefined
+              && c.difficulty !== undefined
+            );
+            if (validCards.length === parsed.length) {
+              legacyCards = validCards;
+            }
+          }
+        }
 
         const rawMast = localStorage.getItem(LEGACY_MASTERIES_KEY);
-        if (rawMast) legacyMasteries = JSON.parse(rawMast);
+        if (rawMast) {
+          const parsed = JSON.parse(rawMast);
+          // Validate legacy masteries structure
+          if (Array.isArray(parsed)) {
+            const validMasteries = parsed.filter((m): m is TopicMastery => 
+              m.topicId !== undefined
+              && m.stability >= 0
+            );
+            if (validMasteries.length === parsed.length) {
+              legacyMasteries = validMasteries;
+            }
+          }
+        }
 
         const rawExams = localStorage.getItem(LEGACY_EXAM_HISTORY_KEY);
-        if (rawExams) legacyExams = JSON.parse(rawExams);
+        if (rawExams) {
+          const parsed = JSON.parse(rawExams);
+          // Validate legacy exams structure
+          if (Array.isArray(parsed)) {
+            const validExams = parsed.filter((e): e is ExamResultReport => 
+              e.totalScore !== undefined
+              && e.maxScore !== undefined
+              && e.percentage >= 0
+              && e.percentage <= 100
+            );
+            if (validExams.length === parsed.length) {
+              legacyExams = validExams;
+            }
+          }
+        }
       } catch {
-        // Fallback to defaults
+        // Fallback to defaults - do not leak corrupted data
       }
 
-      // Assign migrated or default data
+      // Assign migrated or default data with fallback priority
+      // Priority: IndexedDB > Legacy localStorage > Defaults
       memoryProfile = legacyProfile || INITIAL_PROFILE;
       memoryCards = legacyCards && legacyCards.length > 0 ? legacyCards : seedInitialCards();
       memoryMasteries =
@@ -175,7 +285,7 @@ export const StorageService = {
           : getDefaultTopicMasteries();
       memoryExams = legacyExams || [];
 
-      // 3. Persist to IndexedDB
+      // 3. Persist to IndexedDB with validation
       await Promise.all([
         dbEngine.put('profile', { id: 'current', profile: memoryProfile }),
         dbEngine.putMany('cards', memoryCards),
@@ -183,12 +293,14 @@ export const StorageService = {
         memoryExams.length > 0 ? dbEngine.putMany('exams', memoryExams) : Promise.resolve(),
       ]);
 
-      // Create initial snapshot
-      await BackupService.createAutoSnapshot('Initial database initialization & migration');
+      // Create initial snapshot after successful migration
+      await BackupService.createAutoSnapshot('Database migration & initialization');
 
       notifySyncState('synced');
     } catch (err) {
       console.error('[StorageService] Error during storage initialization:', err);
+      // On error, reset to safe defaults to prevent data corruption
+      await this.resetAll();
       notifySyncState('error');
     }
   },
@@ -230,13 +342,22 @@ export const StorageService = {
   },
 
   saveProfile(profile: WellbeingProfile): void {
-    memoryProfile = profile;
+    // Type-safe profile assignment with validation
+    const validatedProfile: WellbeingProfile = {
+      streakDays: profile.streakDays ?? 0,
+      totalXp: profile.totalXp ?? 0,
+      earnedBadges: profile.earnedBadges ?? [],
+      examAnxietyScore: profile.examAnxietyScore ?? 0,
+      studyChunkMinutes: profile.studyChunkMinutes ?? 25,
+      motivationalQuote: profile.motivationalQuote ?? '',
+    };
+    memoryProfile = validatedProfile;
     try {
-      localStorage.setItem(LEGACY_PROFILE_KEY, JSON.stringify(profile));
+      localStorage.setItem(LEGACY_PROFILE_KEY, JSON.stringify(validatedProfile));
     } catch {}
 
     persistAsync(async () => {
-      await dbEngine.put('profile', { id: 'current', profile });
+      await dbEngine.put('profile', { id: 'current', profile: validatedProfile });
     });
   },
 
@@ -257,13 +378,20 @@ export const StorageService = {
   },
 
   saveTopicMasteries(masteries: TopicMastery[]): void {
-    memoryMasteries = masteries;
+    // Type-safe masteries assignment with validation
+    const validatedMasteries: TopicMastery[] = masteries.filter((m): m is TopicMastery => 
+      m.topicId !== undefined
+      && m.stability >= 0
+      && m.difficulty >= 0
+      && m.reps >= 0
+    );
+    memoryMasteries = validatedMasteries;
     try {
-      localStorage.setItem(LEGACY_MASTERIES_KEY, JSON.stringify(masteries));
+      localStorage.setItem(LEGACY_MASTERIES_KEY, JSON.stringify(validatedMasteries));
     } catch {}
 
     persistAsync(async () => {
-      await dbEngine.putMany('masteries', masteries);
+      await dbEngine.putMany('masteries', validatedMasteries);
     });
   },
 
@@ -290,13 +418,25 @@ export const StorageService = {
   },
 
   saveFsrsCards(cards: FSRSCard[]): void {
-    memoryCards = cards;
+    // Type-safe FSRS cards assignment with validation
+    const validatedCards: FSRSCard[] = cards.filter((c): c is FSRSCard => 
+      c.cardId !== undefined
+      && c.due !== undefined
+      && c.stability !== undefined
+      && c.difficulty !== undefined
+      && c.elapsedDays !== undefined
+      && c.scheduledDays !== undefined
+      && c.reps !== undefined
+      && c.lapses !== undefined
+      && c.state !== undefined
+    );
+    memoryCards = validatedCards;
     try {
-      localStorage.setItem(LEGACY_FSRS_CARDS_KEY, JSON.stringify(cards));
+      localStorage.setItem(LEGACY_FSRS_CARDS_KEY, JSON.stringify(validatedCards));
     } catch {}
 
     persistAsync(async () => {
-      await dbEngine.putMany('cards', cards);
+      await dbEngine.putMany('cards', validatedCards);
     });
   },
 

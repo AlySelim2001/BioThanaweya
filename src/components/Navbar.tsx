@@ -183,10 +183,9 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Offline/Online Indicator */}
           <div
-            className={`hidden md:flex items-center gap-1 px-2 py-1 rounded-xl text-[11px] font-bold border ${
-              isOnline
+            className={`hidden md:flex items-center gap-1 px-2 py-1 rounded-xl text-[11px] font-bold border ${isOnline
                 ? 'glass-card text-accent-emerald border border-accent-emerald-border'
-                : 'glass-card text-accent-emerald border border-accent-emerald-border'
+                : 'glass-card text-amber-400 border border-amber-400'
             }`}
             title={isOnline ? 'Network Connected' : 'Offline Mode (Local-First IndexedDB Active)'}
           >

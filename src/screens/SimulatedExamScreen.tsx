@@ -160,6 +160,28 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
       }
     }
 
+    const unit1Questions = questions.filter((q) => (q as PracticeQuestion & { chapterId: string }).chapterId?.startsWith('unit1')).length;
+        const unit2Questions = questions.filter((q) => (q as PracticeQuestion & { chapterId: string }).chapterId?.startsWith('unit2')).length;
+
+        let unit1Score = 0;
+        let unit2Score = 0;
+
+        for (let i = 0; i < questions.length; i++) {
+          const q = questions[i];
+          const chapterId = (q as PracticeQuestion & { chapterId: string }).chapterId;
+          if (chapterId?.startsWith('unit1')) {
+            unit1Score += (selectedOptions?.[i] !== undefined && selectedOptions?.[i] === q.correctOptionIndex) ? 2.0 : 0.0;
+          } else if (chapterId?.startsWith('unit2')) {
+            unit2Score += (selectedOptions?.[i] !== undefined && selectedOptions?.[i] === q.correctOptionIndex) ? 2.0 : 0.0;
+          }
+        }
+
+        const unit1Total = unit1Questions * 2.0;
+        const unit2Total = unit2Questions * 2.0;
+
+        const unit1Percentage = unit1Total > 0 ? Math.round((unit1Score / unit1Total) * 10) / 10 : 0;
+        const unit2Percentage = unit2Total > 0 ? Math.round((unit2Score / unit2Total) * 10) / 10 : 0;
+
     const percentage = Math.round((totalScore / maxScore) * 100);
     let letterGrade = 'F';
     if (percentage >= 95) letterGrade = 'A*';
@@ -176,9 +198,9 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
       passed: percentage >= 50,
       timeSpentSeconds: 45 * 60 - timeLeft,
       chapterBreakdown: {
-        'Unit 1: Structure & Function': Math.round(totalScore * 0.6 * 10) / 10,
-        'Unit 2: Molecular Biology': Math.round(totalScore * 0.4 * 10) / 10,
-      },
+          'Unit 1: Structure & Function': unit1Percentage,
+          'Unit 2: Molecular Biology': unit2Percentage,
+        },
       questionsReviewed: submissions,
     };
 
