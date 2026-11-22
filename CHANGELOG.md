@@ -4,6 +4,17 @@ All notable changes to the **BioThanaweya** project will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-11-22
+
+### Added
+
+- Security audit scripts: `security-audit.sh`, `security-supplychain.sh`, `security-failure-probe.sh`
+- GitHub Pages (PWA) deployment at `https://alyselim2001.github.io/BioThanaweya/`
+- IndexedDB support via `fake-indexeddb/auto` in `vitest.setup.ts`
+- `needs: web` added to Android workflow for artifact dependency
+- Conventional Commits for all new changes
+- `jsdom` dependency for test environment compatibility
+
 ## [1.1.4] - 2026-11-19
 
 ### Fixed

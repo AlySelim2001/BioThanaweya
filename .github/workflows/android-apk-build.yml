@@ -179,7 +179,7 @@ jobs:
           retention-days: 30
 
   release:
-    name: Publish release assets
+    name: Create GitHub release & upload assets
     if: startsWith(github.ref, 'refs/tags/v')
     needs: android
     runs-on: ubuntu-latest
@@ -192,10 +192,17 @@ jobs:
           name: BioThanaweya-debug-apk
           path: release-assets
 
-      - name: Publish GitHub release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: release-assets/*
-          generate_release_notes: true
-          draft: false
-          prerelease: false
+      - name: Create GitHub release and upload assets
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Extract tag name (e.g. v1.3.0)
+          TAG_NAME=$(echo "${GITHUB_REF}" | sed 's|refs/tags/||')
+          # Create the release (or get existing) and upload all assets in one step
+          # This must run before any immutability lock applies to the tag
+          gh release create "$TAG_NAME" \
+            --title "BioThanaweya $TAG_NAME" \
+            --generate-notes \
+            --prerelease false \
+            release-assets/*
+        shell: bash
