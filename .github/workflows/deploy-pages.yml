@@ -14,9 +14,7 @@ permissions:
   id-token: write
   metadata: write
 
-concurrency:
-  group: gh-pages-${{ github.ref }}
-  cancel-in-progress: true
+# concurrency disabled for parallel tag runs
 
 jobs:
   build:
