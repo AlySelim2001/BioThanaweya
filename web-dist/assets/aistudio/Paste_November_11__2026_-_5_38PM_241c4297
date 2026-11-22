@@ -1,0 +1,1258 @@
+MASTER ENGINEERING EXECUTION PROMPT
+
+PHASE 2 — CONTROLLED REMEDIATION, DATA INTEGRITY, AND PLATFORM STABILIZATION
+
+Project: BioThanaweya — تعلم مع علي | أحياء الثانوية العامة
+Repository Reference: https://github.com/AlySelim2001/BioThanaweya
+Expected Workspace: "/app/applet"
+Previous Stage: PHASE 1 — Repository Discovery & Engineering Baseline
+Execution Environment: Google AI Studio Node/Web Execution Container
+Primary Role: Principal Software Architect, Senior Android Engineer, Data Integrity Engineer, Application Security Engineer, and QA Lead
+
+---
+
+0. MISSION AND EXECUTION AUTHORITY
+
+You are continuing work on the actual BioThanaweya project discovered and audited in the previous phase.
+
+Your mission is to execute:
+
+PHASE 2 — Controlled Engineering Remediation & Stabilization
+
+This is an implementation phase, not a documentation-only exercise.
+
+You MUST:
+
+1. Re-discover and verify the actual project workspace.
+2. Revalidate the previous audit findings against the current source files.
+3. Establish a protected pre-change baseline.
+4. Design and implement verified, safe fixes.
+5. Follow test-driven development for every behavior-changing fix.
+6. Preserve all existing user data and application functionality.
+7. Validate Web, PWA, Capacitor, Android, and Flutter-related boundaries where they actually exist.
+8. Execute all available tests and builds.
+9. Generate a complete engineering evidence package.
+10. Produce a final implementation report that distinguishes completed, blocked, deferred, and unverified work.
+
+Do not merely tell me what should be done. Execute every safe and authorized task that the environment can actually perform.
+
+However, execution authority does NOT authorize destructive operations, release-identity changes, production data changes, or remote publication.
+
+0.1 Source of truth
+
+The current workspace is the source of truth.
+
+Expected project root:
+
+"/app/applet"
+
+Do not assume this path is correct without checking it.
+
+If the project has moved, discover its actual location and record the result.
+
+Verify project identity using multiple independent indicators, such as:
+
+- Project metadata and package name.
+- Application title and source content.
+- Existing architecture and configuration.
+- BioThanaweya-specific modules and curriculum data.
+- Capacitor and Android configuration.
+- Existing test and build configuration.
+
+If the workspace is not the expected project, STOP implementation and report the identity mismatch.
+
+0.2 Previous audit baseline
+
+The previous report declared:
+
+- 435 active files across 205 directories.
+- React 19, TypeScript, Vite 6, Dexie, and an Android native container.
+- A reported Flutter 3.29 component and SQLite database.
+- TypeScript check: passed.
+- Tests: 45/45 passed across 9 suites.
+- Production PWA build: passed.
+- Four low-severity npm audit findings associated with deepmerge.
+- Android configuration mismatch:
+  - "capacitor.config.ts": "com.aistudio.biothanaweya.exam"
+  - "android/app/build.gradle": "com.biothanaweya.app"
+- Backup coverage gap between two IndexedDB databases.
+- Missing local Java and Android SDK in the execution container.
+
+These are previously reported observations, not unquestionable facts.
+
+You MUST revalidate them before acting.
+
+Do not fabricate missing evidence or assume that the project has remained unchanged.
+
+---
+
+1. NON-NEGOTIABLE ENGINEERING CONSTRAINTS
+
+1.1 Data preservation
+
+The highest priority is preserving existing user data.
+
+PROHIBITED:
+
+- Deleting or recreating existing databases.
+- Clearing IndexedDB, Dexie, SQLite, or application storage.
+- Dropping tables or stores.
+- Resetting schema versions in a destructive manner.
+- Replacing existing data with seed data.
+- Overwriting user data during backup restoration without explicit safeguards.
+- Changing existing database keys or identifiers without a verified migration.
+- Removing legacy data formats before compatibility has been demonstrated.
+- Running migrations against real user data in the audit container.
+
+Every data-related change must have:
+
+1. A documented data ownership model.
+2. A migration or compatibility strategy.
+3. A rollback or recovery strategy.
+4. Tests using isolated synthetic data.
+5. Before-and-after integrity checks.
+
+Use synthetic fixtures for all migration and restoration tests.
+
+1.2 No unauthorized remote actions
+
+Unless explicitly authorized in a later instruction, do not:
+
+- Push commits.
+- Modify remote branches.
+- Merge pull requests.
+- Publish releases.
+- Change production deployment settings.
+- Modify GitHub repository secrets.
+- Access or alter production databases.
+- Upload private application data to external services.
+
+Local source modifications are permitted within the discovered project root after baseline protection.
+
+1.3 Secrets and privacy
+
+Never print, expose, copy into reports, or package:
+
+- API keys.
+- Access tokens.
+- Private keys.
+- Keystore passwords.
+- Signing certificates containing private material.
+- Production credentials.
+- Personal student records.
+- Private backup contents.
+
+Do not ask the user to paste credentials into the conversation or source files.
+
+If credentials are required for a task, document the missing capability and use a secure, existing CI secret reference where appropriate.
+
+1.4 Dependency safety
+
+PROHIBITED:
+
+- "npm audit fix --force"
+- Unreviewed major-version upgrades.
+- Deleting the lockfile to force dependency resolution.
+- Replacing the package manager without evidence.
+- Installing arbitrary packages merely to bypass a warning.
+- Suppressing security findings without a technical justification.
+
+Preserve the existing package manager and lockfile.
+
+1.5 Truthful execution
+
+For every command, record:
+
+- Exact command.
+- Working directory.
+- Execution timestamp.
+- Exit code.
+- Relevant output.
+- Log file path.
+
+Never report a task as completed if it was only inspected, proposed, or attempted unsuccessfully.
+
+Use these status values:
+
+- "PASS": Executed and verified.
+- "FAIL": Executed and failed.
+- "BLOCKED": Cannot execute because a required capability or dependency is unavailable.
+- "DEFERRED": Intentionally not executed because a decision or approval is required.
+- "NOT_APPLICABLE": Proven irrelevant to the actual project.
+
+---
+
+2. PHASE 2 — EXECUTION PLAN
+
+Execute the following work packages in order.
+
+Do not skip a work package merely because another one is blocked.
+
+---
+
+WP-00 — WORKSPACE DISCOVERY AND BASELINE PROTECTION
+
+Objectives
+
+Verify that the previous project is still present and establish a recoverable pre-change baseline.
+
+Required actions
+
+1. Print the current working directory.
+2. Resolve the actual project root.
+3. Verify project identity.
+4. Inspect Git status if ".git" exists.
+5. Determine whether the workspace is:
+   - A real Git clone.
+   - An exported source archive.
+   - A managed execution workspace.
+   - Another environment.
+6. Identify existing uncommitted changes.
+7. Determine whether previous audit artifacts are available.
+8. Verify that the previous audit source snapshot corresponds to the current source where possible.
+9. Record file counts, directory counts, and source footprint.
+10. Create a protected baseline snapshot outside the source tree.
+
+Suggested paths:
+
+- Project: "/app/applet"
+- Baseline: "/mnt/data/BioThanaweya_Phase2/Baseline"
+- Working evidence: "/mnt/data/BioThanaweya_Phase2/Evidence"
+- Final deliverables: "/mnt/data/BioThanaweya_Phase2/Deliverables"
+
+Do not overwrite an existing audit package.
+
+If a baseline archive is created, verify:
+
+- Archive readability.
+- File count.
+- Excluded paths.
+- SHA-256 checksum.
+
+The baseline must not contain secrets or personal data.
+
+Baseline test execution
+
+Discover the actual scripts and package manager before running commands.
+
+Execute the repository's documented equivalents of:
+
+- TypeScript check.
+- Unit tests.
+- Production build.
+- Security audit.
+
+Record current results independently of the previous report.
+
+If the previous baseline cannot be reproduced, document the exact discrepancy.
+
+Exit criteria
+
+WP-00 is complete only when:
+
+- The actual project is identified.
+- Existing changes are documented.
+- A protected baseline is created or a specific blocker is documented.
+- Baseline test results are recorded.
+
+---
+
+WP-01 — FIND-01: ANDROID APPLICATION IDENTITY RECONCILIATION
+
+Previous severity: HIGH
+Category: Android compatibility and application identity
+
+Problem to verify
+
+The previous report identified:
+
+"capacitor.config.ts"
+
+as declaring:
+
+"com.aistudio.biothanaweya.exam"
+
+while:
+
+"android/app/build.gradle"
+
+uses:
+
+"com.biothanaweya.app"
+
+This discrepancy must be investigated, not blindly corrected.
+
+Required inspection
+
+Inspect the actual values and their sources in:
+
+- "capacitor.config.ts" or "capacitor.config.json".
+- "android/app/build.gradle".
+- "android/app/build.gradle.kts", if present.
+- Android "namespace".
+- Android "applicationId".
+- Kotlin package declarations.
+- Java package declarations.
+- MainActivity location and declaration.
+- Android manifest files.
+- Gradle settings.
+- Capacitor generated configuration.
+- Existing application metadata.
+- Any package-specific deep links, OAuth redirect URIs, or integrations.
+- Existing CI workflows.
+- Existing release or deployment configuration if available locally.
+
+Search the complete project for both identifiers and related variants.
+
+Required analysis
+
+Produce an identity reconciliation matrix:
+
+Component| Current value| Expected value| Evidence| Risk
+
+Determine:
+
+1. Which identifier is used to build the native application.
+2. Which identifier is expected by Capacitor.
+3. Whether the Kotlin package is independent of the application ID.
+4. Whether the current identifier represents an already-installed or previously released application.
+5. Whether a change could create a different Android application identity.
+6. Whether Capacitor synchronization could rewrite native configuration.
+7. Whether application links, OAuth, notifications, or other integrations depend on either value.
+
+Decision gate
+
+The existing native "applicationId" must be treated as protected until its intended release identity is established.
+
+Do not change it merely to make two files match.
+
+If available evidence proves that the existing native identity is the intended application identity and that the Capacitor value is only a stale configuration value, implement the smallest safe correction.
+
+If the intended production identity cannot be established, do not change either identity-related value.
+
+Instead:
+
+- Preserve both current values.
+- Document the conflict.
+- Explain the consequences.
+- Provide the exact decision required.
+- Continue the other independent work packages.
+
+Verification
+
+After an authorized configuration correction:
+
+- Run relevant static checks.
+- Inspect the resolved Capacitor configuration.
+- Verify the generated Android configuration if tooling permits.
+- Run Capacitor synchronization only if it is safe and its effects are understood.
+- Review every changed native file.
+- Confirm that the intended application ID has not been unintentionally altered.
+
+Do not claim Android package compatibility solely because TypeScript compilation succeeds.
+
+---
+
+WP-02 — FIND-02: UNIFIED MULTI-DATABASE BACKUP AND RESTORE
+
+Previous severity: MEDIUM
+Category: Data integrity and recovery
+
+Problem to verify
+
+The previous report identified at least two web-side databases:
+
+1. "BioThanaweyaOfflineDB" managed by "BioDexieDatabase".
+2. "BioThanaweyaDB_v1" managed by "IndexedDbEngine".
+
+It also identified a backup service that may only serialize the second database.
+
+The report additionally mentions a Flutter SQLite database.
+
+You MUST verify the actual database architecture before implementation.
+
+Step A — Data ownership discovery
+
+Inspect:
+
+- "src/db/bioDatabase.ts".
+- "src/services/db/indexedDbEngine.ts".
+- "BackupService.ts" and all related backup modules.
+- Dexie database declarations.
+- IndexedDB object stores.
+- Database versions.
+- Upgrade callbacks.
+- Primary keys and indexes.
+- Relationships between stores.
+- Data import/export functions.
+- Existing migration code.
+- Existing tests.
+- SQLite database schema and access paths, if present.
+- Flutter source and integration boundaries, if present.
+
+Create a Data Ownership Matrix:
+
+Data domain| Database| Store/table| Owner| Backup status| Restore strategy
+
+At minimum, investigate:
+
+- Curriculum chapters.
+- Ministerial textbooks.
+- Question banks.
+- Exam papers.
+- Student attempts.
+- Answers and scores.
+- Notes.
+- Learner profiles.
+- FSRS cards.
+- Topic mastery.
+- Learning history.
+- Mistakes.
+- Settings.
+- Backup metadata.
+- Any user-generated content.
+
+Do not assume that every table belongs in a user backup.
+
+Distinguish between:
+
+- Immutable bundled curriculum assets.
+- User-generated data.
+- Reconstructable cache data.
+- Application configuration.
+- Derived analytics.
+- Sensitive personal data.
+
+Step B — Define the backup contract
+
+Design a versioned backup format.
+
+The design must include:
+
+- Backup format identifier.
+- Backup format version.
+- Application version when available.
+- Export timestamp in ISO 8601 UTC.
+- Database identifiers and schema versions.
+- Explicit store/table inventory.
+- Record counts.
+- Data serialization rules.
+- Integrity metadata.
+- Compatibility metadata.
+- Optional checksums for individual data sections.
+- A clear policy for unknown future fields and versions.
+
+Do not use a single unversioned JSON object.
+
+Do not silently omit a database or store.
+
+If a database is unavailable or fails to export, the backup must fail explicitly or be marked incomplete according to a documented contract.
+
+A backup that claims to be complete must include every required user-data domain.
+
+Step C — Safe export implementation
+
+Implement a unified export mechanism only after understanding the existing APIs.
+
+Requirements:
+
+1. Read all required user-data databases.
+2. Avoid mutating application state.
+3. Avoid deleting or clearing source records.
+4. Preserve stable identifiers.
+5. Preserve dates and supported data types.
+6. Handle large datasets without unnecessary memory duplication where practical.
+7. Record source database versions.
+8. Verify record counts.
+9. Produce deterministic validation results.
+10. Make incomplete backups distinguishable from complete backups.
+
+Do not promise a globally atomic snapshot across independent IndexedDB databases unless the implementation actually guarantees it.
+
+If a cross-database atomic transaction is not available, use a documented consistency strategy, such as:
+
+- Snapshot timestamps.
+- Per-database read transactions.
+- Version checks before and after export.
+- A detected-change or retry policy.
+- Explicit consistency status in the backup manifest.
+
+Step D — Safe restore implementation
+
+Restoration is more dangerous than export.
+
+Implement a validation-first restore pipeline:
+
+1. Parse the backup without modifying databases.
+2. Validate its format and version.
+3. Validate required sections.
+4. Validate record schemas.
+5. Validate identifiers and relationships.
+6. Validate checksums where provided.
+7. Detect duplicate or conflicting records.
+8. Determine compatibility with current schema versions.
+9. Generate a restore preview.
+10. Require an explicit user confirmation in the application before a real restore.
+11. Apply changes through a safe, documented transaction or staging strategy.
+12. Verify resulting record counts and integrity.
+13. Report success or failure precisely.
+
+Do not create a silent overwrite operation.
+
+Do not automatically replace existing user data with backup contents.
+
+If the existing architecture cannot safely support a complete restore, implement safe validation and export first, and clearly defer the unsafe restore portion.
+
+Step E — Backward compatibility
+
+Existing backups must remain usable where technically possible.
+
+Inspect historical backup formats and implement version-aware import adapters.
+
+Do not remove existing backup functionality.
+
+Do not silently reinterpret legacy data.
+
+Step F — Required tests
+
+Use isolated test databases and synthetic data.
+
+Test at least:
+
+- Export of both IndexedDB databases.
+- Empty database export.
+- Missing database detection.
+- Missing object store detection.
+- Partial export failure.
+- Invalid backup format.
+- Unsupported future backup version.
+- Corrupted JSON.
+- Checksum mismatch.
+- Duplicate identifiers.
+- Missing relationships.
+- Legacy backup import.
+- Schema-version compatibility.
+- Interrupted restore.
+- Restore validation without mutation.
+- Existing data preservation.
+- Record-count consistency.
+- Unicode and Arabic content.
+- Date serialization.
+- Large backup handling.
+- Repeat export determinism where applicable.
+
+For every bug fix or behavior change, follow:
+
+RED → GREEN → REFACTOR
+
+First write a test that demonstrates the failure, verify that it fails, implement the minimum correction, and then verify that it passes.
+
+Do not write implementation first and add superficial tests afterward.
+
+Exit criteria
+
+WP-02 is complete only when:
+
+- Data ownership is documented.
+- Backup format is versioned.
+- Export covers all required user-data databases.
+- Restore safety is implemented or explicitly deferred with evidence.
+- Legacy compatibility is addressed.
+- Tests verify preservation and recovery behavior.
+- No existing production or user data was modified.
+
+---
+
+WP-03 — FIND-03: DEEPMERGE DEPENDENCY SECURITY REMEDIATION
+
+Previous severity: LOW
+Category: Supply-chain security
+
+Problem to verify
+
+The previous report identified four low-severity npm audit findings associated with "deepmerge" through a dependency path involving "vite-plugin-pwa".
+
+Do not assume the proposed override is correct until the actual dependency graph is inspected.
+
+Required inspection
+
+Run and save the outputs of the appropriate commands, including:
+
+- "npm audit --json"
+- "npm ls deepmerge"
+- "npm explain deepmerge"
+- Relevant package metadata.
+- "package.json".
+- "package-lock.json".
+- "vite-plugin-pwa" version.
+- Its dependency constraints.
+- Relevant transitive dependency paths.
+
+Identify:
+
+- Exact installed "deepmerge" version.
+- Vulnerable version range.
+- Patched version range.
+- Number of affected dependency paths.
+- Whether the vulnerability is reachable in the production build.
+- Whether the vulnerable package is included in the final browser bundle.
+- Whether a compatible parent-package update exists.
+- Whether a narrowly scoped override is supported.
+
+Remediation decision
+
+Evaluate the least disruptive safe option:
+
+1. Compatible parent dependency update.
+2. Compatible transitive dependency override.
+3. Existing patched version already available in the dependency graph.
+4. Documented temporary exception if no safe remediation exists.
+
+The proposed override:
+
+""deepmerge": "^4.3.1""
+
+is a hypothesis, not an instruction to apply blindly.
+
+Before applying an override:
+
+- Confirm that the target version is patched for the identified advisory.
+- Confirm compatibility with all consumers.
+- Confirm the package's actual API requirements.
+- Review lockfile changes.
+- Avoid changing unrelated packages.
+
+Do not suppress audit findings merely to obtain a clean report.
+
+Verification
+
+After the change:
+
+- Run dependency installation using the existing lockfile strategy.
+- Inspect "npm ls deepmerge".
+- Run "npm explain deepmerge".
+- Run "npm audit --json".
+- Run TypeScript checks.
+- Run all tests.
+- Run production build.
+- Inspect the resulting dependency changes.
+
+If a low-severity finding remains, explain why and document the residual risk.
+
+Exit criteria
+
+WP-03 is complete only when the actual vulnerable dependency path is resolved or a defensible, evidence-backed exception is documented.
+
+---
+
+WP-04 — FIND-04: ANDROID BUILD AND CI RELIABILITY
+
+Previous severity: INFO
+Category: Build infrastructure
+
+Objectives
+
+Determine whether the Android build pipeline is reproducible and reliable.
+
+Inspect:
+
+- ".github/workflows/build.yaml".
+- ".github/workflows/deploy.yml".
+- All referenced scripts.
+- "package.json".
+- Capacitor configuration.
+- Gradle wrapper files.
+- Android Gradle Plugin version.
+- Gradle version.
+- JDK requirements.
+- Android SDK requirements.
+- Build variants.
+- Artifact upload steps.
+- Environment variables and secret references.
+- Workflow permissions.
+- Cache configuration.
+- Trigger conditions.
+
+Required compatibility review
+
+Verify compatibility among:
+
+- Java version.
+- Gradle wrapper.
+- Android Gradle Plugin.
+- Compile SDK.
+- Target SDK.
+- Minimum SDK.
+- Capacitor Android version.
+- Kotlin plugin version.
+- AndroidX dependencies.
+
+Do not update all components simultaneously.
+
+Do not upgrade the Android toolchain without a compatibility reason.
+
+CI workflow requirements
+
+Where the existing workflow has defects, make minimal corrections.
+
+The workflow should:
+
+1. Use a supported and explicit JDK version.
+2. Install or configure the required Android SDK components.
+3. Install Node dependencies reproducibly.
+4. Run the appropriate type checks.
+5. Run tests.
+6. Build the web application.
+7. Synchronize Capacitor safely.
+8. Build the Android artifact.
+9. Upload the generated artifact.
+10. Preserve logs for failed jobs.
+11. Avoid exposing secrets.
+12. Use least-privilege workflow permissions.
+
+Use immutable action references or appropriately controlled action versions where feasible and consistent with the repository's existing policy.
+
+Do not add unnecessary release or deployment permissions.
+
+Local build limitation
+
+If Java or Android SDK is unavailable locally:
+
+- Do not claim an Android build passed.
+- Do not install a large toolchain blindly into a constrained environment.
+- Validate workflow syntax and configuration using available tools.
+- Use the checked-in Gradle wrapper if the required runtime exists.
+- If GitHub Actions cannot be triggered, mark remote execution as BLOCKED.
+- Do not claim that CI is READY merely because YAML files exist.
+
+Android artifact verification
+
+If a real APK is produced, verify:
+
+- Artifact existence.
+- File size.
+- APK package/application ID.
+- Version code and version name.
+- Minimum and target SDK.
+- Signing status.
+- APK integrity.
+- Whether it is a debug or release artifact.
+- Whether it can be installed in an available emulator/device.
+
+Never describe an unsigned debug APK as a production-ready signed release.
+
+---
+
+WP-05 — ARCHITECTURE AND PLATFORM BOUNDARY VALIDATION
+
+The previous report describes a dual-stack architecture involving React/TypeScript/Vite, Android Kotlin, and Flutter.
+
+This must be verified carefully.
+
+Do not assume that the existence of a SQLite database proves that a Flutter runtime is integrated into the current application.
+
+Required discovery
+
+Determine:
+
+- Whether Flutter source exists in the current workspace.
+- Whether a Flutter project has its own "pubspec.yaml".
+- Whether Flutter build outputs are included or generated.
+- Whether Android embeds FlutterEngine.
+- Whether a Flutter module is integrated into Gradle.
+- Whether SQLite is accessed by Flutter, Kotlin, or another component.
+- Whether the SQLite database is packaged, downloaded, generated, or user-modified.
+- Whether the WebView and native bridge communicate with Flutter.
+- Whether all three data systems are active in the same user flow.
+
+Create a verified component and data-flow diagram.
+
+For each platform boundary, document:
+
+- Caller.
+- Callee.
+- Interface.
+- Data format.
+- Ownership.
+- Error behavior.
+- Lifecycle.
+- Security boundary.
+- Tests.
+
+Kotlin/WebView bridge review
+
+Inspect the native JavaScript bridge, including:
+
+- "WebAppInterface.kt".
+- "MainActivity.kt".
+- "WebViewAssetLoader" setup.
+- JavaScript interface exposure.
+- Haptic and toast functions.
+- Device telemetry.
+- Back-navigation behavior.
+- Origin restrictions.
+- Input validation.
+- Exception handling.
+- Lifecycle behavior.
+
+Verify that JavaScript-exposed methods do not unintentionally expose sensitive device information or privileged functionality.
+
+Do not weaken WebView security to make an integration work.
+
+Architecture decisions
+
+Do not unify or replace frameworks simply for architectural cleanliness.
+
+Do not migrate databases or application layers in this phase unless a proven defect requires it and a safe migration is fully tested.
+
+Produce an Architecture Decision Record for each significant change.
+
+---
+
+WP-06 — REGRESSION TESTING AND APPLICATION STABILIZATION
+
+Required baseline comparison
+
+Compare pre-change and post-change results.
+
+At minimum:
+
+- TypeScript checks.
+- Unit tests.
+- Integration tests, if present.
+- Production PWA build.
+- Dependency security audit.
+- Capacitor validation.
+- Android build, if available.
+- Relevant Flutter checks, if a Flutter project is verified.
+
+Test requirements
+
+Preserve all existing tests.
+
+Do not:
+
+- Delete failing tests to make the suite pass.
+- Skip tests without documented justification.
+- Weaken assertions.
+- Replace real integration behavior with mocks merely to obtain green results.
+- Claim coverage improvement without measured evidence.
+
+For every changed behavior:
+
+1. Identify the expected behavior.
+2. Write a regression test.
+3. Demonstrate the test failure before the fix.
+4. Implement the fix.
+5. Demonstrate the test passes.
+6. Run relevant neighboring tests.
+7. Run the complete suite before final completion.
+
+Application-level checks
+
+Where browser or runtime tooling is available, verify:
+
+- Application startup.
+- Initial loading state.
+- Curriculum navigation.
+- Chapter and textbook access.
+- Question-bank access.
+- Exam attempts.
+- Answer persistence.
+- Notes.
+- Learner profile behavior.
+- FSRS behavior.
+- Offline behavior.
+- Backup export.
+- Backup validation.
+- Restore preview.
+- Error handling.
+
+Do not claim an end-to-end user flow was tested unless it was actually executed.
+
+Use synthetic test accounts and synthetic data.
+
+---
+
+WP-07 — SECURITY AND PRIVACY REGRESSION REVIEW
+
+Perform a focused review of the modified code and its boundaries.
+
+Inspect:
+
+- Secrets accidentally added to source.
+- Unsafe environment variable handling.
+- WebView bridge exposure.
+- Input validation.
+- Backup import validation.
+- JSON parsing and schema validation.
+- Prototype pollution exposure.
+- Unsafe HTML rendering.
+- External URL handling.
+- Dependency changes.
+- Workflow permissions.
+- Artifact contents.
+- Sensitive data leakage in logs.
+
+Do not print secret values during scanning.
+
+If a suspected secret is found:
+
+- Report its file and location without reproducing the value.
+- Determine whether it is a placeholder or actual credential.
+- Do not attempt to use it.
+- Do not commit it into generated reports or archives.
+
+Do not make broad security changes unrelated to the identified risks.
+
+---
+
+WP-08 — CHANGE CONTROL, DIFF REVIEW, AND ROLLBACK
+
+Every source modification must be traceable.
+
+Create a change register:
+
+Change ID| File| Finding| Reason| Tests| Risk| Rollback
+
+For every modified file:
+
+- Record the original state in the protected baseline.
+- Explain the modification.
+- Identify affected interfaces.
+- Identify migration implications.
+- Link it to a test or configuration validation.
+- Review the final diff.
+
+Do not reformat unrelated files.
+
+Do not rewrite entire modules to fix a small issue.
+
+Do not silently discard pre-existing user changes.
+
+If a change causes regressions:
+
+1. Stop dependent work.
+2. Identify the regression.
+3. Revert only the change responsible, using the protected baseline or a precise reverse patch.
+4. Preserve unrelated changes.
+5. Re-run the relevant tests.
+6. Record the rollback and evidence.
+
+Never run a broad destructive reset such as "git reset --hard" unless the user explicitly authorizes it and the exact consequences have been reviewed.
+
+---
+
+3. IMPLEMENTATION ORDER AND DECISION GATES
+
+Execute in this order:
+
+Order| Work package| Execution rule
+1| WP-00 Baseline| Mandatory
+2| WP-01 Android identity| Inspect; modify only with sufficient evidence
+3| WP-02 Backup and restore| Implement safely with TDD
+4| WP-03 Dependency security| Implement compatible fix if verified
+5| WP-04 CI/Android| Repair locally; remote execution only if available
+6| WP-05 Architecture boundaries| Verify and document
+7| WP-06 Regression testing| Mandatory
+8| WP-07 Security review| Mandatory
+9| WP-08 Diff and rollback review| Mandatory
+
+Parallelism
+
+Independent read-only inspection may be parallelized.
+
+Do not parallelize conflicting modifications to the same files or shared configuration.
+
+Database and backup changes must be coordinated through one implementation owner or a single coherent change set.
+
+Blocker isolation
+
+A blocked Android build must not prevent safe backup improvements.
+
+An unresolved application identity must not prevent dependency security remediation.
+
+An unavailable GitHub token must not prevent local source analysis and testing.
+
+Continue independent tasks while preserving the blocked item in the final report.
+
+---
+
+4. REQUIRED OUTPUT ARTIFACTS
+
+Create the following directory outside the source tree:
+
+"/mnt/data/BioThanaweya_Phase2/"
+
+Required structure:
+
+BioThanaweya_Phase2/
+├── README.md
+├── reports/
+│   ├── PHASE2_EXECUTIVE_SUMMARY.md
+│   ├── SOURCE_AND_BASELINE_REVALIDATION.md
+│   ├── ANDROID_IDENTITY_RECONCILIATION.md
+│   ├── DATA_OWNERSHIP_MATRIX.md
+│   ├── BACKUP_RESTORE_DESIGN.md
+│   ├── BACKUP_RESTORE_IMPLEMENTATION.md
+│   ├── DEPENDENCY_SECURITY_REMEDIATION.md
+│   ├── ANDROID_CI_RELIABILITY_REPORT.md
+│   ├── ARCHITECTURE_BOUNDARY_REPORT.md
+│   ├── SECURITY_REGRESSION_REPORT.md
+│   ├── TEST_AND_BUILD_VERIFICATION.md
+│   ├── CHANGE_REGISTER.md
+│   ├── ROLLBACK_AND_RECOVERY_GUIDE.md
+│   └── DEFERRED_AND_BLOCKED_ITEMS.md
+├── evidence/
+│   ├── commands/
+│   ├── baseline/
+│   ├── tests/
+│   ├── builds/
+│   ├── security/
+│   └── diffs/
+├── inventories/
+│   ├── DATABASE_OWNERSHIP.csv
+│   ├── CHANGED_FILES.csv
+│   ├── DEPENDENCY_CHANGES.csv
+│   ├── TEST_RESULTS.csv
+│   └── FINDINGS_STATUS.csv
+├── metadata/
+│   ├── PHASE2_MANIFEST.json
+│   ├── SHA256SUMS.txt
+│   └── ENVIRONMENT_METADATA.json
+└── packages/
+    ├── BioThanaweya_Phase2_Change_Package.zip
+    ├── BioThanaweya_Phase2_Audit_Package.zip
+    └── BioThanaweya_Phase2_APK/
+
+Only create an APK directory or APK artifact if an actual APK is produced.
+
+Do not create empty placeholder APK files.
+
+Package A — Change Package
+
+Include:
+
+- Modified source files.
+- New tests.
+- Required configuration changes.
+- Migration or compatibility code.
+- Change register.
+- A patch/diff where possible.
+- Build and test evidence.
+
+Exclude:
+
+- "node_modules".
+- ".git".
+- Build caches.
+- Secrets.
+- Signing credentials.
+- Personal data.
+- Unrelated source files.
+
+Package B — Audit Package
+
+Include all reports, inventories, sanitized logs, metadata, and checksums.
+
+Package C — Android APK
+
+If a real APK is generated, include it with its build metadata and verification report.
+
+Do not claim an APK was generated if only the web build was successful.
+
+Source snapshot
+
+If a sanitized source snapshot is produced, it must reflect the final modified source state and be clearly distinguished from the original PHASE 1 snapshot.
+
+---
+
+5. FINAL VERIFICATION AND ACCEPTANCE CRITERIA
+
+The phase may be declared fully completed only when the following conditions are satisfied.
+
+A. Source integrity
+
+- [ ] Correct project identity confirmed.
+- [ ] Protected pre-change baseline created.
+- [ ] No unrelated source files modified.
+- [ ] All changes documented.
+- [ ] No user data deleted or altered.
+
+B. Android identity
+
+- [ ] All relevant identifiers inspected.
+- [ ] Native application identity preserved unless a safe change was proven.
+- [ ] Capacitor/native configuration compatibility verified.
+- [ ] Any unresolved identity decision documented.
+
+C. Backup and restore
+
+- [ ] Actual database ownership verified.
+- [ ] Backup format versioned.
+- [ ] All required user-data stores included.
+- [ ] Incomplete backups identified.
+- [ ] Restore validation occurs before mutation.
+- [ ] Existing data preservation tested.
+- [ ] Legacy backup compatibility tested or explicitly deferred.
+- [ ] No real user database modified during testing.
+
+D. Dependency security
+
+- [ ] Actual vulnerable dependency path identified.
+- [ ] Remediation compatibility verified.
+- [ ] Lockfile changes reviewed.
+- [ ] npm audit re-executed.
+- [ ] Remaining risks documented.
+
+E. Android and CI
+
+- [ ] Workflow configuration inspected.
+- [ ] Toolchain compatibility reviewed.
+- [ ] CI execution result verified if accessible.
+- [ ] Actual APK generated if the environment permits.
+- [ ] APK metadata verified.
+- [ ] No false production-readiness claims.
+
+F. Regression
+
+- [ ] Existing tests preserved.
+- [ ] New behavior covered by tests.
+- [ ] Regression tests executed.
+- [ ] TypeScript checks executed.
+- [ ] Production build executed.
+- [ ] Relevant platform tests executed.
+- [ ] Failures and unavailable tests documented.
+
+G. Deliverables
+
+- [ ] Reports generated.
+- [ ] Inventories generated.
+- [ ] Evidence logs saved.
+- [ ] Change package generated.
+- [ ] Audit package generated.
+- [ ] SHA-256 checksums generated.
+- [ ] ZIP files reopened and verified.
+- [ ] Final manifest matches actual artifacts.
+
+---
+
+6. FINAL EXECUTION REPORT
+
+At completion, provide a concise but technically complete final report in this exact structure:
+
+6.1 Executive Status
+
+State one of:
+
+- "PHASE 2 COMPLETE"
+- "PHASE 2 PARTIALLY COMPLETE"
+- "PHASE 2 BLOCKED"
+
+Do not use COMPLETE if mandatory acceptance criteria remain unmet.
+
+6.2 Verified Baseline
+
+Report the actual pre-change results and any differences from PHASE 1.
+
+6.3 Findings Resolution Matrix
+
+Finding| Previous Severity| Final Status| Actual Fix| Verification Evidence
+
+Use only:
+
+- FIXED AND VERIFIED
+- VERIFIED — NO CHANGE REQUIRED
+- DEFERRED — DECISION REQUIRED
+- BLOCKED
+- NOT REPRODUCED
+
+6.4 Implemented Changes
+
+For every change:
+
+- File path.
+- Previous behavior.
+- New behavior.
+- Technical rationale.
+- Test added.
+- Test result.
+- Risk and rollback method.
+
+6.5 Data Integrity Report
+
+Explicitly state:
+
+- Which databases were inspected.
+- Which stores are backed up.
+- Which data categories are excluded and why.
+- Whether export was tested.
+- Whether restore was tested.
+- Whether legacy backups are supported.
+- Whether any real user data was touched.
+
+6.6 Test and Build Results
+
+Provide actual command, exit code, test counts, build status, and evidence path.
+
+6.7 Android Build Status
+
+Clearly distinguish:
+
+- Local Android build.
+- CI Android build.
+- APK generation.
+- APK installation verification.
+- Debug versus release.
+- Signing status.
+
+6.8 Remaining Risks and Blockers
+
+List all outstanding items with severity, impact, required decision, and next action.
+
+6.9 Deliverable Locations
+
+List the exact absolute paths, sizes, and SHA-256 checksums of the files actually created.
+
+Provide downloadable links only if the execution environment genuinely supports them and the files exist.
+
+6.10 Recommended Next Phase
+
+Recommend PHASE 3 only after evaluating actual results.
+
+Potential next phase:
+
+PHASE 3 — Production Readiness, Android Release Validation, Offline Resilience, and End-to-End Quality Assurance
+
+Do not begin PHASE 3 automatically.
+
+---
+
+7. FINAL OPERATING DIRECTIVE
+
+Work as a senior engineering team responsible for a real educational application and its users' data.
+
+Prioritize:
+
+1. Data integrity.
+2. Application identity and upgrade safety.
+3. Correctness.
+4. Security.
+5. Backward compatibility.
+6. Reproducible builds.
+7. Maintainability.
+8. Performance.
+
+Do not optimize for the number of files changed or the number of findings marked fixed.
+
+A smaller, verified, reversible change is preferable to a broad speculative refactor.
+
+Begin now with WP-00. Inspect the actual workspace, protect the baseline, and proceed through the work packages in order.
+
+Do not stop after producing a plan.
+
+Do not request a manual source upload if the source is already accessible in the workspace.
+
+If an essential decision cannot be safely inferred from available evidence, isolate that decision, document it, continue all independent safe work, and ask only for the specific approval that is genuinely required.
+
+The final deliverable must be an implemented, tested, evidence-backed engineering change set — not merely a proposal.

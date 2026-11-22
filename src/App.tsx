@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion, type Variants } from 'framer-motion';
-import { Navbar } from './components/Navbar';
 import { SevenAgentsModal } from './components/SevenAgentsModal';
 import { StorageVaultModal } from './components/StorageVaultModal';
 import { MinistryTextbookModal } from './components/MinistryTextbookModal';
@@ -40,6 +39,27 @@ function MainApp() {
   const [isAgentsModalOpen, setIsAgentsModalOpen] = useState(false);
   const [isStorageModalOpen, setIsStorageModalOpen] = useState(false);
   const [isTextbookModalOpen, setIsTextbookModalOpen] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
+
+  useEffect(() => {
+    const setThemeClass = () => {
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    };
+    setThemeClass();
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'theme') {
+        setTheme(e.newValue as 'light' | 'dark');
+        setThemeClass();
+      }
+    };
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, [theme]);
 
   const shouldReduceMotion = useReducedMotion();
   const { isRtl } = useLanguage();
@@ -130,15 +150,6 @@ function MainApp() {
 
   return (
     <div className="min-h-screen bg-[#0B132B] text-slate-100 flex flex-col font-sans transition-all duration-200">
-      <Navbar
-        currentScreen={currentScreen}
-        onNavigate={(screen, tId) => handleNavigate(screen, tId)}
-        profile={profile}
-        onOpenAgentsModal={handleOpenAgentsModal}
-        onOpenStorageModal={handleOpenStorageModal}
-        onOpenTextbookModal={handleOpenTextbookModal}
-      />
-
       <main className="flex-1 relative overflow-x-hidden min-h-[calc(100vh-8rem)]">
         <AnimatePresence mode="wait" custom={navDirection}>
           <motion.div
