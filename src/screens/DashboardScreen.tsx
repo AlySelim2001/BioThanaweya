@@ -75,10 +75,10 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
       dir={isRtl ? 'rtl' : 'ltr'}
     >
       {/* 1. Hero Bento Card */}
-      <div className="relative rounded-3xl bg-[#0B132B] border border-accent-cyan-border backdrop-filter blur-3xl shadow-2xl shadow-cyan-950/30 overflow-hidden">
+      <div className="relative rounded-3xl bg-[var(--bg-primary)] border border-[var(--accent-cyan-border)] backdrop-filter blur-3xl shadow-[var(--shadow-soft)] overflow-hidden">
         <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 rounded-full bg-glass-dim blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-card border border-accent-cyan-border text-accent-cyan text-xs font-bold tracking-wide">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-card border border-[var(--accent-cyan-border)] text-[var(--accent-cyan)] text-xs font-bold tracking-wide">
             <Sparkles
               className="w-3.5 h-3.5 text-accent-cyan animate-spin"
               style={{ animationDuration: '6s' }}
@@ -86,18 +86,18 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
             <span>{t('heroBadge')}</span>
           </div>
 
-          <h1 className="text-2xl md:text-4xl font-black text-white tracking-tight">
+          <h1 className="text-2xl md:text-4xl font-black text-[var(--fg-primary)] tracking-tight">
             {t('heroTitle')}
           </h1>
 
-          <p className="text-sm md:text-base text-slate-200> leading-relaxed font-normal">
+          <p className="text-sm md:text-base text-slate-200 leading-relaxed font-normal">
             {t('heroSubtitle')}
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <button
               onClick={() => onNavigateToPractice('sarcomere_contraction')}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl btn-glass hover:text-white transition active:scale-95"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl btn-glass hover:text-[var(--fg-primary)] transition active:scale-95"
             >
               <Zap className="w-4 h-4 fill-slate-950" />
               <span>{t('practiceItemsBtn')}</span>
@@ -105,9 +105,9 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
 
             <button
               onClick={() => onNavigateToFsrs('sarcomere_contraction')}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl glass-card border border-accent-cyan-border text-accent-cyan font-bold text-sm shadow-md transition active:scale-95"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl glass-card border border-[var(--accent-cyan-border)] text-[var(--accent-cyan)] font-bold text-sm shadow-sm transition active:scale-95"
             >
-              <Layers className="w-4 h-4 text-cyan-400" />
+              <Layers className="w-4 h-4 text-[var(--accent-cyan)]" />
               <span>{t('fsrsCardsBtn')}</span>
             </button>
 
@@ -131,7 +131,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
       </div>
 
       {/* 2. Simulated Ministry Exam Hero Card */}
-      <div className="rounded-3xl border border-accent-cyan-border bg-gradient-to-r from-via to- with rose gradient p-6 md:p-7 shadow-xl shadow-accent-cyan-border relative overflow-hidden">
+      <div className="rounded-3xl border border-accent-cyan-border bg-gradient-to-r from-[var(--bg-secondary)] to-[var(--bg-primary)] p-6 md:p-7 shadow-xl shadow-accent-cyan-border relative overflow-hidden">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-2.5 max-w-2xl">
             <div className="flex items-center gap-3">
@@ -148,7 +148,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
 
           <button
             onClick={onNavigateToSimulatedExam}
-            className="flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl from-emerald-500 to-cyan-400 hover:from-rose-500 hover:to-red-400 text-white font-black text-sm shadow-xl shadow-accent-cyan-border transition active:scale-95 shrink-0 self-stretch sm:self-auto"
+            className="flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl from-[var(--accent-emerald)] to-[var(--accent-cyan)] hover:from-[var(--accent-emerald)] hover:to-[var(--accent-cyan-border)] text-[var(--fg-primary)] font-black text-sm shadow-xl shadow-accent-cyan-border transition active:scale-95 shrink-0 self-stretch sm:self-auto"
           >
             <Play className="w-4 h-4 fill-white" />
             <span>{t('launchExamBtn')}</span>
@@ -162,11 +162,11 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
           <div>
             <div className="flex items-center gap-2">
               <Layers className="w-5 h-5 text-accent-cyan" />
-              <h2 className="text-lg md:text-xl font-bold text-white tracking-tight">
+              <h2 className="text-lg md:text-xl font-bold text-[var(--fg-primary)] tracking-tight">
                 {t('curriculumBentoTitle')}
               </h2>
             </div>
-            <p className="text-xs text-slate-200> mt-1">{t('curriculumBentoSub')}</p>
+            <p className="text-xs text-slate-300 mt-1">{t('curriculumBentoSub')}</p>
           </div>
 
           {/* Unit Filter Tabs */}
@@ -176,7 +176,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
               className={`px-3 py-1.5 rounded-xl transition ${
                 selectedUnit === 'ALL'
                   ? 'glass-card shadow-sm'
-                  : 'text-slate-200> hover:text-white'
+                  : 'text-slate-300> hover:text-[var(--fg-primary)]'
               }`}
             >
               {t('allFilter')}
@@ -186,7 +186,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
               className={`px-3 py-1.5 rounded-xl transition ${
                 selectedUnit === 'UNIT_1'
                   ? 'glass-card shadow-sm'
-                  : 'text-slate-200> hover:text-white'
+                  : 'text-slate-300> hover:text-[var(--fg-primary)]'
               }`}
             >
               {language === 'ar' ? 'الوحدة 1' : 'Unit 1'}
@@ -196,7 +196,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
               className={`px-3 py-1.5 rounded-xl transition ${
                 selectedUnit === 'UNIT_2'
                   ? 'glass-card shadow-sm'
-                  : 'text-slate-200> hover:text-white'
+                  : 'text-slate-300> hover:text-[var(--fg-primary)]'
               }`}
             >
               {language === 'ar' ? 'الوحدة 2' : 'Unit 2'}
@@ -214,7 +214,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
             return (
               <div
                 key={topic.id}
-                className="group relative rounded-3xl glass-card hover:bg-slate-900 border border-accent-cyan-border hover:border-accent-cyan-border p-5 md:p-6 transition-all duration-200 shadow-xl flex flex-col justify-between gap-5"
+                className="group relative rounded-3xl glass-card border border-[var(--accent-cyan-border)] hover:bg-[var(--bg-secondary)] hover:border-[var(--accent-cyan-border)] p-5 md:p-6 transition-all duration-200 shadow-[var(--shadow-soft)] flex flex-col justify-between gap-5"
               >
                 <div className="space-y-3.5">
                   {/* Top Bar: Chapter + High-Yield badge */}
@@ -250,13 +250,13 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
                     <h3 className="font-extrabold text-base text-slate-100 group-hover:text-accent-cyan transition line-clamp-2">
                       {language === 'ar' ? topic.arabicTitle : topic.title}
                     </h3>
-                    <p className="text-xs text-slate-200> font-medium line-clamp-1">
+                    <p className="text-xs text-slate-300 font-medium line-clamp-1">
                       {language === 'ar' ? topic.title : topic.arabicTitle}
                     </p>
                   </div>
 
                   {/* Topic Summary */}
-                  <p className="text-xs text-slate-200> leading-relaxed line-clamp-2">
+                  <p className="text-xs text-slate-300 leading-relaxed line-clamp-2">
                     {topic.summary}
                   </p>
                 </div>
@@ -326,7 +326,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
         <div className="relative z-10 space-y-4">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-accent-cyan" />
-            <h2 className="text-lg md:text-xl font-bold text-white tracking-tight">
+            <h2 className="text-lg md:text-xl font-bold text-[var(--fg-primary)] tracking-tight">
               {language === 'ar' ? 'لوحة Bio-Fabrication / الأتمتة' : 'Bio-Fabrication / Automation HUD'}
             </h2>
           </div>
@@ -345,7 +345,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
               <div
                 key={s.label}className="rounded-2xl glass-card border border-slate-700/60 p-3 text-center"
                 >
-                <div className="text-[10px] font-bold text-slate-200> uppercase tracking-wider">
+                <div className="text-[10px] font-bold text-slate-200 uppercase tracking-wider">
                   {s.label}
                 </div>
                 <div className={`text-sm font-black ${s.color} mt-1`}>{s.value}</div>

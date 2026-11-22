@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "skills": {
+    "android-apk-release": {
+      "source": "tobyatgithub/toby-skills",
+      "commit": "7fbf60d8d543e052e3bdc7ffa5e564f4c937e39d",
+      "sourceType": "github",
+      "skillPath": "android-apk-release/SKILL.md",
+      "computedHash": "22e2392166f504583c82a0393ba17d3e45a32da5c31a06d907d3433659ef9ec6"
+    }
+  }
+}

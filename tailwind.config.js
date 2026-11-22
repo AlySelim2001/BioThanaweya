@@ -5,13 +5,13 @@ export default {
     extend: {
       colors: {
         obsidian: {
-          950: '#070F1E',
-          900: '#0A192F',
-          800: '#112240',
-          700: '#1E3A5F',
-          600: '#233554',
-          50: '#F1F5F9',
-          100: '#E2E8F0',
+          950: '#0B132B',
+          900: '#0F1A3A',
+          800: '#1A284A',
+          700: '#233554',
+          600: '#3A4B6B',
+          50: '#E8EEF5',
+          100: '#F0F4FA',
         },
         glass: {
           DEFAULT: 'var(--glass-medium)',
@@ -19,10 +19,10 @@ export default {
           strong: 'var(--glass-strong)',
         },
         bioteal: {
-          DEFAULT: '#64FFDA',
-          400: '#64FFDA',
-          500: '#00F5D4',
-          600: '#00B4D8',
+          DEFAULT: '#00F5D4',
+          400: '#00F5D4',
+          500: '#00B4D8',
+          600: '#5AF0E8',
           100: '#CCFCF5',
           200: '#99F6E0',
         },
