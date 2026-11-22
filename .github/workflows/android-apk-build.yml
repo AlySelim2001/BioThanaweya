@@ -42,7 +42,7 @@ jobs:
         run: npm run lint
 
       - name: Unit tests (vitest)
-        run: npm test -- --environment jsdom
+        run: npx vitest run --environment jsdom
 
       # CAPACITOR_BUILD switches Vite to a relative base so the bundle works
       # from the WebView's virtual origin (appassets.androidplatform.net).
