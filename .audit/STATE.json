@@ -183,5 +183,6 @@
   "S6b": {
     "status": "blocked_on_owner",
     "due": "2026-11-30"
-  }
+  },
+  "next": "S7"
 }
