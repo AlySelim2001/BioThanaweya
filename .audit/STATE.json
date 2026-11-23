@@ -76,6 +76,13 @@
       "axis": "1",
       "severity": "WARN",
       "note": "gitleaks not installed initially (WARN); now installed v8.30.1 on aarch64"
+    },
+    {
+      "id": "F13",
+      "axis": "2",
+      "type": "build_success",
+      "exit": 0,
+      "detail": "All baseline commands completed successfully: npm ci, npm audit, lint, tsc, test, build"
     }
   ],
   "S1": {
@@ -87,5 +94,20 @@
   "blockers": [
     "gitleaks HEAD scan: 5 potential secrets found (vendor bundles + LanguageContext + Calculator storage) - CRITICAL: possible API keys in bundles",
     "gitleaks history scan: 3 leaks detected in 149 commits - CRITICAL: secrets persisted in git history"
-  ]
+  ],
+  "S2": {
+    "status": "done",
+    "next_session": "S3"
+  },
+  "baseline": {
+    "EXIT_NODE": "v22.23.3",
+    "EXIT_NPM": "10.9.9",
+    "EXIT_CI": 0,
+    "EXIT_AUDIT_MOD": 0,
+    "EXIT_AUDIT": 0,
+    "EXIT_LINT": 0,
+    "EXIT_TSC": 0,
+    "EXIT_TEST": 0,
+    "EXIT_BUILD": 0
+  }
 }
