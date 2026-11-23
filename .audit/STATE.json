@@ -58,12 +58,34 @@
       "axis": "1",
       "severity": "OK",
       "note": "all exit codes captured: 9 commands EXIT=0"
+    },
+    {
+      "id": "F10",
+      "axis": "1",
+      "severity": "CRITICAL",
+      "note": "gitleaks HEAD scan: 5 potential secrets found (vendor bundles + LanguageContext + Calculator storage) - CRITICAL: possible API keys in bundles"
+    },
+    {
+      "id": "F11",
+      "axis": "1",
+      "severity": "CRITICAL",
+      "note": "gitleaks history scan: 3 leaks detected in 149 commits - CRITICAL: secrets persisted in git history"
+    },
+    {
+      "id": "F12",
+      "axis": "1",
+      "severity": "WARN",
+      "note": "gitleaks not installed initially (WARN); now installed v8.30.1 on aarch64"
     }
   ],
   "S1": {
     "status": "done",
-    "exit": 0,
+    "exit": 2,
     "last_completed": "S1",
     "next_session": "S2"
-  }
+  },
+  "blockers": [
+    "gitleaks HEAD scan: 5 potential secrets found (vendor bundles + LanguageContext + Calculator storage) - CRITICAL: possible API keys in bundles",
+    "gitleaks history scan: 3 leaks detected in 149 commits - CRITICAL: secrets persisted in git history"
+  ]
 }
