@@ -104,6 +104,40 @@
       "secrets_in_if": "NO_SECRETS_IN_IF",
       "deploy_paths_found": true,
       "jobs_needs extracted": true
+    },
+    {
+      "id": "F15",
+      "axis": "4",
+      "type": "code_quality_metrics",
+      "strict_tsc": {
+        "exit": 0,
+        "detail": "tsc --noEmit --strict passed (EXIT=0)"
+      },
+      "empty_catches": {
+        "exit": 0,
+        "count": 0,
+        "detail": "NO_EMPTY_CATCH - no empty catch blocks found"
+      },
+      "any_usage": {
+        "exit": 0,
+        "count": 9,
+        "detail": "9 any type usages found in src/"
+      },
+      "todo_fixme_hack": {
+        "exit": 0,
+        "count": 0,
+        "detail": "NO TODO/FIXME/HACK comments found"
+      },
+      "top_files_by_loc": {
+        "total": 16553,
+        "largest": "src/services/curriculumRepository.ts (2610 lines)",
+        "detail": "15 largest files by LOC listed"
+      },
+      "top_files_by_git_churn_90d": {
+        "total_commits": 37,
+        "most_changed": "src/services/fsrs.ts (8 changes)",
+        "detail": "15 most changed files by git churn in last 90 days listed"
+      }
     }
   ],
   "S1": {
@@ -134,5 +168,9 @@
   "S3": {
     "status": "done",
     "next_session": "S4"
+  },
+  "S4": {
+    "status": "done",
+    "next_session": "S5"
   }
 }
