@@ -1,3 +1,4 @@
+---
 name: Android Build
 
 on:
@@ -110,7 +111,7 @@ jobs:
           if [ -z "$RELEASE_APK" ]; then echo "Release APK not found"; exit 1; fi
           echo "Release APK: $RELEASE_APK"
           echo "RELEASE_APK_PATH=$RELEASE_APK" >> $GITHUB_ENV
-      - run: chmod +x $RELEASE_APK && apksigner sign --ks $KEYSTORE_PATH --ks-key-alias $KEY_ALIAS --ks-pass pass:$KEY_PASSWORD --key-pass pass:$KEY_PASSWORD --out $RELEASE_APK $RELEASE_APK 2>&1 || echo "Signing exit code: $?"
+      - run: chmod +x $RELEASE_APK && apksigner sign --ks $KEYSTORE_PATH --ks-key-alias $KEY_ALIAS --ks-pass pass:$KEY_PASSWORD --key-pass pass:$KEY_PASSWORD --out $RELEASE_APK $RELEASE_APK 2> /dev/null
       - uses: actions/upload-artifact@v4
         with:
           name: release-apk
