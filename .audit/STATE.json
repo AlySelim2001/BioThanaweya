@@ -147,8 +147,7 @@
     "next_session": "S2"
   },
   "blockers": [
-    "gitleaks HEAD scan: 5 potential secrets found (vendor bundles + LanguageContext + Calculator storage) - CRITICAL: possible API keys in bundles",
-    "gitleaks history scan: 3 leaks detected in 149 commits - CRITICAL: secrets persisted in git history"
+    "F-010/F-011 mitigated_by_rotation + deferred_purge - 5 HEAD secrets rotated 2026-11-23, history purge deferred 7 days"
   ],
   "S2": {
     "status": "done",
@@ -176,5 +175,13 @@
   "S5": {
     "status": "done",
     "next_session": "S6"
+  },
+  "S6": {
+    "status": "done",
+    "next": "S7"
+  },
+  "S6b": {
+    "status": "blocked_on_owner",
+    "due": "2026-11-30"
   }
 }
