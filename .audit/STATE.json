@@ -183,5 +183,11 @@
   "S6b": {
     "status": "blocked_on_owner",
     "due": "2026-11-30"
-  }
+  },
+  "S7": {
+    "status": "done",
+    "pr_url": "https://github.com/AlySelim2001/BioThanaweya/pull/11",
+    "next": "OWNER_REVIEW"
+  },
+  "next": "OWNER_REVIEW"
 }
