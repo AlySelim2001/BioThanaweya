@@ -1,1 +1,1 @@
-Session S2 = Git Forensics. اقرأ STATE.json أولاً.
+اقرأ 05-synthesis.md ثم نفّذ S6 على P0/P1 فقط

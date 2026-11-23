@@ -6,86 +6,86 @@
   "next_session": "S5",
   "findings": [
     {
-      "id": "F1",
+      "id": "F-001",
       "axis": "1",
       "severity": "OK",
       "note": "git status: modified eslint.config.js and src/server/middleware/security.ts (pre-existing from bootstrap)"
     },
     {
-      "id": "F2",
+      "id": "F-002",
       "axis": "1",
       "severity": "OK",
       "note": "branches: audit/2026-11 checked out, 13 remote branches present"
     },
     {
-      "id": "F3",
+      "id": "F-003",
       "axis": "1",
       "severity": "OK",
       "note": "recent log: 20 recent commits visible"
     },
     {
-      "id": "F4",
+      "id": "F-004",
       "axis": "1",
       "severity": "OK",
       "note": "key files: NO_KEY_FILES - no keystore/jks/pem/key files tracked"
     },
     {
-      "id": "F5",
+      "id": "F-005",
       "axis": "1",
       "severity": "OK",
       "note": "env files: NO_ENV_FILES - no .env files with secrets found"
     },
     {
-      "id": "F6",
+      "id": "F-006",
       "axis": "1",
       "severity": "OK",
       "note": "largest tracked: public/assets PDF (21MB) + node_modules (expected)"
     },
     {
-      "id": "F7",
+      "id": "F-007",
       "axis": "1",
       "severity": "OK",
       "note": "largest in history: node_modules and PDF (expected)"
     },
     {
-      "id": "F8",
+      "id": "F-008",
       "axis": "1",
       "severity": "WARN",
       "note": "gitleaks not installed (command not found), cannot fully verify history"
     },
     {
-      "id": "F9",
+      "id": "F-009",
       "axis": "1",
       "severity": "OK",
       "note": "all exit codes captured: 9 commands EXIT=0"
     },
     {
-      "id": "F10",
+      "id": "F-010",
       "axis": "1",
       "severity": "CRITICAL",
       "note": "gitleaks HEAD scan: 5 potential secrets found (vendor bundles + LanguageContext + Calculator storage) - CRITICAL: possible API keys in bundles"
     },
     {
-      "id": "F11",
+      "id": "F-011",
       "axis": "1",
       "severity": "CRITICAL",
       "note": "gitleaks history scan: 3 leaks detected in 149 commits - CRITICAL: secrets persisted in git history"
     },
     {
-      "id": "F12",
+      "id": "F-012",
       "axis": "1",
       "severity": "WARN",
       "note": "gitleaks not installed initially (WARN); now installed v8.30.1 on aarch64"
     },
     {
-      "id": "F13",
+      "id": "F-013",
       "axis": "2",
       "type": "build_success",
       "exit": 0,
       "detail": "All baseline commands completed successfully: npm ci, npm audit, lint, tsc, test, build"
     },
     {
-      "id": "F14",
+      "id": "F-014",
       "axis": "3",
       "workflow": "all",
       "type": "workflow_audit",
@@ -106,7 +106,7 @@
       "jobs_needs extracted": true
     },
     {
-      "id": "F15",
+      "id": "F-015",
       "axis": "4",
       "type": "code_quality_metrics",
       "strict_tsc": {
@@ -172,5 +172,9 @@
   "S4": {
     "status": "done",
     "next_session": "S5"
+  },
+  "S5": {
+    "status": "done",
+    "next_session": "S6"
   }
 }
