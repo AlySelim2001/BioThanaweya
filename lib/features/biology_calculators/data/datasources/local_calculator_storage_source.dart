@@ -5,7 +5,7 @@ import '../../domain/entities/calculator_fsrs_item.dart';
 /// Local offline storage for calculator history and FSRS spaced repetition items.
 /// Guarantees zero network access and complete persistence across app restarts.
 class LocalCalculatorStorageSource {
-  static const String _prefKeyFsrsItems = 'biothanaweya_calculator_fsrs_v1';
+  static const String _prefKeyFsrsItems = 'PLACEHOLDER_KEY';
   static const String _prefKeyHistory = 'biothanaweya_calculator_history_v1';
 
   final List<CalculatorFsrsItem> _inMemoryFsrs = [];

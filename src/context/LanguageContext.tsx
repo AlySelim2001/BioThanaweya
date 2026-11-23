@@ -10,7 +10,7 @@ interface LanguageContextType {
   t: (key: string) => string;
 }
 
-const STORAGE_KEY = 'biothanaweya_lang_pref_v1';
+const STORAGE_KEY = 'PLACEHOLDER_KEY';
 
 const DICTIONARY: Record<string, { ar: string; en: string }> = {
   // Brand & Header
