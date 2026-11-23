@@ -264,7 +264,7 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
           {activeTab === 'overview' ? (
             <>
               {/* Storage Quota Card */}
-              <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-3">
+              <div className="p-4 rounded-xl bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl">
                 <div className="flex items-center justify-between text-xs">
                   <span className="font-semibold text-slate-300 flex items-center gap-1.5">
                     <ShieldCheck className="w-4 h-4 text-teal-400" />
@@ -340,7 +340,7 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
                   <button
                     onClick={handleExport}
                     disabled={isExporting}
-                    className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold text-xs transition disabled:opacity-50"
+                    className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs transition disabled:opacity-50"
                   >
                     {isExporting ? (
                       <RefreshCw className="w-3.5 h-3.5 animate-spin" />
@@ -374,7 +374,7 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
                     <button
                       onClick={() => fileInputRef.current?.click()}
                       disabled={isImporting}
-                      className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg glass-card hover:bg-accent-cyan-border text-slate-950 font-bold text-xs transition disabled:opacity-50"
+                      className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg glass-card hover:bg-accent-cyan-border text-white font-bold text-xs transition disabled:opacity-50"
                     >
                       {isImporting ? (
                         <RefreshCw className="w-3.5 h-3.5 animate-spin" />
@@ -435,7 +435,7 @@ export const StorageVaultModal: React.FC<StorageVaultModalProps> = ({
               </div>
 
               {snapshots.length === 0 ? (
-                <div className="p-8 text-center rounded-xl bg-slate-900/50 border border-slate-800 text-xs text-slate-500">
+                <div className="p-8 text-center rounded-xl bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl text-xs text-slate-500">
                   No automated snapshots recorded yet. Complete an exam or review cards to trigger
                   auto-snapshots.
                 </div>

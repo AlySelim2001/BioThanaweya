@@ -106,7 +106,7 @@ export const SarcomereSimulation: React.FC = () => {
           <button
             onClick={triggerPowerStroke}
             disabled={isPowerStroking || !isAtpSufficient}
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-accent-cyan to-accent-emerald hover:from-accent-cyan-border hover:to-accent-emerald-border text-slate-950 text-xs font-bold flex items-center gap-1.5 transition-all shadow-lg shadow-teal-500/20 disabled:opacity-40"
+            className="px-4 py-2 rounded-xl bg-gradient-to-r from-accent-cyan to-accent-emerald hover:from-accent-cyan-border hover:to-accent-emerald-border text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-lg shadow-teal-500/20 disabled:opacity-40"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
             <span>Power Stroke Pulse</span>
@@ -327,7 +327,7 @@ export const SarcomereSimulation: React.FC = () => {
       {/* Two Interactive Sliders: ATP Supply & Calcium Concentration */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* ATP Slider */}
-        <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl space-y-2">
+        <div className="bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl p-4 rounded-2xl space-y-2">
           <div className="flex justify-between text-xs">
             <span className="text-slate-300 font-medium flex items-center gap-1.5">
               <Zap className="w-4 h-4 text-amber-400" />
@@ -351,7 +351,7 @@ export const SarcomereSimulation: React.FC = () => {
         </div>
 
         {/* Calcium Slider */}
-        <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl space-y-2">
+        <div className="bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl p-4 rounded-2xl space-y-2">
           <div className="flex justify-between text-xs">
             <span className="text-slate-300 font-medium flex items-center gap-1.5">
               <div className="w-2.5 h-2.5 rounded-full bg-accent-cyan" />

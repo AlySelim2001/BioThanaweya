@@ -124,7 +124,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
         <div className="flex items-center gap-3">
           <button
             onClick={() => onNavigateToPractice(pack.topicId)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl glass-card hover:bg-accent-cyan-border text-slate-950 font-bold text-xs shadow-md transition"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl glass-card hover:bg-accent-cyan-border text-white font-bold text-xs shadow-md transition"
           >
             <Zap className="w-4 h-4" />
             Practice Questions ({pack.questions.length})
@@ -299,7 +299,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
                 {pack.keyTerms.map((term, idx) => (
                   <div
                     key={idx}
-                    className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1.5"
+                    className="p-4 rounded-xl bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl border border-slate-800 space-y-1.5"
                   >
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-bold text-teal-300">{term.term}</span>
@@ -413,7 +413,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
 
           {/* Biological Flowchart */}
           {pack.flowcharts.length > 0 && (
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5 space-y-4">
+            <div className="rounded-2xl border border-slate-800 bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl p-5 space-y-4">
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
                 <Zap className="w-4 h-4 text-cyan-400" />
                 Step-by-Step Biological Sequence
@@ -495,7 +495,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
                   {pack.pblProject.titleArabic}
                 </p>
 
-                <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+                <div className="p-4 rounded-xl bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl border border-slate-800 space-y-2">
                   <span className="text-xs font-bold text-slate-200>">Clinical Scenario:</span>
                   <p className="text-xs text-slate-200> leading-relaxed">
                     {pack.pblProject.scenario}

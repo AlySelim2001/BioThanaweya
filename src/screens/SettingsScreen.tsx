@@ -200,7 +200,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           {onOpenStorageModal && (
             <button
               onClick={onOpenStorageModal}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 text-xs font-bold transition shadow-lg shadow-teal-500/20"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-teal-500 hover:bg-teal-400 text-white text-xs font-bold transition shadow-lg shadow-teal-500/20"
             >
               <Database className="w-4 h-4" />
               Manage Storage & Backups

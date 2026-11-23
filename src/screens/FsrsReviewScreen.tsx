@@ -114,7 +114,7 @@ export const FsrsReviewScreen: React.FC<FsrsReviewScreenProps> = ({
         </div>
         <button
           onClick={onBack}
-          className="px-6 py-2.5 rounded-xl glass-card hover:bg-accent-cyan-border text-slate-900 font-bold text-sm transition"
+          className="px-6 py-2.5 rounded-xl glass-card hover:bg-accent-cyan-border text-white font-bold text-sm transition"
         >
           Return to Dashboard
         </button>

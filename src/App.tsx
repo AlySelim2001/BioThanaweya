@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion, type Variants } from 'framer-motion';
-import { SevenAgentsModal } from './components/SevenAgentsModal';
+import { Global3DBackground } from './components/ui/Global3DBackground';
+import { SevenAgentsModal } from './components/SevenAgentsModal'
+;
 import { StorageVaultModal } from './components/StorageVaultModal';
 import { MinistryTextbookModal } from './components/MinistryTextbookModal';
 import { DashboardScreen } from './screens/DashboardScreen';
@@ -150,6 +152,7 @@ function MainApp() {
 
   return (
     <div className="min-h-screen bg-[#0B132B] text-slate-100 flex flex-col font-sans transition-all duration-200">
+      <Global3DBackground />
       <main className="flex-1 relative overflow-x-hidden min-h-[calc(100vh-8rem)]">
         <AnimatePresence mode="wait" custom={navDirection}>
           <motion.div
@@ -159,7 +162,7 @@ function MainApp() {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="w-full"
+            className="w-full bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl"
           >
             {currentScreen === 'dashboard' && (
               <DashboardScreen

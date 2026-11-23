@@ -51,7 +51,7 @@ export const NephronSimulation: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Simulation Header & Fast Controls */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900/90 border border-slate-800 p-4 rounded-2xl">
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl p-4 rounded-2xl">
         <div className="flex flex-wrap items-center gap-2">
           {/* ADH Presence Toggle Button */}
           <button
@@ -86,7 +86,7 @@ export const NephronSimulation: React.FC = () => {
       </div>
 
       {/* Counter-Current Loop of Henle & Nephron Canvas */}
-      <div className="relative w-full bg-slate-950 border border-slate-800/80 rounded-2xl p-4 overflow-hidden shadow-2xl">
+      <div className="relative w-full bg-slate-950 border border-white/10 shadow-xl p-4 rounded-2xl p-4 overflow-hidden shadow-2xl">
         <div className="flex justify-between items-center text-xs text-slate-400 mb-2 font-mono">
           <span className="flex items-center gap-1.5">
             <Droplet className="w-3.5 h-3.5 text-teal-400" />
@@ -313,7 +313,7 @@ export const NephronSimulation: React.FC = () => {
       </div>
 
       {/* Hydration Slider */}
-      <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl space-y-2">
+      <div className="bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl p-4 rounded-2xl space-y-2">
         <div className="flex justify-between text-xs">
           <span className="text-slate-300 font-medium flex items-center gap-1.5">
             <Droplet className="w-4 h-4 text-teal-400" />
@@ -338,7 +338,7 @@ export const NephronSimulation: React.FC = () => {
 
       {/* Curriculum Exam Rule Card */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <div className="bg-slate-900/80 border border-slate-800 p-3.5 rounded-2xl space-y-1">
+        <div className="bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl p-3.5 rounded-2xl space-y-1">
           <div className="flex items-center gap-1.5 text-xs font-bold text-teal-400">
             <CheckCircle2 className="w-4 h-4" />
             <span>Counter-Current Multiplication Principle</span>
@@ -350,7 +350,7 @@ export const NephronSimulation: React.FC = () => {
           </p>
         </div>
 
-        <div className="bg-slate-900/80 border border-slate-800 p-3.5 rounded-2xl space-y-1">
+        <div className="bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl p-3.5 rounded-2xl space-y-1">
           <div className="flex items-center gap-1.5 text-xs font-bold text-amber-400">
             <AlertCircle className="w-4 h-4" />
             <span>ADH (Vasopressin) Regulation Law</span>

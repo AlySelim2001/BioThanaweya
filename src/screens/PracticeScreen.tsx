@@ -213,7 +213,7 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
                 className={`w-full p-3.5 rounded-xl text-left text-xs font-semibold border transition flex items-center justify-between ${
                   selectedOption === optIdx
                     ? 'glass-card border border-accent-cyan-border text-white'
-                    : 'bg-slate-900/80 border-slate-800 text-slate-200> hover:bg-slate-800'
+                    : 'bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl text-slate-200> hover:bg-slate-800'
                 }`}
               >
                 <span>{opt}</span>
@@ -280,7 +280,7 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
                 ? selectedOption === null
                 : studentAnswer.trim().length === 0)
             }
-            className="w-full py-3 rounded-xl glass-card hover:bg-accent-cyan-border disabled:opacity-40 text-slate-950 font-bold text-xs shadow-lg transition flex items-center justify-center gap-2"
+            className="w-full py-3 rounded-xl glass-card hover:bg-accent-cyan-border disabled:opacity-40 text-white font-bold text-xs shadow-lg transition flex items-center justify-center gap-2"
           >
             <Award className="w-4 h-4" />
             {isGrading ? 'Grading Answer with Mark Scheme...' : 'Submit to Ministry Examiner'}

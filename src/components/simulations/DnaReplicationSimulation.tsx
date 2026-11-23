@@ -105,7 +105,7 @@ export const DnaReplicationSimulation: React.FC = () => {
         <div className="flex items-center gap-2">
           <button
             onClick={handleAdvanceStep}
-            className="px-4 py-2 rounded-xl from-accent-cyan to-accent-emerald hover:from-accent-cyan-border hover:to-accent-emerald-border text-slate-950 text-xs font-bold flex items-center gap-1.5 transition-all shadow-lg shadow-teal-500/20"
+            className="px-4 py-2 rounded-xl from-accent-cyan to-accent-emerald hover:from-accent-cyan-border hover:to-accent-emerald-border text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-lg shadow-teal-500/20"
           >
             <span>{step === 5 ? 'Reset Simulation' : 'Next Step'}</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -331,7 +331,7 @@ export const DnaReplicationSimulation: React.FC = () => {
 
       {/* Curriculum Exam Rules Summary */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <div className="bg-slate-900/80 border border-slate-800 p-3.5 rounded-2xl space-y-1">
+        <div className="bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl p-3.5 rounded-2xl space-y-1">
           <div className="flex items-center gap-1.5 text-xs font-bold text-teal-400">
             <CheckCircle2 className="w-4 h-4" />
             <span>Leading Strand (الشريط القائد)</span>
@@ -343,7 +343,7 @@ export const DnaReplicationSimulation: React.FC = () => {
           </p>
         </div>
 
-        <div className="bg-slate-900/80 border border-slate-800 p-3.5 rounded-2xl space-y-1">
+        <div className="bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl p-3.5 rounded-2xl space-y-1">
           <div className="flex items-center gap-1.5 text-xs font-bold text-rose-400">
             <ShieldAlert className="w-4 h-4" />
             <span>Lagging Strand (الشريط المتخلف)</span>

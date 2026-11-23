@@ -166,7 +166,7 @@ export const MinistryTextbookModal: React.FC<MinistryTextbookModalProps> = ({
             {MINISTRY_RESOURCES.map((item) => (
               <div
                 key={item.id}
-                className="group relative rounded-2xl glass-card hover:bg-slate-800/50 border border-accent-cyan-border hover:border-accent-cyan-border p-4 transition duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                className="group relative rounded-2xl glass-card hover:bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl hover:border-accent-cyan-border hover:border-accent-cyan-border p-4 transition duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
               >
                 <div className="flex items-start gap-3.5">
                   <div className="w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center text-teal-400 group-hover:scale-105 transition shrink-0 mt-0.5">

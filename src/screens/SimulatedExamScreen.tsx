@@ -244,7 +244,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
           <div className="flex justify-center gap-4 pt-2">
             <button
               onClick={onBack}
-              className="px-6 py-2.5 rounded-xl glass-card hover:bg-accent-cyan-border text-slate-950 font-bold text-xs transition"
+              className="px-6 py-2.5 rounded-xl glass-card hover:bg-accent-cyan-border text-white font-bold text-xs transition"
             >
               Back to Dashboard
             </button>
@@ -259,10 +259,10 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
               key={idx}
               className={`rounded-2xl border p-5 space-y-3 ${
                 sub.scoreAwarded === sub.maxScore
-                  ? 'bg-slate-900/80 border-emerald-500/30'
+                  ? 'bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl border-emerald-500/30'
                   : sub.scoreAwarded > 0
                     ? 'glass-card border border-accent-emerald-border'
-                    : 'bg-slate-900/80 border-rose-500/30'
+                    : 'bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl border-rose-500/30'
               }`}
             >
               <div className="flex items-center justify-between text-xs">
@@ -391,7 +391,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
                 className={`w-full p-3.5 rounded-xl text-left text-xs font-semibold border transition flex items-center justify-between ${
                   selectedOptions[currentIndex] === optIdx
                     ? 'glass-card border border-accent-cyan-border text-white'
-                    : 'bg-slate-900/80 border-slate-800 text-slate-200> hover:bg-slate-800'
+                    : 'bg-slate-800/40 backdrop-blur-md border border-white/10 shadow-xl text-slate-200> hover:bg-slate-800'
                 }`}
               >
                 <span>{opt}</span>
@@ -463,7 +463,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
           ) : (
             <button
               onClick={() => setCurrentIndex((prev) => Math.min(questions.length - 1, prev + 1))}
-              className="flex items-center gap-1 px-4 py-2 rounded-xl bg-teal-500 text-slate-950 text-xs font-bold hover:bg-teal-400 transition"
+              className="flex items-center gap-1 px-4 py-2 rounded-xl bg-teal-500 text-white text-xs font-bold hover:bg-teal-400 transition"
             >
               Next Item
               <ChevronRight className="w-4 h-4" />

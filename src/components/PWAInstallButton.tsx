@@ -42,7 +42,7 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
     return (
       <button
         onClick={install}
-        className={`flex items-center justify-center gap-2 px-4 py-2 rounded-xl btn-glass hover:text-slate-950 font-extrabold text-xs transition shadow-lg ${className}`}
+        className={`flex items-center justify-center gap-2 px-4 py-2 rounded-xl btn-glass hover:text-white font-extrabold text-xs transition shadow-lg ${className}`}
       >
         <Smartphone className="w-4 h-4" />
         <span>Install to Android Home Screen (Offline)</span>
