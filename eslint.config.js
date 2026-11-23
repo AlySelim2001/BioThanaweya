@@ -28,6 +28,6 @@ export default [
     },
   },
   {
-    ignores: ["dist/", "node_modules/", "archive/", "**/*.generated.*", "**/web-dist/", "android/app/build/", "vite.config.ts", "android/app/src/main/assets/public/assets/vendor-core-B2G20Us5.js", "src/test/", "src/services/*.test.ts", "src/server/*.test.ts", "lib/**/*test*.dart"],
+    ignores: ["dist/", "node_modules/", "archive/", "**/*.generated.*", "**/web-dist/", "android/app/build/", "vite.config.ts", "android/app/src/main/assets/public/assets/vendor-core-B2G20Us5.js", "src/test/", "lib/**/*test*.dart"],
   },
 ];
