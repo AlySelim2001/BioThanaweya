@@ -1,1 +1,1 @@
-Session S1 = Git Hygiene. اقرأ STATE.json firstly.
+Session S2 = Git Forensics. اقرأ STATE.json أولاً.
