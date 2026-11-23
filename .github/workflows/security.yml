@@ -1,0 +1,56 @@
+name: Security Scans
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  gitleaks:
+    name: Gitleaks Binary Scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Download gitleaks binary
+        run: |
+          curl -sSLo gitleaks.tar.gz https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x86_64.tar.gz
+          sha256sum gitleaks.tar.gz
+          tar -xzf gitleaks.tar.gz gitleaks
+          chmod +x gitleaks
+          mv gitleaks /usr/local/bin/
+        shell: bash
+
+      - name: Run gitleaks HEAD scan
+        run: gitleaks detect --no-git --redact
+        env:
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+
+  trivy:
+    name: Trivy Filesystem Scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run trivy fs scan
+        run: trivy fs --scanners vuln --exit-code 1 --severity HIGH,CRITICAL .
+
+  semgrep:
+    name: Semgrep OWASP Top Ten Scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run semgrep ci
+        run: semgrep ci --config p/owasp-top-ten

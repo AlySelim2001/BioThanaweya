@@ -1,0 +1,70 @@
+name: CodeQL Analysis
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 0 * * 0'
+
+permissions:
+  security-events: write
+  contents: read
+  actions: read
+
+# Advanced Code Analysis Editor Configuration Steps:
+# See https://aka.ms/advanced-code-analysis/editors to configure the code navigation part.
+
+matrix:
+  include:
+    - javascript-typescript
+
+    # If you want to also analyze other languages, add more matrix entries here.
+    # Learn more about code scanning here: https://docs.github.com/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors
+    # Learn more about the CodeQL language support here: https://github.com/github/codeql
+
+queries:
+  # Enable all recommended queries for JavaScript/TypeScript
+  - security-and-quality
+
+  # To run only security queries, uncomment the following line:
+  # - security
+
+  # To run recommended and security queries, uncomment and edit the following line:
+  # - security-and-quality,security-and-quality:recommended
+
+# If the autobuild step does not detect a build system in your repository, you should
+# replace it with a build manual step that works for your repository.
+# See https://docs.github.com/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#generating-the-codeql-database
+#
+autobuild:
+  # If you want to use autobuild, you can configure it yourself. Otherwise, the script
+  # below will set up a basic node.js environment.
+  # steps:
+  #   - uses: actions/checkout@v4
+  #   - uses: actions/setup-node@v4
+  #     with:
+  #       node-version: '22'
+  #       cache: npm
+  #   - run: npm ci
+
+# Use this in case you can't use autobuild
+steps:
+  - uses: actions/checkout@v4
+
+  - name: Initialize CodeQL
+    uses: github/codeql-action/init@v3
+    with:
+      languages: javascript-typescript
+      queries: security-and-quality
+
+  - name: Autobuild
+    # Autobuild is currently disabled because the project uses Vite/React and typically
+    # does not need a build step for code scanning. Uncomment if needed.
+    # run: npm ci && npm run build
+
+  - name: Perform CodeQL Analysis
+    uses: github/codeql-action/analyze@v3
+    with:
+      category: "/language-javascript-typescript"

@@ -5,8 +5,18 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
-
+    groups:
+      patch:
+        dependency-type: "direct"
+      minor:
+        dependency-type: "direct"
+      major:
+        # Do not open PRs immediate for major version updates
+        # Handle major updates manually
+        # exclude: ["*"]
+    # eslint, prettier configs handled separately
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+    # Do not open PRs immediate for major GitHub Actions updates
