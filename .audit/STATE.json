@@ -3,7 +3,7 @@
   "S0": {
     "status": "done"
   },
-  "next_session": "S1",
+  "next_session": "S3",
   "findings": [
     {
       "id": "F1",
@@ -83,6 +83,27 @@
       "type": "build_success",
       "exit": 0,
       "detail": "All baseline commands completed successfully: npm ci, npm audit, lint, tsc, test, build"
+    },
+    {
+      "id": "F14",
+      "axis": "3",
+      "workflow": "all",
+      "type": "workflow_audit",
+      "yamllint_exit": {
+        "ci": 1,
+        "android-build": 1,
+        "android-apk-build": 0,
+        "security-scan": 1
+      },
+      "permissions_count": {
+        "ci": 1,
+        "android-build": 1,
+        "android-apk-build": 2,
+        "security-scan": 1
+      },
+      "secrets_in_if": "NO_SECRETS_IN_IF",
+      "deploy_paths_found": true,
+      "jobs_needs extracted": true
     }
   ],
   "S1": {
@@ -109,5 +130,9 @@
     "EXIT_TSC": 0,
     "EXIT_TEST": 0,
     "EXIT_BUILD": 0
+  },
+  "S3": {
+    "status": "done",
+    "next_session": "S4"
   }
 }
