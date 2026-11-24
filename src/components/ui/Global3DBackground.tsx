@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
-import { Points, PointMaterial } from '@react-three/drei';
+import { Points } from '@react-three/drei';
 
-const particleCount = 500;
+const particleCount = 800;
 
 /** Silent error listener for WebGL context lost */
 const useSafeWebGLListener = () => {
@@ -19,25 +19,45 @@ const useSafeWebGLListener = () => {
 export const Global3DBackground = () => {
   useSafeWebGLListener();
 
-  // Create particle geometry and material effect
+  // Create neon DNA-style particle geometry
   useEffect(() => {
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
     const sizes = new Float32Array(particleCount);
 
     for (let i = 0; i < particleCount; i++) {
-      positions[i * 3 + 0] = (Math.random() - 0.5) * 4;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 4;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 4;
-      sizes[i] = Math.random() * 0.1 + 0.05;
+      // Create rotating DNA-inspired spiral structure
+      const theta = (i / particleCount) * Math.PI * 2;
+      const radius = 1 + (i / particleCount) * 2;
+      const height = (Math.sin(i * 0.3) + 1) * 1.5;
+      const colorMix = Math.cos(i * 0.2);
+
+      // Neon Cyan: #06b6d4, Neon Green: #10b981
+      const mix = (colorMix + 1) / 2; // 0 to 1
+      const cyan = new THREE.Color(0x06b6d4);
+      const emerald = new THREE.Color(0x10b981);
+      const mixedColor = new THREE.Color().lerpColors([cyan, emerald], mix);
+
+      positions[i * 3 + 0] = radius * Math.cos(theta) * Math.cos(i * 0.1);
+      positions[i * 3 + 1] = height;
+      positions[i * 3 + 2] = radius * Math.sin(theta) * Math.cos(i * 0.1);
+
+      colors[i * 3 + 0] = mixedColor.r;
+      colors[i * 3 + 1] = mixedColor.g;
+      colors[i * 3 + 2] = mixedColor.b;
+
+      sizes[i] = Math.random() * 0.3 + 0.1;
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
     geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-
-    // Store for use in render
     ;(window as any)._bgGeometry = geometry;
   }, []);
+
+  // Rotation animation state
+  const rotationRef = useRef(0);
 
   return (
     <Canvas
@@ -47,22 +67,27 @@ export const Global3DBackground = () => {
         left: 0,
         width: '100vw',
         height: '100vh',
-        zIndex: -1,
+        zIndex: -10,
         pointerEvents: 'none',
       }}
       dpr={[1, 1.5]}
       frameloop="demand"
       shadows={false}
-      camera={{ fov: 45, near: 0.1, far: 100 }}
+      camera={{ fov: 75, near: 0.1, far: 100 }}
     >
-      <Points>
+      <Points pointSize={0.1}>
+        <BufferGeometryAttributes
+          geometry={geometry}
+          position="position"
+          color="color"
+          size="size"
+        />
         <PointMaterial
-          size={0.05}
+          size={0.3}
           transparent
-          opacity={0.6}
-          color={0x64ffda}
+          opacity={0.9}
+          vertexColors
           blending={THREE.AdditiveBlending}
-          fog={false}
         />
       </Points>
     </Canvas>

@@ -1,8 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
-import { VitePWA } from 'vite-plugin-pwa';
-
 // Matches the React core packages only, so `lucide-react` and other
 // React-aware add-ons land in their own chunks instead of vendor-react.
 const REACT_CORE_PATTERN = /[\\/]node_modules[\\/](?:react|react-dom|scheduler)[\\/]/;
@@ -55,54 +53,6 @@ export default defineConfig({
         });
       },
     },
-    VitePWA({
-      // The native container bundles its own assets for offline use, and its
-      // virtual origin cannot serve a root-scoped service worker.
-      disable: isCapacitorBuild,
-      registerType: 'autoUpdate',
-      includeAssets: ['icon.svg', 'apple-touch-icon.png'],
-      manifest: {
-        id: '/',
-        name: 'BioThanaweya Biology',
-        short_name: 'BioThanaweya',
-        description:
-          'Elite Egyptian Thanaweya Amma (Languages) Biology learning ecosystem and exam simulator.',
-        theme_color: '#0B132B',
-        background_color: '#0B132B',
-        display: 'standalone',
-        orientation: 'portrait-primary',
-        start_url: '/',
-        scope: '/',
-        icons: [
-          {
-            src: '/pwa-192x192.png',
-            sizes: '192x192',
-            type: 'image/png',
-            purpose: 'any',
-          },
-          {
-            src: '/pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any',
-          },
-          {
-            src: '/pwa-maskable-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'maskable',
-          },
-        ],
-      },
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2,jpg}'],
-        navigateFallback: '/index.html',
-      },
-      devOptions: {
-        enabled: true,
-        type: 'module',
-      },
-    }),
   ],
   build: {
     chunkSizeWarningLimit: 600,

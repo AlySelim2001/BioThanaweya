@@ -33,8 +33,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/AlySelim2001/BioThanaweya/releases/download/v1.1.4/app-debug.apk">
-    <img src="https://img.shields.io/badge/%F0%9F%93%A5%20Download%20BioThanaweya%20APK%20(v1.1)-Android%20APK-blue?style=for-the-badge&logo=android" alt="📥 Download BioThanaweya APK (v1.1)" />
+  <a href="https://github.com/AlySelim2001/BioThanaweya/releases/latest/download/app-debug.apk">
+    <img src="https://img.shields.io/badge/%F0%9F%93%A5%20Download%20BioThanaweya%20APK%20(v1.1)-Latest%20Build-blue?style=for-the-badge&logo=android" alt="📥 Download BioThanaweya Latest APK" />
   </a>
 </p>
 

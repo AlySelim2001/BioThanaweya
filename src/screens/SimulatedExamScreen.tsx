@@ -344,7 +344,7 @@ export const SimulatedExamScreen: React.FC<SimulatedExamScreenProps> = ({ onBack
               onClick={() => setCurrentIndex(idx)}
               className={`w-8 h-8 rounded-lg text-xs font-bold shrink-0 transition flex items-center justify-center relative ${
                 isCurrent
-                  ? 'glass-card text-slate-950 ring-2 ring-accent-cyan-border'
+                  ? 'glass-card text-white ring-2 ring-accent-cyan-border'
                   : isAnswered
                     ? 'glass-card text-accent-cyan border border-accent-cyan-border'
                     : 'bg-slate-800 text-slate-200> hover:text-white'

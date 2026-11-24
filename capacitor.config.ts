@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.aistudio.biothanaweya.exam',
+  appId: 'com.biothanaweya.app',
   appName: 'BioThanaweya',
   webDir: 'dist',
   bundledWebRuntime: false,

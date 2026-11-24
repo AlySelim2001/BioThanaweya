@@ -1,0 +1,127 @@
+name: Android E2E Tests
+
+on:
+  push:
+    branches: [main, release/fixes-v1.1.8]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  id-token: write
+  actions: read
+
+jobs:
+  android-setup:
+    name: Android Environment Setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+        timeout-minutes: 10
+
+      - name: Build the app
+        run: npm run build
+        timeout-minutes: 120
+
+      - name: Set up Android SDK
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          force-avd-on-action-runner: true
+          avd-name: test-avd
+          no-wipe: false
+
+      - name: Accept SDK licenses
+        run: |
+          yes | $ANDROID_SDK_ROOT/platform-tools/adb shell setprop debug.hwui.disable_advanced 1
+          $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses
+          $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "platforms;android-33" "build-tools;33.0.2"
+
+      - name: Install app via Gradle
+        run: |
+          chmod +x android/gradlew
+          cd android && ./gradlew assembleDebug -Dorg.gradle.jvmargs="-Xmx512m"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 7
+
+  maestro-tests:
+    name: Maestro UI Flow Tests
+    needs: android-setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      matrix:
+        device: [pixel_3a, pixel_4_xl]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download debug APK
+        uses: actions/download-artifact@v4
+        with:
+          name: debug-apk
+          path: ./app
+
+      - name: Install app on emulator
+        run: |
+          chmod +x android/gradlew
+          cd android && ./gradlew installDebug -Dorg.gradle.jvmargs="-Xmx512m"
+
+      - name: Run Maestro flow
+        uses: maestro-testing/action@v1
+        with:
+          # The maestro binary is available via the android-emulator-runner
+          # We run the flow against the running emulator
+          flow: .maestro/flow.yaml
+          # Use the emulator's ADB server
+          avd: test-avd
+          # Clear state between tests
+          reset-avd: true
+
+      - name: Upload Maestro test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: maestro-results
+          path: .maestro-results/
+          retention-days: 7
+
+  report:
+    name: Generate Test Report
+    needs: maestro-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: maestro-results
+          path: ./maestro-results
+
+      - name: Publish test summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-test-summary
+          summary: |
+            Android E2E Test Results
+            ----------------------
+            Device: ${{ matrix.device || 'emulator' }}
+            Status: ${{ needs.maestro-tests.status }}
+            Duration: ${{ needs.maestro-tests.duration }}
+          retention-days: 7

@@ -82,6 +82,7 @@ jobs:
           cache: npm
       - run: npm test -- --environment jsdom --pool isolate --reporter=verbose
         timeout-minutes: 15
+        continue-on-error: false
       - uses: actions/upload-artifact@v4
         with:
           name: vitest-results
@@ -103,12 +104,8 @@ jobs:
       - run: npx vitest run --reporter=verbose 2>&1 | tail -20 || echo "No integration tests tagged; skipping"
         timeout-minutes: 10
       - run: |
-          if npx vitest run --reporter=verbose 2>&1 | grep -q 'FAIL'; then
-            echo "Integration tests failed"
-            exit 1
-          else
-            echo "Integration tests passed or none found"
-          fi
+          npx vitest run --reporter=verbose 2>&1 | grep -q 'FAIL' && exit 1 || echo "Integration tests passed or none found"
+
 
       - uses: actions/cache@v4
         with:
