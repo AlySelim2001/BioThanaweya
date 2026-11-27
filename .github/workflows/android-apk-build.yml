@@ -1,206 +1,41 @@
-name: CI - Web Build & Android APK
-
+name: Build Android APK
 on:
   push:
-    branches: [main]
-    tags: ['v*']
+    branches: [ main, feature/mobile-app ]
+    paths: [ 'mobile/**', '.github/workflows/android-apk-build.yml' ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
+    paths: [ 'mobile/**' ]
   workflow_dispatch:
 
-permissions:
-  contents: read
-
-# concurrency disabled for parallel tag runs
-
-env:
-  NODE_VERSION: '22'
-  JAVA_VERSION: '17'
-  ANDROID_API_LEVEL: '34'
-  ANDROID_BUILD_TOOLS: '34.0.0'
-
 jobs:
-  web:
-    name: Web - typecheck, tests & bundle
+  build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: 'temurin', java-version: '17' }
+      - uses: subosito/flutter-action@v2
+        with: { flutter-version: '3.24.0', channel: 'stable', cache: true }
+      - run: flutter pub get
+      - run: dart run build_runner build --delete-conflicting-outputs
+      - run: dart analyze --fatal-infos
+      - run: flutter test
+      - run: flutter build apk --release --split-per-abi
+      - uses: actions/upload-artifact@v4
         with:
-          fetch-depth: 1
-
-      - name: Setup Node.js 22
-        uses: actions/setup-node@v4
+          name: release-apks
+          path: mobile/build/app/outputs/flutter-apk/*.apk
+          retention-days: 14
+      - uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci --legacy-peer-deps
-
-      - name: Typecheck (tsc --noEmit)
-        run: npm run lint
-
-      - name: Unit tests (vitest)
-        run: npx vitest run --environment jsdom
-
-      # CAPACITOR_BUILD switches Vite to a relative base so the bundle works
-      # from the WebView's virtual origin (appassets.androidplatform.net).
-      - name: Build production bundle
-        run: npm run build
+          tag_name: mobile-v${{ github.run_number }}
+          name: Mobile Build v${{ github.run_number }}
+          files: mobile/build/app/outputs/flutter-apk/*.apk
+          prerelease: true
         env:
-          CAPACITOR_BUILD: 'true'
-
-      - name: Upload web bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: web-dist
-          path: dist/
-          retention-days: 7
-
-  android:
-    name: Android - debug APK
-    needs: web
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - name: Setup Node.js 22
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-
-      - name: Setup Java 17 (Temurin)
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: ${{ env.JAVA_VERSION }}
-
-      # `tools` is no longer published; only request platform-tools here and
-      # install the rest via sdkmanager below.
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-        with:
-          packages: 'platform-tools'
-          cmdline-tools-version: '12266719'
-          accept-android-sdk-licenses: true
-          log-accepted-android-sdk-licenses: true
-
-      - name: Install Android SDK packages
-        run: |
-          sdkmanager --install \
-            "platforms;android-${ANDROID_API_LEVEL}" \
-            "build-tools;${ANDROID_BUILD_TOOLS}" \
-            "platform-tools"
-
-      - name: Point Gradle at the SDK
-        run: echo "sdk.dir=${ANDROID_SDK_ROOT}" > android/local.properties
-
-      - name: Install dependencies
-        run: npm ci --legacy-peer-deps
-
-      # Download the web bundle from the web job if available, for Capacitor sync.
-      # This step is best-effort: if the artifact doesn't exist (e.g. web job failed),
-      # we continue without it — the Gradle build proceeds regardless.
-      - name: Download web bundle (best-effort)
-        if: success() || failure()
-        uses: actions/download-artifact@v4
-        with:
-          name: web-dist
-          path: dist/
-          retention-days: 1
-
-      # Verify Glassmorphic CSS in bundle if present — don't fail the build if absent.
-      - name: Verify Glassmorphic CSS in bundle (best-effort)
-        if: always()
-        run: |
-          if grep -q '\.glass-card' dist/assets/index-*.css 2>/dev/null; then
-            echo "✓ Glassmorphic CSS rules confirmed in web bundle"
-          else
-            echo "Note: Glassmorphic CSS rules not found in web bundle (continuing anyway)"
-          fi
-
-      # The Capacitor 8 CLI requires Node >= 22 and resolves its binary from the
-      # local install. Calling it directly avoids `npx` falling back to the npm
-      # registry ("could not determine executable to run") when the install is bad.
-      # CAPACITOR_BUILD must be set so Vite outputs relative paths for WebView origin.
-      - name: Sync Capacitor Android
-        env:
-          CAPACITOR_BUILD: 'true'
-        run: |
-          if [ ! -x node_modules/.bin/cap ]; then
-            echo "::error::Capacitor CLI missing at node_modules/.bin/cap - dependency install did not complete."
-            exit 1
-          fi
-          node --version
-          node_modules/.bin/cap sync android
-
-      # Verify ic_launcher assets are present in the Android project.
-      - name: Verify ic_launcher assets
-        run: |
-          IC_FILES=$(find android/app/src/main -name 'ic_launcher*' -type f 2>/dev/null | wc -l)
-          if [ "$IC_FILES" -lt 3 ]; then
-            echo "::error::Expected at least 3 ic_launcher files, found $IC_FILES"
-            exit 1
-          fi
-          echo "✓ ic_launcher assets verified ($IC_FILES files found)"
-
-      - name: Build debug APK
-        working-directory: android
-        run: |
-          chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon --stacktrace
-
-      - name: Verify and checksum APK
-        run: |
-          APK="android/app/build/outputs/apk/debug/app-debug.apk"
-          if [ ! -f "$APK" ]; then
-            echo "::error::Expected debug APK at $APK was not produced."
-            exit 1
-          fi
-          mkdir -p output-binaries
-          # The asset name must match the download URLs documented in README.md and
-          # landing.html: <repo>/releases/download/<tag>/app-debug.apk
-          cp "$APK" output-binaries/app-debug.apk
-          (cd output-binaries && sha256sum app-debug.apk > SHA256SUMS.txt)
-          ls -lh output-binaries
-          cat output-binaries/SHA256SUMS.txt
-          {
-            echo "### Android debug APK"
-            echo '```'
-            cat output-binaries/SHA256SUMS.txt
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: BioThanaweya-debug-apk
-          path: output-binaries/
-          retention-days: 30
-
-  release:
-    name: Publish release assets
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: android
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Download APK artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: BioThanaweya-debug-apk
-          path: release-assets
-
-      - name: Publish GitHub release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: release-assets/*
-          generate_release_notes: true
-          draft: false
-          prerelease: false
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
