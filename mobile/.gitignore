@@ -41,3 +41,17 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Allow tracking essential Android build files
+!android/app/build.gradle
+!android/app/build.gradle.kts
+!android/app/src/main/AndroidManifest.xml
+!android/app/src/main/kotlin/**/MainActivity.kt
+!android/app/src/main/java/**/MainActivity.java
+
+# Allow tracking essential Android build files
+!android/app/build.gradle
+!android/app/build.gradle.kts
+!android/app/src/main/AndroidManifest.xml
+!android/app/src/main/kotlin/**/MainActivity.kt
+!android/app/src/main/java/**/MainActivity.java
