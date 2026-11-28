@@ -1,0 +1,19 @@
+{
+  "@@locale": "ar",
+  "appTitle": "بيو ثانوية موبايل",
+  "homeTitle": "الرئيسية",
+  "detailsTitle": "التفاصيل",
+  "welcomeMessage": "مرحبًا بك في بيو ثانوية",
+  "openDetail": "فتح التفاصيل",
+  "back": "رجوع",
+  "themeToggle": "تبديل السمة",
+  "itemLabel": "عنصر {index}",
+  "quizTitle": "اختبار",
+  "scoreLabel": "النتيجة: {score}/{total}",
+  "nextQuestion": "التالي",
+  "finishQuiz": "إنهاء",
+  "correctAnswer": "صحيح!",
+  "wrongAnswer": "خطأ. الإجابة الصحيحة: {answer}",
+  "quizComplete": "اكتمل الاختبار!",
+  "restartQuiz": "إعادة"
+}

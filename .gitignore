@@ -48,7 +48,8 @@ tsconfig.tsbuildinfo
 local.properties
 
 # =============================================================================
-# Android / Gradle / Capacitor wrapper output
+# Android / Gra
+dle / Capacitor wrapper output
 # =============================================================================
 android/.gradle/
 android/.kotlin/
@@ -56,6 +57,10 @@ android/build/
 android/*/build/
 android/app/build/
 android/local.properties
+
+# Frozen Native Compose module — kept on disk but excluded from git CI
+# (see ADR-002: Capacitor shell is the sole official Android target)
+app/
 .gradle/
 .kotlin/
 *.apk

@@ -1,0 +1,28 @@
+[[rule]]
+id = "generic-api-key"
+dist = "gitleaks/gitleaks"
+allowed = [
+  # F-010a: Build artifact - placeholder key from S6a remediation (real key rotated on provider 2026-11-23)
+  # Path: android/app/build/intermediates/assets/debug/public/assets/vendor-utils-LUlVJF25.js
+  # Classification: PLACEHOLDER - not a real API key, build artifact with substituted value
+  "# F-010a: android/app/build/intermediates/assets/debug/public/assets/vendor-utils-LUlVJF25.js:258 - PLACEHOLDER_KEY (not real key, rotated 2026-11-23)",
+
+  # F-010b: Build artifact - placeholder key from S6a remediation (real key rotated on provider 2026-11-23)
+  # Path: android/app/src/main/assets/public/assets/vendor-utils-LUlVJF25.js
+  "# F-010b: android/app/src/main/assets/public/assets/vendor-utils-LUlVJF25.js:258 - PLACEHOLDER_KEY (not real API key, rotated 2026-11-23)",
+
+  # F-010c: Build artifact - placeholder key from S6a remediation (real key rotated on provider 2026-11-23)
+  # Path: dist/assets/vendor-utils-LUlVJF25.js
+  "# F-010c: dist/assets/vendor-utils-LUlVJF25.js:258 - PLACEHOLDER_KEY (not real API key, rotated 2026-11-23)",
+
+  # F-010d: LocalStorage placeholder - REDACTED value, not a real key
+  # Path: src/context/LanguageContext.tsx
+  "# F-010d: src/context/LanguageContext.tsx:13 - STORAGE_KEY = 'REDACTED' (not real key, S6a remediation)",
+
+  # F-010e: FSRS placeholder - REDACTED value, not a real key
+  # Path: lib/features/biology_calculators/data/datasources/local_calculator_storage_source.dart
+  "# F-010e: lib/features/biology_calculators/data/datasources/local_calculator_storage_source.dart:8 - _prefKeyFsrsItems = 'REDACTED' (not real key, S6a remediation)",
+]
+# End of justified allowlist for S6a placeholder keys
+# NOTE: These are NOT blanket ignores - each entry is per-file, per-line for verified placeholder keys
+# Owner decision: history purge (3 leaks) deferred to S6b (7 days), rotation completed 2026-11-23

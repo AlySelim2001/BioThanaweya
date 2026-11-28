@@ -145,7 +145,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
           onClick={() => setActiveTab('educator')}
           className={`flex items-center gap-2 flex-1 justify-center py-2.5 rounded-lg text-xs font-bold transition ${
             activeTab === 'educator'
-              ? 'bg-teal-500 text-slate-950 shadow-sm'
+              ? 'bg-teal-500 text-white shadow-sm'
               : 'text-slate-200> hover:text-white'
           }`}
         >
@@ -156,7 +156,7 @@ export const TopicDetailScreen: React.FC<TopicDetailScreenProps> = ({
           onClick={() => setActiveTab('visuals')}
           className={`flex items-center gap-2 flex-1 justify-center py-2.5 rounded-lg text-xs font-bold transition ${
             activeTab === 'visuals'
-              ? 'bg-cyan-500 text-slate-950 shadow-sm'
+              ? 'bg-cyan-500 text-white shadow-sm'
               : 'text-slate-200> hover:text-white'
           }`}
         >

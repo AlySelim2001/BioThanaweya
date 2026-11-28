@@ -2,9 +2,9 @@
 
 ## Context
 The repository contains three Android-related application IDs and delivery stacks:
-- `com.aistudio.biothanaweya.xmptqr` in `android/app/build.gradle` (native AGP module)
-- `com.aistudio.biothanaweya.xmptqr` in `capacitor.config.ts` (Capacitor config)
-- `com.aistudio.biothanaweya.exam` in `android/app/src/main/assets/capacitor.config.json` (asset-level config, conflicting)
+- `com.biothanaweya.app` in `android/app/build.gradle` (native AGP module, unified applicationId per D1)
+- `com.biothanaweya.app` in `capacitor.config.ts` (Capacitor config, unified applicationId per D1)
+- `com.biothanaweya.app` in `android/app/src/main/assets/capacitor.config.json` (asset-level config, unified per D1)
 - Flutter module in `lib/` with no native Android platform — unbuildable to APK
 - Web/PWA in `src/` with confirmed `npm ci ✅`, `tsc --noEmit ✅`, `vitest ✅`, `npm run build ✅`
 

@@ -103,7 +103,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
               onClick={() => handleSaveChunk(mins)}
               className={`px-4 py-2 rounded-xl text-xs font-bold border transition ${
                 chunkMinutes === mins
-                  ? 'bg-teal-500 text-slate-950 border-teal-400 font-black'
+                  ? 'bg-teal-500 text-white border-teal-400 font-black'
                   : 'bg-slate-900 text-slate-200> border-slate-700 hover:bg-slate-800'
               }`}
             >
@@ -134,7 +134,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             onClick={() => handleToggleHaptics(true)}
             className={`px-4 py-2 rounded-xl text-xs font-bold border transition ${
               hapticsEnabled
-                ? 'bg-teal-500 text-slate-950 border-teal-400 font-black'
+                ? 'bg-teal-500 text-white border-teal-400 font-black'
                 : 'bg-slate-900 text-slate-200> border-slate-700 hover:bg-slate-800'
             }`}
           >

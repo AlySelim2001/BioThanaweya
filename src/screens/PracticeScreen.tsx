@@ -352,7 +352,7 @@ export const PracticeScreen: React.FC<PracticeScreenProps> = ({ topicId, onBack,
             {currentIndex + 1 < questions.length && (
               <button
                 onClick={handleNext}
-                className="px-5 py-2 rounded-xl text-xs font-bold glass-card text-slate-950 hover:bg-accent-cyan-border transition"
+                className="px-5 py-2 rounded-xl text-xs font-bold glass-card text-white hover:bg-accent-cyan-border transition"
               >
                 Next Item
               </button>

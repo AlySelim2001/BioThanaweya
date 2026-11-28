@@ -1,0 +1,67 @@
+{
+  "@@locale": "en",
+  "appTitle": "BioThanaweya Mobile",
+  "@appTitle": {
+    "description": "Application title"
+  },
+  "homeTitle": "Home",
+  "@homeTitle": {
+    "description": "Home screen title"
+  },
+  "detailsTitle": "Details",
+  "@detailsTitle": {
+    "description": "Details screen title"
+  },
+  "welcomeMessage": "Welcome to BioThanaweya",
+  "@welcomeMessage": {
+    "description": "Welcome message on home screen"
+  },
+  "openDetail": "Open Detail",
+  "@openDetail": {
+    "description": "Button to open detail screen"
+  },
+  "back": "Back",
+  "@back": {
+    "description": "Back button label"
+  },
+  "themeToggle": "Toggle theme",
+  "@themeToggle": {
+    "description": "Tooltip for theme toggle"
+  },
+  "itemLabel": "Item {index}",
+  "@itemLabel": {
+    "description": "Label for list item",
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "quizTitle": "Quiz",
+  "@quizTitle": { "description": "Quiz screen title" },
+  "scoreLabel": "Score: {score}/{total}",
+  "@scoreLabel": {
+    "description": "Score display",
+    "placeholders": {
+      "score": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "nextQuestion": "Next",
+  "@nextQuestion": { "description": "Next question button" },
+  "finishQuiz": "Finish",
+  "@finishQuiz": { "description": "Finish quiz button" },
+  "correctAnswer": "Correct!",
+  "@correctAnswer": { "description": "Correct answer feedback" },
+  "wrongAnswer": "Wrong. Correct answer: {answer}",
+  "@wrongAnswer": {
+    "description": "Wrong answer feedback",
+    "placeholders": {
+      "answer": { "type": "String" }
+    }
+  },
+  "quizComplete": "Quiz complete!",
+  "@quizComplete": { "description": "Quiz completion message" },
+  "restartQuiz": "Restart",
+  "@restartQuiz": { "description": "Restart quiz button" }
+}

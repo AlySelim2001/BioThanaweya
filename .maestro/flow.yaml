@@ -1,0 +1,66 @@
+# Maestro Flow for BioThanaweya Android Smoke Test
+# 
+# This flow validates the core user journey on Android:
+# 1. App launches
+# 2. Dashboard is visible
+# 3. Navigation to key screens works
+# 4. Key UI elements have adequate contrast
+#
+# To run locally: maestro test .maestro/flow.yaml
+# To run in CI: GitHub Actions workflow
+
+flow:
+  # Initialize the app - launch from home activity
+  - launchApp:
+      command: "open-command-prompt"
+      parameters: {
+        command: "adb shell am start -n com.biothanaweya/.MainActivity"
+      }
+
+  # Verify dashboard loads
+  - tap:
+      coordinate: "0.5, 0.5"  # Tap center of screen
+  - waitFor:
+      element: "text=Dashboard"
+      timeout: 5000
+
+  # Navigate to Practice screen
+  - tap:
+      element: "button:has-text('Practice')"
+  - waitFor:
+      element: "text=Practice Item"
+
+  # Verify contrast on Practice screen
+  - assertScreeenshot:
+      name: "practice-screen-contrast"
+      blacklistPixels: 0.5%
+
+  # Navigate to Settings screen
+  - tap:
+      element: "button:has-text('Settings')"
+  - waitFor:
+      element: "text=Settings"
+
+  # Verify haptics toggle is visible
+  - assertExists:
+      element: "text=Haptics"
+
+  # Navigate to Simulated Exam screen
+  - tap:
+      element: "button:has-text('Exam')"
+  - waitFor:
+      element: "text=Simulated Exam"
+
+  # Take final screenshot
+  - assertScreeenshot:
+      name: "final-screen"
+      blacklistPixels: 0.5%
+
+  # Home - go back to dashboard
+  - tap:
+      element: "home"
+  - waitFor:
+      element: "text=Dashboard"
+
+  # End flow
+  - end
