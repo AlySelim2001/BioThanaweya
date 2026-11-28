@@ -102,3 +102,5 @@ flutter:
 
 dependency_overrides:
   connectivity_plus: 6.1.5
+  flutter_secure_storage: 9.2.4
+  package_info_plus: 8.3.1
